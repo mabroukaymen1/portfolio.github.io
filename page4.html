@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BEEMO Smart AI Agent Robot project, a professional desktop assistant integrating AI, voice recognition, and robotics for workplace efficiency.">
+    <meta name="keywords" content="portfolio, Flutter, Firebase, TCP/IP, REST API, Provider, Sockets, BEEMO, AI Assistant, Robotics, Tunisian Arabic Translation">
+    <meta name="author" content="Aymen Mabrouk">
+    <title>BEEMO AI-Powered Desktop Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #3B82F6;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --neutral: #1F2937;
+            --neutral-light: #F3F4F6;
+            --white: #FFFFFF;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --scroll-bar: var(--accent);
+            --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
+            --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
+            --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
+        }
+
+        .dark {
+            --text-primary: #E5E7EB;
+            --text-secondary: #9CA3AF;
+            --neutral-light: #1E293B;
+            --white: #0F172A;
+            --neutral: #111827;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --scroll-bar: #F59E0B;
+            --primary: #60A5FA;
+            --secondary: #34D399;
+            --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+            --secondary-gradient: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);
+            --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            background: var(--neutral-light);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            background-size: 300% 300%;
+            animation: gradientShift 15s ease infinite;
+            z-index: -1;
+            opacity: 0.6;
+            will-change: background-position;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 50%;
+            will-change: transform, opacity;
+            animation: float 12s ease-in-out infinite, fade 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.2); }
+        }
+
+        @keyframes fade {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.1; }
+        }
+
+        .toggle-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .toggle-switch {
+            width: 80px;
+            height: 40px;
+            background: #1E293B;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid #334155;
+            overflow: hidden;
+        }
+
+        .toggle-switch.light {
+            background: #87CEEB;
+            border-color: #5DADE2;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+            transition: opacity 0.4s ease;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #E5E7EB;
+            border-radius: 50%;
+        }
+
+        .star1 { top: 10px; left: 15px; }
+        .star2 { top: 15px; right: 15px; }
+        .star3 { top: 25px; left: 10px; }
+        .star4 { top: 30px; right: 20px; }
+        .star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
+        .star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
+
+        .toggle-switch.light .stars {
+            opacity: 0;
+        }
+
+        .clouds {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.2s;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+        }
+
+        .cloud1 {
+            width: 15px;
+            height: 6px;
+            top: 10px;
+            left: 15px;
+        }
+
+        .cloud1::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            top: -3px;
+            left: 2px;
+        }
+
+        .cloud2 {
+            width: 10px;
+            height: 4px;
+            top: 25px;
+            right: 15px;
+        }
+
+        .cloud2::before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            top: -2px;
+            left: 1px;
+        }
+
+        .toggle-switch.light .clouds {
+            opacity: 1;
+        }
+
+        .toggle-circle {
+            width: 32px;
+            height: 32px;
+            background: #F59E0B;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .moon-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #E5E7EB;
+            border-radius: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .moon-crater1 {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #9CA3AF;
+            border-radius: 50%;
+            top: 8px;
+            left: 10px;
+        }
+
+        .moon-crater2 {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #9CA3AF;
+            border-radius: 50%;
+            top: 18px;
+            left: 18px;
+        }
+
+        .moon-crater3 {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #9CA3AF;
+            border-radius: 50%;
+            top: 14px;
+            left: 7px;
+        }
+
+        .sun-rays {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .sun-ray {
+            position: absolute;
+            width: 2px;
+            height: 6px;
+            background: #F59E0B;
+            border-radius: 1px;
+            left: 50%;
+            top: 50%;
+            transform-origin: 1px 15px;
+        }
+
+        .ray1 { transform: translate(-50%, -50%) rotate(0deg); }
+        .ray2 { transform: translate(-50%, -50%) rotate(45deg); }
+        .ray3 { transform: translate(-50%, -50%) rotate(90deg); }
+        .ray4 { transform: translate(-50%, -50%) rotate(135deg); }
+        .ray5 { transform: translate(-50%, -50%) rotate(180deg); }
+        .ray6 { transform: translate(-50%, -50%) rotate(225deg); }
+        .ray7 { transform: translate(-50%, -50%) rotate(270deg); }
+        .ray8 { transform: translate(-50%, -50%) rotate(315deg); }
+
+        .toggle-switch.light .toggle-circle {
+            left: 44px;
+            background: #F59E0B;
+        }
+
+        .toggle-switch.light .moon-face {
+            background: #F59E0B;
+        }
+
+        .toggle-switch.light .moon-crater1,
+        .toggle-switch.light .moon-crater2,
+        .toggle-switch.light .moon-crater3 {
+            background: #FCD34D;
+        }
+
+        .toggle-switch.light .sun-rays {
+            opacity: 1;
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 10px 30px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-shadow: 0 1px 0px rgba(0, 0,0.2);
+        }
+
+        .nav-links {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: bold;
+            list-style: none;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 40%;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .project-details {
+            background: var(--white);
+            backdrop-filter: blur(15px);
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .project-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            line-height: 1.8;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tech-tag {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            transform: translateY(-2px);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .project-link {
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .project-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .project-link:hover::before {
+            left: 0;
+        }
+
+        .project-link.live {
+            background: var(--primary);
+            color: var(--white);
+            border: 2px solid transparent;
+        }
+
+        .project-link.live:hover {
+            color: var(--text-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-link.github {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--text-primary);
+        }
+
+        .project-link.github:hover {
+            color: var(--text-primary);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: var(--neutral);
+            color: var(--text-primary);
+            text-align: center;
+            padding: 40px 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1001;
+        }
+
+        .scroll-progress-bar {
+            width: 0;
+            height: 100%;
+            background: var(--scroll-bar);
+            transition: width 0.2s ease;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top: 3px solid var(--white);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                transform: none;
+                padding: 10px 20px;
+            }
+
+            .toggle-container {
+                top: 10px;
+                right: 10px;
+            }
+
+            .toggle-switch {
+                width: 60px;
+                height: 30px;
+                border-radius: 15px;
+                border-width: 1px;
+            }
+
+            .toggle-circle {
+                width: 24px;
+                height: 24px;
+                top: 2px;
+                left: 2px;
+            }
+
+            .toggle-switch.light .toggle-circle {
+                left: 34px;
+            }
+
+            .star1 { top: 8px; left: 10px; }
+            .star2 { top: 12px; right: 10px; }
+            .star3 { top: 20px; left: 8px; }
+            .star4 { top: 22px; right: 12px; }
+            .star5 { top: 15px; left: 15px; }
+            .star6 { top: 25px; right: 20px; }
+
+            .cloud1 {
+                width: 10px;
+                height: 4px;
+                top: 8px;
+                left: 10px;
+            }
+
+            .cloud1::before {
+                width: 6px;
+                height: 6px;
+                top: -2px;
+                left: 1px;
+            }
+
+            .cloud2 {
+                width: 8px;
+                height: 3px;
+                top: 20px;
+                right: 10px;
+            }
+
+            .cloud2::before {
+                width: 4px;
+                height: 4px;
+                top: -1px;
+                left: 1px;
+            }
+
+            .moon-crater1 {
+                width: 4px;
+                height: 4px;
+                top: 6px;
+                left: 8px;
+            }
+
+            .moon-crater2 {
+                width: 3px;
+                height: 3px;
+                top: 14px;
+                left: 14px;
+            }
+
+            .moon-crater3 {
+                width: 3px;
+                height: 3px;
+                top: 10px;
+                left: 5px;
+            }
+
+            .sun-ray {
+                height: 4px;
+                transform-origin: 1px 10px;
+            }
+
+            .nav-container {
+                gap: 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+
+            .project-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .keyboard-navigation a:focus,
+        .keyboard-navigation button:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar"></div>
+    </div>
+
+    <div class="animated-bg"></div>
+    
+    <div class="particles" id="particles"></div>
+
+    <div class="toggle-container">
+        <div class="toggle-switch" id="toggleSwitch" onclick="toggleMode()">
+            <div class="stars">
+                <div class="star star1"></div>
+                <div class="star star2"></div>
+                <div class="star star3"></div>
+                <div class="star star4"></div>
+                <div class="star star5"></div>
+                <div class="star star6"></div>
+            </div>
+            <div class="clouds">
+                <div class="cloud cloud1"></div>
+                <div class="cloud cloud2"></div>
+            </div>
+            <div class="toggle-circle">
+                <div class="moon-face">
+                    <div class="moon-crater1"></div>
+                    <div class="moon-crater2"></div>
+                    <div class="moon-crater3"></div>
+                </div>
+                <div class="sun-rays">
+                    <div class="sun-ray ray1"></div>
+                    <div class="sun-ray ray2"></div>
+                    <div class="sun-ray ray3"></div>
+                    <div class="sun-ray ray4"></div>
+                    <div class="sun-ray ray5"></div>
+                    <div class="sun-ray ray6"></div>
+                    <div class="sun-ray ray7"></div>
+                    <div class="sun-ray ray8"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="logo">Aymen Mabrouk</div>
+            <ul class="nav-links">
+                <li><a href="index.html#home" aria-label="Home section">Home</a></li>
+                <li><a href="index.html#about" aria-label="About section">About</a></li>
+                <li><a href="index.html#skills" aria-label="Skills section">Skills</a></li>
+                <li><a href="index.html#projects" aria-label="Projects section">Projects</a></li>
+                <li><a href="index.html#contact" aria-label="Contact section">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="project" class="project-details">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">BEEMO AI-Powered Desktop Assistant</h2>
+                <p class="section-subtitle">A professional AI-powered desktop assistant robot integrating voice recognition, robotics, and a mobile app for workplace efficiency, developed in collaboration with Digi Growing.</p>
+            </div>
+            <div class="project-content">
+                <div class="project-image slide-in-left">
+                    <img src="https://placehold.co/600x400?text=BEEMO+AI+Assistant" alt="BEEMO AI-Powered Desktop Assistant" loading="lazy">
+                </div>
+                <div class="project-info slide-in-right">
+                    <h3 class="project-title">Project Overview</h3>
+                    <p class="project-description">
+                        BEEMO is an AI-powered desktop assistant designed to enhance workplace productivity, developed as a final year project (PFE) at the Institut Supérieur d'Informatique de Mahdia in collaboration with Digi Growing. It integrates artificial intelligence, voice recognition, and robotics to assist employees with tasks such as scheduling, document management, and real-time desktop interactions. The system features a Flutter-based mobile application connected to a centralized platform provided by Digi Growing, enabling seamless control and communication. A custom AI model translates Tunisian Arabic to English, facilitating natural language interaction for Tunisian users. Developed using the agile Scrum methodology, BEEMO combines intelligent automation with physical robot interactions to support professional environments.
+                    </p>
+                    <h3 class="project-title">Technologies Used</h3>
+                    <div class="project-tech">
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">TCP/IP</span>
+                        <span class="tech-tag">REST API</span>
+                        <span class="tech-tag">Provider</span>
+                        <span class="tech-tag">Sockets</span>
+                        <span class="tech-tag">AI (Tunisian Arabic Translation)</span>
+                        <span class="tech-tag">Voice Recognition</span>
+                        <span class="tech-tag">Robotics</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of BEEMO AI-Powered Desktop Assistant">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Live
+                        </a>
+                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Code" aria-label="View source code of BEEMO AI-Powered Desktop Assistant">
+                            <i class="fab fa-github"></i>
+                            View Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-content">
+                <div class="project-image slide-in-left">
+                    <img src="https://placehold.co/600x400?text=BEEMO+Hardware+Diagram" alt="BEEMO Hardware Architecture Diagram" loading="lazy">
+                </div>
+                <div class="project-info slide-in-right">
+                    <h3 class="project-title">Hardware Architecture</h3>
+                    <p class="project-description">
+                        BEEMO's hardware includes a microcontroller for precise robot control, sensors for environmental interaction, and a voice recognition module for processing natural language commands. The robot is equipped to perform physical actions such as pointing to screen elements or retrieving documents, enhancing its utility in professional settings.
+                    </p>
+                </div>
+            </div>
+            <div class="project-content">
+                <div class="project-image slide-in-left">
+                    <img src="https://placehold.co/600x400?text=BEEMO+Software+Diagram" alt="BEEMO Software Architecture Diagram" loading="lazy">
+                </div>
+                <div class="project-info slide-in-right">
+                    <h3 class="project-title">Software Architecture</h3>
+                    <p class="project-description">
+                        The software architecture features a Flutter-based mobile app integrated with Firebase for data storage and management. It uses TCP/IP and REST API for communication with the Digi Growing platform, WebSockets for real-time interaction, and Provider for state management. A custom AI model enables Tunisian Arabic-to-English translation, ensuring seamless voice interaction for users.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Aymen Mabrouk. All rights reserved. Built with modern web technologies.</p>
+        </div>
+    </footer>
+
+    <script>
+        const animations = {
+            init() {
+                gsap.registerPlugin(ScrollTrigger);
+                this.setupLoadingScreen();
+                this.createParticles();
+                this.setupScrollAnimations();
+                this.setupScrollProgress();
+            },
+            setupLoadingScreen() {
+                window.addEventListener('load', () => {
+                    gsap.to('#loadingOverlay', {
+                        opacity: 0,
+                        duration: 0.5,
+                        onComplete: () => {
+                            document.getElementById('loadingOverlay').classList.add('hidden');
+                        }
+                    });
+                });
+            },
+            createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = window.innerWidth < 768 ? 20 : 40;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 6 + 's';
+                    particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            },
+            setupScrollAnimations() {
+                gsap.utils.toArray('.fade-in').forEach((element, i) => {
+                    gsap.fromTo(element, 
+                        { opacity: 0, y: 30 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.8,
+                            scrollTrigger: {
+                                trigger: element,
+                                start: 'top 90%',
+                                toggleActions: 'play none none none',
+                                once: true
+                            },
+                            delay: i * 0.1
+                        }
+                    );
+                });
+
+                gsap.utils.toArray('.slide-in-left').forEach((element, i) => {
+                    gsap.fromTo(element, 
+                        { opacity: 0, x: -50 },
+                        {
+                            opacity: 1,
+                            x: 0,
+                            duration: 0.8,
+                            scrollTrigger: {
+                                trigger: element,
+                                start: 'top 90%',
+                                toggleActions: 'play none none none',
+                                once: true
+                            },
+                            delay: i * 0.1
+                        }
+                    );
+                });
+
+                gsap.utils.toArray('.slide-in-right').forEach((element, i) => {
+                    gsap.fromTo(element, 
+                        { opacity: 0, x: 50 },
+                        {
+                            opacity: 1,
+                            x: 0,
+                            duration: 0.8,
+                            scrollTrigger: {
+                                trigger: element,
+                                start: 'top 90%',
+                                toggleActions: 'play none none none',
+                                once: true
+                            },
+                            delay: i * 0.1
+                        }
+                    );
+                });
+            },
+            setupScrollProgress() {
+                window.addEventListener('scroll', () => {
+                    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (winScroll / height) * 100;
+                    document.querySelector('.scroll-progress-bar').style.width = scrolled + '%';
+                });
+            }
+        };
+
+        const navigation = {
+            init() {
+                this.setupSmoothScroll();
+            },
+            setupSmoothScroll() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
+                            window.scrollTo({ top: y, behavior: 'smooth' });
+                        }
+                    });
+                });
+            }
+        };
+
+        const theme = {
+            init() {
+                const savedMode = localStorage.getItem('darkMode');
+                if (savedMode === 'true') {
+                    document.body.classList.add('dark');
+                    document.getElementById('toggleSwitch').classList.add('light');
+                }
+            }
+        };
+
+        function toggleMode() {
+            const toggleSwitch = document.getElementById('toggleSwitch');
+            const body = document.body;
+            
+            toggleSwitch.classList.toggle('light');
+            body.classList.toggle('dark');
+            
+            const isDark = body.classList.contains('dark');
+            localStorage.setItem('darkMode', isDark);
+        }
+
+        const accessibility = {
+            init() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab') {
+                        document.body.classList.add('keyboard-navigation');
+                    }
+                });
+
+                document.addEventListener('mousedown', () => {
+                    document.body.classList.remove('keyboard-navigation');
+                });
+            }
+        };
+
+        const performance = {
+            init() {
+                if ('performance' in window) {
+                    window.addEventListener('load', () => {
+                        const perfData = performance.getEntriesByType('navigation')[0];
+                        console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+                    });
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            animations.init();
+            navigation.init();
+            theme.init();
+            accessibility.init();
+            performance.init();
+        });
+    </script>
+</body>
+</html>
