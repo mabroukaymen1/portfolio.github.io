@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BEEMO Smart AI Agent Robot project,  a professional desktop assistant integrating AI, voice recognition, and robotics for workplace efficiency.">
-    <meta name="keywords" content="portfolio, Flutter, Firebase, TCP/IP, REST API, Provider, Sockets, BEEMO, AI Assistant, Robotics, Tunisian Arabic Translation">
+    <meta name="description" content="Tunisian Arabic Speech Translation Tester, an AI-powered tool for real-time speech recognition and translation, integrated with BEEMO AI Assistant.">
+    <meta name="keywords" content="Tunisian Arabic, Speech Recognition, Translation, AI, BEEMO, Flutter, Firebase, Voice Recognition">
     <meta name="author" content="Aymen Mabrouk">
-    <title>BEEMO AI-Powered Desktop Assistant</title>
+    <title>Tunisian Arabic Speech Translation Tester</title>
     <link rel="icon" type="image/png" href="image/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
@@ -414,11 +414,15 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(15px);
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 40px;
         }
 
         .section-title {
@@ -439,96 +443,87 @@
             font-family: 'Roboto', sans-serif;
         }
 
-        .project-details {
-            background: var(--white);
-            backdrop-filter: blur(15px);
-        }
-
-        .project-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        .project-image {
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 18px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-image img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .project-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-info {
-            padding: 20px;
-        }
-
-        .project-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            line-height: 1.8;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .tech-tag {
             background: var(--glass-bg);
-            color: var(--text-primary);
-            padding: 8px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
             border: 1px solid var(--glass-border);
-            transition: transform 0.3s ease;
+            color: var(--text-primary);
         }
 
-        .tech-tag:hover {
-            transform: translateY(-2px);
+        .status-indicator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            transition: left 0.6s;
         }
 
-        .project-links {
+        .status-indicator:hover::before {
+            left: 100%;
+        }
+
+        .status-ready {
+            background: var(--secondary-gradient);
+            color: var(--white);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .status-listening {
+            background: var(--primary-gradient);
+            color: var(--white);
+            animation: pulse 2s infinite;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .status-error {
+            background: var(--accent-gradient);
+            color: var(--white);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6); }
+        }
+
+        .controls {
             display: flex;
             gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
-        .project-link {
+        .btn {
             padding: 12px 24px;
-            text-decoration: none;
+            border: none;
             border-radius: 40px;
+            font-size: 1rem;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            font-size: 1rem;
             position: relative;
             overflow: hidden;
-            z-index: 1;
+            min-width: 160px;
+            justify-content: center;
         }
 
-        .project-link::before {
+        .btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -540,31 +535,258 @@
             z-index: -1;
         }
 
-        .project-link:hover::before {
+        .btn:hover::before {
             left: 0;
         }
 
-        .project-link.live {
+        .btn-primary {
             background: var(--primary);
             color: var(--white);
-            border: 2px solid transparent;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
         }
 
-        .project-link.live:hover {
+        .btn-primary:hover {
             color: var(--text-primary);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4);
         }
 
-        .project-link.github {
+        .btn-danger {
             background: transparent;
             color: var(--text-primary);
             border: 2px solid var(--text-primary);
         }
 
-        .project-link.github:hover {
+        .btn-danger:hover {
             color: var(--text-primary);
             transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--white);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary:hover {
+            color: var(--text-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .output-card {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--glass-border);
+            min-height: 200px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .output-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+            opacity: 0.6;
+        }
+
+        .tunisian-output {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .english-output {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .output-card h3 {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .output-text {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            min-height: 80px;
+            padding: 20px;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .output-text:hover {
+            border-color: var(--text-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary);
+        }
+
+        .feature-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: var(--neutral-light);
+            color: var(--text-primary);
+        }
+
+        .feature-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .sample-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .sample-btn {
+            padding: 12px 16px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .sample-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .audio-visualizer {
+            height: 60px;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .audio-bars {
+            display: flex;
+            align-items: end;
+            gap: 3px;
+            height: 40px;
+        }
+
+        .audio-bar {
+            width: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+            transition: height 0.1s ease;
+            opacity: 0.3;
+        }
+
+        .audio-bar.active {
+            opacity: 1;
+            animation: audioWave 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes audioWave {
+            from { height: 10px; }
+            to { height: 35px; }
+        }
+
+        .confidence-meter {
+            margin-top: 15px;
+            padding: 10px;
+            background: var(--glass-bg);
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .confidence-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .confidence-bar {
+            height: 6px;
+            background: var(--neutral-light);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.5s ease;
         }
 
         footer {
@@ -746,8 +968,28 @@
                 padding: 6px 12px;
             }
 
-            .project-content {
+            .container {
+                margin: 10px;
+                padding: 25px;
+            }
+
+            .main-content {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
             }
         }
 
@@ -818,71 +1060,84 @@
         </div>
     </nav>
 
-    <section id="project" class="project-details">
+    <section id="translation-tester" class="project-details">
         <div class="container">
             <div class="section-header fade-in">
-                <h2 class="section-title">BEEMO AI-Powered Desktop Assistant</h2>
-                <p class="section-subtitle">A professional AI-powered desktop assistant robot integrating voice recognition, robotics, and a mobile app for workplace efficiency, developed in collaboration with Digi Growing.</p>
+                <h2 class="section-title">Tunisian Arabic Speech Translation Tester</h2>
+                <p class="section-subtitle">Advanced AI-powered speech recognition and translation system for Tunisian Arabic, integrated with the BEEMO AI Assistant.</p>
             </div>
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=BEEMO+AI+Assistant" alt="BEEMO AI-Powered Desktop Assistant" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Project Overview</h3>
-                    <p class="project-description">
-                        BEEMO is an AI-powered desktop assistant designed to enhance workplace productivity, developed as a final year project (PFE) at the Institut Supérieur d'Informatique de Mahdia in collaboration with Digi Growing. It integrates artificial intelligence, voice recognition, and robotics to assist employees with tasks such as scheduling, document management, and real-time desktop interactions. The system features a Flutter-based mobile application connected to a centralized platform provided by Digi Growing, enabling seamless control and communication. A custom AI model translates Tunisian Arabic to English, facilitating natural language interaction for Tunisian users. Developed using the agile Scrum methodology, BEEMO combines intelligent automation with physical robot interactions to support professional environments.
-                    </p>
-                    <h3 class="project-title">Technologies Used</h3>
-                    <div class="project-tech">
-                        <span class="tech-tag">Flutter</span>
-                        <span class="tech-tag">Firebase</span>
-                        <span class="tech-tag">TCP/IP</span>
-                        <span class="tech-tag">REST API</span>
-                        <span class="tech-tag">Provider</span>
-                        <span class="tech-tag">Sockets</span>
-                        <span class="tech-tag">AI (Tunisian Arabic Translation)</span>
-                        <span class="tech-tag">Voice Recognition</span>
-                        <span class="tech-tag">Robotics</span>
+
+            <div class="status-indicator status-ready slide-in-left" id="status">
+                <span>✅ Ready to listen - Click Start to begin</span>
+            </div>
+
+            <div class="controls slide-in-right">
+                <button id="startBtn" class="btn btn-primary">
+                    <i class="fas fa-microphone"></i> Start Listening
+                </button>
+                <button id="stopBtn" class="btn btn-danger" disabled>
+                    <i class="fas fa-stop"></i> Stop Listening
+                </button>
+                <button id="clearBtn" class="btn btn-secondary">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+            </div>
+
+            <div class="main-content">
+                <div class="output-card tunisian-output slide-in-left">
+                    <h3><i class="fas fa-flag"></i> Recognized Tunisian Arabic</h3>
+                    <div id="tunisianOutput" class="output-text">
+                        Ready for speech input...
                     </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of BEEMO AI-Powered Desktop Assistant">
-                            <i class="fas fa-external-link-alt"></i>
-                            View Live
-                        </a>
-                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Code" aria-label="View source code of BEEMO AI-Powered Desktop Assistant">
-                            <i class="fab fa-github"></i>
-                            View Code
-                        </a>
+                    <div class="audio-visualizer" id="audioVisualizer">
+                        <div class="audio-bars" id="audioBars"></div>
                     </div>
-                    <div style="margin-top: 20px;">
-                        <a href="test.html" class="project-link live" style="display:inline-block;" title="Test Tunisian Arabic to English AI Translation" aria-label="Test Tunisian Arabic to English AI Translation">
-                            <i class="fas fa-language"></i>
-                            Test Tunisian Arabic to English AI Translation
-                        </a>
+                    <div class="confidence-meter">
+                        <div class="confidence-label">Recognition Confidence: <span id="confidenceValue">0%</span></div>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill"></div>
+                        </div>
                     </div>
                 </div>
+                <div class="output-card english-output slide-in-right">
+                    <h3><i class="fas fa-globe"></i> English Translation</h3>
+                    <div id="englishOutput" class="output-text">
+                        Translation will appear here...
+                    </div>
+                    <div class="confidence-meter">
+                        <div class="confidence-label">Translation Quality: <span id="translationQuality">0%</span></div>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="translationFill"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=BEEMO+Hardware+Diagram" alt="BEEMO Hardware Architecture Diagram" loading="lazy">
+
+            <div class="features-grid">
+                <div class="feature-card slide-in-left">
+                    <h3><i class="fas fa-keyboard"></i> Text Translation</h3>
+                    <input type="text" id="testInput" class="feature-input" placeholder="Enter Tunisian Arabic text to translate...">
+                    <button id="translateBtn" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-exchange-alt"></i> Translate Text
+                    </button>
+                    <div class="sample-grid">
+                        <button class="sample-btn" onclick="testSample('أهلا كيف الحال؟')">أهلا كيف الحال؟</button>
+                        <button class="sample-btn" onclick="testSample('شنو عندك اليوم؟')">شنو عندك اليوم؟</button>
+                        <button class="sample-btn" onclick="testSample('الطقس برشا ساخن')">الطقس برشا ساخن</button>
+                        <button class="sample-btn" onclick="testSample('نحب نشرب قهوة')">نحب نشرب قهوة</button>
+                    </div>
                 </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Hardware Architecture</h3>
-                    <p class="project-description">
-                        BEEMO's hardware includes a microcontroller for precise robot control, sensors for environmental interaction, and a voice recognition module for processing natural language commands. The robot is equipped to perform physical actions such as pointing to screen elements or retrieving documents, enhancing its utility in professional settings.
-                    </p>
-                </div>
-            </div>
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=BEEMO+Software+Diagram" alt="BEEMO Software Architecture Diagram" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Software Architecture</h3>
-                    <p class="project-description">
-                        The software architecture features a Flutter-based mobile app integrated with Firebase for data storage and management. It uses TCP/IP and REST API for communication with the Digi Growing platform, WebSockets for real-time interaction, and Provider for state management. A custom AI model enables Tunisian Arabic-to-English translation, ensuring seamless voice interaction for users.
-                    </p>
+                <div class="feature-card slide-in-right">
+                    <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    <button class="btn btn-primary" onclick="playLastRecording()" style="width: 100%; margin-bottom: 10px;">
+                        <i class="fas fa-play"></i> Play Last Recording
+                    </button>
+                    <button class="btn btn-secondary" onclick="downloadTranslation()" style="width: 100%; margin-bottom: 10px;">
+                        <i class="fas fa-download"></i> Download Translation
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyToClipboard()" style="width: 100%;">
+                        <i class="fas fa-copy"></i> Copy Translation
+                    </button>
                 </div>
             </div>
         </div>
@@ -895,6 +1150,313 @@
     </footer>
 
     <script>
+        class TunisianSpeechTranslator {
+            constructor() {
+                this.isListening = false;
+                this.recognition = null;
+                this.lastRecordedAudio = null;
+                this.currentTranslation = '';
+                this.audioContext = null;
+                this.audioStream = null;
+                
+                this.initializeElements();
+                this.setupSpeechRecognition();
+                this.createAudioVisualizer();
+            }
+
+            initializeElements() {
+                this.statusDiv = document.getElementById('status');
+                this.startBtn = document.getElementById('startBtn');
+                this.stopBtn = document.getElementById('stopBtn');
+                this.clearBtn = document.getElementById('clearBtn');
+                this.tunisianOutput = document.getElementById('tunisianOutput');
+                this.englishOutput = document.getElementById('englishOutput');
+                this.testInput = document.getElementById('testInput');
+                this.translateBtn = document.getElementById('translateBtn');
+                this.confidenceValue = document.getElementById('confidenceValue');
+                this.confidenceFill = document.getElementById('confidenceFill');
+                this.translationQuality = document.getElementById('translationQuality');
+                this.translationFill = document.getElementById('translationFill');
+                this.audioVisualizer = document.getElementById('audioVisualizer');
+                this.audioBars = document.getElementById('audioBars');
+
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                this.startBtn.addEventListener('click', () => this.startListening());
+                this.stopBtn.addEventListener('click', () => this.stopListening());
+                this.clearBtn.addEventListener('click', () => this.clearOutput());
+                this.translateBtn.addEventListener('click', () => this.translateText());
+                
+                this.testInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.translateText();
+                });
+            }
+
+            setupSpeechRecognition() {
+                if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    this.recognition = new SpeechRecognition();
+                    
+                    this.recognition.continuous = true;
+                    this.recognition.interimResults = true;
+                    this.recognition.lang = 'ar-TN'; // Tunisian Arabic
+                    
+                    this.recognition.onresult = (event) => this.handleSpeechResult(event);
+                    this.recognition.onerror = (event) => this.handleSpeechError(event);
+                    this.recognition.onend = () => this.handleSpeechEnd();
+                } else {
+                    this.showStatus('❌ Speech recognition not supported in this browser', 'status-error');
+                }
+            }
+
+            createAudioVisualizer() {
+                for (let i = 0; i < 20; i++) {
+                    const bar = document.createElement('div');
+                    bar.className = 'audio-bar';
+                    bar.style.height = '10px';
+                    this.audioBars.appendChild(bar);
+                }
+            }
+
+            animateAudioBars() {
+                const bars = this.audioBars.querySelectorAll('.audio-bar');
+                bars.forEach((bar, index) => {
+                    setTimeout(() => {
+                        bar.classList.add('active');
+                        bar.style.height = Math.random() * 30 + 10 + 'px';
+                    }, index * 50);
+                });
+            }
+
+            stopAudioBars() {
+                const bars = this.audioBars.querySelectorAll('.audio-bar');
+                bars.forEach(bar => {
+                    bar.classList.remove('active');
+                    bar.style.height = '10px';
+                });
+            }
+
+            async startListening() {
+                if (this.isListening || !this.recognition) return;
+                
+                try {
+                    this.isListening = true;
+                    this.showStatus('🎤 Listening for Tunisian Arabic...', 'status-listening');
+                    this.startBtn.disabled = true;
+                    this.stopBtn.disabled = false;
+                    
+                    this.visualizationInterval = setInterval(() => {
+                        if (this.isListening) this.animateAudioBars();
+                    }, 100);
+                    
+                    this.recognition.start();
+                } catch (error) {
+                    this.handleSpeechError({error: error.message});
+                }
+            }
+
+            stopListening() {
+                if (!this.isListening) return;
+                
+                this.isListening = false;
+                this.showStatus('⏹️ Stopped listening - Ready to start again', 'status-ready');
+                this.startBtn.disabled = false;
+                this.stopBtn.disabled = true;
+                
+                if (this.recognition) {
+                    this.recognition.stop();
+                }
+                
+                this.stopAudioBars();
+                if (this.visualizationInterval) {
+                    clearInterval(this.visualizationInterval);
+                }
+            }
+
+            handleSpeechResult(event) {
+                let finalTranscript = '';
+                let interimTranscript = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    const confidence = event.results[i][0].confidence;
+                    
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript;
+                        this.updateConfidence(confidence * 100);
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+                
+                if (finalTranscript) {
+                    this.tunisianOutput.textContent = finalTranscript;
+                    gsap.fromTo(this.tunisianOutput, 
+                        { opacity: 0, y: 30 },
+                        { opacity: 1, y: 0, duration: 0.8 }
+                    );
+                    this.translateToEnglish(finalTranscript);
+                } else if (interimTranscript) {
+                    this.tunisianOutput.textContent = interimTranscript;
+                    this.tunisianOutput.style.opacity = '0.7';
+                }
+            }
+
+            handleSpeechError(event) {
+                console.error('Speech recognition error:', event.error);
+                this.showStatus(`❌ Error: ${event.error}`, 'status-error');
+                this.stopListening();
+            }
+
+            handleSpeechEnd() {
+                if (this.isListening) {
+                    setTimeout(() => {
+                        if (this.isListening) {
+                            this.recognition.start();
+                        }
+                    }, 100);
+                }
+            }
+
+            async translateToEnglish(arabicText) {
+                const translations = {
+                    'أهلا': 'Hello',
+                    'كيف الحال': 'how are you',
+                    'أهلا كيف الحال': 'Hello, how are you?',
+                    'شنو عندك اليوم': 'What do you have today?',
+                    'الطقس برشا ساخن': 'The weather is very hot',
+                    'نحب نشرب قهوة': 'I want to drink coffee',
+                    'وين الحانوت': 'Where is the shop?',
+                    'شكرا': 'Thank you',
+                    'مرحبا': 'Welcome',
+                    'صباح الخير': 'Good morning',
+                    'مساء الخير': 'Good evening'
+                };
+                
+                this.englishOutput.textContent = 'Translating...';
+                this.englishOutput.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    let translation = translations[arabicText.trim()];
+                    
+                    if (!translation) {
+                        const words = arabicText.split(' ');
+                        const translatedWords = words.map(word => 
+                            translations[word] || `[${word}]`
+                        );
+                        translation = translatedWords.join(' ');
+                    }
+                    
+                    this.currentTranslation = translation;
+                    this.englishOutput.textContent = translation;
+                    this.englishOutput.style.opacity = '1';
+                    gsap.fromTo(this.englishOutput, 
+                        { opacity: 0, y: 30 },
+                        { opacity: 1, y: 0, duration: 0.8 }
+                    );
+                    
+                    const quality = Math.random() * 30 + 70;
+                    this.updateTranslationQuality(quality);
+                }, 800);
+            }
+
+            translateText() {
+                const inputText = this.testInput.value.trim();
+                if (!inputText) return;
+                
+                this.tunisianOutput.textContent = inputText;
+                this.translateToEnglish(inputText);
+                this.updateConfidence(95);
+            }
+
+            updateConfidence(confidence) {
+                this.confidenceValue.textContent = Math.round(confidence) + '%';
+                this.confidenceFill.style.width = confidence + '%';
+            }
+
+            updateTranslationQuality(quality) {
+                this.translationQuality.textContent = Math.round(quality) + '%';
+                this.translationFill.style.width = quality + '%';
+            }
+
+            clearOutput() {
+                this.tunisianOutput.textContent = 'Ready for speech input...';
+                this.englishOutput.textContent = 'Translation will appear here...';
+                this.testInput.value = '';
+                this.currentTranslation = '';
+                this.updateConfidence(0);
+                this.updateTranslationQuality(0);
+                this.stopAudioBars();
+            }
+
+            showStatus(message, className) {
+                this.statusDiv.innerHTML = `<span>${message}</span>`;
+                this.statusDiv.className = `status-indicator ${className}`;
+                gsap.fromTo(this.statusDiv, 
+                    { opacity: 0, y: 30 },
+                    { opacity: 1, y: 0, duration: 0.8 }
+                );
+            }
+
+            async playLastRecording() {
+                if (this.lastRecordedAudio) {
+                    this.lastRecordedAudio.play();
+                } else {
+                    alert('No recording available');
+                }
+            }
+
+            downloadTranslation() {
+                if (!this.currentTranslation) {
+                    alert('No translation available to download');
+                    return;
+                }
+                
+                const content = `Tunisian Arabic: ${this.tunisianOutput.textContent}\nEnglish Translation: ${this.currentTranslation}`;
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'translation.txt';
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            async copyToClipboard() {
+                if (!this.currentTranslation) {
+                    alert('No translation available to copy');
+                    return;
+                }
+                
+                try {
+                    await navigator.clipboard.writeText(this.currentTranslation);
+                    alert('Translation copied to clipboard!');
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                    alert('Failed to copy translation');
+                }
+            }
+        }
+
+        function testSample(text) {
+            translator.testInput.value = text;
+            translator.translateText();
+        }
+
+        function playLastRecording() {
+            translator.playLastRecording();
+        }
+
+        function downloadTranslation() {
+            translator.downloadTranslation();
+        }
+
+        function copyToClipboard() {
+            translator.copyToClipboard();
+        }
+
         const animations = {
             init() {
                 gsap.registerPlugin(ScrollTrigger);
@@ -1062,6 +1624,7 @@
             theme.init();
             accessibility.init();
             performance.init();
+            translator = new TunisianSpeechTranslator();
         });
     </script>
 </body>

@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Error page for Aymen Mabrouk's portfolio">
+    <meta name="keywords" content="error, 404, portfolio, Aymen Mabrouk">
+    <meta name="author" content="Aymen Mabrouk">
+    <title>Error - Aymen Mabrouk</title>
+    <link rel="icon" type="image/png" href="image/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        /* Root Variables (matching portfolio) */
+        :root {
+            --primary: #3B82F6;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --neutral: #1F2937;
+            --neutral-light: #F3F4F6;
+            --white: #FFFFFF;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --scroll-bar: var(--accent);
+            --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
+            --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
+            --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
+        }
+
+        /* Dark Mode Variables */
+        .dark {
+            --text-primary: #E5E7EB;
+            --text-secondary: #9CA3AF;
+            --neutral-light: #1E293B;
+            --white: #0F172A;
+            --neutral: #111827;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --scroll-bar: #F59E0B;
+            --primary: #60A5FA;
+            --secondary: #34D399;
+            --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+            --secondary-gradient: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);
+            --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+        }
+
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            background: var(--neutral-light);
+            transition: background 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Enhanced Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite, pulse 8s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.6;
+            will-change: background-position, transform;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Enhanced Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            will-change: transform, opacity;
+            animation: floatEnhanced 12s ease-in-out infinite, fadeEnhanced 6s ease-in-out infinite alternate, rotate 15s linear infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes floatEnhanced {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            20% { transform: translate(-30px, -50px) scale(1.3) rotate(72deg); }
+            40% { transform: translate(40px, -80px) scale(0.8) rotate(144deg); }
+            60% { transform: translate(-20px, -60px) scale(1.5) rotate(216deg); }
+            80% { transform: translate(30px, -40px) scale(1.1) rotate(288deg); }
+        }
+
+        @keyframes fadeEnhanced {
+            0% { opacity: 0.2; }
+            25% { opacity: 0.8; }
+            50% { opacity: 0.4; }
+            75% { opacity: 0.9; }
+            100% { opacity: 0.1; }
+        }
+
+        /* Floating geometric shapes */
+        .geometric-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.3;
+            animation: floatGeometric 20s ease-in-out infinite;
+        }
+
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 25px solid var(--accent);
+            animation-delay: -2s;
+        }
+
+        .shape-square {
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            transform: rotate(45deg);
+            animation-delay: -5s;
+        }
+
+        .shape-hexagon {
+            width: 20px;
+            height: 11px;
+            background: var(--primary);
+            position: relative;
+            animation-delay: -8s;
+        }
+
+        .shape-hexagon:before,
+        .shape-hexagon:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+        }
+
+        .shape-hexagon:before {
+            bottom: 100%;
+            border-bottom: 6px solid var(--primary);
+        }
+
+        .shape-hexagon:after {
+            top: 100%;
+            border-top: 6px solid var(--primary);
+        }
+
+        @keyframes floatGeometric {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+        }
+
+        /* Theme Toggle */
+        .toggle-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .toggle-switch {
+            width: 80px;
+            height: 40px;
+            background: #1E293B;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid #334155;
+            overflow: hidden;
+            transform: perspective(1000px) rotateX(0);
+        }
+
+        .toggle-switch:hover {
+            transform: perspective(1000px) rotateX(10deg) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.light {
+            background: #87CEEB;
+            border-color: #5DADE2;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+            transition: opacity 0.4s ease;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #E5E7EB;
+            border-radius: 50%;
+            animation: twinkleEnhanced 3s ease-in-out infinite;
+        }
+
+        .star1 { top: 10px; left: 15px; animation-delay: 0s; }
+        .star2 { top: 15px; right: 15px; animation-delay: 0.5s; }
+        .star3 { top: 25px; left: 10px; animation-delay: 1s; }
+        .star4 { top: 30px; right: 20px; animation-delay: 1.5s; }
+        .star5 { top: 20px; left: 25px; animation-delay: 2s; }
+        .star6 { top: 35px; right: 30px; animation-delay: 2.5s; }
+
+        @keyframes twinkleEnhanced {
+            0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 3px #E5E7EB; }
+            50% { opacity: 0.3; transform: scale(0.8); box-shadow: 0 0 1px #E5E7EB; }
+        }
+
+        .toggle-switch.light .stars {
+            opacity: 0;
+        }
+
+        .clouds {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.2s;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            animation: cloudDrift 8s ease-in-out infinite;
+        }
+
+        @keyframes cloudDrift {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        .cloud1 {
+            width: 15px;
+            height: 6px;
+            top: 10px;
+            left: 15px;
+        }
+
+        .cloud1::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            top: -3px;
+            left: 2px;
+        }
+
+        .cloud2 {
+            width: 10px;
+            height: 4px;
+            top: 25px;
+            right: 15px;
+            animation-delay: -2s;
+        }
+
+        .cloud2::before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            top: -2px;
+            left: 1px;
+        }
+
+        .toggle-switch.light .clouds {
+            opacity: 1;
+        }
+
+        .toggle-circle {
+            width: 32px;
+            height: 32px;
+            background: #F59E0B;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .moon-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #E5E7EB;
+            border-radius: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .moon-crater1 {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #9CA3AF;
+            border-radius: 50%;
+            top: 8px;
+            left: 10px;
+        }
+
+        .moon-crater2 {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #9CA3AF;
+            border-radius: 50%;
+            top: 18px;
+            left: 18px;
+        }
+
+        .moon-crater3 {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #9CA3AF;
+            border-radius: 50%;
+            top: 14px;
+            left: 7px;
+        }
+
+        .sun-rays {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .sun-ray {
+            position: absolute;
+            width: 2px;
+            height: 6px;
+            background: #F59E0B;
+            border-radius: 1px;
+            left: 50%;
+            top: 50%;
+            transform-origin: 1px 15px;
+        }
+
+        .ray1 { transform: translate(-50%, -50%) rotate(0deg); }
+        .ray2 { transform: translate(-50%, -50%) rotate(45deg); }
+        .ray3 { transform: translate(-50%, -50%) rotate(90deg); }
+        .ray4 { transform: translate(-50%, -50%) rotate(135deg); }
+        .ray5 { transform: translate(-50%, -50%) rotate(180deg); }
+        .ray6 { transform: translate(-50%, -50%) rotate(225deg); }
+        .ray7 { transform: translate(-50%, -50%) rotate(270deg); }
+        .ray8 { transform: translate(-50%, -50%) rotate(315deg); }
+
+        .toggle-switch.light .toggle-circle {
+            left: 44px;
+            background: #F59E0B;
+        }
+
+        .toggle-switch.light .moon-face {
+            background: #F59E0B;
+        }
+
+        .toggle-switch.light .moon-crater1,
+        .toggle-switch.light .moon-crater2,
+        .toggle-switch.light .moon-crater3 {
+            background: #FCD34D;
+        }
+
+        .toggle-switch.light .sun-rays {
+            opacity: 1;
+            animation: rotateRays 8s linear infinite;
+        }
+
+        @keyframes rotateRays {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Error Section */
+        .error-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+            perspective: 1000px;
+        }
+
+        .error-container {
+            max-width: 800px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .error-container:hover {
+            transform: translateY(-5px) rotateX(2deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .error-code {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: pulseEnhanced 3s ease-in-out infinite, textGlow 4s ease-in-out infinite;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .error-code::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateZ(-10px) scale(1.1);
+            opacity: 0.3;
+            filter: blur(2px);
+        }
+
+        @keyframes pulseEnhanced {
+            0%, 100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+            25% { transform: scale(1.03) rotateY(2deg); opacity: 0.95; }
+            50% { transform: scale(1.05) rotateY(0deg); opacity: 0.9; }
+            75% { transform: scale(1.03) rotateY(-2deg); opacity: 0.95; }
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(124, 58, 237, 0.5); }
+        }
+
+        .error-message {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-family: 'Roboto', sans-serif;
+            animation: slideInUp 1s ease-out 0.5s both;
+            position: relative;
+        }
+
+        .error-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.8;
+            font-family: 'Roboto', sans-serif;
+            animation: slideInUp 1s ease-out 0.7s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            background: var(--primary);
+            color: var(--white);
+            border: 2px solid transparent;
+            animation: slideInUp 1s ease-out 0.9s both;
+            transform-style: preserve-3d;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover::after {
+            width: 100px;
+            height: 100px;
+        }
+
+        .cta-button:hover {
+            color: var(--text-primary);
+            transform: translateY(-5px) rotateX(10deg);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover i {
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        /* Enhanced Error Animation Elements */
+        .error-graphic {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            animation: floatGraphic 6s ease-in-out infinite;
+        }
+
+        @keyframes floatGraphic {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .error-icon {
+            width: 100%;
+            height: 100%;
+            background: var(--secondary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--white);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+            animation: iconPulse 4s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        .error-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 0 20px rgba(16, 185, 129, 0); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .error-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .error-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            will-change: transform, opacity;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .error-particle.animate {
+            animation: scatterEnhanced 3s ease-out forwards;
+        }
+
+        @keyframes scatterEnhanced {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translate(calc(var(--dx) * 0.5), calc(var(--dy) * 0.5)) scale(1.5) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--dx), var(--dy)) scale(0.3) rotate(360deg);
+            }
+        }
+
+        /* Enhanced Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            background-size: 300% 300%;
+            animation: gradientShift 3s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid var(--white);
+            border-radius: 50%;
+            animation: spinEnhanced 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            position: relative;
+        }
+
+        .loader::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid transparent;
+            border-top: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: spinEnhanced 2s linear infinite reverse;
+        }
+
+        @keyframes spinEnhanced {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Glitch effect for error code */
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: #ff0000;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: #00ff00;
+            z-index: -2;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            10% { transform: translate(-2px, -2px); }
+            20% { transform: translate(2px, 2px); }
+            30% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            10% { transform: translate(2px, 2px); }
+            20% { transform: translate(-2px, -2px); }
+            30% { transform: translate(2px, -2px); }
+            40% { transform: translate(-2px, 2px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .toggle-container {
+                top: 10px;
+                right: 10px;
+            }
+
+            .toggle-switch {
+                width: 60px;
+                height: 30px;
+                border-radius: 15px;
+                border-width: 1px;
+            }
+
+            .toggle-circle {
+                width: 24px;
+                height: 24px;
+                top: 2px;
+                left: 2px;
+            }
+
+            .toggle-switch.light .toggle-circle {
+                left: 34px;
+            }
+
+            .error-container {
+                padding: 20px;
+            }
+
+            .error-code {
+                font-size: clamp(3rem, 8vw, 5rem);
+            }
+
+            .error-message {
+                font-size: 1.2rem;
+            }
+
+            .error-description {
+                font-size: 1rem;
+            }
+
+            .error-graphic {
+                width: 150px;
+                height: 150px;
+            }
+
+            .error-icon {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Geometric Shapes -->
+    <div class="geometric-shapes" id="geometricShapes"></div>
+
+    <!-- Theme Toggle -->
+    <div class="toggle-container">
+        <div class="toggle-switch" id="toggleSwitch" onclick="toggleMode()">
+            <div class="stars">
+                <div class="star star1"></div>
+                <div class="star star2"></div>
+                <div class="star star3"></div>
+                <div class="star star4"></div>
+                <div class="star star5"></div>
+                <div class="star star6"></div>
+            </div>
+            <div class="clouds">
+                <div class="cloud cloud1"></div>
+                <div class="cloud cloud2"></div>
+            </div>
+            <div class="toggle-circle">
+                <div class="moon-face">
+                    <div class="moon-crater1"></div>
+                    <div class="moon-crater2"></div>
+                    <div class="moon-crater3"></div>
+                </div>
+                <div class="sun-rays">
+                    <div class="sun-ray ray1"></div>
+                    <div class="sun-ray ray2"></div>
+                    <div class="sun-ray ray3"></div>
+                    <div class="sun-ray ray4"></div>
+                    <div class="sun-ray ray5"></div>
+                    <div class="sun-ray ray6"></div>
+                    <div class="sun-ray ray7"></div>
+                    <div class="sun-ray ray8"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Section -->
+    <section class="error-section">
+        <div class="error-container fade-in">
+            <div class="error-graphic">
+                <div class="error-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="error-particles" id="errorParticles"></div>
+            </div>
+            <h1 class="error-code glitch" id="errorCode" data-text="404">404</h1>
+            <h2 class="error-message" id="errorMessage">Page Not Found</h2>
+            <p class="error-description" id="errorDescription">
+                Oops! It seems the page you're looking for doesn't exist or has been moved. 
+                Let's get you back on track.
+            </p>
+            <a href="index.html" class="cta-button" aria-label="Return to homepage">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        // Utility Functions
+        const utils = {
+            getErrorDetails() {
+                const params = new URLSearchParams(window.location.search);
+                const errorCode = params.get('code') || '404';
+                const errorMessages = {
+                    '404': {
+                        message: 'Page Not Found',
+                        description: "Oops! It seems the page you're looking for doesn't exist or has been moved. Let's get you back on track."
+                    },
+                    '500': {
+                        message: 'Server Error',
+                        description: 'Something went wrong on our end. Please try again later or contact support.'
+                    },
+                    '403': {
+                        message: 'Access Forbidden',
+                        description: "You don't have permission to access this page. Please check your credentials or return to the homepage."
+                    },
+                    'default': {
+                        message: 'Unexpected Error',
+                        description: 'An unexpected error occurred. Please try again or contact support.'
+                    }
+                };
+                return errorMessages[errorCode] || errorMessages['default'];
+            },
+            
+            random(min, max) {
+                return Math.random() * (max - min) + min;
+            },
+            
+            createSVGElement(type, attributes = {}) {
+                const element = document.createElementNS('http://www.w3.org/2000/svg', type);
+                Object.entries(attributes).forEach(([key, value]) => {
+                    element.setAttribute(key, value);
+                });
+                return element;
+            }
+        };
+
+        // Enhanced Animations
+        const animations = {
+            init() {
+                gsap.registerPlugin(ScrollTrigger);
+                this.setupLoadingScreen();
+                this.createEnhancedParticles();
+                this.createGeometricShapes();
+                this.setupErrorAnimations();
+                this.createInteractiveEffects();
+                this.setupParallaxEffects();
+            },
+
+            setupLoadingScreen() {
+                const tl = gsap.timeline();
+                
+                window.addEventListener('load', () => {
+                    tl.to('#loadingOverlay .loader', {
+                        scale: 1.2,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    })
+                    .to('#loadingOverlay', {
+                        opacity: 0,
+                        duration: 0.8,
+                        ease: 'power2.inOut',
+                        onComplete: () => {
+                            document.getElementById('loadingOverlay').classList.add('hidden');
+                            this.startMainAnimations();
+                        }
+                    });
+                });
+            },
+
+            startMainAnimations() {
+                const tl = gsap.timeline();
+                
+                // Animate background elements
+                tl.from('.animated-bg', {
+                    scale: 1.2,
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: 'power2.out'
+                })
+                .from('.particles .particle', {
+                    scale: 0,
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.05,
+                    ease: 'back.out(1.7)'
+                }, '-=1')
+                .from('.geometric-shapes .shape', {
+                    scale: 0,
+                    rotation: 180,
+                    opacity: 0,
+                    duration: 1.2,
+                    stagger: 0.1,
+                    ease: 'elastic.out(1, 0.5)'
+                }, '-=0.8');
+            },
+
+            createEnhancedParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = window.innerWidth < 768 ? 30 : 80;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    const size = utils.random(3, 8);
+                    const hue = utils.random(0, 360);
+                    
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.background = `hsl(${hue}, 70%, 80%)`;
+                    particle.style.left = utils.random(0, 100) + '%';
+                    particle.style.top = utils.random(0, 100) + '%';
+                    particle.style.animationDelay = `${utils.random(0, 8)}s`;
+                    particle.style.animationDuration = `${utils.random(8, 15)}s`;
+                    
+                    // Add glow effect
+                    particle.style.boxShadow = `0 0 ${size * 2}px hsl(${hue}, 70%, 60%)`;
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            },
+
+            createGeometricShapes() {
+                const shapesContainer = document.getElementById('geometricShapes');
+                const shapes = ['triangle', 'square', 'hexagon'];
+                const shapeCount = window.innerWidth < 768 ? 8 : 15;
+                
+                for (let i = 0; i < shapeCount; i++) {
+                    const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                    const shape = document.createElement('div');
+                    shape.className = `shape shape-${shapeType}`;
+                    
+                    shape.style.left = utils.random(0, 100) + '%';
+                    shape.style.top = utils.random(0, 100) + '%';
+                    shape.style.animationDelay = `${utils.random(0, 10)}s`;
+                    shape.style.animationDuration = `${utils.random(15, 25)}s`;
+                    
+                    shapesContainer.appendChild(shape);
+                }
+            },
+
+            setupErrorAnimations() {
+                const tl = gsap.timeline({ delay: 0.5 });
+                
+                // Enhanced container animation
+                tl.fromTo('.error-container', 
+                    { 
+                        opacity: 0, 
+                        scale: 0.6, 
+                        rotationY: -30,
+                        transformPerspective: 1000
+                    },
+                    { 
+                        opacity: 1, 
+                        scale: 1, 
+                        rotationY: 0,
+                        duration: 1.5, 
+                        ease: 'back.out(1.4)' 
+                    }
+                )
+                
+                // Animate error icon with advanced effects
+                .fromTo('.error-icon',
+                    { 
+                        y: -100, 
+                        opacity: 0, 
+                        scale: 0.5,
+                        rotation: -180
+                    },
+                    { 
+                        y: 0, 
+                        opacity: 1, 
+                        scale: 1,
+                        rotation: 0,
+                        duration: 1.2, 
+                        ease: 'elastic.out(1, 0.6)' 
+                    }, '-=0.8'
+                )
+                
+                // Animate text elements with stagger
+                .from('.error-code', {
+                    scale: 0,
+                    rotation: 360,
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'back.out(1.7)'
+                }, '-=0.5')
+                
+                .from(['.error-message', '.error-description'], {
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: 'power2.out'
+                }, '-=0.3')
+                
+                .from('.cta-button', {
+                    scale: 0,
+                    rotation: -10,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'back.out(1.7)'
+                }, '-=0.2');
+
+                // Create and animate enhanced error particles
+                this.createErrorParticles();
+            },
+
+            createErrorParticles() {
+                const particlesContainer = document.getElementById('errorParticles');
+                const particleCount = 20;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'error-particle';
+                    
+                    const angle = (i / particleCount) * Math.PI * 2;
+                    const distance = utils.random(80, 150);
+                    const dx = Math.cos(angle) * distance;
+                    const dy = Math.sin(angle) * distance;
+                    
+                    particle.style.setProperty('--dx', `${dx}px`);
+                    particle.style.setProperty('--dy', `${dy}px`);
+                    
+                    particlesContainer.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.classList.add('animate');
+                        setTimeout(() => particle.remove(), 3000);
+                    }, 800 + i * 50);
+                }
+            },
+
+            createInteractiveEffects() {
+                // Mouse move parallax effect
+                document.addEventListener('mousemove', (e) => {
+                    const mouseX = (e.clientX / window.innerWidth) - 0.5;
+                    const mouseY = (e.clientY / window.innerHeight) - 0.5;
+                    
+                    gsap.to('.error-container', {
+                        duration: 0.5,
+                        rotationY: mouseX * 5,
+                        rotationX: -mouseY * 5,
+                        ease: 'power2.out'
+                    });
+                    
+                    gsap.to('.particles .particle', {
+                        duration: 0.8,
+                        x: mouseX * 20,
+                        y: mouseY * 20,
+                        ease: 'power2.out'
+                    });
+                    
+                    gsap.to('.geometric-shapes .shape', {
+                        duration: 1,
+                        x: mouseX * -15,
+                        y: mouseY * -15,
+                        ease: 'power2.out'
+                    });
+                });
+
+                // Enhanced button interactions
+                const ctaButton = document.querySelector('.cta-button');
+                
+                ctaButton.addEventListener('mouseenter', () => {
+                    gsap.to(ctaButton, {
+                        scale: 1.05,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                    
+                    // Create ripple effect
+                    this.createRippleEffect(ctaButton);
+                });
+                
+                ctaButton.addEventListener('mouseleave', () => {
+                    gsap.to(ctaButton, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+
+                // Add click animation
+                ctaButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    gsap.to(ctaButton, {
+                        scale: 0.95,
+                        duration: 0.1,
+                        yoyo: true,
+                        repeat: 1,
+                        ease: 'power2.inOut',
+                        onComplete: () => {
+                            // Add page transition
+                            this.pageTransition(() => {
+                                window.location.href = ctaButton.href;
+                            });
+                        }
+                    });
+                });
+            },
+
+            createRippleEffect(element) {
+                const ripple = document.createElement('div');
+                const rect = element.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    border-radius: 50%;
+                    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+                    transform: translate(-50%, -50%) scale(0);
+                    pointer-events: none;
+                    z-index: 0;
+                `;
+                
+                element.appendChild(ripple);
+                
+                gsap.to(ripple, {
+                    scale: 2,
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    onComplete: () => ripple.remove()
+                });
+            },
+
+            setupParallaxEffects() {
+                // Background parallax
+                gsap.to('.animated-bg', {
+                    backgroundPosition: '100% 0%',
+                    duration: 20,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'none'
+                });
+
+                // Continuous particle animation
+                gsap.set('.particles .particle', {
+                    transformOrigin: 'center center'
+                });
+
+                gsap.to('.particles .particle', {
+                    rotation: 360,
+                    duration: 30,
+                    repeat: -1,
+                    ease: 'none',
+                    stagger: {
+                        each: 0.1,
+                        from: 'random'
+                    }
+                });
+            },
+
+            pageTransition(callback) {
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: var(--primary-gradient);
+                    z-index: 10000;
+                    opacity: 0;
+                    pointer-events: none;
+                `;
+                
+                document.body.appendChild(overlay);
+                
+                gsap.to(overlay, {
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: 'power2.inOut',
+                    onComplete: () => {
+                        callback();
+                    }
+                });
+            }
+        };
+
+        // Enhanced Theme Toggle
+        function toggleMode() {
+            const toggleSwitch = document.getElementById('toggleSwitch');
+            const isLight = toggleSwitch.classList.toggle('light');
+            document.body.classList.toggle('dark');
+            
+            // Enhanced toggle animation
+            gsap.to(toggleSwitch, {
+                scale: 0.9,
+                duration: 0.1,
+                yoyo: true,
+                repeat: 1,
+                ease: 'power2.inOut'
+            });
+            
+            // Animate background change
+            gsap.to('.animated-bg', {
+                scale: 1.1,
+                duration: 0.5,
+                yoyo: true,
+                repeat: 1,
+                ease: 'power2.inOut'
+            });
+            
+            // Store theme preference
+            const data = { theme: isLight ? 'light' : 'dark' };
+            Object.keys(data).forEach(key => {
+                try {
+                    sessionStorage.setItem(key, data[key]);
+                } catch (e) {
+                    // Fallback for environments without sessionStorage
+                    window.tempStorage = window.tempStorage || {};
+                    window.tempStorage[key] = data[key];
+                }
+            });
+        }
+
+        // Initialize theme based on preference
+        function initializeTheme() {
+            let savedTheme = 'dark';
+            try {
+                savedTheme = sessionStorage.getItem('theme') || 'dark';
+            } catch (e) {
+                // Fallback for environments without sessionStorage
+                savedTheme = (window.tempStorage && window.tempStorage.theme) || 'dark';
+            }
+            
+            if (savedTheme === 'light') {
+                document.getElementById('toggleSwitch').classList.add('light');
+                document.body.classList.add('dark');
+            }
+        }
+
+        // Enhanced Error Handling
+        function displayError() {
+            const { message, description } = utils.getErrorDetails();
+            const errorCode = new URLSearchParams(window.location.search).get('code') || '404';
+            
+            const errorCodeElement = document.getElementById('errorCode');
+            const errorMessageElement = document.getElementById('errorMessage');
+            const errorDescriptionElement = document.getElementById('errorDescription');
+            
+            errorCodeElement.textContent = errorCode;
+            errorCodeElement.setAttribute('data-text', errorCode);
+            errorMessageElement.textContent = message;
+            errorDescriptionElement.textContent = description;
+            
+            // Add glitch effect for severe errors
+            if (['500', '503'].includes(errorCode)) {
+                errorCodeElement.classList.add('glitch');
+            }
+        }
+
+        // Performance optimization
+        function optimizePerformance() {
+            // Reduce particles on mobile for better performance
+            if (window.innerWidth < 768) {
+                document.querySelectorAll('.particle').forEach((particle, index) => {
+                    if (index % 2 === 0) {
+                        particle.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Pause animations when page is not visible
+            document.addEventListener('visibilitychange', () => {
+                const animations = document.querySelectorAll('.particle, .shape, .animated-bg');
+                animations.forEach(element => {
+                    element.style.animationPlayState = document.hidden ? 'paused' : 'running';
+                });
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            animations.init();
+            initializeTheme();
+            displayError();
+            optimizePerformance();
+        });
+
+        // Handle resize events
+        window.addEventListener('resize', () => {
+            // Recreate particles on significant resize
+            if (Math.abs(window.innerWidth - (window.lastWidth || 0)) > 200) {
+                const particlesContainer = document.getElementById('particles');
+                particlesContainer.innerHTML = '';
+                animations.createEnhancedParticles();
+                window.lastWidth = window.innerWidth;
+            }
+        });
+    </script>
+</body>
+</html>
