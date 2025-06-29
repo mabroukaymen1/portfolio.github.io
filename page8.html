@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Medical Application for New Mothers project by Aymen Mabrouk,  a Flutter-based mobile app for tracking breastfeeding and vaccination schedules.">
-    <meta name="keywords" content="portfolio, Flutter, Firebase, Medical App, New Mothers, Aymen Mabrouk">
+    <meta name="description" content="Aquatech project by Aymen Mabrouk, a Flutter-based IoT solution for automated bottle filling and capping with real-time monitoring.">
+    <meta name="keywords" content="portfolio, Flutter, Firebase, ESP32, IoT, Aquatech, Aymen Mabrouk">
     <meta name="author" content="Aymen Mabrouk">
-    <title>Medical Application for New Mothers - Aymen Mabrouk</title>
+    <title>Aquatech - Smart Industrial Control System</title>
     <link rel="icon" type="image/png" href="image/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
@@ -131,10 +131,10 @@
             overflow: hidden;
         }
 
-        .toggle-switch.light {
-            background: #87CEEB;
-            border-color: #5DADE2;
-        }
+.toggle-switch.light {
+    background: #87CEEB;
+    border-color: #5DADE2;
+}
 
         .stars {
             position: absolute;
@@ -761,7 +761,6 @@
             outline-offset: 2px;
         }
 
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -897,29 +896,31 @@
     <section id="project" class="project-details">
         <div class="container">
             <div class="section-header fade-in">
-                <h2 class="section-title">Medical Application for New Mothers</h2>
-                <p class="section-subtitle">A mobile app to support new mothers with breastfeeding and vaccination tracking</p>
+                <h2 class="section-title">Aquatech - Smart Industrial Control System</h2>
+                <p class="section-subtitle">A Flutter-based IoT solution for automated bottle filling and capping with real-time monitoring and control</p>
             </div>
             <div class="project-content">
                 <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=Medical+App+for+Mothers" alt="Medical Application for New Mothers" loading="lazy">
+                    <img src="image/farma.png" alt="Aquatech Smart Industrial Control System" loading="lazy">
                 </div>
                 <div class="project-info slide-in-right">
                     <h3 class="project-title">Project Overview</h3>
                     <p class="project-description">
-                        The Medical Application for New Mothers is a mobile app designed to help new mothers track breastfeeding sessions and vaccination schedules for their babies. The app provides personalized notifications, an intuitive interface, and secure data storage, making it easier for mothers to manage their child's early health needs efficiently.
+                        Aquatech is a smart industrial control system designed for automated bottle filling and capping. <b>I am part of the project team</b> and contributed by developing the Flutter-based mobile and web app, along with the IoT integration to link the app with hardware devices. The system enables remote monitoring, control of production parameters, real-time analytics, and alerts for efficient management of the production line.
                     </p>
                     <h3 class="project-title">Technologies Used</h3>
                     <div class="project-tech">
                         <span class="tech-tag">Flutter</span>
                         <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">ESP32</span>
+                        <span class="tech-tag">FirebaseESP32</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of Medical Application for New Mothers" onclick="openModal()">
+                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of Daboza" onclick="openModal()">
                             <i class="fas fa-external-link-alt"></i>
                             View Live
                         </a>
-                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Code" aria-label="View source code of Medical Application for New Mothers">
+                        <a href="https://github.com/mabroukaymen1/AquaTechPro" class="project-link github" title="View Code" aria-label="View source code of Daboza">
                             <i class="fab fa-github"></i>
                             View Code
                         </a>
@@ -929,17 +930,78 @@
         </div>
     </section>
 
-    <!-- Modal for Video -->
     <div class="modal" id="videoModal">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <h3 class="modal-title">Medical Application for New Mothers Demo</h3>
+            <span class="modal-close" onclick="closeModal()">×</span>
+            <h3 class="modal-title">Aquatech Demo</h3>
             <video class="modal-video" controls>
-                <source src="videos/softshot.mp4" type="video/mp4">
+                <source src="videos/daboza.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
     </div>
+
+    <!-- New Materials & System Workflow Section -->
+    <section id="materials-workflow" class="project-details">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Materials & System Workflow</h2>
+                <p class="section-subtitle">Discover the hardware and software components powering aquatech, and see how they interact to automate bottle filling and capping.</p>
+            </div>
+            <div class="project-content" style="display: flex; flex-direction: column; gap: 40px;">
+                <!-- Materials Used -->
+                <div class="project-info fade-in" style="max-width: 700px; margin: 0 auto;">
+                    <h3 class="project-title">Materials Used</h3>
+                    <ul class="project-description" style="list-style: disc; margin-left: 1.5em;">
+                        <li><b>ESP32 Microcontroller</b> – Controls the hardware and communicates with the app via WiFi.</li>
+                        <li><b>Solenoid Valves</b> – For precise bottle filling control.</li>
+                        <li><b>Stepper Motor & Driver</b> – For automated bottle capping.</li>
+                        <li><b>Limit Switches & Sensors</b> – Detect bottle position and process status.</li>
+                        <li><b>Relay Modules</b> – Switch high-power devices safely.</li>
+                        <li><b>Power Supply</b> – Provides stable voltage to all components.</li>
+                        <li><b>Flutter App (Mobile/Web)</b> – User interface for monitoring and control.</li>
+                        <li><b>Firebase</b> – Real-time database for data sync and remote commands.</li>
+                    </ul>
+                </div>
+                <!-- System Workflow Path -->
+                <div class="fade-in" style="margin: 0 auto; max-width: 900px;">
+                    <h3 class="project-title" style="text-align:center;">How the System Works</h3>
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 20px; font-size: 1.1rem;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-mobile-alt" style="font-size:2.2rem; color:var(--primary);"></i>
+                            <span>Flutter App</span>
+                        </div>
+                        <i class="fas fa-arrow-right" style="font-size:1.5rem; color:var(--accent);"></i>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-cloud" style="font-size:2.2rem; color:var(--secondary);"></i>
+                            <span>Firebase</span>
+                        </div>
+                        <i class="fas fa-arrow-right" style="font-size:1.5rem; color:var(--accent);"></i>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-microchip" style="font-size:2.2rem; color:var(--primary);"></i>
+                            <span>ESP32</span>
+                        </div>
+                        <i class="fas fa-arrow-right" style="font-size:1.5rem; color:var(--accent);"></i>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-cogs" style="font-size:2.2rem; color:var(--secondary);"></i>
+                            <span>Relays, Motors, Valves</span>
+                        </div>
+                        <i class="fas fa-arrow-right" style="font-size:1.5rem; color:var(--accent);"></i>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-bottle-water" style="font-size:2.2rem; color:var(--primary);"></i>
+                            <span>Bottle Filling & Capping</span>
+                        </div>
+                    </div>
+                    <ol class="project-description" style="margin-top: 30px; max-width: 700px; margin-left:auto; margin-right:auto;">
+                        <li><b>User</b> sets parameters and starts the process from the <b>Flutter App</b>.</li>
+                        <li>Commands are sent to <b>Firebase</b> in real-time.</li>
+                        <li><b>ESP32</b> reads commands from Firebase and controls the hardware (valves, motors, relays).</li>
+                        <li>Sensors provide feedback to ESP32, which updates status in Firebase.</li>
+                        <li>The app displays real-time production data, alerts, and allows remote control.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
 
     <footer>
         <div class="container">

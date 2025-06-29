@@ -756,6 +756,62 @@
             outline: 2px solid var(--accent);
             outline-offset: 2px;
         }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+        }
+
+        .modal-title {
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .modal-video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
@@ -811,9 +867,9 @@
             <ul class="nav-links">
                 <li><a href="index.html#home" aria-label="Home section">Home</a></li>
                 <li><a href="index.html#about" aria-label="About section">About</a></li>
-                <li><a href="index.html#skills" aria-label="Skills section">Methodology</a></li>
-                <li><a href="index.html#projects" aria-label="Projects section">Results</a></li>
-                <li><a href="index.html#contact" aria-label="Contact section">Applications</a></li>
+                <li><a href="index.html#skills" aria-label="Skills section">Skills</a></li>
+                <li><a href="index.html#projects" aria-label="Projects section">Projects</a></li>
+                <li><a href="index.html#contact" aria-label="Contact section">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -845,11 +901,11 @@
                         <span class="tech-tag">OLED Display</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of LoRa-based Environmental Monitoring System">
+                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of LoRa-based Environmental Monitoring System" onclick="openModal()">
                             <i class="fas fa-external-link-alt"></i>
                             View Live
                         </a>
-                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Code" aria-label="View source code of LoRa-based Environmental Monitoring System">
+                        <a href="https://github.com/mabroukaymen1/loradht" class="project-link github" title="View Code" aria-label="View source code of LoRa-based Environmental Monitoring System">
                             <i class="fab fa-github"></i>
                             View Code
                         </a>
@@ -867,16 +923,56 @@
             </div>
             <div class="project-content">
                 <div class="project-image slide-in-left">
-                    <img src="image/loraa.png" alt="System Architecture Diagram" loading="lazy">
+                    <!-- Replace image with SVG architecture diagram for clarity -->
+                    <svg width="100%" height="260" viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" style="background:#f9fafb;border-radius:16px;">
+                        <!-- Transmitter -->
+                        <rect x="40" y="60" width="180" height="140" rx="16" fill="#3B82F6" opacity="0.12"/>
+                        <rect x="60" y="80" width="140" height="100" rx="12" fill="#3B82F6" opacity="0.18"/>
+                        <text x="130" y="110" text-anchor="middle" font-size="18" fill="#3B82F6" font-weight="bold">Transmitter</text>
+                        <text x="130" y="135" text-anchor="middle" font-size="14" fill="#1F2937">Heltec LoRa32 V3</text>
+                        <text x="130" y="155" text-anchor="middle" font-size="13" fill="#1F2937">DHT11 Sensor</text>
+                        <text x="130" y="175" text-anchor="middle" font-size="13" fill="#1F2937">LoRa Send</text>
+                        <!-- Arrow -->
+                        <polygon points="220,130 320,130 320,120 350,140 320,160 320,150 220,150" fill="#10B981" opacity="0.7"/>
+                        <text x="285" y="125" font-size="13" fill="#10B981">LoRa Wireless</text>
+                        <!-- Receiver -->
+                        <rect x="370" y="60" width="180" height="140" rx="16" fill="#10B981" opacity="0.12"/>
+                        <rect x="390" y="80" width="140" height="100" rx="12" fill="#10B981" opacity="0.18"/>
+                        <text x="460" y="110" text-anchor="middle" font-size="18" fill="#10B981" font-weight="bold">Receiver</text>
+                        <text x="460" y="135" text-anchor="middle" font-size="14" fill="#1F2937">Heltec LoRa32 V3</text>
+                        <text x="460" y="155" text-anchor="middle" font-size="13" fill="#1F2937">OLED Display</text>
+                        <text x="460" y="175" text-anchor="middle" font-size="13" fill="#1F2937">Wi-Fi + Firebase</text>
+                        <!-- Arrow to Firebase -->
+                        <polygon points="570,130 650,130 650,120 680,140 650,160 650,150 570,150" fill="#F59E0B" opacity="0.7"/>
+                        <text x="610" y="125" font-size="13" fill="#F59E0B">Wi-Fi</text>
+                        <!-- Firebase Cloud -->
+                        <ellipse cx="690" cy="140" rx="30" ry="22" fill="#F59E0B" opacity="0.18"/>
+                        <text x="690" y="145" text-anchor="middle" font-size="15" fill="#F59E0B" font-weight="bold">Firebase</text>
+                    </svg>
                 </div>
                 <div class="project-info slide-in-right">
                     <h3 class="project-title">System Architecture</h3>
                     <p class="project-description">
-                        The system comprises two main components: an emitter and a receiver. The emitter, equipped with a DHT11 sensor, collects temperature and humidity data and transmits it via LoRa. The receiver captures the data and displays it on an OLED screen. The architecture ensures reliable, long-range communication with low power consumption.
+                        The system consists of two main nodes:
+                        <ul style="margin-left:18px;">
+                            <li><b>Transmitter Node:</b> Reads temperature and humidity from a DHT11 sensor, then sends the data via LoRa.</li>
+                            <li><b>Receiver Node:</b> Receives LoRa messages, displays data on an OLED, and uploads it to Firebase via Wi-Fi.</li>
+                        </ul>
                     </p>
+                    <h3 class="project-title">System Workflow</h3>
+                    <ol class="project-description" style="margin-left:18px;">
+                        <li><b>Sensor Reading:</b> The transmitter reads temperature and humidity from the DHT11 sensor.</li>
+                        <li><b>Data Transmission:</b> The transmitter formats and sends the data wirelessly using LoRa.</li>
+                        <li><b>Data Reception:</b> The receiver listens for LoRa messages and parses the received data.</li>
+                        <li><b>Display:</b> The receiver displays the latest readings and signal quality on its OLED screen.</li>
+                        <li><b>Cloud Upload:</b> The receiver connects to Wi-Fi and uploads the sensor data to Firebase Realtime Database for remote access.</li>
+                    </ol>
                     <h3 class="project-title">Implementation</h3>
                     <p class="project-description">
-                        The project utilized Arduino IDE for programming the Heltec LoRa32 V3 boards, with DHT.h and heltec-unofficial.h libraries facilitating sensor interfacing and LoRa communication. Lucidchart was used for UML design, ensuring a structured approach to system development. Challenges such as electromagnetic interference were mitigated by increasing transmission power and using a high-quality antenna.
+                        - <b>Programming:</b> Arduino IDE with <code>DHT.h</code> and <code>heltec-unofficial.h</code> libraries.<br>
+                        - <b>Data Format:</b> Simple string messages for easy parsing.<br>
+                        - <b>Cloud Integration:</b> Firebase ESP Client library for uploading data.<br>
+                        - <b>Design:</b> Lucidchart for UML and architecture diagrams.
                     </p>
                 </div>
             </div>
@@ -935,6 +1031,18 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal for Video -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3 class="modal-title">LoRa-based Environmental Monitoring System Demo</h3>
+            <video class="modal-video" controls>
+                <source src="https://placehold.co/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
 
     <footer>
         <div class="container">
@@ -1079,6 +1187,21 @@
             localStorage.setItem('darkMode', isDark);
         }
 
+        function openModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            const video = modal.querySelector('video');
+            video.pause();
+            video.currentTime = 0;
+        }
+
         const accessibility = {
             init() {
                 document.addEventListener('keydown', (e) => {
@@ -1089,6 +1212,12 @@
 
                 document.addEventListener('mousedown', () => {
                     document.body.classList.remove('keyboard-navigation');
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closeModal();
+                    }
                 });
             }
         };

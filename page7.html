@@ -790,6 +790,68 @@
             outline: 2px solid var(--accent);
             outline-offset: 2px;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .modal-video {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -890,11 +952,11 @@
                         The robot uses an ESP32 microcontroller to process data from three IR sensors, which detect the line's position. The ESP32 adjusts the speed and direction of four DC motors via an L298N H-Bridge module to keep the robot on track. A Bluetooth HC-05 module enables manual control through a custom mobile app, allowing commands like forward, backward, turn left, turn right, and stop. An ultrasonic sensor and servo motor facilitate obstacle detection and avoidance, enhancing the robot's autonomy. The system was programmed in Arduino C/C++, with functions for line following, motor control, and Bluetooth communication, as detailed in the project report.
                     </p>
                     <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of Bluetooth-Controlled Line Follower Robot">
+                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of Bluetooth-Controlled Line Follower Robot" onclick="openModal()">
                             <i class="fas fa-external-link-alt"></i>
                             View Live
                         </a>
-                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Code" aria-label="View source code of Bluetooth-Controlled Line Follower Robot">
+                        <a href="https://github.com/mabroukaymen1/flowingcar" class="project-link github" title="View Code" aria-label="View source code of Bluetooth-Controlled Line Follower Robot">
                             <i class="fab fa-github"></i>
                             View Code
                         </a>
@@ -936,6 +998,105 @@
             </div>
         </div>
     </section>
+
+    <!-- System Architecture & How It Works -->
+    <section id="system-architecture" class="project-details">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">System Architecture & How It Works</h2>
+                <p class="section-subtitle">ESP32 Smart Car Robot - Architecture, Modes, and Workflow</p>
+            </div>
+            <div class="project-content" style="display: flex; justify-content: center;">
+                <div class="project-info slide-in-right" style="width:100%; max-width:800px; margin:auto;">
+                    <h3 class="project-title">Architecture Overview</h3>
+                    <p class="project-description">
+                        The ESP32 Smart Car Robot is a modular robotics platform built around the ESP32 microcontroller. It integrates motor drivers, line sensors, an ultrasonic sensor with servo scanning, and Bluetooth communication for both manual and autonomous operation.
+                    </p>
+                    <ul class="project-description">
+                        <li><strong>ESP32:</strong> Central controller for all logic, sensor processing, and communication.</li>
+                        <li><strong>L298N Motor Driver:</strong> Controls two DC motors for movement (forward, backward, turning).</li>
+                        <li><strong>Line Sensors (3x):</strong> Detect black line position for line following mode.</li>
+                        <li><strong>Ultrasonic Sensor + Servo:</strong> Scans for obstacles and measures distance for avoidance.</li>
+                        <li><strong>Bluetooth:</strong> Enables manual control and mode switching via mobile app or terminal.</li>
+                        <li><strong>Status LED:</strong> Indicates current mode and feedback.</li>
+                    </ul>
+                    <h3 class="project-title">Pin Connections</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Function</th>
+                                    <th>ESP32 Pin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Motor ENA</td><td>32</td></tr>
+                                <tr><td>Motor IN1</td><td>25</td></tr>
+                                <tr><td>Motor IN2</td><td>26</td></tr>
+                                <tr><td>Motor ENB</td><td>33</td></tr>
+                                <tr><td>Motor IN3</td><td>27</td></tr>
+                                <tr><td>Motor IN4</td><td>14</td></tr>
+                                <tr><td>Line Sensor Left</td><td>34</td></tr>
+                                <tr><td>Line Sensor Center</td><td>23</td></tr>
+                                <tr><td>Line Sensor Right</td><td>36</td></tr>
+                                <tr><td>Ultrasonic TRIG</td><td>15</td></tr>
+                                <tr><td>Ultrasonic ECHO</td><td>2</td></tr>
+                                <tr><td>Servo Signal</td><td>13</td></tr>
+                                <tr><td>Status LED</td><td>12</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3 class="project-title">Modes of Operation</h3>
+                    <ul class="project-description">
+                        <li><strong>Manual Mode:</strong> Control the robot via Bluetooth commands (forward, backward, left, right, stop).</li>
+                        <li><strong>Obstacle Avoidance:</strong> Robot moves autonomously, scanning for obstacles and choosing a clear path.</li>
+                        <li><strong>Line Following:</strong> Robot follows a black line using three analog sensors.</li>
+                        <li><strong>Combined Mode:</strong> Integrates line following and obstacle avoidance for robust navigation.</li>
+                    </ul>
+                    <h3 class="project-title">Workflow</h3>
+                    <ol class="project-description">
+                        <li><strong>Startup:</strong> ESP32 initializes hardware, calibrates sensors, and centers the servo.</li>
+                        <li><strong>Bluetooth Connection:</strong> User connects via Bluetooth and sends commands to select mode or control manually.</li>
+                        <li><strong>Autonomous Modes:</strong>
+                            <ul>
+                                <li><strong>Obstacle Avoidance:</strong> Robot scans for obstacles, avoids them, and continues moving.</li>
+                                <li><strong>Line Following:</strong> Robot reads line sensors and adjusts motors to stay on track.</li>
+                                <li><strong>Combined:</strong> Robot follows the line and avoids obstacles as needed.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Status Feedback:</strong> LED and Bluetooth messages indicate current mode and sensor status.</li>
+                        <li><strong>Calibration:</strong> User can calibrate line sensors via Bluetooth command.</li>
+                        <li><strong>Emergency Stop:</strong> Immediate halt and switch to manual mode on command.</li>
+                    </ol>
+                    <h3 class="project-title">Usage & Commands</h3>
+                    <ul class="project-description">
+                        <li><strong>m / MANUAL:</strong> Manual mode</li>
+                        <li><strong>o / OBSTACLE:</strong> Obstacle avoidance mode</li>
+                        <li><strong>l / LINEFOLLOW:</strong> Line following mode</li>
+                        <li><strong>c / COMBINED:</strong> Combined mode</li>
+                        <li><strong>CALIBRATE:</strong> Calibrate line sensors</li>
+                        <li><strong>STATUS:</strong> Get current status</li>
+                        <li><strong>STOP / x:</strong> Emergency stop</li>
+                    </ul>
+                    <p class="project-description" style="margin-top:20px;">
+                        <strong>Note:</strong> Ensure your battery can supply enough current for both the ESP32 and motors. Adjust sensor thresholds and motor speeds in the code as needed for your hardware and environment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Video -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3 class="modal-title">Bluetooth-Controlled Line Follower Robot Demo</h3>
+            <video class="modal-video" controls>
+                <source src="https://placehold.co/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
 
     <footer>
         <div class="container">
@@ -1080,6 +1241,21 @@
             localStorage.setItem('darkMode', isDark);
         }
 
+        function openModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            const video = modal.querySelector('video');
+            video.pause();
+            video.currentTime = 0;
+        }
+
         const accessibility = {
             init() {
                 document.addEventListener('keydown', (e) => {
@@ -1090,6 +1266,12 @@
 
                 document.addEventListener('mousedown', () => {
                     document.body.classList.remove('keyboard-navigation');
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closeModal();
+                    }
                 });
             }
         };

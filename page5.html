@@ -756,6 +756,64 @@
             outline: 2px solid var(--accent);
             outline-offset: 2px;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+        }
+
+        .modal-title {
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .modal-video {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -888,14 +946,186 @@
                         <span class="tech-tag">Arduino</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of IoT Smart Home Automation System">
+                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of IoT Smart Home Automation System" onclick="openModal()">
                             <i class="fas fa-external-link-alt"></i>
                             View Live
                         </a>
-                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Code" aria-label="View source code of IoT Smart Home Automation System">
+                        <a href="https://github.com/mabroukaymen1/smarthome/tree/main" class="project-link github" title="View Code" aria-label="View source code of IoT Smart Home Automation System">
                             <i class="fab fa-github"></i>
                             View Code
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Video -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3 class="modal-title">IoT Smart Home Automation System Demo</h3>
+            <video class="modal-video" controls>
+                <source src="https://placehold.co/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- System Documentation Section -->
+    <section id="system-docs" class="project-details">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Smart Home System Documentation</h2>
+                <p class="section-subtitle">
+                    A complete IoT-based Smart Home system using ESP32, Firebase, and a Flutter mobile app. Enables real-time monitoring and control of your home environment and devices.
+                </p>
+            </div>
+            <div class="project-content" style="display: flex; flex-direction: column; gap: 40px;">
+                <!-- System Overview and Hardware/Software -->
+                <div class="project-info" style="grid-column: 1 / -1;">
+                    <h3 class="project-title">System Overview</h3>
+                    <ul class="project-description">
+                        <li><strong>ESP32 Microcontroller:</strong> Reads sensors (temperature, humidity, flame, current), controls actuators (LED, buzzer), and communicates with Firebase Realtime Database.</li>
+                        <li><strong>Firebase:</strong> Cloud backend for real-time data storage and device control.</li>
+                        <li><strong>Flutter Mobile App:</strong> User interface for monitoring sensor data, receiving alerts, and controlling devices.</li>
+                    </ul>
+                </div>
+                <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 40px;">
+                    <div class="project-info" style="flex:1; min-width: 250px;">
+                        <h3 class="project-title">Hardware Used</h3>
+                        <ul class="project-description">
+                            <li>ESP32 Dev Board</li>
+                            <li>DHT11 Sensor (Temperature & Humidity)</li>
+                            <li>Flame Sensor</li>
+                            <li>ACS712 Current Sensor</li>
+                            <li>LED (Smart Light)</li>
+                            <li>Buzzer (Alert)</li>
+                            <li>16x2 I2C LCD</li>
+                            <li>Wires, Breadboard, Power Supply</li>
+                        </ul>
+                    </div>
+                    <div class="project-info" style="flex:1; min-width: 250px;">
+                        <h3 class="project-title">Software Components</h3>
+                        <ul class="project-description">
+                            <li><strong>ESP32 Firmware (Arduino):</strong> Reads sensors, controls actuators, and communicates with Firebase.</li>
+                            <li><strong>Firebase Realtime Database:</strong> Stores sensor data and device states, acts as a bridge.</li>
+                            <li><strong>Flutter Mobile App:</strong> Displays data, sends control commands, and receives alerts.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- How It Works -->
+                <div class="project-info" style="grid-column: 1 / -1;">
+                    <h3 class="project-title">How It Works</h3>
+                    <ol class="project-description">
+                        <li>
+                            <strong>ESP32 Firmware:</strong>
+                            <ul>
+                                <li>Connects to WiFi and Firebase.</li>
+                                <li>Reads DHT11, Flame, and ACS712 sensors.</li>
+                                <li>Calculates energy usage and sends temperature, humidity, flame status, and energy data to Firebase.</li>
+                                <li>Listens for LED control commands from Firebase and updates the LED state.</li>
+                                <li>Activates the buzzer if flame is detected.</li>
+                                <li>Displays temperature and flame status on the LCD.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Firebase:</strong>
+                            <ul>
+                                <li>Stores real-time sensor data and device states under the <code>EnergyMonitor</code> node.</li>
+                                <li>Acts as a bridge between the ESP32 and the mobile app.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Flutter Mobile App:</strong>
+                            <ul>
+                                <li>Connects to Firebase to display real-time sensor data (temperature, humidity, flame status, energy usage).</li>
+                                <li>Sends commands to control devices (e.g., turn LED on/off).</li>
+                                <li>Notifies the user instantly if flame is detected (push notification).</li>
+                                <li>Provides onboarding, registration, and login screens.</li>
+                                <li>Shows energy consumption and cost estimation.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                <!-- Architecture Diagram and Explanation -->
+                <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+                    <div class="project-image" style="flex:1; min-width: 250px; max-width:400px; margin:auto;">
+                        <img src="https://placehold.co/600x300?text=Smart+Home+System+Architecture" alt="Smart Home System Architecture Diagram" loading="lazy">
+                    </div>
+                    <div class="project-info" style="flex:2; min-width: 250px;">
+                        <h3 class="project-title">System Architecture</h3>
+                        <ul class="project-description">
+                            <li><strong>ESP32</strong> reads sensors and sends data to <strong>Firebase</strong>.</li>
+                            <li><strong>Flutter App</strong> reads data from <strong>Firebase</strong> and sends control commands (e.g., LED on/off).</li>
+                            <li><strong>Firebase</strong> acts as a real-time bridge between hardware and app.</li>
+                            <li>All device states and sensor readings are synchronized instantly.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Code Structure, Getting Started, Features, Notes -->
+                <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 40px;">
+                    <div class="project-info" style="flex:1; min-width: 250px;">
+                        <h3 class="project-title">Code Structure</h3>
+                        <ul class="project-description">
+                            <li><code>smarthomeESP32/smarthome/smarthome.ino</code>: ESP32 firmware (Arduino code).</li>
+                            <li><code>lib/main.dart</code>: Flutter app entry point.</li>
+                            <li><code>lib/home/</code>: Flutter home screen, Firebase integration, notification logic, and theme/colors.</li>
+                            <li><code>lib/login/</code>, <code>lib/signin/</code>: User authentication (login, registration, success screen).</li>
+                            <li><code>lib/welcome/</code>: Onboarding and splash screens.</li>
+                        </ul>
+                    </div>
+                    <div class="project-info" style="flex:2; min-width: 250px;">
+                        <h3 class="project-title">Getting Started</h3>
+                        <ol class="project-description">
+                            <li>
+                                <strong>Hardware Setup:</strong>
+                                <ul>
+                                    <li>Connect DHT11 to ESP32 (e.g., data pin to GPIO 5).</li>
+                                    <li>Connect Flame sensor to GPIO 4.</li>
+                                    <li>Connect ACS712 to analog input (A0).</li>
+                                    <li>Connect LED to GPIO 2 and Buzzer to GPIO 14.</li>
+                                    <li>Connect LCD via I2C (address 0x27).</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Firmware:</strong>
+                                <ul>
+                                    <li>Open <code>smarthome.ino</code> in Arduino IDE.</li>
+                                    <li>Install libraries: <code>Firebase_ESP_Client</code>, <code>DHT</code>, <code>LiquidCrystal_I2C</code>, etc.</li>
+                                    <li>Update WiFi credentials and Firebase API keys.</li>
+                                    <li>Upload to ESP32.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Flutter App:</strong>
+                                <ul>
+                                    <li>Install Flutter and dependencies.</li>
+                                    <li>Configure Firebase for your app (Android/iOS/Web).</li>
+                                    <li>Run <code>flutter pub get</code>.</li>
+                                    <li>Launch the app on your device/emulator.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 40px;">
+                    <div class="project-info" style="flex:1; min-width: 250px;">
+                        <h3 class="project-title">Features</h3>
+                        <ul class="project-description">
+                            <li>Real-time temperature, humidity, flame, and energy monitoring.</li>
+                            <li>Remote device control (LED, etc.).</li>
+                            <li>Instant notifications for flame detection.</li>
+                            <li>User authentication (register/login).</li>
+                            <li>Modern, responsive UI with onboarding.</li>
+                        </ul>
+                    </div>
+                    <div class="project-info" style="flex:1; min-width: 250px;">
+                        <h3 class="project-title">Notes</h3>
+                        <ul class="project-description">
+                            <li>Energy cost is calculated using a fixed rate (Tunisia, 2024: ~0.135 DT/kWh).</li>
+                            <li>You can expand the system by adding more sensors/actuators and updating the code accordingly.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -1045,6 +1275,21 @@
             localStorage.setItem('darkMode', isDark);
         }
 
+        function openModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            const video = modal.querySelector('video');
+            video.pause();
+            video.currentTime = 0;
+        }
+
         const accessibility = {
             init() {
                 document.addEventListener('keydown', (e) => {
@@ -1055,6 +1300,12 @@
 
                 document.addEventListener('mousedown', () => {
                     document.body.classList.remove('keyboard-navigation');
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closeModal();
+                    }
                 });
             }
         };
