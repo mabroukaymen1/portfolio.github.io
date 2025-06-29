@@ -2374,8 +2374,20 @@
                 }
 
                 try {
-                    // Replace with your actual EmailJS Service ID and Template ID from https://dashboard.emailjs.com/admin
-                    await emailjs.sendForm('service_s3acqz5', 'template_4tkd0ew', form);
+                    // Send all sender details in the email
+                    await emailjs.send(
+                        'service_s3acqz5',
+                        'template_4tkd0ew',
+                        {
+                            first_name: data.firstName,
+                            last_name: data.lastName,
+                            user_name: `${data.firstName} ${data.lastName}`,
+                            email: data.email,
+                            phone: data.phone,
+                            subject: data.subject,
+                            message: data.message
+                        }
+                    );
                     utils.showMessage(messageDiv, 'Message sent successfully!', 'success');
                     form.reset();
                 } catch (error) {
@@ -2513,6 +2525,55 @@
             window.toggleMode = theme.toggleMode;
             window.downloadFile = downloadButton.downloadFile.bind(downloadButton);
         });
+
+        // Visitor logging (developer-only, requires backend support)
+        (function() {
+            // Always log, regardless of protocol or host
+            let visitorId = localStorage.getItem('visitorId');
+            if (!visitorId) {
+                visitorId = 'v-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
+                localStorage.setItem('visitorId', visitorId);
+            }
+            // Log entry time
+            const entryTime = Date.now();
+            fetch('log-visit.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    event: 'entry',
+                    visitorId,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    referrer: document.referrer,
+                    language: navigator.language,
+                    platform: navigator.platform,
+                    screen: { w: screen.width, h: screen.height }
+                })
+            }).catch(() => {});
+
+            // Log exit time and duration
+            function logExit() {
+                const exitTime = Date.now();
+                const duration = Math.round((exitTime - entryTime) / 1000); // seconds
+                fetch('log-visit.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        event: 'exit',
+                        visitorId,
+                        timestamp: new Date().toISOString(),
+                        duration,
+                        userAgent: navigator.userAgent,
+                        referrer: document.referrer,
+                        language: navigator.language,
+                        platform: navigator.platform,
+                        screen: { w: screen.width, h: screen.height }
+                    })
+                }).catch(() => {});
+            }
+            window.addEventListener('beforeunload', logExit);
+            window.addEventListener('pagehide', logExit);
+        })();
 
         // Service Worker (Optional)
         // Commented out to avoid 404 error if sw.js does not exist
