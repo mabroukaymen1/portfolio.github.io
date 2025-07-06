@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="IoT Smart Home Automation System project,  a Flutter-based mobile app to control smart home devices over Wi-Fi with ESP32 integration.">
-    <meta name="keywords" content="portfolio, Flutter, ESP32, Firebase, MQTT, IoT, Smart Home">
+    <meta name="description" content="Portfolio showcase of the IoT Smart Home Automation System, a Flutter-based mobile app integrated with ESP32, Firebase, and MQTT for real-time home monitoring and control.">
+    <meta name="keywords" content="IoT, Smart Home, Flutter, ESP32, Firebase, MQTT, Arduino, Portfolio">
     <meta name="author" content="Aymen Mabrouk">
-    <title>IoT Smart Home Automation System</title>
+    <title>IoT Smart Home Automation System - Portfolio</title>
     <link rel="icon" type="image/png" href="image/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400;500&display=swap">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
@@ -73,7 +73,6 @@
             animation: gradientShift 15s ease infinite;
             z-index: -1;
             opacity: 0.6;
-            will-change: background-position;
         }
 
         @keyframes gradientShift {
@@ -98,7 +97,6 @@
             height: 3px;
             background: var(--white);
             border-radius: 50%;
-            will-change: transform, opacity;
             animation: float 12s ease-in-out infinite, fade 6s ease-in-out infinite alternate;
         }
 
@@ -128,7 +126,6 @@
             cursor: pointer;
             transition: all 0.4s ease;
             border: 2px solid #334155;
-            overflow: hidden;
         }
 
         .toggle-switch.light {
@@ -136,86 +133,43 @@
             border-color: #5DADE2;
         }
 
-        .stars {
+        .stars, .clouds {
             position: absolute;
             width: 100%;
             height: 100%;
-            opacity: 1;
             transition: opacity 0.4s ease;
         }
 
-        .star {
+        .stars { opacity: 1; }
+        .toggle-switch.light .stars { opacity: 0; }
+        .clouds { opacity: 0; }
+        .toggle-switch.light .clouds { opacity: 1; }
+
+        .star, .cloud {
             position: absolute;
-            width: 2px;
-            height: 2px;
             background: #E5E7EB;
             border-radius: 50%;
         }
 
-        .star1 { top: 10px; left: 15px; }
-        .star2 { top: 15px; right: 15px; }
-        .star3 { top: 25px; left: 10px; }
-        .star4 { top: 30px; right: 20px; }
-        .star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
-        .star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
-
-        .toggle-switch.light .stars {
-            opacity: 0;
-        }
-
-        .clouds {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.4s ease 0.2s;
-        }
-
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-        }
-
-        .cloud1 {
-            width: 15px;
-            height: 6px;
-            top: 10px;
-            left: 15px;
-        }
-
-        .cloud1::before {
+        .cloud { background: rgba(255, 255, 255, 0.8); border-radius: 15px; }
+        .cloud::before {
             content: '';
             position: absolute;
-            width: 8px;
-            height: 8px;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            top: -3px;
-            left: 2px;
         }
 
-        .cloud2 {
-            width: 10px;
-            height: 4px;
-            top: 25px;
-            right: 15px;
-        }
+        .star1 { top: 10px; left: 15px; width: 2px; height: 2px; }
+        .star2 { top: 15px; right: 15px; width: 2px; height: 2px; }
+        .star3 { top: 25px; left: 10px; width: 2px; height: 2px; }
+        .star4 { top: 30px; right: 20px; width: 2px; height: 2px; }
+        .star5 { top: 20px; left: 25px; width: 2px; height: 2px; animation: twinkle 2s infinite; }
+        .star6 { top: 35px; right: 30px; width: 2px; height: 2px; animation: twinkle 3s infinite 0.5s; }
 
-        .cloud2::before {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            top: -2px;
-            left: 1px;
-        }
-
-        .toggle-switch.light .clouds {
-            opacity: 1;
-        }
+        .cloud1 { width: 15px; height: 6px; top: 10px; left: 15px; }
+        .cloud1::before { width: 8px; height: 8px; top: -3px; left: 2px; }
+        .cloud2 { width: 10px; height: 4px; top: 25px; right: 15px; }
+        .cloud2::before { width: 6px; height: 6px; top: -2px; left: 1px; }
 
         .toggle-circle {
             width: 32px;
@@ -230,55 +184,34 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
 
-        .moon-face {
+        .toggle-switch.light .toggle-circle { left: 44px; }
+
+        .moon-face, .sun-rays {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: #E5E7EB;
-            border-radius: 50%;
             transition: all 0.4s ease;
         }
 
-        .moon-crater1 {
+        .moon-face { background: #E5E7EB; border-radius: 50%; }
+        .toggle-switch.light .moon-face { background: #F59E0B; }
+
+        .moon-crater1 { width: 6px; height: 6px; top: 8px; left: 10px; }
+        .moon-crater2 { width: 4px; height: 4px; top: 18px; left: 18px; }
+        .moon-crater3 { width: 5px; height: 5px; top: 14px; left: 7px; }
+        .moon-crater1, .moon-crater2, .moon-crater3 {
             position: absolute;
-            width: 6px;
-            height: 6px;
             background: #9CA3AF;
             border-radius: 50%;
-            top: 8px;
-            left: 10px;
         }
+        .toggle-switch.light .moon-crater1,
+        .toggle-switch.light .moon-crater2,
+        .toggle-switch.light .moon-crater3 { background: #FCD34D; }
 
-        .moon-crater2 {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 18px;
-            left: 18px;
-        }
-
-        .moon-crater3 {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 14px;
-            left: 7px;
-        }
-
-        .sun-rays {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: all 0.4s ease;
-        }
+        .sun-rays { opacity: 0; }
+        .toggle-switch.light .sun-rays { opacity: 1; animation: rotate 8s linear infinite; }
 
         .sun-ray {
             position: absolute;
@@ -299,26 +232,6 @@
         .ray6 { transform: translate(-50%, -50%) rotate(225deg); }
         .ray7 { transform: translate(-50%, -50%) rotate(270deg); }
         .ray8 { transform: translate(-50%, -50%) rotate(315deg); }
-
-        .toggle-switch.light .toggle-circle {
-            left: 44px;
-            background: #F59E0B;
-        }
-
-        .toggle-switch.light .moon-face {
-            background: #F59E0B;
-        }
-
-        .toggle-switch.light .moon-crater1,
-        .toggle-switch.light .moon-crater2,
-        .toggle-switch.light .moon-crater3 {
-            background: #FCD34D;
-        }
-
-        .toggle-switch.light .sun-rays {
-            opacity: 1;
-            animation: rotate 8s linear infinite;
-        }
 
         @keyframes twinkle {
             0%, 100% { opacity: 1; transform: scale(1); }
@@ -359,13 +272,9 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-primary);
-            text-shadow: 0 1px 0px rgba(0, 0,0.2);
         }
 
         .nav-links {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: bold;
             list-style: none;
             display: flex;
             gap: 10px;
@@ -374,12 +283,11 @@
         .nav-links a {
             color: var(--text-primary);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 1rem;
             padding: 8px 15px;
             border-radius: 20px;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .nav-links a:hover,
@@ -388,26 +296,8 @@
             transform: scale(1.05);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 40%;
-        }
-
         section {
             padding: 100px 0;
-            position: relative;
         }
 
         .container {
@@ -418,12 +308,12 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 60px;
         }
 
         .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 20px;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 15px;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             background-clip: text;
@@ -432,7 +322,7 @@
         }
 
         .section-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
@@ -441,21 +331,22 @@
 
         .project-details {
             background: var(--white);
-            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .project-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 40px;
             align-items: start;
         }
 
         .project-image {
-            position: relative;
+            border-radius: 15px;
             overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .project-image img {
@@ -474,55 +365,58 @@
         }
 
         .project-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
             color: var(--text-primary);
+            font-weight: 600;
         }
 
         .project-description {
             color: var(--text-secondary);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             line-height: 1.8;
             font-family: 'Roboto', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
         .tech-tag {
             background: var(--glass-bg);
             color: var(--text-primary);
-            padding: 8px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
             border: 1px solid var(--glass-border);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease;
         }
 
         .tech-tag:hover {
             transform: translateY(-2px);
+            background: var(--accent-gradient);
+            color: var(--white);
         }
 
         .project-links {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
 
         .project-link {
-            padding: 12px 24px;
+            padding: 10px 20px;
             text-decoration: none;
-            border-radius: 40px;
+            border-radius: 30px;
             font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1rem;
+            gap: 8px;
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -553,7 +447,6 @@
         .project-link.live:hover {
             color: var(--text-primary);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .project-link.github {
@@ -563,16 +456,7 @@
         }
 
         .project-link.github:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
-        }
-
-        footer {
-            background: var(--neutral);
-            color: var(--text-primary);
-            text-align: center;
-            padding: 40px 0;
-            font-family: 'Roboto', sans-serif;
+            color: var(--white);
         }
 
         .scroll-progress {
@@ -612,8 +496,8 @@
         }
 
         .loader {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border: 3px solid rgba(255, 255, 255, 0.2);
             border-top: 3px solid var(--white);
             border-radius: 50%;
@@ -627,17 +511,64 @@
 
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
         }
 
         .slide-in-left {
             opacity: 0;
-            transform: translateX(-50px);
+            transform: translateX(-30px);
         }
 
         .slide-in-right {
             opacity: 0;
-            transform: translateX(50px);
+            transform: translateX(30px);
+        }
+
+        .demo-container {
+            background: var(--glass-bg);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .demo-canvas {
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+        }
+
+        .demo-controls {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .demo-button {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            background: var(--accent-gradient);
+        }
+
+        footer {
+            background: none;
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 20px 0 10px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
         }
 
         @media (max-width: 768px) {
@@ -646,13 +577,14 @@
                 left: 10px;
                 right: 10px;
                 transform: none;
-                padding: 10px 20px;
+                padding: 8px 15px;
             }
 
             .toggle-container {
                 top: 10px;
                 right: 10px;
             }
+
 
             .toggle-switch {
                 width: 60px;
@@ -679,140 +611,32 @@
             .star5 { top: 15px; left: 15px; }
             .star6 { top: 25px; right: 20px; }
 
-            .cloud1 {
-                width: 10px;
-                height: 4px;
-                top: 8px;
-                left: 10px;
-            }
+            .cloud1 { width: 10px; height: 4px; top: 8px; left: 10px; }
+            .cloud1::before { width: 6px; height: 6px; top: -2px; left: 1px; }
+            .cloud2 { width: 8px; height: 3px; top: 20px; right: 10px; }
+            .cloud2::before { width: 4px; height: 4px; top: -1px; left: 1px; }
 
-            .cloud1::before {
-                width: 6px;
-                height: 6px;
-                top: -2px;
-                left: 1px;
-            }
+            .moon-crater1 { width: 4px; height: 4px; top: 6px; left: 8px; }
+            .moon-crater2 { width: 3px; height: 3px; top: 14px; left: 14px; }
+            .moon-crater3 { width: 3px; height: 3px; top: 10px; left: 5px; }
 
-            .cloud2 {
-                width: 8px;
-                height: 3px;
-                top: 20px;
-                right: 10px;
-            }
+            .sun-ray { height: 4px; transform-origin: 1px 10px; }
 
-            .cloud2::before {
-                width: 4px;
-                height: 4px;
-                top: -1px;
-                left: 1px;
-            }
+            .nav-links a { font-size: 0.85rem; padding: 6px 10px; }
 
-            .moon-crater1 {
-                width: 4px;
-                height: 4px;
-                top: 6px;
-                left: 8px;
-            }
+            .project-content { grid-template-columns: 1fr; }
 
-            .moon-crater2 {
-                width: 3px;
-                height: 3px;
-                top: 14px;
-                left: 14px;
-            }
+            .project-details { padding: 20px; }
 
-            .moon-crater3 {
-                width: 3px;
-                height: 3px;
-                top: 10px;
-                left: 5px;
-            }
+            .section-title { font-size: clamp(2rem, 4vw, 2.5rem); }
 
-            .sun-ray {
-                height: 4px;
-                transform-origin: 1px 10px;
-            }
-
-            .nav-container {
-                gap: 20px;
-            }
-
-            .nav-links {
-                gap: 15px;
-            }
-
-            .nav-links a {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-
-            .project-content {
-                grid-template-columns: 1fr;
-            }
+            .demo-canvas { width: 100%; height: 300px; }
         }
 
         .keyboard-navigation a:focus,
         .keyboard-navigation button:focus {
             outline: 2px solid var(--accent);
             outline-offset: 2px;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 10px;
-            position: relative;
-            max-width: 800px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--accent);
-        }
-
-        .modal-title {
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .modal-video {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
         }
     </style>
 </head>
@@ -826,11 +650,10 @@
     </div>
 
     <div class="animated-bg"></div>
-    
     <div class="particles" id="particles"></div>
 
     <div class="toggle-container">
-        <div class="toggle-switch" id="toggleSwitch" onclick="toggleMode()">
+        <div class="toggle-switch" id="toggleSwitch" role="button" aria-label="Toggle light/dark mode">
             <div class="stars">
                 <div class="star star1"></div>
                 <div class="star star2"></div>
@@ -865,7 +688,7 @@
 
     <nav id="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <div class="logo">Smart Home</div>
+            <div class="logo">Aymen Mabrouk</div>
             <ul class="nav-links">
                 <li><a href="index.html#home" aria-label="Home section">Home</a></li>
                 <li><a href="index.html#about" aria-label="About section">About</a></li>
@@ -876,81 +699,31 @@
         </div>
     </nav>
 
-    <section id="project" class="project-details">
+    <section id="intro" class="project-details">
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">IoT Smart Home Automation System</h2>
-                <p class="section-subtitle">A comprehensive IoT solution for monitoring and controlling home environments for safety, comfort, and efficiency</p>
+                <p class="section-subtitle">A cutting-edge IoT solution integrating Flutter, ESP32, Firebase, and MQTT to deliver seamless home automation for enhanced safety, comfort, and efficiency.</p>
             </div>
             <div class="project-content">
                 <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=Smart+Home+System" alt="IoT Smart Home Automation System" loading="lazy">
+                    <img src="image/smartintro.png" alt="IoT Smart Home Automation System Interface" loading="lazy">
                 </div>
                 <div class="project-info slide-in-right">
-                    <h3 class="project-title">Project Overview</h3>
+                    <h3 class="project-title">What is the IoT Smart Home System?</h3>
                     <p class="project-description">
-                        The IoT Smart Home Automation System transforms traditional homes into smart, connected spaces using IoT technology. This system enables users to monitor environmental conditions, control devices like lights and fans, and receive alerts for potential hazards, all through a Flutter-based mobile application. It leverages ESP32 microcontrollers, Firebase for data storage, and MQTT protocol for real-time communication, ensuring a seamless and responsive user experience.
+                        This project is a comprehensive smart home automation system that allows users to monitor and control their home environment in real-time using a Flutter-based mobile app. Powered by ESP32 microcontrollers, it integrates sensors for temperature, humidity, fire detection, and energy monitoring. The system uses Firebase for cloud storage and MQTT for efficient communication, ensuring a responsive and secure user experience.
                     </p>
-
-                    <h3 class="project-title">System Goal</h3>
-                    <p class="project-description">
-                        The primary goal is to create a smart home platform that enhances safety, comfort, and energy efficiency. The system monitors environmental conditions, detects potential hazards like fires, and provides timely alerts and automated actions. It aims to improve the quality of life by enabling proactive management of home environments and optimizing energy consumption.
-                    </p>
-
-                    <h3 class="project-title">Hardware Components</h3>
-                    <p class="project-description">
-                        The system is built around the following hardware components:
-                    </p>
+                    <h3 class="project-title">Key Features</h3>
                     <ul class="project-description">
-                        <li><strong>Main Microcontroller (ESP32):</strong> Serves as the central unit for connecting and controlling all system components.</li>
-                        <li><strong>Temperature and Humidity Sensor:</strong> Measures environmental conditions to ensure optimal comfort.</li>
-                        <li><strong>Flame Sensor:</strong> Detects fire hazards for enhanced safety.</li>
-                        <li><strong>Buzzer:</strong> Emits audible alerts for critical notifications.</li>
-                        <li><strong>OLED Screen:</strong> Displays real-time sensor data for user interaction.</li>
-                        <li><strong>Cables and Power Supply:</strong> Provides connectivity and power to all components.</li>
+                        <li>Real-time monitoring of temperature, humidity, and power consumption.</li>
+                        <li>Instant fire hazard detection with alerts.</li>
+                        <li>Remote control of devices like lights and alarms.</li>
+                        <li>User-friendly Flutter app with authentication and notifications.</li>
+                        <li>Local display of sensor data via LCD.</li>
                     </ul>
-
-                    <h3 class="project-title">Software Components</h3>
-                    <p class="project-description">
-                        The software stack includes:
-                    </p>
-                    <ul class="project-description">
-                        <li><strong>ESP32 Firmware (Arduino):</strong> Controls sensors, OLED display, and communication with the mobile app.</li>
-                        <li><strong>Flutter Mobile App:</strong> Displays real-time data, handles alerts, and enables remote control of devices.</li>
-                        <li><strong>Firebase:</strong> Stores sensor data and sends notifications for real-time updates.</li>
-                    </ul>
-
-                    <h3 class="project-title">System Architecture</h3>
-                    <p class="project-description">
-                        The system integrates hardware and software through a robust architecture. The ESP32 microcontroller communicates with sensors to collect data, which is displayed on the OLED screen and transmitted to the Flutter app via Wi-Fi using MQTT protocol. Firebase handles data storage and push notifications. The provided code snippet demonstrates power consumption calculations and Wi-Fi connectivity setup for seamless operation.
-                    </p>
-
-                    <h3 class="project-title">Future Improvements</h3>
-                    <p class="project-description">
-                        Potential enhancements to the system include:
-                    </p>
-                    <ul class="project-description">
-                        <li><strong>Smart Camera:</strong> Real-time surveillance with motion detection and alerts for enhanced security.</li>
-                        <li><strong>Smart Security Lock:</strong> Remote locking/unlocking and tamper alerts for improved access control.</li>
-                        <li><strong>Voice Control:</strong> Integration with Alexa or Google Assistant for hands-free operation.</li>
-                        <li><strong>Additional Sensors:</strong> Gas detectors and air quality monitors for comprehensive safety.</li>
-                        <li><strong>AI and Automation:</strong> Implementing machine learning to adapt to user behavior, optimizing security, temperature, and lighting automatically.</li>
-                    </ul>
-
-                    <h3 class="project-title">Technologies Used</h3>
-                    <div class="project-tech">
-                        <span class="tech-tag">Flutter</span>
-                        <span class="tech-tag">ESP32</span>
-                        <span class="tech-tag">Firebase</span>
-                        <span class="tech-tag">MQTT</span>
-                        <span class="tech-tag">Arduino</span>
-                    </div>
                     <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of IoT Smart Home Automation System" onclick="openModal()">
-                            <i class="fas fa-external-link-alt"></i>
-                            View Live
-                        </a>
-                        <a href="https://github.com/mabroukaymen1/smarthome/tree/main" class="project-link github" title="View Code" aria-label="View source code of IoT Smart Home Automation System">
+                        <a href="https://github.com/mabroukaymen1/smarthome/tree/main" class="project-link github" title="View Source Code" aria-label="View source code of IoT Smart Home Automation System">
                             <i class="fab fa-github"></i>
                             View Code
                         </a>
@@ -960,171 +733,66 @@
         </div>
     </section>
 
-    <!-- Modal for Video -->
-    <div class="modal" id="videoModal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <h3 class="modal-title">IoT Smart Home Automation System Demo</h3>
-            <video class="modal-video" controls>
-                <source src="https://placehold.co/video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </div>
-
-    <!-- System Documentation Section -->
-    <section id="system-docs" class="project-details">
+    <section id="demo" class="project-details">
         <div class="container">
             <div class="section-header fade-in">
-                <h2 class="section-title">Smart Home System Documentation</h2>
-                <p class="section-subtitle">
-                    A complete IoT-based Smart Home system using ESP32, Firebase, and a Flutter mobile app. Enables real-time monitoring and control of your home environment and devices.
-                </p>
+                <h2 class="section-title">How It Works - Interactive Demo</h2>
+                <p class="section-subtitle">Explore how the smart home system operates with this interactive animation showcasing real-time sensor monitoring and device control.</p>
             </div>
-            <div class="project-content" style="display: flex; flex-direction: column; gap: 40px;">
-                <!-- System Overview and Hardware/Software -->
-                <div class="project-info" style="grid-column: 1 / -1;">
-                    <h3 class="project-title">System Overview</h3>
-                    <ul class="project-description">
-                        <li><strong>ESP32 Microcontroller:</strong> Reads sensors (temperature, humidity, flame, current), controls actuators (LED, buzzer), and communicates with Firebase Realtime Database.</li>
-                        <li><strong>Firebase:</strong> Cloud backend for real-time data storage and device control.</li>
-                        <li><strong>Flutter Mobile App:</strong> User interface for monitoring sensor data, receiving alerts, and controlling devices.</li>
-                    </ul>
+            <div class="demo-container">
+                <canvas id="smartHomeCanvas" class="demo-canvas" width="600" height="400"></canvas>
+                <div class="demo-controls">
+                    <button class="demo-button" onclick="toggleLight()">Toggle Light</button>
+                    <button class="demo-button" onclick="triggerFire()">Simulate Fire</button>
+                    <button class="demo-button" onclick="resetDemo()">Reset</button>
                 </div>
-                <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 40px;">
-                    <div class="project-info" style="flex:1; min-width: 250px;">
-                        <h3 class="project-title">Hardware Used</h3>
+            </div>
+        </div>
+    </section>
+
+    <section id="technical" class="project-details">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Technical Overview</h2>
+                <p class="section-subtitle">A detailed look at the system's architecture and implementation, highlighting the integration of hardware and software components.</p>
+            </div>
+            <div class="project-content">
+                <div class="project-info">
+                    <h3 class="project-title">System Architecture</h3>
+                    <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div class="project-image" style="flex: 1; min-width: 250px; max-width: 350px; margin: auto;">
+                            <img src="image/smartarchi.png" alt="Smart Home System Architecture Diagram" loading="lazy">
+                        </div>
+                        <div class="project-info" style="flex: 2; min-width: 250px;">
+                            <ul class="project-description">
+                                <li><strong>ESP32:</strong> Collects sensor data and controls devices over Wi-Fi.</li>
+                                <li><strong>Firebase:</strong> Stores and syncs data in real-time.</li>
+                                <li><strong>Flutter App:</strong> Provides a user-friendly interface for control and monitoring.</li>
+                                <li><strong>MQTT:</strong> Ensures low-latency communication between devices and app.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 30px;">
+                    <div class="project-info" style="flex: 1; min-width: 250px;">
+                        <h3 class="project-title">Hardware Components</h3>
                         <ul class="project-description">
-                            <li>ESP32 Dev Board</li>
-                            <li>DHT11 Sensor (Temperature & Humidity)</li>
-                            <li>Flame Sensor</li>
-                            <li>ACS712 Current Sensor</li>
-                            <li>LED (Smart Light)</li>
-                            <li>Buzzer (Alert)</li>
-                            <li>16x2 I2C LCD</li>
-                            <li>Wires, Breadboard, Power Supply</li>
+                            <li><strong>ESP32:</strong> Core microcontroller.</li>
+                            <li><strong>DHT11:</strong> Temperature and humidity sensor.</li>
+                            <li><strong>Flame Sensor:</strong> Fire detection.</li>
+                            <li><strong>ACS712:</strong> Current sensor for energy monitoring.</li>
+                            <li><strong>LED:</strong> Simulates smart lighting.</li>
+                            <li><strong>Buzzer:</strong> Audible alerts.</li>
+                            <li><strong>16x2 I2C LCD:</strong> Local data display.</li>
                         </ul>
                     </div>
-                    <div class="project-info" style="flex:1; min-width: 250px;">
+                    <div class="project-info" style="flex: 1; min-width: 250px;">
                         <h3 class="project-title">Software Components</h3>
                         <ul class="project-description">
-                            <li><strong>ESP32 Firmware (Arduino):</strong> Reads sensors, controls actuators, and communicates with Firebase.</li>
-                            <li><strong>Firebase Realtime Database:</strong> Stores sensor data and device states, acts as a bridge.</li>
-                            <li><strong>Flutter Mobile App:</strong> Displays data, sends control commands, and receives alerts.</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- How It Works -->
-                <div class="project-info" style="grid-column: 1 / -1;">
-                    <h3 class="project-title">How It Works</h3>
-                    <ol class="project-description">
-                        <li>
-                            <strong>ESP32 Firmware:</strong>
-                            <ul>
-                                <li>Connects to WiFi and Firebase.</li>
-                                <li>Reads DHT11, Flame, and ACS712 sensors.</li>
-                                <li>Calculates energy usage and sends temperature, humidity, flame status, and energy data to Firebase.</li>
-                                <li>Listens for LED control commands from Firebase and updates the LED state.</li>
-                                <li>Activates the buzzer if flame is detected.</li>
-                                <li>Displays temperature and flame status on the LCD.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>Firebase:</strong>
-                            <ul>
-                                <li>Stores real-time sensor data and device states under the <code>EnergyMonitor</code> node.</li>
-                                <li>Acts as a bridge between the ESP32 and the mobile app.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>Flutter Mobile App:</strong>
-                            <ul>
-                                <li>Connects to Firebase to display real-time sensor data (temperature, humidity, flame status, energy usage).</li>
-                                <li>Sends commands to control devices (e.g., turn LED on/off).</li>
-                                <li>Notifies the user instantly if flame is detected (push notification).</li>
-                                <li>Provides onboarding, registration, and login screens.</li>
-                                <li>Shows energy consumption and cost estimation.</li>
-                            </ul>
-                        </li>
-                    </ol>
-                </div>
-                <!-- Architecture Diagram and Explanation -->
-                <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
-                    <div class="project-image" style="flex:1; min-width: 250px; max-width:400px; margin:auto;">
-                        <img src="https://placehold.co/600x300?text=Smart+Home+System+Architecture" alt="Smart Home System Architecture Diagram" loading="lazy">
-                    </div>
-                    <div class="project-info" style="flex:2; min-width: 250px;">
-                        <h3 class="project-title">System Architecture</h3>
-                        <ul class="project-description">
-                            <li><strong>ESP32</strong> reads sensors and sends data to <strong>Firebase</strong>.</li>
-                            <li><strong>Flutter App</strong> reads data from <strong>Firebase</strong> and sends control commands (e.g., LED on/off).</li>
-                            <li><strong>Firebase</strong> acts as a real-time bridge between hardware and app.</li>
-                            <li>All device states and sensor readings are synchronized instantly.</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Code Structure, Getting Started, Features, Notes -->
-                <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 40px;">
-                    <div class="project-info" style="flex:1; min-width: 250px;">
-                        <h3 class="project-title">Code Structure</h3>
-                        <ul class="project-description">
-                            <li><code>smarthomeESP32/smarthome/smarthome.ino</code>: ESP32 firmware (Arduino code).</li>
-                            <li><code>lib/main.dart</code>: Flutter app entry point.</li>
-                            <li><code>lib/home/</code>: Flutter home screen, Firebase integration, notification logic, and theme/colors.</li>
-                            <li><code>lib/login/</code>, <code>lib/signin/</code>: User authentication (login, registration, success screen).</li>
-                            <li><code>lib/welcome/</code>: Onboarding and splash screens.</li>
-                        </ul>
-                    </div>
-                    <div class="project-info" style="flex:2; min-width: 250px;">
-                        <h3 class="project-title">Getting Started</h3>
-                        <ol class="project-description">
-                            <li>
-                                <strong>Hardware Setup:</strong>
-                                <ul>
-                                    <li>Connect DHT11 to ESP32 (e.g., data pin to GPIO 5).</li>
-                                    <li>Connect Flame sensor to GPIO 4.</li>
-                                    <li>Connect ACS712 to analog input (A0).</li>
-                                    <li>Connect LED to GPIO 2 and Buzzer to GPIO 14.</li>
-                                    <li>Connect LCD via I2C (address 0x27).</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <strong>Firmware:</strong>
-                                <ul>
-                                    <li>Open <code>smarthome.ino</code> in Arduino IDE.</li>
-                                    <li>Install libraries: <code>Firebase_ESP_Client</code>, <code>DHT</code>, <code>LiquidCrystal_I2C</code>, etc.</li>
-                                    <li>Update WiFi credentials and Firebase API keys.</li>
-                                    <li>Upload to ESP32.</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <strong>Flutter App:</strong>
-                                <ul>
-                                    <li>Install Flutter and dependencies.</li>
-                                    <li>Configure Firebase for your app (Android/iOS/Web).</li>
-                                    <li>Run <code>flutter pub get</code>.</li>
-                                    <li>Launch the app on your device/emulator.</li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 40px;">
-                    <div class="project-info" style="flex:1; min-width: 250px;">
-                        <h3 class="project-title">Features</h3>
-                        <ul class="project-description">
-                            <li>Real-time temperature, humidity, flame, and energy monitoring.</li>
-                            <li>Remote device control (LED, etc.).</li>
-                            <li>Instant notifications for flame detection.</li>
-                            <li>User authentication (register/login).</li>
-                            <li>Modern, responsive UI with onboarding.</li>
-                        </ul>
-                    </div>
-                    <div class="project-info" style="flex:1; min-width: 250px;">
-                        <h3 class="project-title">Notes</h3>
-                        <ul class="project-description">
-                            <li>Energy cost is calculated using a fixed rate (Tunisia, 2024: ~0.135 DT/kWh).</li>
-                            <li>You can expand the system by adding more sensors/actuators and updating the code accordingly.</li>
+                            <li><strong>ESP32 Firmware:</strong> Manages hardware and Firebase integration.</li>
+                            <li><strong>Firebase:</strong> Real-time data storage.</li>
+                            <li><strong>Flutter App:</strong> Cross-platform user interface.</li>
+                            <li><strong>MQTT Client:</strong> Efficient device communication.</li>
                         </ul>
                     </div>
                 </div>
@@ -1134,11 +802,28 @@
 
     <footer>
         <div class="container">
-            <p>© 2025 Smart Home Project. All rights reserved. Built with modern web technologies.</p>
+            <p>© 2025 Aymen Mabrouk. All rights reserved. Built with modern web technologies.</p>
         </div>
     </footer>
 
     <script>
+        // Theme Module
+        const theme = {
+            init() {
+                const savedMode = localStorage.getItem('darkMode');
+                if (savedMode === 'true') {
+                    document.body.classList.add('dark');
+                    document.getElementById('toggleSwitch').classList.add('light');
+                }
+                document.getElementById('toggleSwitch').addEventListener('click', () => {
+                    document.getElementById('toggleSwitch').classList.toggle('light');
+                    document.body.classList.toggle('dark');
+                    localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+                });
+            }
+        };
+
+        // Animation Module
         const animations = {
             init() {
                 gsap.registerPlugin(ScrollTrigger);
@@ -1152,9 +837,7 @@
                     gsap.to('#loadingOverlay', {
                         opacity: 0,
                         duration: 0.5,
-                        onComplete: () => {
-                            document.getElementById('loadingOverlay').classList.add('hidden');
-                        }
+                        onComplete: () => document.getElementById('loadingOverlay').classList.add('hidden')
                     });
                 });
             },
@@ -1172,161 +855,584 @@
                 }
             },
             setupScrollAnimations() {
-                gsap.utils.toArray('.fade-in').forEach((element, i) => {
-                    gsap.fromTo(element, 
-                        { opacity: 0, y: 30 },
-                        {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.8,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 90%',
-                                toggleActions: 'play none none none',
-                                once: true
-                            },
-                            delay: i * 0.1
-                        }
-                    );
+                gsap.utils.toArray('.fade-in').forEach((el, i) => {
+                    gsap.fromTo(el, { opacity: 0, y: 20 }, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none', once: true },
+                        delay: i * 0.1
+                    });
                 });
-
-                gsap.utils.toArray('.slide-in-left').forEach((element, i) => {
-                    gsap.fromTo(element, 
-                        { opacity: 0, x: -50 },
-                        {
-                            opacity: 1,
-                            x: 0,
-                            duration: 0.8,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 90%',
-                                toggleActions: 'play none none none',
-                                once: true
-                            },
-                            delay: i * 0.1
-                        }
-                    );
+                gsap.utils.toArray('.slide-in-left').forEach((el, i) => {
+                    gsap.fromTo(el, { opacity: 0, x: -30 }, {
+                        opacity: 1,
+                        x: 0,
+                        duration: 0.8,
+                        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none', once: true },
+                        delay: i * 0.1
+                    });
                 });
-
-                gsap.utils.toArray('.slide-in-right').forEach((element, i) => {
-                    gsap.fromTo(element, 
-                        { opacity: 0, x: 50 },
-                        {
-                            opacity: 1,
-                            x: 0,
-                            duration: 0.8,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 90%',
-                                toggleActions: 'play none none none',
-                                once: true
-                            },
-                            delay: i * 0.1
-                        }
-                    );
+                gsap.utils.toArray('.slide-in-right').forEach((el, i) => {
+                    gsap.fromTo(el, { opacity: 0, x: 30 }, {
+                        opacity: 1,
+                        x: 0,
+                        duration: 0.8,
+                        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none', once: true },
+                        delay: i * 0.1
+                    });
                 });
             },
             setupScrollProgress() {
                 window.addEventListener('scroll', () => {
                     const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
                     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                    const scrolled = (winScroll / height) * 100;
-                    document.querySelector('.scroll-progress-bar').style.width = scrolled + '%';
+                    document.querySelector('.scroll-progress-bar').style.width = (winScroll / height) * 100 + '%';
                 });
             }
         };
 
+        // Navigation Module
         const navigation = {
             init() {
-                this.setupSmoothScroll();
-            },
-            setupSmoothScroll() {
                 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function(e) {
+                    anchor.addEventListener('click', (e) => {
                         e.preventDefault();
-                        const target = document.querySelector(this.getAttribute('href'));
+                        const targetId = anchor.getAttribute('href');
+                        const target = document.querySelector(targetId);
                         if (target) {
-                            const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
-                            window.scrollTo({ top: y, behavior: 'smooth' });
+                            window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+                            anchor.classList.add('active');
+                        }
+                    });
+                });
+
+                window.addEventListener('scroll', () => {
+                    const sections = document.querySelectorAll('section');
+                    const navLinks = document.querySelectorAll('.nav-links a');
+                    let current = '';
+                    sections.forEach(section => {
+                        if (window.pageYOffset >= section.offsetTop - 100) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${current}`) {
+                            link.classList.add('active');
                         }
                     });
                 });
             }
         };
 
-        const theme = {
-            init() {
-                const savedMode = localStorage.getItem('darkMode');
-                if (savedMode === 'true') {
-                    document.body.classList.add('dark');
-                    document.getElementById('toggleSwitch').classList.add('light');
-                }
-            }
-        };
+/**
+ * @class SmartHomeDemo
+ * @description An enhanced, object-oriented module for a dynamic and interactive smart home simulation.
+ * It features a day/night cycle, realistic sensor feedback, and smooth, time-based animations.
+ *
+ * Designed for a professional portfolio demonstration.
+ */
+class SmartHomeDemo {
+    // --- Core Properties ---
+    canvas = null;
+    ctx = null;
+    animationFrameId = null;
+    lastTime = 0;
+    time = 0;
 
-        function toggleMode() {
-            const toggleSwitch = document.getElementById('toggleSwitch');
-            const body = document.body;
-            
-            toggleSwitch.classList.toggle('light');
-            body.classList.toggle('dark');
-            
-            const isDark = body.classList.contains('dark');
-            localStorage.setItem('darkMode', isDark);
+    // --- State Properties ---
+    lightOn = false;
+    fireDetected = false;
+    temperature = 22.0;
+    humidity = 45.0;
+    powerConsumption = 0.5;
+
+    // --- Animation & Effects Properties ---
+    particles = [];
+    notifications = [];
+    historyLength = 100; // Increased for smoother graphs
+    temperatureHistory = [];
+    humidityHistory = [];
+
+    // --- Dynamic Values ---
+    lightIntensity = 0; // For smooth on/off transition
+    fireIntensity = 0;  // For smooth fire growth
+
+    constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        if (!this.canvas) {
+            console.error('SmartHomeDemo Error: Canvas element not found.');
+            return;
+        }
+        this.ctx = this.canvas.getContext('2d');
+
+        // Initialize with default values
+        this.resetState(false); // Do a silent reset without notification
+        
+        this.setupEventListeners();
+        this.resizeCanvas();
+        this.start();
+    }
+
+    // --- Initialization and Control ---
+
+    setupEventListeners() {
+        window.addEventListener('resize', () => this.resizeCanvas());
+    }
+
+    resizeCanvas() {
+        const container = this.canvas.parentElement;
+        const size = Math.min(container.clientWidth, 800);
+        this.canvas.width = size;
+        this.canvas.height = size * 0.65; // A more modern, widescreen aspect ratio
+    }
+    
+    start() {
+        if (!this.animationFrameId) {
+            this.lastTime = performance.now();
+            this.animationFrameId = requestAnimationFrame((timestamp) => this.animate(timestamp));
+        }
+    }
+
+    stop() {
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+        }
+    }
+
+    // --- Main Animation Loop ---
+
+    animate(currentTime) {
+        // Calculate time delta for smooth, frame-rate independent animations
+        const deltaTime = (currentTime - this.lastTime) / 1000; // time in seconds
+        this.lastTime = currentTime;
+        this.time += deltaTime;
+
+        this.update(deltaTime); // Update all logic
+        this.draw();             // Render everything
+
+        this.animationFrameId = requestAnimationFrame((timestamp) => this.animate(timestamp));
+    }
+
+    // --- Update Logic (The "Brain") ---
+
+    update(deltaTime) {
+        // --- Sensor Simulation ---
+        // Temperature: Rises with fire, otherwise fluctuates gently
+        if (this.fireDetected) {
+            this.temperature = Math.min(45, this.temperature + 5 * deltaTime);
+        } else {
+            this.temperature += (22 + Math.sin(this.time * 0.1) * 2 - this.temperature) * 0.1 * deltaTime;
         }
 
-        function openModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
+        // Humidity: Drops with fire (heat), otherwise fluctuates
+        if (this.fireDetected) {
+            this.humidity = Math.max(20, this.humidity - 8 * deltaTime);
+        } else {
+            this.humidity += (45 + Math.cos(this.time * 0.08) * 5 - this.humidity) * 0.1 * deltaTime;
+        }
+        
+        // Power Consumption: Base + light + alarm + fluctuation
+        let basePower = 0.5;
+        if (this.lightOn) basePower += 0.7;
+        if (this.fireDetected) basePower += 1.5; // Alarm system consumes more power
+        this.powerConsumption = basePower + Math.sin(this.time * 2) * 0.1;
+        
+        // --- Animation State Updates ---
+        const transitionSpeed = 4 * deltaTime;
+        this.lightIntensity = Math.max(0, Math.min(1, this.lightIntensity + (this.lightOn ? transitionSpeed : -transitionSpeed)));
+        this.fireIntensity = Math.max(0, Math.min(1, this.fireIntensity + (this.fireDetected ? transitionSpeed / 2 : -transitionSpeed)));
+
+        // Update fire particles if fire is active
+        if (this.fireDetected || this.particles.length > 0) {
+            this.updateFireParticles(deltaTime);
         }
 
-        function closeModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-            const video = modal.querySelector('video');
-            video.pause();
-            video.currentTime = 0;
+        // --- History & Notification Updates ---
+        this.updateHistory();
+        this.updateNotifications(deltaTime);
+    }
+    
+    updateHistory() {
+        // Add new data points only at intervals to avoid flooding the array
+        if (Math.floor(this.time * 5) > Math.floor((this.time - 0.1) * 5)) {
+            this.temperatureHistory.push(this.temperature);
+            this.humidityHistory.push(this.humidity);
+
+            if (this.temperatureHistory.length > this.historyLength) {
+                this.temperatureHistory.shift();
+                this.humidityHistory.shift();
+            }
         }
+    }
 
-        const accessibility = {
-            init() {
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Tab') {
-                        document.body.classList.add('keyboard-navigation');
-                    }
+    updateFireParticles(deltaTime) {
+        // Add new particles based on fire intensity
+        if (this.fireDetected && this.fireIntensity > 0.1 && Math.random() < this.fireIntensity) {
+             for (let i = 0; i < 2; i++) {
+                this.particles.push({
+                    x: this.canvas.width * 0.7 + (Math.random() - 0.5) * 15,
+                    y: this.canvas.height * 0.38,
+                    vx: (Math.random() - 0.5) * 20,
+                    vy: -Math.random() * 40 - 20,
+                    size: Math.random() * 4 + 2,
+                    life: 1,
+                    decay: Math.random() * 0.5 + 1.5,
+                    color: Math.random() > 0.3 ? 'rgba(255, 100, 0, 0.8)' : 'rgba(255, 165, 0, 0.8)'
                 });
+             }
+        }
+        
+        // Update and filter out dead particles
+        this.particles = this.particles.filter(p => p.life > 0);
+        this.particles.forEach(p => {
+            p.x += p.vx * deltaTime;
+            p.y += p.vy * deltaTime;
+            p.vy += 40 * deltaTime; // Gravity
+            p.life -= p.decay * deltaTime;
+            p.size *= (1 - 0.5 * deltaTime);
+        });
+    }
 
-                document.addEventListener('mousedown', () => {
-                    document.body.classList.remove('keyboard-navigation');
-                });
+    updateNotifications(deltaTime) {
+        this.notifications.forEach(n => n.life -= deltaTime);
+        this.notifications = this.notifications.filter(n => n.life > 0);
+    }
 
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        closeModal();
-                    }
-                });
+    // --- Drawing Methods (The "Canvas") ---
+
+    draw() {
+        const { ctx, canvas } = this;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        this.drawBackground();
+        this.drawHouse();
+        this.drawLight();
+        this.drawFireSensorAndEffect();
+        this.drawDashboard();
+        this.drawNotifications();
+    }
+    
+    drawBackground() {
+        const { ctx, canvas } = this;
+        // Day/Night Cycle
+        const cycle = (Math.sin(this.time * 0.05) + 1) / 2; // 0 = night, 1 = day
+        const dayColor = { r: 135, g: 206, b: 235 }; // Sky Blue
+        const nightColor = { r: 10, g: 20, b: 40 }; // Dark Blue
+        
+        const r = dayColor.r * cycle + nightColor.r * (1 - cycle);
+        const g = dayColor.g * cycle + nightColor.g * (1 - cycle);
+        const b = dayColor.b * cycle + nightColor.b * (1 - cycle);
+
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, `rgb(${r},${g},${b})`);
+        gradient.addColorStop(1, `rgb(${r + 40},${g + 40},${b + 50})`);
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Sun/Moon
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height * 0.7);
+        ctx.rotate(-this.time * 0.05);
+        ctx.fillStyle = cycle > 0.2 ? 'rgba(255, 255, 0, 0.8)' : 'rgba(240, 240, 240, 0.9)'; // Sun or Moon
+        ctx.beginPath();
+        ctx.arc(0, -canvas.height * 0.5, canvas.width * 0.05, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
+
+    drawHouse() {
+        const { ctx, canvas } = this;
+        const w = canvas.width;
+        const h = canvas.height;
+
+        // Base
+        ctx.fillStyle = '#E0E0E0';
+        ctx.fillRect(w * 0.15, h * 0.4, w * 0.7, h * 0.45);
+
+        // Roof
+        ctx.fillStyle = '#8B4513';
+        ctx.beginPath();
+        ctx.moveTo(w * 0.1, h * 0.4);
+        ctx.lineTo(w * 0.5, h * 0.15);
+        ctx.lineTo(w * 0.9, h * 0.4);
+        ctx.closePath();
+        ctx.fill();
+
+        // Chimney & smoke
+        ctx.fillStyle = '#A0522D';
+        ctx.fillRect(w * 0.65, h*0.22, w*0.06, h*0.1);
+        this.drawSmoke(w*0.68, h*0.22);
+        
+        // Door
+        ctx.fillStyle = '#654321';
+        ctx.fillRect(w * 0.45, h * 0.6, w * 0.1, h * 0.25);
+        ctx.fillStyle = '#FFD700';
+        ctx.beginPath();
+        ctx.arc(w * 0.53, h * 0.72, w * 0.007, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Windows
+        ctx.fillStyle = this.lightIntensity > 0 ? `rgba(255, 255, 224, ${0.5 + this.lightIntensity * 0.5})` : '#87CEEB';
+        ctx.fillRect(w * 0.2, h * 0.5, w * 0.18, h * 0.15);
+        ctx.fillRect(w * 0.62, h * 0.5, w * 0.18, h * 0.15);
+        
+        // Window frames
+        ctx.strokeStyle = '#654321';
+        ctx.lineWidth = Math.max(1, w * 0.005);
+        ctx.strokeRect(w * 0.2, h * 0.5, w * 0.18, h * 0.15);
+        ctx.strokeRect(w * 0.62, h * 0.5, w * 0.18, h * 0.15);
+    }
+    
+    drawSmoke(x, y) {
+        const { ctx } = this;
+        const smokeTime = this.time * 2;
+        ctx.fillStyle = 'rgba(200, 200, 200, 0.4)';
+        for (let i=0; i < 5; i++) {
+            const radius = Math.sin((smokeTime + i * 0.8) % Math.PI) * 10;
+            if (radius > 0) {
+                 ctx.beginPath();
+                 ctx.arc(x, y - (smokeTime + i*2) % 30, radius, 0, Math.PI*2);
+                 ctx.fill();
             }
+        }
+    }
+    
+    drawLight() {
+        const { ctx, canvas } = this;
+        if (this.lightIntensity <= 0) return;
+
+        const flicker = 1 + Math.sin(this.time * 30) * 0.03;
+        const glowRadius = canvas.width * 0.2 * this.lightIntensity * flicker;
+        
+        const gradient = ctx.createRadialGradient(
+            canvas.width * 0.3, canvas.height * 0.58, 0,
+            canvas.width * 0.3, canvas.height * 0.58, glowRadius
+        );
+        gradient.addColorStop(0, `rgba(255, 255, 200, ${0.6 * this.lightIntensity})`);
+        gradient.addColorStop(0.5, `rgba(255, 255, 200, ${0.2 * this.lightIntensity})`);
+        gradient.addColorStop(1, 'rgba(255, 255, 200, 0)');
+        
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height); // Apply glow over the whole scene for effect
+    }
+
+    drawFireSensorAndEffect() {
+        const { ctx, canvas } = this;
+        const sensorX = canvas.width * 0.7;
+        const sensorY = canvas.height * 0.38;
+        const sensorRadius = canvas.width * 0.015;
+
+        // Sensor
+        ctx.fillStyle = this.fireDetected ? '#FF4500' : '#4682B4';
+        ctx.beginPath();
+        ctx.arc(sensorX, sensorY, sensorRadius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#2F4F4F';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Fire particles
+        this.particles.forEach(p => {
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = Math.max(0, p.life);
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, Math.max(0, p.size), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+        });
+
+        // Fire Glow
+        if (this.fireIntensity > 0) {
+            const glowRadius = canvas.width * 0.15 * this.fireIntensity;
+            const gradient = ctx.createRadialGradient(sensorX, sensorY, 0, sensorX, sensorY, glowRadius);
+            gradient.addColorStop(0, `rgba(255, 69, 0, ${0.6 * this.fireIntensity})`);
+            gradient.addColorStop(1, `rgba(255, 140, 0, 0)`);
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(sensorX, sensorY, glowRadius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+    
+    drawDashboard() {
+        // Draw panels for each data point
+        this.drawDataPanel(0.05, `Temperature: ${this.temperature.toFixed(1)}°C`, this.temperature > 35 ? '#FF4500' : '#4682B4', this.temperatureHistory, 15, 50);
+        this.drawDataPanel(0.365, `Humidity: ${this.humidity.toFixed(1)}%`, '#4682B4', this.humidityHistory, 20, 80);
+        this.drawDataPanel(0.68, `Power: ${this.powerConsumption.toFixed(2)} kW`, this.powerConsumption > 2 ? '#FF4500' : '#32CD32');
+    }
+
+    drawDataPanel(xPos, text, color, historyData, minY = 0, maxY = 1) {
+        const { ctx, canvas } = this;
+        const w = canvas.width;
+        const h = canvas.height;
+        const panelWidth = w * 0.27;
+        const panelHeight = h * 0.12;
+        const panelX = w * xPos;
+        const panelY = h * 0.02;
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.strokeStyle = '#999';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(panelX, panelY, panelWidth, panelHeight, 10);
+        ctx.fill();
+        ctx.stroke();
+        
+        ctx.fillStyle = color;
+        ctx.font = `bold ${w * 0.02}px Arial`;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, panelX + w * 0.015, panelY + panelHeight * 0.3);
+
+        if (historyData) {
+            this.drawGraph(historyData, panelX + w*0.015, panelY + panelHeight * 0.55, panelWidth - w*0.03, panelHeight * 0.4, color, minY, maxY);
+        }
+    }
+    
+    drawGraph(data, x, y, width, height, color, minY, maxY) {
+        if(data.length < 2) return;
+        
+        const { ctx } = this;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+
+        const getPoint = (i) => {
+            const val = Math.max(minY, Math.min(maxY, data[i]));
+            return {
+                x: x + (i / (this.historyLength - 1)) * width,
+                y: y + height - ((val - minY) / (maxY - minY)) * height,
+            };
         };
 
-        const performance = {
-            init() {
-                if ('performance' in window) {
-                    window.addEventListener('load', () => {
-                        const perfData = performance.getEntriesByType('navigation')[0];
-                        console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-                    });
-                }
-            }
-        };
+        let p1 = getPoint(0);
+        ctx.moveTo(p1.x, p1.y);
 
+        for (let i = 1; i < data.length; i++) {
+            const p2 = getPoint(i);
+            const midPoint = {
+                x: (p1.x + p2.x) / 2,
+                y: (p1.y + p2.y) / 2
+            };
+            // Use quadratic curve for a smoother line
+            ctx.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
+            p1 = p2;
+        }
+        ctx.lineTo(p1.x, p1.y);
+        ctx.stroke();
+    }
+    
+    drawNotifications() {
+        const { ctx, canvas } = this;
+        ctx.textAlign = 'center';
+        ctx.font = `bold ${canvas.width * 0.02}px Arial`;
+        
+        this.notifications.forEach((n, i) => {
+            const y = canvas.height - 30 - i * 40;
+            const alpha = n.life < 0.5 ? n.life * 2 : 1; // Fade out
+            ctx.fillStyle = `rgba(0, 0, 0, ${0.7 * alpha})`;
+            ctx.fillText(n.message, canvas.width / 2, y);
+        });
+    }
+
+    // --- Public Control Methods ---
+    
+    toggleLight() {
+        this.lightOn = !this.lightOn;
+        this.addNotification(`Light turned ${this.lightOn ? 'ON' : 'OFF'}`);
+    }
+
+    toggleFire() {
+        this.fireDetected = !this.fireDetected;
+        this.addNotification(`ALERT: Fire ${this.fireDetected ? 'Detected' : 'Cleared'}`);
+        if (!this.fireDetected) {
+            // Let the fire and smoke fade out naturally instead of clearing instantly
+        }
+    }
+
+    reset() {
+        this.resetState(true);
+    }
+
+    // --- Internal Helpers ---
+
+    resetState(notify = true) {
+        this.lightOn = false;
+        this.fireDetected = false;
+        this.temperature = 22.0;
+        this.humidity = 45.0;
+        this.particles = [];
+        this.temperatureHistory = Array(this.historyLength).fill(22.0);
+        this.humidityHistory = Array(this.historyLength).fill(45.0);
+
+        if(notify) this.addNotification('System Reset');
+    }
+
+    addNotification(message) {
+        console.log(`[Smart Home] ${message}`);
+        this.notifications.unshift({ message, life: 4.0 }); // Add to front, 4s lifespan
+        if (this.notifications.length > 3) this.notifications.pop(); // Max 3 notifications
+    }
+}
+
+// --- Accessibility and Global Controls ---
+class Accessibility {
+    constructor(demoInstance) {
+        this.demo = demoInstance;
+        this.init();
+    }
+
+    init() {
+        document.addEventListener('keydown', (e) => {
+            // Add focus outline for keyboard navigation
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+            // Add keyboard shortcuts for core functions
+            if (document.activeElement.tagName.toLowerCase() !== 'button') {
+                if (e.key === 'l' || e.key === 'L') { this.demo.toggleLight(); }
+                if (e.key === 'f' || e.key === 'F') { this.demo.toggleFire(); }
+                if (e.key === 'r' || e.key === 'R') { this.demo.reset(); }
+            }
+        });
+        
+        // Remove focus outline when using a mouse
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
+        });
+        
+        const canvas = document.getElementById('smartHomeCanvas');
+        if (canvas) {
+            canvas.setAttribute('aria-label', 'Interactive smart home animation showing a house with status indicators for temperature, humidity, power, light status, and fire alerts.');
+            canvas.setAttribute('role', 'img');
+        }
+    }
+}
+
+// --- DOM Initialization ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Instantiate the demo and accessibility modules
+    const smartHomeDemo = new SmartHomeDemo('smartHomeCanvas');
+    new Accessibility(smartHomeDemo);
+
+    // Make control functions globally available to link with HTML buttons
+    window.toggleLight = () => smartHomeDemo.toggleLight();
+    window.triggerFire = () => smartHomeDemo.toggleFire();
+    window.resetDemo = () => smartHomeDemo.reset();
+});
+        // Initialize Modules
         document.addEventListener('DOMContentLoaded', () => {
+            theme.init();
             animations.init();
             navigation.init();
-            theme.init();
             accessibility.init();
-            performance.init();
+            smartHomeDemo.init();
         });
     </script>
 </body>

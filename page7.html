@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bluetooth-Controlled Line Follower Robot by Aymen Mabrouk,  an Arduino-based robot car with autonomous and manual Bluetooth control.">
+    <meta name="description" content="Bluetooth-Controlled Line Follower Robot by Aymen Mabrouk, an Arduino-based robot car with autonomous and manual Bluetooth control.">
     <meta name="keywords" content="portfolio, Arduino, C, Bluetooth, Line Follower, Robot, Embedded, Aymen Mabrouk">
     <meta name="author" content="Aymen Mabrouk">
     <title>Bluetooth-Controlled Line Follower Robot - Aymen Mabrouk</title>
@@ -13,6 +13,7 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
+        /* Root Variables */
         :root {
             --primary: #3B82F6;
             --secondary: #10B981;
@@ -46,6 +47,7 @@
             --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
         }
 
+        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -62,6 +64,7 @@
             transition: background 0.3s ease, color 0.3s ease;
         }
 
+        /* Animated Background */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -73,7 +76,6 @@
             animation: gradientShift 15s ease infinite;
             z-index: -1;
             opacity: 0.6;
-            will-change: background-position;
         }
 
         @keyframes gradientShift {
@@ -82,6 +84,7 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* Particles */
         .particles {
             position: fixed;
             top: 0;
@@ -98,7 +101,6 @@
             height: 3px;
             background: var(--white);
             border-radius: 50%;
-            will-change: transform, opacity;
             animation: float 12s ease-in-out infinite, fade 6s ease-in-out infinite alternate;
         }
 
@@ -112,6 +114,7 @@
             100% { opacity: 0.1; }
         }
 
+        /* Theme Toggle */
         .toggle-container {
             position: fixed;
             top: 20px;
@@ -158,10 +161,6 @@
         .star4 { top: 30px; right: 20px; }
         .star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
         .star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
-
-        .toggle-switch.light .stars {
-            opacity: 0;
-        }
 
         .clouds {
             position: absolute;
@@ -213,9 +212,8 @@
             left: 1px;
         }
 
-        .toggle-switch.light .clouds {
-            opacity: 1;
-        }
+        .toggle-switch.light .stars { opacity: 0; }
+        .toggle-switch.light .clouds { opacity: 1; }
 
         .toggle-circle {
             width: 32px;
@@ -242,35 +240,15 @@
             transition: all 0.4s ease;
         }
 
-        .moon-crater1 {
+        .moon-crater1, .moon-crater2, .moon-crater3 {
             position: absolute;
-            width: 6px;
-            height: 6px;
             background: #9CA3AF;
             border-radius: 50%;
-            top: 8px;
-            left: 10px;
         }
 
-        .moon-crater2 {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 18px;
-            left: 18px;
-        }
-
-        .moon-crater3 {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 14px;
-            left: 7px;
-        }
+        .moon-crater1 { width: 6px; height: 6px; top: 8px; left: 10px; }
+        .moon-crater2 { width: 4px; height: 4px; top: 18px; left: 18px; }
+        .moon-crater3 { width: 5px; height: 5px; top: 14px; left: 7px; }
 
         .sun-rays {
             position: absolute;
@@ -300,25 +278,12 @@
         .ray7 { transform: translate(-50%, -50%) rotate(270deg); }
         .ray8 { transform: translate(-50%, -50%) rotate(315deg); }
 
-        .toggle-switch.light .toggle-circle {
-            left: 44px;
-            background: #F59E0B;
-        }
-
-        .toggle-switch.light .moon-face {
-            background: #F59E0B;
-        }
-
-        .toggle-switch.light .moon-crater1,
-        .toggle-switch.light .moon-crater2,
-        .toggle-switch.light .moon-crater3 {
-            background: #FCD34D;
-        }
-
-        .toggle-switch.light .sun-rays {
-            opacity: 1;
-            animation: rotate 8s linear infinite;
-        }
+        .toggle-switch.light .toggle-circle { left: 44px; background: #F59E0B; }
+        .toggle-switch.light .moon-face { background: #F59E0B; }
+        .toggle-switch.light .moon-crater1, 
+        .toggle-switch.light .moon-crater2, 
+        .toggle-switch.light .moon-crater3 { background: #FCD34D; }
+        .toggle-switch.light .sun-rays { opacity: 1; animation: rotate 8s linear infinite; }
 
         @keyframes twinkle {
             0%, 100% { opacity: 1; transform: scale(1); }
@@ -330,6 +295,7 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Navigation */
         nav {
             position: fixed;
             top: 20px;
@@ -359,13 +325,9 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-primary);
-            text-shadow: 0 1px 0px rgba(0, 0,0.2);
         }
 
         .nav-links {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: bold;
             list-style: none;
             display: flex;
             gap: 10px;
@@ -405,6 +367,7 @@
             width: 40%;
         }
 
+        /* Sections */
         section {
             padding: 100px 0;
             position: relative;
@@ -439,6 +402,7 @@
             font-family: 'Roboto', sans-serif;
         }
 
+        /* Project Styles */
         .project-details {
             background: var(--white);
             backdrop-filter: blur(15px);
@@ -567,6 +531,48 @@
             transform: translateY(-3px);
         }
 
+        /* Demo Animation */
+        .demo-container {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .demo-canvas {
+            border: 2px solid var(--glass-border);
+            border-radius: 10px;
+            background: var(--glass-bg);
+            max-width: 100%;
+            height: 400px;
+        }
+
+        .demo-controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .demo-button {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .demo-button.active {
+            background: var(--secondary);
+        }
+
+        /* Table Styles */
         .table-container {
             margin-top: 40px;
             overflow-x: auto;
@@ -601,14 +607,17 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        footer {
-            background: var(--neutral);
-            color: var(--text-primary);
+        /* Footer */
+            footer {
+            background: none;
+            color: var(--text-secondary);
             text-align: center;
-            padding: 40px 0;
-            font-family: 'Roboto', sans-serif;
-        }
+            padding: 20px 0 10px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+           }
 
+        /* Scroll Progress */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -626,6 +635,7 @@
             transition: width 0.2s ease;
         }
 
+        /* Loading Overlay */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -659,6 +669,7 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Animations */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -674,6 +685,7 @@
             transform: translateX(50px);
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
             nav {
                 top: 10px;
@@ -741,38 +753,13 @@
                 left: 1px;
             }
 
-            .moon-crater1 {
-                width: 4px;
-                height: 4px;
-                top: 6px;
-                left: 8px;
-            }
-
-            .moon-crater2 {
-                width: 3px;
-                height: 3px;
-                top: 14px;
-                left: 14px;
-            }
-
-            .moon-crater3 {
-                width: 3px;
-                height: 3px;
-                top: 10px;
-                left: 5px;
-            }
+            .moon-crater1 { width: 4px; height: 4px; top: 6px; left: 8px; }
+            .moon-crater2 { width: 3px; height: 3px; top: 14px; left: 14px; }
+            .moon-crater3 { width: 3px; height: 3px; top: 10px; left: 5px; }
 
             .sun-ray {
                 height: 4px;
                 transform-origin: 1px 10px;
-            }
-
-            .nav-container {
-                gap: 20px;
-            }
-
-            .nav-links {
-                gap: 15px;
             }
 
             .nav-links a {
@@ -783,74 +770,17 @@
             .project-content {
                 grid-template-columns: 1fr;
             }
+
+            .demo-canvas {
+                height: 300px;
+            }
         }
 
+        /* Accessibility */
         .keyboard-navigation a:focus,
         .keyboard-navigation button:focus {
             outline: 2px solid var(--accent);
             outline-offset: 2px;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: var(--white);
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 800px;
-            width: 90%;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--accent);
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .modal-video {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
         }
     </style>
 </head>
@@ -868,7 +798,7 @@
     <div class="particles" id="particles"></div>
 
     <div class="toggle-container">
-        <div class="toggle-switch" id="toggleSwitch" onclick="toggleMode()">
+        <div class="toggle-switch" id="toggleSwitch" onclick="theme.toggleMode()">
             <div class="stars">
                 <div class="star star1"></div>
                 <div class="star star2"></div>
@@ -914,48 +844,22 @@
         </div>
     </nav>
 
-    <section id="project" class="project-details">
+    <section id="intro" class="project-details">
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Bluetooth-Controlled Line Follower Robot</h2>
-                <p class="section-subtitle">A robot car with autonomous line following and manual Bluetooth control, developed at Institut Supérieur d'Informatique de Mahdia</p>
+                <p class="section-subtitle">An innovative Arduino-based robot combining autonomous line following with Bluetooth-controlled navigation</p>
             </div>
             <div class="project-content">
                 <div class="project-image slide-in-left">
                     <img src="image/robot.png" alt="Bluetooth-Controlled Line Follower Robot" loading="lazy">
                 </div>
                 <div class="project-info slide-in-right">
-                    <h3 class="project-title">Project Overview</h3>
+                    <h3 class="project-title">Introduction</h3>
                     <p class="project-description">
-                        The Bluetooth-Controlled Line Follower Robot is an Arduino-based project developed as part of a semester-end project at the Institut Supérieur d'Informatique de Mahdia during the 2024-2025 academic year. This robot is designed to autonomously follow a black line on a white surface using infrared (IR) sensors, with the capability for manual control via a Bluetooth interface. The project integrates embedded programming, sensor technology, and wireless communication, making it suitable for applications in automated transport systems, smart warehouses, and robotic competitions.
-                    </p>
-                    <h3 class="project-title">Objectives</h3>
-                    <ul class="project-description">
-                        <li>Design an autonomous robot capable of following a black line on a light background.</li>
-                        <li>Implement a control system using IR sensors and an ESP32 microcontroller.</li>
-                        <li>Validate the robot's performance across various environments.</li>
-                        <li>Enable manual control via Bluetooth for enhanced flexibility.</li>
-                    </ul>
-                    <h3 class="project-title">Technologies Used</h3>
-                    <div class="project-tech">
-                        <span class="tech-tag">Arduino</span>
-                        <span class="tech-tag">C/C++</span>
-                        <span class="tech-tag">ESP32</span>
-                        <span class="tech-tag">HC-05 Bluetooth Module</span>
-                        <span class="tech-tag">IR Sensors</span>
-                        <span class="tech-tag">L298N H-Bridge</span>
-                        <span class="tech-tag">Ultrasonic Sensor</span>
-                        <span class="tech-tag">Servo Motor</span>
-                    </div>
-                    <h3 class="project-title">Implementation</h3>
-                    <p class="project-description">
-                        The robot uses an ESP32 microcontroller to process data from three IR sensors, which detect the line's position. The ESP32 adjusts the speed and direction of four DC motors via an L298N H-Bridge module to keep the robot on track. A Bluetooth HC-05 module enables manual control through a custom mobile app, allowing commands like forward, backward, turn left, turn right, and stop. An ultrasonic sensor and servo motor facilitate obstacle detection and avoidance, enhancing the robot's autonomy. The system was programmed in Arduino C/C++, with functions for line following, motor control, and Bluetooth communication, as detailed in the project report.
+                        The Bluetooth-Controlled Line Follower Robot is a versatile robotics project developed at the Institut Supérieur d'Informatique de Mahdia during the 2024-2025 academic year. This Arduino-based robot autonomously follows a black line using infrared (IR) sensors while also offering manual control via a Bluetooth mobile app. Equipped with obstacle detection and avoidance capabilities, it showcases a blend of embedded programming, sensor integration, and wireless communication, making it ideal for applications like automated transport and robotic competitions.
                     </p>
                     <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of Bluetooth-Controlled Line Follower Robot" onclick="openModal()">
-                            <i class="fas fa-external-link-alt"></i>
-                            View Live
-                        </a>
                         <a href="https://github.com/mabroukaymen1/flowingcar" class="project-link github" title="View Code" aria-label="View source code of Bluetooth-Controlled Line Follower Robot">
                             <i class="fab fa-github"></i>
                             View Code
@@ -966,137 +870,92 @@
         </div>
     </section>
 
-    <section id="project-details" class="project-details">
+    <section id="demo" class="project-details">
         <div class="container">
             <div class="section-header fade-in">
-                <h2 class="section-title">Project Details</h2>
-                <p class="section-subtitle">Limitations and Future Improvements</p>
+                <h2 class="section-title">Interactive Demo</h2>
+                <p class="section-subtitle">Explore how the robot navigates lines and avoids obstacles</p>
             </div>
-            <div class="project-content" style="display: flex; justify-content: center;">
-                <div class="project-info slide-in-right" style="width:100%; max-width:700px; margin:auto;">
-                    <h3 class="project-title">Limitations</h3>
-                    <p class="project-description">
-                        Despite its successful implementation, the robot faced several limitations:
-                    </p>
-                    <ul class="project-description">
-                        <li><strong>Lighting Dependency:</strong> IR sensors are sensitive to ambient light, affecting line detection accuracy.</li>
-                        <li><strong>Complex Line Tracking:</strong> Difficulty following intricate or multidirectional lines.</li>
-                        <li><strong>Terrain Limitations:</strong> Reduced performance on rough or inclined surfaces.</li>
-                        <li><strong>Bluetooth Range:</strong> Limited control distance due to Bluetooth module constraints.</li>
-                    </ul>
-                    <h3 class="project-title">Future Improvements</h3>
-                    <p class="project-description">
-                        To enhance the robot's capabilities, the following improvements are proposed:
-                    </p>
-                    <ul class="project-description">
-                        <li><strong>Additional Sensors:</strong> Integrate ultrasonic sensors or LiDAR for better obstacle detection.</li>
-                        <li><strong>Algorithm Optimization:</strong> Develop adaptive algorithms and implement machine learning for improved line tracking.</li>
-                        <li><strong>Wi-Fi Integration:</strong> Add Wi-Fi for extended control range and real-time monitoring.</li>
-                        <li><strong>Advanced Autonomy:</strong> Enable environment mapping and intelligent decision-making for fully autonomous navigation.</li>
-                    </ul>
+            <div class="demo-container">
+                <canvas id="robotCanvas" class="demo-canvas" width="600" height="400"></canvas>
+                <div class="demo-controls">
+                    <button class="demo-button" onclick="demo.setMode('line')">Line Following</button>
+                    <button class="demo-button" onclick="demo.setMode('obstacle')">Obstacle Avoidance</button>
+                    <button class="demo-button" onclick="demo.setMode('combined')">Combined Mode</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- System Architecture & How It Works -->
-    <section id="system-architecture" class="project-details">
+    <section id="how-it-works" class="project-details">
         <div class="container">
             <div class="section-header fade-in">
-                <h2 class="section-title">System Architecture & How It Works</h2>
-                <p class="section-subtitle">ESP32 Smart Car Robot - Architecture, Modes, and Workflow</p>
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Technical Details and System Architecture</p>
             </div>
             <div class="project-content" style="display: flex; justify-content: center;">
                 <div class="project-info slide-in-right" style="width:100%; max-width:800px; margin:auto;">
-                    <h3 class="project-title">Architecture Overview</h3>
+                    <h3 class="project-title">System Overview</h3>
                     <p class="project-description">
-                        The ESP32 Smart Car Robot is a modular robotics platform built around the ESP32 microcontroller. It integrates motor drivers, line sensors, an ultrasonic sensor with servo scanning, and Bluetooth communication for both manual and autonomous operation.
+                        The robot is powered by an ESP32 microcontroller, which processes inputs from three IR sensors for line detection, an ultrasonic sensor for obstacle detection, and a Bluetooth HC-05 module for manual control. It uses an L298N H-Bridge to control four DC motors, enabling smooth navigation. A servo motor aids in scanning for obstacles, enhancing autonomy.
                     </p>
+                    <h3 class="project-title">Key Components</h3>
                     <ul class="project-description">
-                        <li><strong>ESP32:</strong> Central controller for all logic, sensor processing, and communication.</li>
-                        <li><strong>L298N Motor Driver:</strong> Controls two DC motors for movement (forward, backward, turning).</li>
-                        <li><strong>Line Sensors (3x):</strong> Detect black line position for line following mode.</li>
-                        <li><strong>Ultrasonic Sensor + Servo:</strong> Scans for obstacles and measures distance for avoidance.</li>
-                        <li><strong>Bluetooth:</strong> Enables manual control and mode switching via mobile app or terminal.</li>
-                        <li><strong>Status LED:</strong> Indicates current mode and feedback.</li>
+                        <li><strong>ESP32:</strong> Manages all logic, sensor data, and communication.</li>
+                        <li><strong>IR Sensors (3x):</strong> Detect the black line for autonomous navigation.</li>
+                        <li><strong>Ultrasonic Sensor + Servo:</strong> Scans and avoids obstacles.</li>
+                        <li><strong>L298N H-Bridge:</strong> Controls motor speed and direction.</li>
+                        <li><strong>HC-05 Bluetooth:</strong> Enables manual control via a mobile app.</li>
                     </ul>
-                    <h3 class="project-title">Pin Connections</h3>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Function</th>
-                                    <th>ESP32 Pin</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>Motor ENA</td><td>32</td></tr>
-                                <tr><td>Motor IN1</td><td>25</td></tr>
-                                <tr><td>Motor IN2</td><td>26</td></tr>
-                                <tr><td>Motor ENB</td><td>33</td></tr>
-                                <tr><td>Motor IN3</td><td>27</td></tr>
-                                <tr><td>Motor IN4</td><td>14</td></tr>
-                                <tr><td>Line Sensor Left</td><td>34</td></tr>
-                                <tr><td>Line Sensor Center</td><td>23</td></tr>
-                                <tr><td>Line Sensor Right</td><td>36</td></tr>
-                                <tr><td>Ultrasonic TRIG</td><td>15</td></tr>
-                                <tr><td>Ultrasonic ECHO</td><td>2</td></tr>
-                                <tr><td>Servo Signal</td><td>13</td></tr>
-                                <tr><td>Status LED</td><td>12</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
                     <h3 class="project-title">Modes of Operation</h3>
                     <ul class="project-description">
-                        <li><strong>Manual Mode:</strong> Control the robot via Bluetooth commands (forward, backward, left, right, stop).</li>
-                        <li><strong>Obstacle Avoidance:</strong> Robot moves autonomously, scanning for obstacles and choosing a clear path.</li>
-                        <li><strong>Line Following:</strong> Robot follows a black line using three analog sensors.</li>
-                        <li><strong>Combined Mode:</strong> Integrates line following and obstacle avoidance for robust navigation.</li>
+                        <li><strong>Line Following:</strong> Uses IR sensors to track a black line and adjust motor speeds.</li>
+                        <li><strong>Obstacle Avoidance:</strong> Scans for obstacles and navigates around them.</li>
+                        <li><strong>Manual Mode:</strong> Controlled via Bluetooth commands (forward, backward, turn, stop).</li>
+                        <li><strong>Combined Mode:</strong> Integrates line following and obstacle avoidance.</li>
                     </ul>
-                    <h3 class="project-title">Workflow</h3>
-                    <ol class="project-description">
-                        <li><strong>Startup:</strong> ESP32 initializes hardware, calibrates sensors, and centers the servo.</li>
-                        <li><strong>Bluetooth Connection:</strong> User connects via Bluetooth and sends commands to select mode or control manually.</li>
-                        <li><strong>Autonomous Modes:</strong>
-                            <ul>
-                                <li><strong>Obstacle Avoidance:</strong> Robot scans for obstacles, avoids them, and continues moving.</li>
-                                <li><strong>Line Following:</strong> Robot reads line sensors and adjusts motors to stay on track.</li>
-                                <li><strong>Combined:</strong> Robot follows the line and avoids obstacles as needed.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Status Feedback:</strong> LED and Bluetooth messages indicate current mode and sensor status.</li>
-                        <li><strong>Calibration:</strong> User can calibrate line sensors via Bluetooth command.</li>
-                        <li><strong>Emergency Stop:</strong> Immediate halt and switch to manual mode on command.</li>
-                    </ol>
-                    <h3 class="project-title">Usage & Commands</h3>
-                    <ul class="project-description">
-                        <li><strong>m / MANUAL:</strong> Manual mode</li>
-                        <li><strong>o / OBSTACLE:</strong> Obstacle avoidance mode</li>
-                        <li><strong>l / LINEFOLLOW:</strong> Line following mode</li>
-                        <li><strong>c / COMBINED:</strong> Combined mode</li>
-                        <li><strong>CALIBRATE:</strong> Calibrate line sensors</li>
-                        <li><strong>STATUS:</strong> Get current status</li>
-                        <li><strong>STOP / x:</strong> Emergency stop</li>
-                    </ul>
-                    <p class="project-description" style="margin-top:20px;">
-                        <strong>Note:</strong> Ensure your battery can supply enough current for both the ESP32 and motors. Adjust sensor thresholds and motor speeds in the code as needed for your hardware and environment.
-                    </p>
+                    <h3 class="project-title">Technologies Used</h3>
+                    <div class="project-tech">
+                        <span class="tech-tag">Arduino</span>
+                        <span class="tech-tag">C/C++</span>
+                        <span class="tech-tag">ESP32</span>
+                        <span class="tech-tag">HC-05 Bluetooth</span>
+                        <span class="tech-tag">IR Sensors</span>
+                        <span class="tech-tag">L298N H-Bridge</span>
+                        <span class="tech-tag">Ultrasonic Sensor</span>
+                        <span class="tech-tag">Servo Motor</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modal for Video -->
-    <div class="modal" id="videoModal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <h3 class="modal-title">Bluetooth-Controlled Line Follower Robot Demo</h3>
-            <video class="modal-video" controls>
-                <source src="https://placehold.co/video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+    <section id="future" class="project-details">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Limitations & Future Improvements</h2>
+                <p class="section-subtitle">Challenges and Opportunities for Enhancement</p>
+            </div>
+            <div class="project-content" style="display: flex; justify-content: center;">
+                <div class="project-info slide-in-right" style="width:100%; max-width:700px; margin:auto;">
+                    <h3 class="project-title">Current Limitations</h3>
+                    <ul class="project-description">
+                        <li><strong>Lighting Sensitivity:</strong> IR sensors struggle in varying light conditions.</li>
+                        <li><strong>Complex Paths:</strong> Limited ability to follow intricate or sharp-turning lines.</li>
+                        <li><strong>Terrain Constraints:</strong> Performance drops on uneven surfaces.</li>
+                        <li><strong>Bluetooth Range:</strong> Limited to ~10 meters due to HC-05 constraints.</li>
+                    </ul>
+                    <h3 class="project-title">Future Enhancements</h3>
+                    <ul class="project-description">
+                        <li><strong>Advanced Sensors:</strong> Add LiDAR or additional ultrasonic sensors for better obstacle detection.</li>
+                        <li><strong>Improved Algorithms:</strong> Implement machine learning for adaptive line tracking.</li>
+                        <li><strong>Wi-Fi Connectivity:</strong> Replace Bluetooth with Wi-Fi for extended range.</li>
+                        <li><strong>Full Autonomy:</strong> Enable environment mapping for independent navigation.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
     <footer>
         <div class="container">
@@ -1105,6 +964,25 @@
     </footer>
 
     <script>
+        // Theme Module
+        const theme = {
+            init() {
+                const savedMode = localStorage.getItem('darkMode');
+                if (savedMode === 'true') {
+                    document.body.classList.add('dark');
+                    document.getElementById('toggleSwitch').classList.add('light');
+                }
+            },
+            toggleMode() {
+                const toggleSwitch = document.getElementById('toggleSwitch');
+                const body = document.body;
+                toggleSwitch.classList.toggle('light');
+                body.classList.toggle('dark');
+                localStorage.setItem('darkMode', body.classList.contains('dark'));
+            }
+        };
+
+        // Animations Module
         const animations = {
             init() {
                 gsap.registerPlugin(ScrollTrigger);
@@ -1126,7 +1004,7 @@
             },
             createParticles() {
                 const particlesContainer = document.getElementById('particles');
-                const particleCount = window.innerWidth < 768 ? 20 : 40;
+                const particleCount = window.innerWidth < 768 ? 20 : 30;
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
@@ -1202,60 +1080,25 @@
             }
         };
 
+        // Navigation Module
         const navigation = {
             init() {
-                this.setupSmoothScroll();
-            },
-            setupSmoothScroll() {
                 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                     anchor.addEventListener('click', function(e) {
                         e.preventDefault();
                         const target = document.querySelector(this.getAttribute('href'));
                         if (target) {
-                            const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
-                            window.scrollTo({ top: y, behavior: 'smooth' });
+                            window.scrollTo({
+                                top: target.getBoundingClientRect().top + window.pageYOffset - 80,
+                                behavior: 'smooth'
+                            });
                         }
                     });
                 });
             }
         };
 
-        const theme = {
-            init() {
-                const savedMode = localStorage.getItem('darkMode');
-                if (savedMode === 'true') {
-                    document.body.classList.add('dark');
-                    document.getElementById('toggleSwitch').classList.add('light');
-                }
-            }
-        };
-
-        function toggleMode() {
-            const toggleSwitch = document.getElementById('toggleSwitch');
-            const body = document.body;
-            
-            toggleSwitch.classList.toggle('light');
-            body.classList.toggle('dark');
-            
-            const isDark = body.classList.contains('dark');
-            localStorage.setItem('darkMode', isDark);
-        }
-
-        function openModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-            const video = modal.querySelector('video');
-            video.pause();
-            video.currentTime = 0;
-        }
-
+        // Accessibility Module
         const accessibility = {
             init() {
                 document.addEventListener('keydown', (e) => {
@@ -1263,36 +1106,680 @@
                         document.body.classList.add('keyboard-navigation');
                     }
                 });
-
                 document.addEventListener('mousedown', () => {
                     document.body.classList.remove('keyboard-navigation');
                 });
-
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        closeModal();
-                    }
-                });
             }
         };
 
-        const performance = {
-            init() {
-                if ('performance' in window) {
-                    window.addEventListener('load', () => {
-                        const perfData = performance.getEntriesByType('navigation')[0];
-                        console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-                    });
+// Enhanced Robot Animation Module
+/**
+ * AUTONOMOUS ROBOT NAVIGATION SYSTEM
+ * 
+ * This project demonstrates key robotics concepts including:
+ * - Path Following Algorithms (Pure Pursuit)
+ * - Obstacle Avoidance (Sensor-based Navigation)
+ * - Sensor Fusion (Combining multiple navigation strategies)
+ * - Real-time Decision Making
+ * - Smooth Motion Control
+ */
+
+const demo = {
+    // Canvas and rendering properties
+    canvas: null,
+    ctx: null,
+    
+    // Robot navigation modes
+    mode: 'line', // 'line', 'obstacle', 'combined'
+    
+    // Robot state with realistic properties
+    robot: {
+        x: 100,           // X position (pixels)
+        y: 300,           // Y position (pixels)
+        angle: 0,         // Orientation (radians)
+        speed: 0,         // Current speed
+        targetSpeed: 2.5, // Desired speed
+        maxSpeed: 4,      // Maximum speed
+        turnRate: 0.08,   // How quickly robot can turn
+        pathIndex: 0,     // Current target waypoint
+        trail: [],        // Movement history
+        sensors: {        // Sensor readings
+            left: 0,
+            center: 0,
+            right: 0
+        }
+    },
+    
+    // Predefined path waypoints
+    path: [],
+    
+    // Environmental obstacles
+    obstacles: [],
+    
+    // Animation control
+    animationId: null,
+    time: 0,
+    
+    /**
+     * INITIALIZATION
+     * Sets up the simulation environment
+     */
+    init() {
+        console.log("🤖 Initializing Autonomous Robot Navigation System");
+        
+        this.canvas = document.getElementById('robotCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.canvas.width = 600;
+        this.canvas.height = 400;
+        
+        this.setupPath();
+        this.setupObstacles();
+        this.setupControls();
+        this.animate();
+        
+        console.log("✅ System initialized successfully");
+    },
+    
+    /**
+     * PATH PLANNING
+     * Creates a reference path using waypoints
+     * This demonstrates path planning algorithms used in robotics
+     */
+    setupPath() {
+        console.log("🛣️ Generating reference path");
+        
+        // Generate smooth elliptical path (simulates real-world trajectories)
+        this.path = [];
+        const centerX = 300;
+        const centerY = 200;
+        const radiusX = 220;
+        const radiusY = 120;
+        const numWaypoints = 40;
+        
+        for (let i = 0; i < numWaypoints; i++) {
+            const angle = (i / numWaypoints) * Math.PI * 2;
+            this.path.push({
+                x: centerX + Math.cos(angle) * radiusX,
+                y: centerY + Math.sin(angle) * radiusY,
+                id: i
+            });
+        }
+        
+        console.log(`📍 Generated ${this.path.length} waypoints`);
+    },
+    
+    /**
+     * ENVIRONMENT SETUP
+     * Places obstacles that the robot must navigate around
+     */
+    setupObstacles() {
+        console.log("🚧 Placing environmental obstacles");
+        
+        this.obstacles = [
+            { x: 250, y: 150, radius: 30, type: 'static' },
+            { x: 370, y: 250, radius: 25, type: 'static' },
+            { x: 180, y: 240, radius: 22, type: 'static' },
+            { x: 450, y: 180, radius: 28, type: 'static' },
+            { x: 320, y: 320, radius: 20, type: 'static' }
+        ];
+        
+        console.log(`🔴 Placed ${this.obstacles.length} obstacles`);
+    },
+    
+    /**
+     * USER INTERFACE CONTROLS
+     * Allows switching between different navigation modes
+     */
+    setupControls() {
+        document.querySelectorAll('.demo-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.demo-button').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+    },
+    
+    /**
+     * MODE SWITCHING
+     * Demonstrates different autonomous navigation strategies
+     */
+    setMode(newMode) {
+        console.log(`🔄 Switching to ${newMode} navigation mode`);
+        
+        this.mode = newMode;
+        this.robot = {
+            x: 100,
+            y: 300,
+            angle: 0,
+            speed: 0,
+            targetSpeed: 2.5,
+            maxSpeed: 4,
+            turnRate: 0.08,
+            pathIndex: 0,
+            trail: [],
+            sensors: { left: 0, center: 0, right: 0 }
+        };
+        
+        // Log mode explanation
+        switch(newMode) {
+            case 'line':
+                console.log("📏 Line Following: Uses Pure Pursuit algorithm to follow predefined path");
+                break;
+            case 'obstacle':
+                console.log("🚨 Obstacle Avoidance: Uses sensor data to navigate around obstacles");
+                break;
+            case 'combined':
+                console.log("🧠 Sensor Fusion: Combines path following with obstacle avoidance");
+                break;
+        }
+    },
+    
+    /**
+     * MAIN ANIMATION LOOP
+     * Runs the robot simulation at 60 FPS
+     */
+    animate() {
+        this.time++;
+        
+        // Clear canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Render environment
+        this.drawEnvironment();
+        this.drawPath();
+        this.drawObstacles();
+        this.drawRobotTrail();
+        
+        // Update robot behavior (THE BRAIN OF THE ROBOT)
+        this.updateRobotBehavior();
+        
+        // Render robot
+        this.drawRobot();
+        this.drawSensorData();
+        this.drawDebugInfo();
+        
+        // Continue animation
+        this.animationId = requestAnimationFrame(() => this.animate());
+    },
+    
+    /**
+     * ENVIRONMENT RENDERING
+     * Visual feedback for understanding the robot's world
+     */
+    drawEnvironment() {
+        // Grid background (helps visualize coordinate system)
+        this.ctx.strokeStyle = '#f0f0f0';
+        this.ctx.lineWidth = 1;
+        this.ctx.setLineDash([]);
+        
+        for (let x = 0; x <= this.canvas.width; x += 50) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, 0);
+            this.ctx.lineTo(x, this.canvas.height);
+            this.ctx.stroke();
+        }
+        
+        for (let y = 0; y <= this.canvas.height; y += 50) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(0, y);
+            this.ctx.lineTo(this.canvas.width, y);
+            this.ctx.stroke();
+        }
+    },
+    
+    /**
+     * PATH VISUALIZATION
+     * Shows the reference trajectory
+     */
+    drawPath() {
+        // Draw path as dashed line
+        this.ctx.setLineDash([8, 4]);
+        this.ctx.strokeStyle = '#3b82f6';
+        this.ctx.lineWidth = 3;
+        this.ctx.beginPath();
+        
+        for (let i = 0; i < this.path.length; i++) {
+            const point = this.path[i];
+            if (i === 0) {
+                this.ctx.moveTo(point.x, point.y);
+            } else {
+                this.ctx.lineTo(point.x, point.y);
+            }
+        }
+        this.ctx.closePath();
+        this.ctx.stroke();
+        this.ctx.setLineDash([]);
+        
+        // Highlight current target waypoint
+        if (this.mode === 'line' || this.mode === 'combined') {
+            const targetPoint = this.path[this.robot.pathIndex];
+            if (targetPoint) {
+                this.ctx.fillStyle = '#10b981';
+                this.ctx.beginPath();
+                this.ctx.arc(targetPoint.x, targetPoint.y, 8, 0, Math.PI * 2);
+                this.ctx.fill();
+                
+                // Draw line to target
+                this.ctx.strokeStyle = '#10b981';
+                this.ctx.lineWidth = 2;
+                this.ctx.setLineDash([3, 3]);
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.robot.x, this.robot.y);
+                this.ctx.lineTo(targetPoint.x, targetPoint.y);
+                this.ctx.stroke();
+                this.ctx.setLineDash([]);
+            }
+        }
+    },
+    
+    /**
+     * OBSTACLE RENDERING
+     * Visualizes environmental hazards
+     */
+    drawObstacles() {
+        this.obstacles.forEach((obstacle, index) => {
+            // Obstacle shadow
+            this.ctx.fillStyle = 'rgba(239, 68, 68, 0.2)';
+            this.ctx.beginPath();
+            this.ctx.arc(obstacle.x + 3, obstacle.y + 3, obstacle.radius, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            // Main obstacle
+            this.ctx.fillStyle = '#ef4444';
+            this.ctx.beginPath();
+            this.ctx.arc(obstacle.x, obstacle.y, obstacle.radius, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            // Obstacle highlight
+            this.ctx.fillStyle = '#fca5a5';
+            this.ctx.beginPath();
+            this.ctx.arc(obstacle.x - 8, obstacle.y - 8, obstacle.radius * 0.3, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            // Obstacle ID
+            this.ctx.fillStyle = 'white';
+            this.ctx.font = '12px Arial';
+            this.ctx.textAlign = 'center';
+            this.ctx.fillText(index + 1, obstacle.x, obstacle.y + 4);
+        });
+    },
+    
+    /**
+     * ROBOT TRAIL VISUALIZATION
+     * Shows movement history for trajectory analysis
+     */
+    drawRobotTrail() {
+        if (this.robot.trail.length > 2) {
+            this.ctx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
+            this.ctx.lineWidth = 3;
+            this.ctx.beginPath();
+            
+            for (let i = 0; i < this.robot.trail.length; i++) {
+                const point = this.robot.trail[i];
+                if (i === 0) {
+                    this.ctx.moveTo(point.x, point.y);
+                } else {
+                    this.ctx.lineTo(point.x, point.y);
                 }
             }
-        };
-
+            this.ctx.stroke();
+        }
+    },
+    
+    /**
+     * ROBOT BEHAVIOR CONTROLLER
+     * The main decision-making system
+     */
+    updateRobotBehavior() {
+        // Update sensor readings
+        this.updateSensors();
+        
+        // Calculate desired heading based on current mode
+        let desiredAngle = this.robot.angle;
+        let desiredSpeed = this.robot.targetSpeed;
+        
+        // MODE 1: PATH FOLLOWING (Pure Pursuit Algorithm)
+        if (this.mode === 'line' || this.mode === 'combined') {
+            desiredAngle = this.calculatePurePursuitAngle();
+        }
+        
+        // MODE 2: OBSTACLE AVOIDANCE (Sensor-based Navigation)
+        if (this.mode === 'obstacle' || this.mode === 'combined') {
+            const avoidance = this.calculateObstacleAvoidance();
+            if (avoidance.active) {
+                desiredAngle = avoidance.angle;
+                desiredSpeed = avoidance.speed;
+            }
+        }
+        
+        // MOTION CONTROL: Smooth angle and speed transitions
+        this.updateMotionControl(desiredAngle, desiredSpeed);
+        
+        // PHYSICS: Update robot position
+        this.updatePhysics();
+        
+        // Update trail
+        this.updateTrail();
+    },
+    
+    /**
+     * SENSOR SYSTEM
+     * Simulates ultrasonic/lidar sensors for obstacle detection
+     */
+    updateSensors() {
+        const sensorRange = 80;
+        const sensorAngles = [-0.6, 0, 0.6]; // Left, Center, Right sensors
+        
+        sensorAngles.forEach((sensorAngle, index) => {
+            const checkAngle = this.robot.angle + sensorAngle;
+            const endX = this.robot.x + Math.cos(checkAngle) * sensorRange;
+            const endY = this.robot.y + Math.sin(checkAngle) * sensorRange;
+            
+            let minDistance = sensorRange;
+            
+            // Check distance to each obstacle
+            this.obstacles.forEach(obstacle => {
+                const distance = this.calculateDistanceToObstacle(
+                    this.robot.x, this.robot.y, endX, endY, obstacle
+                );
+                minDistance = Math.min(minDistance, distance);
+            });
+            
+            // Update sensor readings
+            const sensorNames = ['left', 'center', 'right'];
+            this.robot.sensors[sensorNames[index]] = minDistance;
+        });
+    },
+    
+    /**
+     * PURE PURSUIT ALGORITHM
+     * Advanced path following technique used in autonomous vehicles
+     */
+    calculatePurePursuitAngle() {
+        const lookAheadDistance = 60; // How far ahead to look
+        let targetPoint = null;
+        
+        // Find the farthest point within lookahead distance
+        for (let i = 0; i < this.path.length; i++) {
+            const point = this.path[i];
+            const distance = Math.hypot(this.robot.x - point.x, this.robot.y - point.y);
+            
+            if (distance <= lookAheadDistance) {
+                targetPoint = point;
+                this.robot.pathIndex = i;
+            }
+        }
+        
+        // If no point found, use closest point
+        if (!targetPoint) {
+            let minDist = Infinity;
+            this.path.forEach((point, index) => {
+                const dist = Math.hypot(this.robot.x - point.x, this.robot.y - point.y);
+                if (dist < minDist) {
+                    minDist = dist;
+                    targetPoint = point;
+                    this.robot.pathIndex = index;
+                }
+            });
+        }
+        
+        if (targetPoint) {
+            return Math.atan2(targetPoint.y - this.robot.y, targetPoint.x - this.robot.x);
+        }
+        
+        return this.robot.angle;
+    },
+    
+    /**
+     * OBSTACLE AVOIDANCE ALGORITHM
+     * Reactive navigation using sensor data
+     */
+    calculateObstacleAvoidance() {
+        const dangerThreshold = 50;
+        const { left, center, right } = this.robot.sensors;
+        
+        // Check if any sensor detects an obstacle
+        if (center < dangerThreshold || left < dangerThreshold || right < dangerThreshold) {
+            console.log(`⚠️  Obstacle detected! Sensors: L:${left.toFixed(1)} C:${center.toFixed(1)} R:${right.toFixed(1)}`);
+            
+            let avoidanceAngle = this.robot.angle;
+            
+            // Decision logic based on sensor readings
+            if (center < dangerThreshold) {
+                // Obstacle directly ahead - turn towards clearer side
+                if (left > right) {
+                    avoidanceAngle = this.robot.angle - Math.PI / 3; // Turn left
+                } else {
+                    avoidanceAngle = this.robot.angle + Math.PI / 3; // Turn right
+                }
+            } else if (left < dangerThreshold) {
+                // Obstacle on left - turn right
+                avoidanceAngle = this.robot.angle + Math.PI / 4;
+            } else if (right < dangerThreshold) {
+                // Obstacle on right - turn left
+                avoidanceAngle = this.robot.angle - Math.PI / 4;
+            }
+            
+            return {
+                active: true,
+                angle: avoidanceAngle,
+                speed: this.robot.targetSpeed * 0.6 // Reduce speed when avoiding
+            };
+        }
+        
+        return { active: false };
+    },
+    
+    /**
+     * MOTION CONTROL SYSTEM
+     * Smoothly controls robot movement (like a PID controller)
+     */
+    updateMotionControl(desiredAngle, desiredSpeed) {
+        // Smooth angle control
+        let angleDiff = desiredAngle - this.robot.angle;
+        
+        // Normalize angle difference to [-π, π]
+        while (angleDiff > Math.PI) angleDiff -= 2 * Math.PI;
+        while (angleDiff < -Math.PI) angleDiff += 2 * Math.PI;
+        
+        // Apply turn rate limiting (realistic robot constraints)
+        const maxTurnRate = this.robot.turnRate;
+        angleDiff = Math.max(-maxTurnRate, Math.min(maxTurnRate, angleDiff));
+        
+        this.robot.angle += angleDiff;
+        
+        // Smooth speed control
+        const speedDiff = desiredSpeed - this.robot.speed;
+        this.robot.speed += speedDiff * 0.1;
+        
+        // Enforce speed limits
+        this.robot.speed = Math.max(0, Math.min(this.robot.maxSpeed, this.robot.speed));
+    },
+    
+    /**
+     * PHYSICS ENGINE
+     * Updates robot position based on current speed and angle
+     */
+    updatePhysics() {
+        // Update position based on velocity
+        this.robot.x += Math.cos(this.robot.angle) * this.robot.speed;
+        this.robot.y += Math.sin(this.robot.angle) * this.robot.speed;
+        
+        // Boundary collision detection
+        const margin = 25;
+        if (this.robot.x < margin) {
+            this.robot.x = margin;
+            this.robot.angle = Math.PI - this.robot.angle;
+        }
+        if (this.robot.x > this.canvas.width - margin) {
+            this.robot.x = this.canvas.width - margin;
+            this.robot.angle = Math.PI - this.robot.angle;
+        }
+        if (this.robot.y < margin) {
+            this.robot.y = margin;
+            this.robot.angle = -this.robot.angle;
+        }
+        if (this.robot.y > this.canvas.height - margin) {
+            this.robot.y = this.canvas.height - margin;
+            this.robot.angle = -this.robot.angle;
+        }
+    },
+    
+    /**
+     * ROBOT VISUALIZATION
+     * Renders the robot with realistic details
+     */
+    drawRobot() {
+        this.ctx.save();
+        this.ctx.translate(this.robot.x, this.robot.y);
+        this.ctx.rotate(this.robot.angle);
+        
+        // Robot shadow
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        this.ctx.fillRect(-18, -12, 36, 24);
+        
+        // Main body
+        this.ctx.fillStyle = '#3b82f6';
+        this.ctx.fillRect(-20, -14, 40, 28);
+        
+        // Body outline
+        this.ctx.strokeStyle = '#1e40af';
+        this.ctx.lineWidth = 2;
+        this.ctx.strokeRect(-20, -14, 40, 28);
+        
+        // Sensors (ultrasonic/lidar)
+        this.ctx.fillStyle = '#fbbf24';
+        this.ctx.fillRect(-12, -20, 6, 6);  // Left sensor
+        this.ctx.fillRect(6, -20, 6, 6);    // Right sensor
+        this.ctx.fillRect(-3, -22, 6, 6);   // Center sensor
+        
+        // Direction indicator
+        this.ctx.fillStyle = '#10b981';
+        this.ctx.beginPath();
+        this.ctx.moveTo(20, 0);
+        this.ctx.lineTo(12, -8);
+        this.ctx.lineTo(12, 8);
+        this.ctx.closePath();
+        this.ctx.fill();
+        
+        // Wheels
+        this.ctx.fillStyle = '#374151';
+        this.ctx.fillRect(-20, -18, 40, 4);  // Top wheel
+        this.ctx.fillRect(-20, 14, 40, 4);   // Bottom wheel
+        
+        this.ctx.restore();
+    },
+    
+    /**
+     * SENSOR DATA VISUALIZATION
+     * Shows sensor readings for debugging
+     */
+    drawSensorData() {
+        if (this.mode === 'obstacle' || this.mode === 'combined') {
+            const sensorRange = 80;
+            const sensorAngles = [-0.6, 0, 0.6];
+            const sensorNames = ['left', 'center', 'right'];
+            
+            sensorAngles.forEach((sensorAngle, index) => {
+                const checkAngle = this.robot.angle + sensorAngle;
+                const sensorReading = this.robot.sensors[sensorNames[index]];
+                const endX = this.robot.x + Math.cos(checkAngle) * sensorReading;
+                const endY = this.robot.y + Math.sin(checkAngle) * sensorReading;
+                
+                // Sensor beam
+                this.ctx.strokeStyle = sensorReading < 50 ? '#ef4444' : '#10b981';
+                this.ctx.lineWidth = 2;
+                this.ctx.setLineDash([3, 3]);
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.robot.x, this.robot.y);
+                this.ctx.lineTo(endX, endY);
+                this.ctx.stroke();
+                this.ctx.setLineDash([]);
+                
+                // Sensor endpoint
+                this.ctx.fillStyle = sensorReading < 50 ? '#ef4444' : '#10b981';
+                this.ctx.beginPath();
+                this.ctx.arc(endX, endY, 4, 0, Math.PI * 2);
+                this.ctx.fill();
+            });
+        }
+    },
+    
+    /**
+     * DEBUG INFORMATION
+     * Shows real-time robot state data
+     */
+    drawDebugInfo() {
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+        this.ctx.fillRect(10, 10, 220, 120);
+        
+        this.ctx.fillStyle = '#ffffff';
+        this.ctx.font = '12px monospace';
+        this.ctx.textAlign = 'left';
+        
+        const debugInfo = [
+            `Mode: ${this.mode.toUpperCase()}`,
+            `Position: (${this.robot.x.toFixed(1)}, ${this.robot.y.toFixed(1)})`,
+            `Angle: ${(this.robot.angle * 180 / Math.PI).toFixed(1)}°`,
+            `Speed: ${this.robot.speed.toFixed(1)} px/frame`,
+            `Target Waypoint: ${this.robot.pathIndex}`,
+            `Sensors: L:${this.robot.sensors.left.toFixed(1)} C:${this.robot.sensors.center.toFixed(1)} R:${this.robot.sensors.right.toFixed(1)}`,
+            `Time: ${(this.time / 60).toFixed(1)}s`
+        ];
+        
+        debugInfo.forEach((info, index) => {
+            this.ctx.fillText(info, 15, 30 + index * 15);
+        });
+    },
+    
+    /**
+     * UTILITY FUNCTIONS
+     */
+    calculateDistanceToObstacle(x1, y1, x2, y2, obstacle) {
+        // Calculate distance from line segment to circle
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        const length = Math.hypot(dx, dy);
+        
+        if (length === 0) return Math.hypot(x1 - obstacle.x, y1 - obstacle.y);
+        
+        const t = Math.max(0, Math.min(1, ((obstacle.x - x1) * dx + (obstacle.y - y1) * dy) / (length * length)));
+        const projX = x1 + t * dx;
+        const projY = y1 + t * dy;
+        
+        return Math.max(0, Math.hypot(projX - obstacle.x, projY - obstacle.y) - obstacle.radius);
+    },
+    
+    updateTrail() {
+        // Add current position to trail every few frames
+        if (this.time % 3 === 0) {
+            this.robot.trail.push({ x: this.robot.x, y: this.robot.y });
+        }
+        
+        // Limit trail length
+        if (this.robot.trail.length > 150) {
+            this.robot.trail.shift();
+        }
+    },
+    
+    /**
+     * CLEANUP
+     * Properly stops the animation
+     */
+    destroy() {
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            console.log("🛑 Animation stopped");
+        }
+    }
+};
+        // Initialize Modules
         document.addEventListener('DOMContentLoaded', () => {
             animations.init();
             navigation.init();
             theme.init();
             accessibility.init();
-            performance.init();
+            demo.init();
         });
     </script>
 </body>

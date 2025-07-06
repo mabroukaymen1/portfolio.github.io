@@ -613,6 +613,63 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
+.languages {
+    margin-top: 30px;
+    padding: 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.languages:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.languages h4 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Inter', sans-serif;
+}
+
+.languages ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.languages ul li {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    padding-left: 25px;
+    transition: color 0.3s ease;
+}
+
+.languages ul li::before {
+    content: '\f111'; /* Font Awesome circle icon */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 0.6rem;
+}
+
+.languages ul li:hover {
+    color: var(--text-primary);
+}
+
         .about-text {
             font-size: 1.1rem;
             line-height: 1.8;
@@ -640,7 +697,7 @@
             border: 1px solid var(--glass-border);
             transition: transform 0.3s ease;
         }
-
+        
         .stat-item:hover {
             transform: translateY(-5px);
         }
@@ -1225,13 +1282,14 @@
         }
 
         /* Footer */
-        footer {
-            background: var(--neutral);
-            color: var(--text-primary);
+            footer {
+            background: none;
+            color: var(--text-secondary);
             text-align: center;
-            padding: 40px 0;
-            font-family: 'Roboto', sans-serif;
-        }
+            padding: 20px 0 10px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+           }
 
         /* Scroll Progress */
         .scroll-progress {
@@ -1566,46 +1624,55 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">About Me</h2>
-                <p class="section-subtitle">A motivated student eager to innovate in IoT and mobile development.</p>
-            </div>
-            <div class="about-content">
-                <div class="about-image slide-in-left">
-                    <div class="profile-card">
-                        <div class="profile-img">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Aymen Mabrouk</h3>
-                        <p>Technician in Embedded Systems & IoT</p>
+<!-- About Section -->
+<section id="about" class="about">
+    <div class="container">
+        <div class="section-header fade-in">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">A dedicated computer engineer innovating in IoT and embedded systems.</p>
+        </div>
+        <div class="about-content">
+            <div class="about-image slide-in-left">
+                <div class="profile-card">
+                    <div class="profile-img">
+                        <i class="fas fa-user"></i>
                     </div>
-                </div>
-                <div class="about-text slide-in-right">
-                    <p>I am a third-year student at the Higher Institute of Computer Science in Mahdia, specializing in Embedded Systems and the Internet of Things (IoT). Passionate about technology, I am a beginner Flutter developer focused on creating and optimizing mobile applications.</p>
-                    <p>My interests include integrating real-time messaging and IoT solutions, and I am committed to learning the latest technologies to deliver innovative projects. I am seeking internship opportunities to apply my skills and contribute to meaningful solutions.</p>
-                    <p>With a strong foundation in programming and a creative mindset, I aim to develop user-centric applications that make a difference.</p>
+                    <h3>Aymen Mabrouk</h3>
+                    <p>Computer Engineer in IoT & Embedded Systems</p>
                 </div>
             </div>
-            <div class="stats fade-in">
-                <div class="stat-item">
-                    <div class="stat-number" data-count="7">0</div>
-                    <div class="stat-label">Projects Completed</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-count="3">0</div>
-                    <div class="stat-label">Years Studying</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-count="7">0</div>
-                    <div class="stat-label">Skills Acquired</div>
+            <div class="about-text slide-in-right">
+                <p>I am a computer engineer, having graduated from the Higher Institute of Computer Science in Mahdia, with a specialization in IoT and Embedded Systems. Passionate about technology, I am a Flutter developer focused on creating and optimizing mobile applications.</p>
+                <p>My expertise lies in integrating real-time messaging and IoT solutions, and I am committed to leveraging the latest technologies to deliver innovative projects. I am seeking opportunities to apply my skills in IoT and embedded systems to develop impactful, user-centric solutions.</p>
+                <p>With a strong foundation in programming and a creative mindset, I aim to engineer applications and systems that make a difference.</p>
+                <!-- Languages Subsection -->
+                <div class="languages">
+                    <h4>Languages</h4>
+                    <ul>
+                        <li>Arabic: Native</li>
+                        <li>French: Intermediate</li>
+                        <li>English: B1 - Intermediate Level</li>
+                        <li>German: Beginner (Learning)</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
-
+        <div class="stats fade-in">
+            <div class="stat-item">
+                <div class="stat-number" data-count="8">0</div>
+                <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="3">0</div>
+                <div class="stat-label">Years Studying</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="7">0</div>
+                <div class="stat-label">Skills Acquired</div>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container">
@@ -2536,7 +2603,7 @@
             }
             // Log entry time
             const entryTime = Date.now();
-            fetch('log-visit.php', {
+            fetch('/log-visit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -2555,7 +2622,7 @@
             function logExit() {
                 const exitTime = Date.now();
                 const duration = Math.round((exitTime - entryTime) / 1000); // seconds
-                fetch('log-visit.php', {
+                fetch('/log-visit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Port Service Management System - A Flutter-based mobile app by Aymen Mabrouk for managing port operations, equipment maintenance, and employee workflows.">
-    <meta name="keywords" content="Port Service, Flutter, Firebase, port operations, equipment management, employee management, Aymen Mabrouk">
+    <meta name="description" content="Page Under Construction - Aymen Mabrouk's Portfolio">
+    <meta name="keywords" content="under construction, portfolio, Aymen Mabrouk">
     <meta name="author" content="Aymen Mabrouk">
-    <title>Port Service Management System - Aymen Mabrouk</title>
+    <title>Under Construction - Aymen Mabrouk</title>
     <link rel="icon" type="image/png" href="image/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
+        /* Root Variables */
         :root {
             --primary: #3B82F6;
             --secondary: #10B981;
@@ -30,6 +31,7 @@
             --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
         }
 
+        /* Dark Mode Variables */
         .dark {
             --text-primary: #E5E7EB;
             --text-secondary: #9CA3AF;
@@ -46,12 +48,14 @@
             --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
         }
 
+        /* Global Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* Body Styles */
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
@@ -64,6 +68,7 @@
             position: relative;
         }
 
+        /* Animated Background */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -84,6 +89,7 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* Particles */
         .particles {
             position: fixed;
             top: 0;
@@ -115,6 +121,7 @@
             100% { opacity: 0.1; }
         }
 
+        /* Theme Toggle */
         .toggle-container {
             position: fixed;
             top: 20px;
@@ -333,6 +340,7 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Navigation */
         nav {
             position: fixed;
             top: 20px;
@@ -412,23 +420,26 @@
             transform: translateX(-50%) translateY(-100%) !important;
         }
 
-        section {
-            padding: 100px 0;
+        /* Construction Section */
+        .construction {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-primary);
             position: relative;
+            overflow: hidden;
+            background: var(--white);
+            backdrop-filter: blur(15px);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .construction-content {
+            max-width: 800px;
             padding: 0 20px;
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-title {
+        .construction-title {
             font-size: clamp(2.5rem, 5vw, 4rem);
             margin-bottom: 20px;
             background: var(--primary-gradient);
@@ -438,90 +449,28 @@
             font-weight: 700;
         }
 
-        .section-subtitle {
+        .construction-subtitle {
             font-size: 1.2rem;
             color: var(--text-secondary);
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 30px;
             font-family: 'Roboto', sans-serif;
         }
 
-        .project-details {
-            background: var(--white);
-            backdrop-filter: blur(15px);
-        }
-
-        .project-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        .project-image {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-image img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .project-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-info {
-            padding: 20px;
-        }
-
-        .project-title {
-            font-size: 2rem;
+        .construction-icon {
+            font-size: 5rem;
+            color: var(--accent);
             margin-bottom: 20px;
-            color: var(--text-primary);
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            line-height: 1.8;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.1rem;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .tech-tag {
-            background: var(--glass-bg);
-            color: var(--text-primary);
-            padding: 8px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            border: 1px solid var(--glass-border);
-            transition: transform 0.3s ease;
-        }
-
-        .tech-tag:hover {
-            transform: translateY(-2px);
-        }
-
-        .project-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .project-link {
-            padding: 12px 24px;
+        .cta-button {
+            padding: 15px 30px;
             text-decoration: none;
             border-radius: 40px;
             font-weight: 600;
@@ -533,9 +482,12 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            background: var(--primary);
+            color: var(--white);
+            border: 2px solid transparent;
         }
 
-        .project-link::before {
+        .cta-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -547,172 +499,17 @@
             z-index: -1;
         }
 
-        .project-link:hover::before {
+        .cta-button:hover::before {
             left: 0;
         }
 
-        .project-link.live {
-            background: var(--primary);
-            color: var(--white);
-            border: 2px solid transparent;
-        }
-
-        .project-link.live:hover {
+        .cta-button:hover {
             color: var(--text-primary);
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .project-link.github {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--text-primary);
-        }
-
-        .project-link.github:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
-        }
-
-        /* Feature Carousel */
-        .feature-carousel {
-            position: relative;
-            overflow: hidden;
-            margin: 40px 0;
-            border-radius: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            padding: 20px;
-        }
-
-        .carousel-container {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .carousel-item {
-            min-width: 100%;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            opacity: 0.5;
-            transition: opacity 0.5s ease;
-        }
-
-        .carousel-item.active {
-            opacity: 1;
-        }
-
-        .carousel-item img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .carousel-content h3 {
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .carousel-content p {
-            color: var(--text-secondary);
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
-        }
-
-        .carousel-button {
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .carousel-button:hover {
-            background: var(--accent);
-            transform: scale(1.1);
-        }
-
-        .carousel-button.prev {
-            margin-left: 10px;
-        }
-
-        .carousel-button.next {
-            margin-right: 10px;
-        }
-
-        /* Impact Section */
-        .impact-section {
-            margin-top: 60px;
-            padding: 40px;
-            background: var(--glass-bg);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-        }
-
-        .impact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .impact-item {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .impact-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .impact-item i {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-
-        .impact-item h3 {
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .impact-item p {
-            color: var(--text-secondary);
-            font-family: 'Roboto', sans-serif;
-        }
-
-            footer {
-            background: none;
-            color: var(--text-secondary);
-            text-align: center;
-            padding: 20px 0 10px 0;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-           }
-
+        /* Scroll Progress */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -730,6 +527,7 @@
             transition: width 0.2s ease;
         }
 
+        /* Loading Overlay */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -737,7 +535,7 @@
             width: 100%;
             height: 100%;
             background: var(--primary-gradient);
-            display: flex;
+            displayismar: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
@@ -763,87 +561,13 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Animations */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
         }
 
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 10px;
-            position: relative;
-            max-width: 800px;
-            width: 90%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--primary);
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .modal-video {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            max-width: 100%;
-            max-height: 60vh;
-            display: block;
-            margin: 0 auto;
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
             nav {
                 top: 10px;
@@ -950,33 +674,9 @@
                 padding: 6px 12px;
             }
 
-            .project-content {
-                grid-template-columns: 1fr;
+            .construction-content {
+                padding: 0 15px;
             }
-
-            .carousel-item {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .carousel-item img {
-                width: 80px;
-                height: 80px;
-            }
-
-            .modal-video {
-                max-height: 35vh;
-            }
-
-            .impact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .keyboard-navigation a:focus,
-        .keyboard-navigation button:focus {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
         }
     </style>
 </head>
@@ -1046,134 +746,22 @@
         </div>
     </nav>
 
-    <!-- Project Section -->
-    <section id="project" class="project-details">
+    <!-- Construction Section -->
+    <section class="construction">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Port Service Management System</h2>
-                <p class="section-subtitle">A comprehensive Flutter app for streamlining port operations, equipment maintenance, and employee management</p>
-            </div>
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="image/portintro.png" alt="Port Service Management System" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Project Overview</h3>
-                    <p class="project-description">
-                        The Port Service Management System is a robust Flutter-based mobile application designed to optimize port operations, equipment maintenance, and employee workflows. Leveraging Firebase for real-time data synchronization, secure authentication, and push notifications, the app enables port managers, technicians, and employees to collaborate efficiently. With features like role-based access, real-time tracking, and detailed analytics, it ensures smooth port operations and proactive maintenance management.
-                    </p>
-                    <h3 class="project-title">Technologies Used</h3>
-                    <div class="project-tech">
-                        <span class="tech-tag">Flutter</span>
-                        <span class="tech-tag">Dart</span>
-                        <span class="tech-tag">Firebase</span>
-                        <span class="tech-tag">Provider</span>
-                        <span class="tech-tag">Firestore</span>
-                        <span class="tech-tag">Cloud Messaging</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of Port Service Management System" onclick="openModal()">
-                            <i class="fas fa-external-link-alt"></i>
-                            View Live
-                        </a>
-                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Code" aria-label="View source code of Port Service Management System">
-                            <i class="fab fa-github"></i>
-                            View Code
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Feature Carousel -->
-            <div class="feature-carousel fade-in">
-                <div class="carousel-container" id="carouselContainer">
-                    <div class="carousel-item active">
-                        <img src="https://placehold.co/100x100?text=Port+Operations" alt="Port Operations Management">
-                        <div class="carousel-content">
-                            <h3>Port Operations Management</h3>
-                            <p>Track and manage port operations in real-time, including ship and container management, operation assignments, and status updates.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://placehold.co/100x100?text=Equipment" alt="Equipment Management">
-                        <div class="carousel-content">
-                            <h3>Equipment Management</h3>
-                            <p>Monitor equipment status, schedule maintenance, report failures, and track repairs with a comprehensive inventory system.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://placehold.co/100x100?text=Employee" alt="Employee Management">
-                        <div class="carousel-content">
-                            <h3>Employee Management</h3>
-                            <p>Manage employee profiles, assign tasks, track attendance, and handle leave requests with role-based access control.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://placehold.co/100x100?text=Notifications" alt="Notification System">
-                        <div class="carousel-content">
-                            <h3>Notification System</h3>
-                            <p>Receive real-time push notifications for equipment breakdowns, maintenance alerts, and operation assignments.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://placehold.co/100x100?text=Analytics" alt="Reporting and Analytics">
-                        <div class="carousel-content">
-                            <h3>Reporting and Analytics</h3>
-                            <p>Generate detailed reports on equipment utilization, maintenance statistics, and operation performance for data-driven decisions.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-nav">
-                    <button class="carousel-button prev" onclick="moveCarousel(-1)" aria-label="Previous feature"><i class="fas fa-chevron-left"></i></button>
-                    <button class="carousel-button next" onclick="moveCarousel(1)" aria-label="Next feature"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-            <!-- Impact Section -->
-            <div class="impact-section fade-in">
-                <h3 class="project-title">Impact & Benefits</h3>
-                <div class="impact-grid">
-                    <div class="impact-item">
-                        <i class="fas fa-ship"></i>
-                        <h3>Efficient Operations</h3>
-                        <p>Streamlines port operations with real-time tracking and task assignments, reducing downtime and improving throughput.</p>
-                    </div>
-                    <div class="impact-item">
-                        <i class="fas fa-tools"></i>
-                        <h3>Proactive Maintenance</h3>
-                        <p>Enables timely equipment maintenance and failure reporting, minimizing disruptions and extending equipment lifespan.</p>
-                    </div>
-                    <div class="impact-item">
-                        <i class="fas fa-users"></i>
-                        <h3>Improved Workforce Management</h3>
-                        <p>Enhances employee productivity through efficient task allocation, leave management, and attendance tracking.</p>
-                    </div>
-                    <div class="impact-item">
-                        <i class="fas fa-chart-line"></i>
-                        <h3>Data-Driven Decisions</h3>
-                        <p>Provides actionable insights through detailed analytics and reports, optimizing port performance.</p>
-                    </div>
-                </div>
+            <div class="construction-content fade-in">
+                <i class="fas fa-tools construction-icon"></i>
+                <h1 class="construction-title">Page Under Construction</h1>
+                <p class="construction-subtitle">This page is currently being built. Check back soon for exciting new content!</p>
+                <a href="index.html" class="cta-button" aria-label="Return to homepage">
+                    <i class="fas fa-home"></i>
+                    Back to Homepage
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Modal for Video -->
-    <div class="modal" id="videoModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()" aria-label="Close modal">×</button>
-            <h3 class="modal-title">Port Service Management System Demo</h3>
-            <video class="modal-video" controls>
-                <source src="videos/portservice-demo.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </div>
-
-    <footer>
-        <div class="container">
-            <p>© 2025 Aymen Mabrouk. All rights reserved. Built with modern web technologies.</p>
-        </div>
-    </footer>
-
+    <!-- Main Script -->
     <script>
         // Utility Functions
         const utils = {
@@ -1237,42 +825,6 @@
                         {
                             opacity: 1,
                             y: 0,
-                            duration: 0.8,
-                            delay: i * 0.2,
-                            ease: 'power2.out',
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 80%',
-                                toggleActions: 'play none none none',
-                            },
-                        }
-                    );
-                });
-                gsap.utils.toArray('.slide-in-left').forEach((element, i) => {
-                    gsap.fromTo(
-                        element,
-                        { opacity: 0, x: -50 },
-                        {
-                            opacity: 1,
-                            x: 0,
-                            duration: 0.8,
-                            delay: i * 0.2,
-                            ease: 'power2.out',
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 80%',
-                                toggleActions: 'play none none none',
-                            },
-                        }
-                    );
-                });
-                gsap.utils.toArray('.slide-in-right').forEach((element, i) => {
-                    gsap.fromTo(
-                        element,
-                        { opacity: 0, x: 50 },
-                        {
-                            opacity: 1,
-                            x: 0,
                             duration: 0.8,
                             delay: i * 0.2,
                             ease: 'power2.out',
@@ -1355,106 +907,12 @@
             },
         };
 
-        // Carousel
-        const carousel = {
-            currentIndex: 0,
-            items: [],
-            init() {
-                this.items = document.querySelectorAll('.carousel-item');
-                this.updateCarousel();
-            },
-            move(direction) {
-                if (!this.items || this.items.length === 0) return;
-                this.currentIndex = (this.currentIndex + direction + this.items.length) % this.items.length;
-                this.updateCarousel();
-            },
-            updateCarousel() {
-                const container = document.getElementById('carouselContainer');
-                container.style.transform = `translateX(-${this.currentIndex * 100}%)`;
-                this.items.forEach((item, index) => {
-                    item.classList.toggle('active', index === this.currentIndex);
-                });
-            },
-        };
-
-        // Modal
-        function openModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-            const video = modal.querySelector('video');
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
-                if (utils.checkNetwork()) {
-                    // Play and catch AbortError if any
-                    video.play().catch(() => {});
-                }
-            }
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-            const video = modal.querySelector('video');
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
-            }
-        }
-
-        // Accessibility
-        const accessibility = {
-            init() {
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Tab') {
-                        document.body.classList.add('keyboard-navigation');
-                    }
-                    if (e.key === 'Escape') {
-                        closeModal();
-                    }
-                });
-                document.addEventListener('mousedown', () => {
-                    document.body.classList.remove('keyboard-navigation');
-                });
-            },
-        };
-
-        // Performance
-        const performance = {
-            init() {
-                if ('performance' in window) {
-                    window.addEventListener('load', () => {
-                        let loadTime = null;
-                        if (typeof performance.getEntriesByType === 'function') {
-                            const navEntries = performance.getEntriesByType('navigation');
-                            if (navEntries && navEntries.length > 0) {
-                                loadTime = navEntries[0].loadEventEnd - navEntries[0].loadEventStart;
-                            }
-                        }
-                        if (loadTime === null && performance.timing) {
-                            loadTime = performance.timing.loadEventEnd - performance.timing.loadEventStart;
-                        }
-                        if (loadTime !== null && !isNaN(loadTime)) {
-                            console.log('Page load time:', loadTime, 'ms');
-                        }
-                    });
-                }
-            },
-        };
-
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             theme.init();
             navigation.init();
             animations.init();
-            carousel.init();
-            accessibility.init();
-            performance.init();
             window.toggleMode = theme.toggleMode;
-            // Bind carousel.move to carousel context
-            window.moveCarousel = carousel.move.bind(carousel);
         });
     </script>
 </body>

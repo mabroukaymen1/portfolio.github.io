@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BEEMO Smart AI Agent Robot project,  a professional desktop assistant integrating AI, voice recognition, and robotics for workplace efficiency.">
-    <meta name="keywords" content="portfolio, Flutter, Firebase, TCP/IP, REST API, Provider, Sockets, BEEMO, AI Assistant, Robotics, Tunisian Arabic Translation">
+    <meta name="description" content="Beemo: A smart AI-powered office robot and customizable automation platform for businesses, featuring Tunisian Arabic speech recognition, emotional intelligence, and seamless device integration.">
+    <meta name="keywords" content="Beemo, AI Assistant, Office Robot, Smart Automation, White-Label Platform, Tunisian Arabic, Gemini API, LinTO ASR, Office Productivity">
     <meta name="author" content="Aymen Mabrouk">
-    <title>BEEMO AI-Powered Desktop Assistant</title>
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#3B82F6">
+    <title>Beemo: AI-Powered Office Robot & Automation Platform</title>
     <link rel="icon" type="image/png" href="image/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
@@ -73,7 +75,6 @@
             animation: gradientShift 15s ease infinite;
             z-index: -1;
             opacity: 0.6;
-            will-change: background-position;
         }
 
         @keyframes gradientShift {
@@ -98,7 +99,6 @@
             height: 3px;
             background: var(--white);
             border-radius: 50%;
-            will-change: transform, opacity;
             animation: float 12s ease-in-out infinite, fade 6s ease-in-out infinite alternate;
         }
 
@@ -320,24 +320,14 @@
             animation: rotate 8s linear infinite;
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.8); }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
         nav {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 40px;
             padding: 10px 30px;
             z-index: 1000;
@@ -359,13 +349,9 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-primary);
-            text-shadow: 0 1px 0px rgba(0, 0,0.2);
         }
 
         .nav-links {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: bold;
             list-style: none;
             display: flex;
             gap: 10px;
@@ -487,6 +473,10 @@
             font-size: 1.1rem;
         }
 
+        .project-description li {
+            margin-bottom: 10px;
+        }
+
         .project-tech {
             display: flex;
             flex-wrap: wrap;
@@ -567,12 +557,61 @@
             transform: translateY(-3px);
         }
 
-        footer {
-            background: var(--neutral);
+        .collapsible {
+            background: var(--glass-bg);
             color: var(--text-primary);
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .collapsible:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 15px;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            color: var(--text-secondary);
+        }
+
+        .collapsible.active + .collapsible-content {
+            max-height: 1000px;
+            padding: 15px;
+        }
+
+        pre {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .dark pre {
+            background: #f3f4f6;
+            color: var(--text-primary);
+        }
+
+        footer {
+            background: none;
+            color: var(--text-secondary);
             text-align: center;
-            padding: 40px 0;
-            font-family: 'Roboto', sans-serif;
+            padding: 20px 0 10px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
         }
 
         .scroll-progress {
@@ -672,82 +711,20 @@
                 left: 34px;
             }
 
-            .star1 { top: 8px; left: 10px; }
-            .star2 { top: 12px; right: 10px; }
-            .star3 { top: 20px; left: 8px; }
-            .star4 { top: 22px; right: 12px; }
-            .star5 { top: 15px; left: 15px; }
-            .star6 { top: 25px; right: 20px; }
-
-            .cloud1 {
-                width: 10px;
-                height: 4px;
-                top: 8px;
-                left: 10px;
-            }
-
-            .cloud1::before {
-                width: 6px;
-                height: 6px;
-                top: -2px;
-                left: 1px;
-            }
-
-            .cloud2 {
-                width: 8px;
-                height: 3px;
-                top: 20px;
-                right: 10px;
-            }
-
-            .cloud2::before {
-                width: 4px;
-                height: 4px;
-                top: -1px;
-                left: 1px;
-            }
-
-            .moon-crater1 {
-                width: 4px;
-                height: 4px;
-                top: 6px;
-                left: 8px;
-            }
-
-            .moon-crater2 {
-                width: 3px;
-                height: 3px;
-                top: 14px;
-                left: 14px;
-            }
-
-            .moon-crater3 {
-                width: 3px;
-                height: 3px;
-                top: 10px;
-                left: 5px;
-            }
-
-            .sun-ray {
-                height: 4px;
-                transform-origin: 1px 10px;
-            }
-
-            .nav-container {
-                gap: 20px;
-            }
-
-            .nav-links {
-                gap: 15px;
-            }
-
-            .nav-links a {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-
             .project-content {
                 grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .project-title {
+                font-size: 1.5rem;
+            }
+
+            .project-description {
+                font-size: 1rem;
             }
         }
 
@@ -757,7 +734,6 @@
             outline-offset: 2px;
         }
 
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -766,7 +742,6 @@
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             background-color: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
@@ -826,11 +801,10 @@
     </div>
 
     <div class="animated-bg"></div>
-    
     <div class="particles" id="particles"></div>
 
     <div class="toggle-container">
-        <div class="toggle-switch" id="toggleSwitch" onclick="toggleMode()">
+        <div class="toggle-switch" id="toggleSwitch" role="button" aria-label="Toggle dark/light mode" tabindex="0">
             <div class="stars">
                 <div class="star star1"></div>
                 <div class="star star2"></div>
@@ -867,7 +841,7 @@
         <div class="nav-container">
             <div class="logo">Aymen Mabrouk</div>
             <ul class="nav-links">
-                <li><a href="index.html#home" aria-label="Home section">Home</a></li>
+                <li><a href="index.html" aria-label="Home section">Home</a></li>
                 <li><a href="index.html#about" aria-label="About section">About</a></li>
                 <li><a href="index.html#skills" aria-label="Skills section">Skills</a></li>
                 <li><a href="index.html#projects" aria-label="Projects section">Projects</a></li>
@@ -879,193 +853,275 @@
     <section id="project" class="project-details">
         <div class="container">
             <div class="section-header fade-in">
-                <h2 class="section-title">BEEMO AI-Powered Desktop Assistant</h2>
+                <h2 class="section-title">Beemo: AI-Powered Office Robot & Automation Platform</h2>
                 <p class="section-subtitle">
-                    Beemo is a next-generation AI-powered robot assistant, combining advanced natural language processing, robotics, and real-time automation for smart environments. It features multilingual support (including Tunisian Arabic), emotional intelligence, and seamless integration with smart devices and cloud services.
+                    Beemo is an innovative AI-powered desktop robot paired with a customizable, white-label automation platform, designed to streamline office operations, enhance productivity, and provide a branded experience for businesses of all sizes.
                 </p>
             </div>
+
+            <!-- Overview -->
             <div class="project-content">
                 <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=BEEMO+AI+Assistant" alt="BEEMO AI-Powered Desktop Assistant" loading="lazy">
+                    <img src="https://placehold.co/600x400?text=Beemo+Robot" alt="Beemo AI-powered desktop robot" loading="lazy">
                 </div>
                 <div class="project-info slide-in-right">
-                    <h3 class="project-title">Key Features</h3>
-                    <ul class="project-description">
-                        <li><b>AI-Powered Control:</b> Natural language processing for intuitive device management</li>
-                        <li><b>Beemo Robot Integration:</b> Advanced robot companion with emotional intelligence</li>
-                        <li><b>Multilingual Support:</b> Tunisian Arabic to English translation for local users</li>
-                        <li><b>Comprehensive Automation:</b> Complex workflows and intelligent scheduling</li>
-                        <li><b>Real-time Monitoring:</b> Live status updates and detailed analytics</li>
-                    </ul>
-                    <h3 class="project-title" style="margin-top:30px;">🤖 Beemo Robot - Your AI Assistant</h3>
-                    <ul class="project-description">
-                        <li><b>Natural Language Understanding:</b> Beemo comprehends English and Tunisian Arabic commands naturally</li>
-                        <li><b>Gemini AI Integration:</b> Powered by Google's Gemini API for advanced processing</li>
-                        <li><b>Contextual Awareness:</b> Understands complex, multi-step commands</li>
-                        <li><b>Emotional Intelligence:</b> Responds with appropriate emotions and personality (shown on OLED display)</li>
-                    </ul>
-                    <div style="margin: 15px 0;">
-                        <b>Command Examples:</b>
-                        <pre style="background:#f3f4f6;padding:10px;border-radius:8px;">
-English: "Turn on the living room lights and set temperature to 22 degrees"
-Tunisian: "حل الضو في الصالون و خلي الحرارة 22 درجة"
-                        </pre>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of BEEMO AI-Powered Desktop Assistant" onclick="openModal()">
-                            <i class="fas fa-external-link-alt"></i>
-                            View Live
-                        </a>
-                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Code" aria-label="View source code of BEEMO AI-Powered Desktop Assistant">
-                            <i class="fab fa-github"></i>
-                            View Code
-                        </a>
-                    </div>
-                    <div style="margin-top: 20px;">
-                        <a href="test.html" class="project-link live" style="display:inline-block;" title="Test Tunisian Arabic to English AI Translation" aria-label="Test Tunisian Arabic to English AI Translation">
-                            <i class="fas fa-language"></i>
-                            Test Tunisian Arabic to English AI Translation
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=BEEMO+Hardware+Diagram" alt="BEEMO Hardware Architecture Diagram" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">🏗️ Architecture Overview</h3>
+                    <h3 class="project-title">Project Overview</h3>
                     <p class="project-description">
-                        Beemo is built on a modular architecture, combining hardware, AI, and cloud services for a seamless user experience.
+                        Beemo integrates a physical AI-powered desktop robot with a cloud-based automation platform, offering businesses a fully customizable, white-label solution to manage office devices, automate workflows, and boost efficiency. The robot interacts with users via voice commands and displays emotional feedback, while the platform provides seamless control over smart devices across single or multiple office locations.
                     </p>
-                    <pre style="background:#f3f4f6;padding:10px;border-radius:8px;overflow-x:auto;">
-┌─────────────────────────────────────────────────────────────┐
-│                    Beemo Platform                          │
-├─────────────────────────────────────────────────────────────┤
-│  Mobile App (Flutter)                                      │
-│  ├── Chat Interface                                        │
-│  ├── Device Control UI                                     │
-│  ├── Automation Builder                                    │
-│  └── Monitoring Dashboard                                  │
-├─────────────────────────────────────────────────────────────┤
-│  AI Processing Layer                                       │
-│  ├── Gemini API Integration                                │
-│  ├── Tunisian-English Translation                          │
-│  ├── Command Parsing                                       │
-│  └── Context Management                                    │
-├─────────────────────────────────────────────────────────────┤
-│  Backend Services                                          │
-│  ├── Firebase Authentication                               │
-│  ├── Cloud Firestore (Data)                                │
-│  ├── Real-time Database (Device States)                    │
-│  └── Cloud Functions (Automation)                          │
-├─────────────────────────────────────────────────────────────┤
-│  Device Layer                                              │
-│  ├── Smart Home Devices                                    │
-│  ├── Beemo Robot (Raspberry Pi, OLED, Servos, Sensors)     │
-│  └── IoT Sensors                                           │
-└─────────────────────────────────────────────────────────────┘
-                    </pre>
-                </div>
-            </div>
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=BEEMO+Materials" alt="BEEMO Materials Used" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Materials Used</h3>
                     <ul class="project-description">
-                        <li>Raspberry Pi 4 Model B</li>
-                        <li>OLED Display (SSD1309)</li>
-                        <li>Servo Motors (for movement/expressions)</li>
-                        <li>Microphone (voice input)</li>
-                        <li>Servo motor driver board</li>
-                        <li>Jumper wires, resistors, MicroSD card, power supply</li>
-                        <li>Speaker (optional, for audio feedback)</li>
-                        <li>Various sensors (vibration, touch for emotion reactions)</li>
-                        <li>Case/enclosure for Beemo</li>
+                        <li><b>Beemo Robot:</b> A desktop assistant with voice recognition, emotional OLED display, and environmental sensors.</li>
+                        <li><b>White-Label Platform:</b> Fully customizable with company branding, including name, logo, and colors.</li>
+                        <li><b>AI Capabilities:</b> Powered by Google Gemini API for natural language processing and LinTO ASR Arabic Tunisia v0.1 for Tunisian Arabic speech recognition with code-switching support.</li>
+                        <li><b>Scalability:</b> Suitable for small offices to large enterprises with multiple locations.</li>
                     </ul>
+                    <div class="project-links">
+                        <a href="#" class="project-link live" title="View Live Demo" aria-label="View live demo of Beemo" onclick="openModal()">
+                            <i class="fas fa-external-link-alt"></i> View Live Demo
+                        </a>
+                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Source Code" aria-label="View Beemo source code on GitHub">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            <!-- How Beemo Works -->
             <div class="project-content">
                 <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=BEEMO+Software+Diagram" alt="BEEMO Software Architecture Diagram" loading="lazy">
+                    <img src="https://placehold.co/600x400?text=Beemo+Workflow" alt="Diagram illustrating Beemo's workflow process" loading="lazy">
                 </div>
                 <div class="project-info slide-in-right">
                     <h3 class="project-title">How Beemo Works</h3>
+                    <p class="project-description">
+                        Beemo operates through a seamless interaction between its robot and the cloud-based platform, processing voice commands and environmental data to execute automated tasks.
+                    </p>
                     <ol class="project-description">
-                        <li>
-                            <b>Voice Command:</b> User speaks in English or Tunisian Arabic. The mobile app or Beemo's mic captures the command.
-                        </li>
-                        <li>
-                            <b>Language Processing:</b> If Tunisian Arabic, the command is translated to English using a custom AI model.
-                        </li>
-                        <li>
-                            <b>AI Understanding:</b> The Gemini API processes the command, extracts intent, and generates an action plan.
-                        </li>
-                        <li>
-                            <b>Cloud Coordination:</b> The mobile app and Beemo communicate with Firebase for device state, automation, and feedback.
-                        </li>
-                        <li>
-                            <b>Robot Execution:</b> Beemo (Raspberry Pi) receives commands, controls servos (for movement/expressions), updates the OLED display (emotions/status), and interacts with sensors.
-                        </li>
-                        <li>
-                            <b>Smart Device Control:</b> Commands are relayed to smart home devices (lights, AC, etc.) via the cloud or local network.
-                        </li>
-                        <li>
-                            <b>Feedback:</b> Beemo provides visual (OLED), audio (speaker), and app-based feedback, including live status and analytics.
-                        </li>
+                        <li><b>Input Detection:</b> The robot captures voice commands in English or Tunisian Arabic and monitors environmental conditions.</li>
+                        <li><b>Speech Processing:</b> LinTO ASR transcribes Tunisian Arabic, handling code-switching with French and English.</li>
+                        <li><b>AI Analysis:</b> The Gemini API interprets commands and determines appropriate actions.</li>
+                        <li><b>Platform Execution:</b> Commands are relayed to the platform via secure APIs to control devices.</li>
+                        <li><b>Feedback:</b> The platform updates Beemo, which displays emotional responses on its OLED screen and provides app notifications.</li>
                     </ol>
-                    <div style="margin-top:15px;">
+                    <div style="margin-top: 15px;">
                         <b>Example Workflow:</b>
-                        <pre style="background:#f3f4f6;padding:10px;border-radius:8px;">
-User: "حل الضو في الصالون و خلي الحرارة 22 درجة"
-→ App/Beemo: Translates to English
-→ Gemini AI: Parses intent (turn on lights, set temperature)
-→ Firebase: Updates device states
-→ Beemo: Animates happy face, moves servos, confirms action
-→ App: Shows real-time status and analytics
+                        <pre style="color: #0a2240;">
+User says: "حل الضو في قاعة الاجتماعات" (Turn on the meeting room lights)
+→ Beemo captures the command
+→ LinTO ASR transcribes it
+→ Gemini API processes the intent
+→ Platform activates the lights
+→ Beemo displays a happy face and confirms via app
+                        </pre>
+                    </div>
+                    <button class="collapsible" aria-expanded="false" aria-controls="command-flow">View Command Flow Architecture</button>
+                    <div class="collapsible-content" id="command-flow">
+                        <pre style="color: #0a2240;">
+Beemo Robot ↔ LinTO ASR ↔ Platform ↔ Devices
+1. Robot captures: "حل الضو في قاعة الاجتماعات"
+2. LinTO ASR transcribes to text
+3. Platform sends command to devices
+4. Devices execute (e.g., lights turn on)
+5. Platform confirms to robot
+6. Robot displays confirmation and emotion
                         </pre>
                     </div>
                 </div>
             </div>
+
+            <!-- AI Integration -->
             <div class="project-content">
                 <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=BEEMO+Monitoring" alt="BEEMO Monitoring and Analytics" loading="lazy">
+                    <img src="https://placehold.co/600x400?text=Beemo+AI" alt="Beemo's AI integration architecture" loading="lazy">
                 </div>
                 <div class="project-info slide-in-right">
-                    <h3 class="project-title">Monitoring & Analytics</h3>
+                    <h3 class="project-title">AI Integration</h3>
+                    <p class="project-description">
+                        Beemo leverages advanced AI to understand and respond to complex commands, supporting multilingual interactions and emotional feedback.
+                    </p>
                     <ul class="project-description">
-                        <li>Live device status and feedback</li>
-                        <li>Energy consumption tracking</li>
-                        <li>Automation performance metrics</li>
-                        <li>User interaction analytics</li>
+                        <li><b>LinTO ASR Arabic Tunisia v0.1:</b> Handles Tunisian Arabic with code-switching for French/English (<a href="https://huggingface.co/linagora/linto-asr-ar-tn-0.1" target="_blank">LinTO ASR</a>).</li>
+                        <li><b>Google Gemini API:</b> Processes natural language for complex, multi-step commands.</li>
+                        <li><b>Translation:</b> Converts Tunisian Arabic to English for consistent processing.</li>
+                        <li><b>Context Retention:</b> Maintains command context for accurate responses.</li>
+                        <li><b>Emotional Display:</b> Shows appropriate emotions on the OLED screen based on interactions.</li>
+                    </ul>
+                    <div style="margin: 15px 0;">
+                        <b>Example Commands:</b>
+                        <pre style="color: #0a2240;">
+English: "Turn on lights and set AC to 22°C"
+Tunisian Arabic: "حل الضو و خلي الكليم 22 درجة"
+Mixed: "حل الضو and set AC to 22°C"
+                        </pre>
+                    </div>
+                    <a href="translation-demo.html" class="project-link live" title="Test Translation" aria-label="Test Tunisian Arabic to English translation">
+                        <i class="fas fa-language"></i> Test Translation
+                    </a>
+                </div>
+            </div>
+
+            <!-- Customizable Platform -->
+            <div class="project-content">
+                <div class="project-image slide-in-left">
+                    <img src="https://placehold.co/600x400?text=Custom+Platform" alt="Customizable platform interface screenshot" loading="lazy">
+                </div>
+                <div class="project-info slide-in-right">
+                    <h3 class="project-title">Customizable Automation Platform</h3>
+                    <p class="project-description">
+                        The platform is a white-label solution that allows businesses to customize branding and workflows, managing devices and analytics across multiple locations.
+                    </p>
+                    <ul class="project-description">
+                        <li><b>Branding:</b> Customize name, logo, colors, and UI.</li>
+                        <li><b>Workflows:</b> Create tailored automation routines (e.g., meeting room setups).</li>
+                        <li><b>Multi-Location:</b> Manage multiple offices from a single dashboard.</li>
+                        <li><b>Integration:</b> Connects with smart devices and existing systems.</li>
+                        <li><b>Analytics:</b> Monitors energy usage and efficiency metrics.</li>
+                    </ul>
+                    <button class="collapsible" aria-expanded="false" aria-controls="branding-examples">View Branding Examples</button>
+                    <div class="collapsible-content" id="branding-examples">
+                        <ul class="project-description">
+                            <li><b>TechCorp Inc:</b> "TechCorp Smart Office" (Blue/White theme, logo, welcome message).</li>
+                            <li><b>GreenEnergy Solutions:</b> "EcoOffice Manager" (Green/Earth tones, eco-friendly branding).</li>
+                            <li><b>Legal Associates:</b> "LawOffice Control Center" (Navy/Gold, professional emblem).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Implementation -->
+            <div class="project-content">
+                <div class="project-image slide-in-left">
+                    <img src="https://placehold.co/600x400?text=Technical+Architecture" alt="Beemo's technical architecture diagram" loading="lazy">
+                </div>
+                <div class="project-info slide-in-right">
+                    <h3 class="project-title">Technical Implementation</h3>
+                    <h4>Beemo Robot Hardware</h4>
+                    <ul class="project-description">
+                        <li>Raspberry Pi 4 Model B for processing</li>
+                        <li>SSD1309 OLED display for emotions/status</li>
+                        <li>Servo motors for expressive movements</li>
+                        <li>Microphone and sensors for environmental input</li>
+                        <li>Wi-Fi module for platform connectivity</li>
+                    </ul>
+                    <h4>Platform Technology Stack</h4>
+                    <ul class="project-description">
+                        <li><b>Backend:</b> Python/Node.js with Firebase</li>
+                        <li><b>Database:</b> Cloud Firestore for data management</li>
+                        <li><b>Real-time:</b> WebSocket for instant communication</li>
+                        <li><b>AI:</b> Google Gemini API, LinTO ASR Arabic Tunisia v0.1</li>
+                        <li><b>Security:</b> Enterprise-grade encryption, role-based access control</li>
+                    </ul>
+                    <button class="collapsible" aria-expanded="false" aria-controls="system-architecture">View System Architecture</button>
+                    <div class="collapsible-content" id="system-architecture">
+                        <pre style="color: #0a2240;">
+┌───────────────────────────────┐
+│       BEEMO SYSTEM            │
+├───────────────────────────────┤
+│ Beemo Robot (Hardware)        │
+│ ├── Voice & Sensor Input      │
+│ ├── OLED Display (SSD1309)    │
+│ ├── Servo Motors             │
+│ └── Wi-Fi Connectivity        │
+├───────────────────────────────┤
+│ AI Processing                 │
+│ ├── LinTO ASR (Tunisian)      │
+│ └── Gemini API (NLP)          │
+├───────────────────────────────┤
+│ Automation Platform           │
+│ ├── Custom Branding           │
+│ ├── Device Control            │
+│ ├── Workflow Automation       │
+│ ├── Multi-Office Management   │
+│ └── Analytics Dashboard       │
+├───────────────────────────────┤
+│ Communication                 │
+│ ├── Secure APIs               │
+│ ├── WebSocket Real-time       │
+│ └── Bidirectional Feedback    │
+└───────────────────────────────┘
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Management Applications -->
+            <div class="project-content">
+                <div class="project-image slide-in-left">
+                    <img src="https://placehold.co/600x400?text=Management+Apps" alt="Beemo management app interface" loading="lazy">
+                </div>
+                <div class="project-info slide-in-right">
+                    <h3 class="project-title">Management Applications</h3>
+                    <p class="project-description">
+                        Beemo offers multiple interfaces for managing the platform and interacting with the robot, tailored to different user needs.
+                    </p>
+                    <ul class="project-description">
+                        <li><b>Desktop Dashboard:</b> Customizable admin panel for managing workflows, devices, and analytics.</li>
+                        <li><b>Mobile App:</b> Remote control, real-time monitoring, and quick actions on iOS/Android.</li>
+                        <li><b>Web Portal:</b> Browser-based access for rebranding, user management, and integrations.</li>
                     </ul>
                 </div>
             </div>
+
+            <!-- Development Methodology -->
             <div class="project-content">
                 <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=BEEMO+Security" alt="BEEMO Security and Privacy" loading="lazy">
+                    <img src="https://placehold.co/600x400?text=Development+Timeline" alt="Beemo development timeline" loading="lazy">
                 </div>
                 <div class="project-info slide-in-right">
-                    <h3 class="project-title">Security & Privacy</h3>
+                    <h3 class="project-title">Development Methodology</h3>
+                    <p class="project-description">
+                        Beemo was developed using the Scrum framework with 30-day sprints to ensure iterative progress and adaptability.
+                    </p>
+                    <button class="collapsible" aria-expanded="false" aria-controls="sprint-details">View Sprint Details</button>
+                    <div class="collapsible-content" id="sprint-details">
+                        <ul class="project-description">
+                            <li><b>Sprint 1: System Design</b> - Established architecture, protocols, and security standards.</li>
+                            <li><b>Sprint 2: Prototyping</b> - Developed robot prototype and core platform features.</li>
+                            <li><b>Sprint 3: AI Integration</b> - Implemented Gemini API, LinTO ASR, and customization features.</li>
+                            <li><b>Sprint 4: Finalization</b> - Built apps, integrated systems, and conducted testing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Benefits -->
+            <div class="project-content">
+                <div class="project-image slide-in-left">
+                    <img src="https://placehold.co/600x400?text=Business+Benefits" alt="Illustration of Beemo's business benefits" loading="lazy">
+                </div>
+                <div class="project-info slide-in-right">
+                    <h3 class="project-title">Business Benefits</h3>
+                    <p class="project-description">
+                        Beemo delivers significant value to businesses through automation, scalability, and cost efficiency.
+                    </p>
                     <ul class="project-description">
-                        <li>Multi-factor authentication (Firebase)</li>
-                        <li>Role-based access and device pairing</li>
-                        <li>End-to-end encryption for all communications</li>
-                        <li>Local processing for sensitive data</li>
+                        <li><b>Subscription Plans:</b> Flexible options for small offices to enterprises.</li>
+                        <li><b>Energy Efficiency:</b> Reduces utility costs through smart automation.</li>
+                        <li><b>Productivity Boost:</b> Automates repetitive tasks, freeing up employee time.</li>
+                        <li><b>Scalability:</b> Supports growth with additional robots and devices.</li>
+                        <li><b>Security:</b> Features enterprise-grade encryption and access control.</li>
                     </ul>
+                </div>
+            </div>
+
+            <!-- Credits -->
+            <div class="project-content">
+                <div class="project-info slide-in-right">
+                    <h3 class="project-title">Credits</h3>
+                    <p class="project-description">
+                        The Beemo project utilizes <a href="https://huggingface.co/linagora/linto-asr-ar-tn-0.1" target="_blank">LinTO ASR Arabic Tunisia v0.1</a> by Linagora for Tunisian Arabic speech recognition with code-switching capabilities, and the Google Gemini API for advanced natural language processing.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Modal for Video -->
-    <div class="modal" id="videoModal">
+    <div class="modal" id="videoModal" role="dialog" aria-labelledby="modal-title">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <h3 class="modal-title">BEEMO AI-Powered Desktop Assistant Demo</h3>
-            <video class="modal-video" controls>
+            <span class="modal-close" onclick="closeModal()" aria-label="Close video modal">&times;</span>
+            <h3 class="modal-title" id="modal-title">Beemo Demo Video</h3>
+            <video class="modal-video" controls aria-label="Beemo demonstration video">
                 <source src="https://placehold.co/video.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -1079,142 +1135,16 @@ User: "حل الضو في الصالون و خلي الحرارة 22 درجة"
     </footer>
 
     <script>
-        const animations = {
-            init() {
-                gsap.registerPlugin(ScrollTrigger);
-                this.setupLoadingScreen();
-                this.createParticles();
-                this.setupScrollAnimations();
-                this.setupScrollProgress();
-            },
-            setupLoadingScreen() {
-                window.addEventListener('load', () => {
-                    gsap.to('#loadingOverlay', {
-                        opacity: 0,
-                        duration: 0.5,
-                        onComplete: () => {
-                            document.getElementById('loadingOverlay').classList.add('hidden');
-                        }
-                    });
-                });
-            },
-            createParticles() {
-                const particlesContainer = document.getElementById('particles');
-                const particleCount = window.innerWidth < 768 ? 20 : 40;
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 6 + 's';
-                    particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                    particlesContainer.appendChild(particle);
-                }
-            },
-            setupScrollAnimations() {
-                gsap.utils.toArray('.fade-in').forEach((element, i) => {
-                    gsap.fromTo(element, 
-                        { opacity: 0, y: 30 },
-                        {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.8,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 90%',
-                                toggleActions: 'play none none none',
-                                once: true
-                            },
-                            delay: i * 0.1
-                        }
-                    );
-                });
-
-                gsap.utils.toArray('.slide-in-left').forEach((element, i) => {
-                    gsap.fromTo(element, 
-                        { opacity: 0, x: -50 },
-                        {
-                            opacity: 1,
-                            x: 0,
-                            duration: 0.8,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 90%',
-                                toggleActions: 'play none none none',
-                                once: true
-                            },
-                            delay: i * 0.1
-                        }
-                    );
-                });
-
-                gsap.utils.toArray('.slide-in-right').forEach((element, i) => {
-                    gsap.fromTo(element, 
-                        { opacity: 0, x: 50 },
-                        {
-                            opacity: 1,
-                            x: 0,
-                            duration: 0.8,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 90%',
-                                toggleActions: 'play none none none',
-                                once: true
-                            },
-                            delay: i * 0.1
-                        }
-                    );
-                });
-            },
-            setupScrollProgress() {
-                window.addEventListener('scroll', () => {
-                    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                    const scrolled = (winScroll / height) * 100;
-                    document.querySelector('.scroll-progress-bar').style.width = scrolled + '%';
-                });
-            }
-        };
-
-        const navigation = {
-            init() {
-                this.setupSmoothScroll();
-            },
-            setupSmoothScroll() {
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const target = document.querySelector(this.getAttribute('href'));
-                        if (target) {
-                            const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
-                            window.scrollTo({ top: y, behavior: 'smooth' });
-                        }
-                    });
-                });
-            }
-        };
-
-        const theme = {
-            init() {
-                const savedMode = localStorage.getItem('darkMode');
-                if (savedMode === 'true') {
-                    document.body.classList.add('dark');
-                    document.getElementById('toggleSwitch').classList.add('light');
-                }
-            }
-        };
-
+        // Theme Management
         function toggleMode() {
             const toggleSwitch = document.getElementById('toggleSwitch');
             const body = document.body;
-            
             toggleSwitch.classList.toggle('light');
             body.classList.toggle('dark');
-            
-            const isDark = body.classList.contains('dark');
-            localStorage.setItem('darkMode', isDark);
+            localStorage.setItem('darkMode', body.classList.contains('dark'));
         }
 
+        // Modal Control
         function openModal() {
             const modal = document.getElementById('videoModal');
             modal.classList.add('show');
@@ -1230,43 +1160,134 @@ User: "حل الضو في الصالون و خلي الحرارة 22 درجة"
             video.currentTime = 0;
         }
 
+        // Animations
+        const animations = {
+            init() {
+                gsap.registerPlugin(ScrollTrigger);
+                this.setupLoadingScreen();
+                this.setupParticles();
+                this.setupScrollAnimations();
+                this.setupScrollProgress();
+                this.setupCollapsible();
+            },
+
+            setupLoadingScreen() {
+                window.addEventListener('load', () => {
+                    gsap.to('#loadingOverlay', {
+                        opacity: 0,
+                        duration: 0.5,
+                        onComplete: () => {
+                            document.getElementById('loadingOverlay').classList.add('hidden');
+                        }
+                    });
+                });
+            },
+
+            setupParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = window.innerWidth < 768 ? 20 : 40;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 6 + 's';
+                    particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            },
+
+            setupScrollAnimations() {
+                const animate = (selector, props) => {
+                    gsap.utils.toArray(selector).forEach((element, i) => {
+                        gsap.fromTo(element, { opacity: 0, ...props.from }, {
+                            opacity: 1,
+                            ...props.to,
+                            duration: 0.8,
+                            scrollTrigger: {
+                                trigger: element,
+                                start: 'top 90%',
+                                toggleActions: 'play none none none',
+                                once: true
+                            },
+                            delay: i * 0.1
+                        });
+                    });
+                };
+
+                animate('.fade-in', { from: { y: 30 }, to: { y: 0 } });
+                animate('.slide-in-left', { from: { x: -50 }, to: { x: 0 } });
+                animate('.slide-in-right', { from: { x: 50 }, to: { x: 0 } });
+            },
+
+            setupScrollProgress() {
+                window.addEventListener('scroll', () => {
+                    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (winScroll / height) * 100;
+                    document.querySelector('.scroll-progress-bar').style.width = scrolled + '%';
+                });
+            },
+
+            setupCollapsible() {
+                document.querySelectorAll('.collapsible').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isActive = button.classList.toggle('active');
+                        button.setAttribute('aria-expanded', isActive);
+                    });
+                });
+            }
+        };
+
+        // Navigation
+        const navigation = {
+            init() {
+                this.setupSmoothScroll();
+            },
+
+            setupSmoothScroll() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = anchor.getAttribute('href');
+                        const target = document.querySelector(targetId);
+                        if (target) {
+                            const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
+                            window.scrollTo({ top: y, behavior: 'smooth' });
+                        }
+                    });
+                });
+            }
+        };
+
+        // Accessibility
         const accessibility = {
             init() {
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Tab') {
                         document.body.classList.add('keyboard-navigation');
                     }
+                    if (e.key === 'Escape') {
+                        closeModal();
+                    }
                 });
 
                 document.addEventListener('mousedown', () => {
                     document.body.classList.remove('keyboard-navigation');
                 });
-
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        closeModal();
-                    }
-                });
             }
         };
 
-        const performance = {
-            init() {
-                if ('performance' in window) {
-                    window.addEventListener('load', () => {
-                        const perfData = performance.getEntriesByType('navigation')[0];
-                        console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-                    });
-                }
-            }
-        };
-
+        // Initialization
         document.addEventListener('DOMContentLoaded', () => {
             animations.init();
             navigation.init();
-            theme.init();
             accessibility.init();
-            performance.init();
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode === 'true') {
+                document.body.classList.add('dark');
+                document.getElementById('toggleSwitch').classList.add('light');
+            }
         });
     </script>
 </body>

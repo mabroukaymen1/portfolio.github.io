@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="LoRa-based Environmental Monitoring System by Aymen Mabrouk,  a low-power IoT solution using LoRa One ESP32 and DHT11 sensor.">
+    <meta name="description" content="LoRa-based Environmental Monitoring System by Aymen Mabrouk, a low-power IoT solution using LoRa One ESP32 and DHT11 sensor.">
     <meta name="keywords" content="portfolio, LoRa, ESP32, DHT11, IoT, Environmental Monitoring, Aymen Mabrouk">
     <meta name="author" content="Aymen Mabrouk, Ouday Nasser, Mariem Lejri, Anes Hamdi, Abdelhak Khalifa">
     <title>LoRa-based Environmental Monitoring System - Aymen Mabrouk</title>
@@ -104,11 +104,11 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-30px) scale(1.2); }
+            50% { transform: translateY(-20px) scale(1.1); }
         }
 
         @keyframes fade {
-            0% { opacity: 0.4; }
+            0% { opacity: 0.3; }
             100% { opacity: 0.1; }
         }
 
@@ -159,9 +159,8 @@
         .star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
         .star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
 
-        .toggle-switch.light .stars {
-            opacity: 0;
-        }
+        .toggle-switch.light .stars { opacity: 0; }
+        .toggle-switch.light .clouds { opacity: 1; }
 
         .clouds {
             position: absolute;
@@ -177,13 +176,7 @@
             border-radius: 15px;
         }
 
-        .cloud1 {
-            width: 15px;
-            height: 6px;
-            top: 10px;
-            left: 15px;
-        }
-
+        .cloud1 { width: 15px; height: 6px; top: 10px; left: 15px; }
         .cloud1::before {
             content: '';
             position: absolute;
@@ -195,13 +188,7 @@
             left: 2px;
         }
 
-        .cloud2 {
-            width: 10px;
-            height: 4px;
-            top: 25px;
-            right: 15px;
-        }
-
+        .cloud2 { width: 10px; height: 4px; top: 25px; right: 15px; }
         .cloud2::before {
             content: '';
             position: absolute;
@@ -211,10 +198,6 @@
             border-radius: 50%;
             top: -2px;
             left: 1px;
-        }
-
-        .toggle-switch.light .clouds {
-            opacity: 1;
         }
 
         .toggle-circle {
@@ -227,107 +210,13 @@
             left: 2px;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
         }
 
-        .moon-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #E5E7EB;
-            border-radius: 50%;
-            transition: all 0.4s ease;
-        }
-
-        .moon-crater1 {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 8px;
-            left: 10px;
-        }
-
-        .moon-crater2 {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 18px;
-            left: 18px;
-        }
-
-        .moon-crater3 {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 14px;
-            left: 7px;
-        }
-
-        .sun-rays {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: all 0.4s ease;
-        }
-
-        .sun-ray {
-            position: absolute;
-            width: 2px;
-            height: 6px;
-            background: #F59E0B;
-            border-radius: 1px;
-            left: 50%;
-            top: 50%;
-            transform-origin: 1px 15px;
-        }
-
-        .ray1 { transform: translate(-50%, -50%) rotate(0deg); }
-        .ray2 { transform: translate(-50%, -50%) rotate(45deg); }
-        .ray3 { transform: translate(-50%, -50%) rotate(90deg); }
-        .ray4 { transform: translate(-50%, -50%) rotate(135deg); }
-        .ray5 { transform: translate(-50%, -50%) rotate(180deg); }
-        .ray6 { transform: translate(-50%, -50%) rotate(225deg); }
-        .ray7 { transform: translate(-50%, -50%) rotate(270deg); }
-        .ray8 { transform: translate(-50%, -50%) rotate(315deg); }
-
-        .toggle-switch.light .toggle-circle {
-            left: 44px;
-            background: #F59E0B;
-        }
-
-        .toggle-switch.light .moon-face {
-            background: #F59E0B;
-        }
-
-        .toggle-switch.light .moon-crater1,
-        .toggle-switch.light .moon-crater2,
-        .toggle-switch.light .moon-crater3 {
-            background: #FCD34D;
-        }
-
-        .toggle-switch.light .sun-rays {
-            opacity: 1;
-            animation: rotate 8s linear infinite;
-        }
+        .toggle-switch.light .toggle-circle { left: 44px; }
 
         @keyframes twinkle {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.3; transform: scale(0.8); }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         nav {
@@ -359,13 +248,9 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-primary);
-            text-shadow: 0 1px 0px rgba(0, 0,0.2);
         }
 
         .nav-links {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: bold;
             list-style: none;
             display: flex;
             gap: 10px;
@@ -374,12 +259,11 @@
         .nav-links a {
             color: var(--text-primary);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 1rem;
             padding: 8px 15px;
             border-radius: 20px;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .nav-links a:hover,
@@ -388,26 +272,8 @@
             transform: scale(1.05);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 40%;
-        }
-
         section {
-            padding: 100px 0;
-            position: relative;
+            padding: 80px 0;
         }
 
         .container {
@@ -418,12 +284,12 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 60px;
         }
 
         .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 20px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 15px;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             background-clip: text;
@@ -432,7 +298,7 @@
         }
 
         .section-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
@@ -447,59 +313,63 @@
         .project-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 40px;
             align-items: start;
         }
 
         .project-image {
             position: relative;
             overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .project-image img {
+        .project-image img,
+        .project-image svg,
+        .project-image canvas {
             width: 100%;
             height: auto;
             object-fit: cover;
             transition: transform 0.4s ease;
         }
 
-        .project-image:hover img {
+        .project-image:hover img,
+        .project-image:hover svg,
+        .project-image:hover canvas {
             transform: scale(1.05);
         }
 
         .project-info {
-            padding: 20px;
+            padding: 15px;
         }
 
         .project-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
             color: var(--text-primary);
         }
 
         .project-description {
             color: var(--text-secondary);
-            margin-bottom: 30px;
-            line-height: 1.8;
+            margin-bottom: 20px;
+            line-height: 1.7;
             font-family: 'Roboto', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
         .tech-tag {
             background: var(--glass-bg);
             color: var(--text-primary);
-            padding: 8px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
             border: 1px solid var(--glass-border);
             transition: transform 0.3s ease;
         }
@@ -510,38 +380,19 @@
 
         .project-links {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
 
         .project-link {
-            padding: 12px 24px;
+            padding: 10px 20px;
             text-decoration: none;
-            border-radius: 40px;
+            border-radius: 30px;
             font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .project-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--accent-gradient);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-
-        .project-link:hover::before {
-            left: 0;
+            gap: 8px;
         }
 
         .project-link.live {
@@ -551,9 +402,8 @@
         }
 
         .project-link.live:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: var(--primary-gradient);
+            transform: translateY(-2px);
         }
 
         .project-link.github {
@@ -563,17 +413,64 @@
         }
 
         .project-link.github:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
+            background: var(--glass-bg);
+            transform: translateY(-2px);
         }
 
-        footer {
-            background: var(--neutral);
-            color: var(--text-primary);
-            text-align: center;
-            padding: 40px 0;
-            font-family: 'Roboto', sans-serif;
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
         }
+
+        .demo-button {
+            padding: 10px 20px;
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover,
+        .demo-button.active {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .stats-panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .stat-item {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .stat-item span {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+            footer {
+            background: none;
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 20px 0 10px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+           }
 
         .scroll-progress {
             position: fixed;
@@ -612,8 +509,8 @@
         }
 
         .loader {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border: 3px solid rgba(255, 255, 255, 0.2);
             border-top: 3px solid var(--white);
             border-radius: 50%;
@@ -625,20 +522,9 @@
             100% { transform: rotate(360deg); }
         }
 
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-        }
+        .fade-in { opacity: 0; transform: translateY(20px); }
+        .slide-in-left { opacity: 0; transform: translateX(-30px); }
+        .slide-in-right { opacity: 0; transform: translateX(30px); }
 
         @media (max-width: 768px) {
             nav {
@@ -646,171 +532,19 @@
                 left: 10px;
                 right: 10px;
                 transform: none;
-                padding: 10px 20px;
+                padding: 8px 15px;
             }
 
-            .toggle-container {
-                top: 10px;
-                right: 10px;
-            }
+            .toggle-container { top: 10px; right: 10px; }
+            .toggle-switch { width: 60px; height: 30px; border-radius: 15px; }
+            .toggle-circle { width: 24px; height: 24px; }
+            .toggle-switch.light .toggle-circle { left: 34px; }
 
-            .toggle-switch {
-                width: 60px;
-                height: 30px;
-                border-radius: 15px;
-                border-width: 1px;
-            }
-
-            .toggle-circle {
-                width: 24px;
-                height: 24px;
-                top: 2px;
-                left: 2px;
-            }
-
-            .toggle-switch.light .toggle-circle {
-                left: 34px;
-            }
-
-            .star1 { top: 8px; left: 10px; }
-            .star2 { top: 12px; right: 10px; }
-            .star3 { top: 20px; left: 8px; }
-            .star4 { top: 22px; right: 12px; }
-            .star5 { top: 15px; left: 15px; }
-            .star6 { top: 25px; right: 20px; }
-
-            .cloud1 {
-                width: 10px;
-                height: 4px;
-                top: 8px;
-                left: 10px;
-            }
-
-            .cloud1::before {
-                width: 6px;
-                height: 6px;
-                top: -2px;
-                left: 1px;
-            }
-
-            .cloud2 {
-                width: 8px;
-                height: 3px;
-                top: 20px;
-                right: 10px;
-            }
-
-            .cloud2::before {
-                width: 4px;
-                height: 4px;
-                top: -1px;
-                left: 1px;
-            }
-
-            .moon-crater1 {
-                width: 4px;
-                height: 4px;
-                top: 6px;
-                left: 8px;
-            }
-
-            .moon-crater2 {
-                width: 3px;
-                height: 3px;
-                top: 14px;
-                left: 14px;
-            }
-
-            .moon-crater3 {
-                width: 3px;
-                height: 3px;
-                top: 10px;
-                left: 5px;
-            }
-
-            .sun-ray {
-                height: 4px;
-                transform-origin: 1px 10px;
-            }
-
-            .nav-container {
-                gap: 20px;
-            }
-
-            .nav-links {
-                gap: 15px;
-            }
-
-            .nav-links a {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-
-            .project-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .keyboard-navigation a:focus,
-        .keyboard-navigation button:focus {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--white);
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 800px;
-            width: 90%;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--accent);
-        }
-
-        .modal-title {
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .modal-video {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
+            .nav-links a { font-size: 0.85rem; padding: 6px 12px; }
+            .project-content { grid-template-columns: 1fr; }
+            .section-title { font-size: 2rem; }
+            .project-title { font-size: 1.5rem; }
+            .project-description { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -824,11 +558,10 @@
     </div>
 
     <div class="animated-bg"></div>
-    
     <div class="particles" id="particles"></div>
 
     <div class="toggle-container">
-        <div class="toggle-switch" id="toggleSwitch" onclick="toggleMode()">
+        <div class="toggle-switch" id="toggleSwitch" onclick="theme.toggle()">
             <div class="stars">
                 <div class="star star1"></div>
                 <div class="star star2"></div>
@@ -841,23 +574,7 @@
                 <div class="cloud cloud1"></div>
                 <div class="cloud cloud2"></div>
             </div>
-            <div class="toggle-circle">
-                <div class="moon-face">
-                    <div class="moon-crater1"></div>
-                    <div class="moon-crater2"></div>
-                    <div class="moon-crater3"></div>
-                </div>
-                <div class="sun-rays">
-                    <div class="sun-ray ray1"></div>
-                    <div class="sun-ray ray2"></div>
-                    <div class="sun-ray ray3"></div>
-                    <div class="sun-ray ray4"></div>
-                    <div class="sun-ray ray5"></div>
-                    <div class="sun-ray ray6"></div>
-                    <div class="sun-ray ray7"></div>
-                    <div class="sun-ray ray8"></div>
-                </div>
-            </div>
+            <div class="toggle-circle"></div>
         </div>
     </div>
 
@@ -878,16 +595,27 @@
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">LoRa-based Environmental Monitoring System</h2>
-                <p class="section-subtitle">A low-power long-range IoT solution for temperature and humidity monitoring</p>
+                <p class="section-subtitle">A low-power, long-range IoT solution for temperature and humidity monitoring</p>
             </div>
             <div class="project-content">
                 <div class="project-image slide-in-left">
-                    <img src="image/lora.png" alt="LoRa Heltec LoRa32 V3 Board" loading="lazy">
+                    <canvas id="loraCanvas" width="600" height="400"></canvas>
+                    <div class="demo-controls">
+                        <button class="demo-button" data-action="start">Start Demo</button>
+                        <button class="demo-button" data-action="stop">Stop Demo</button>
+                        <button class="demo-button" data-action="reset">Reset</button>
+                    </div>
+                    <div class="stats-panel">
+                        <div class="stat-item">Temperature: <span id="temperature">25.0°C</span></div>
+                        <div class="stat-item">Humidity: <span id="humidity">60%</span></div>
+                        <div class="stat-item">Signal Strength: <span id="signal">90%</span></div>
+                        <div class="stat-item">Packet Loss: <span id="packetLoss">2%</span></div>
+                    </div>
                 </div>
                 <div class="project-info slide-in-right">
                     <h3 class="project-title">Project Overview</h3>
                     <p class="project-description">
-                        The LoRaMétéo Smart project, developed at Institut Supérieur d'Informatique de Mahdia (ISIMA) under the supervision of Dr. Zouhour Radaoui, is an IoT solution utilizing LoRa technology for environmental monitoring. It employs Heltec LoRa32 V3 modules and a DHT11 sensor to collect and transmit temperature and humidity data over long distances with minimal power consumption. The system achieved a successful synchronize with a 2% packet loss rate, a range of 300 meters in urban environments, and a power consumption of 0.5 mA during transmission.
+                        The LoRaMétéo Smart project, developed at Institut Supérieur d'Informatique de Mahdia under Dr. Zouhour Radaoui, leverages LoRa technology for efficient environmental monitoring. Using Heltec LoRa32 V3 modules and a DHT11 sensor, it transmits temperature and humidity data over 300 meters with a 2% packet loss rate and 0.5 mA power consumption during transmission. Data is displayed on an OLED and uploaded to Firebase for remote access.
                     </p>
                     <h3 class="project-title">Technologies Used</h3>
                     <div class="project-tech">
@@ -897,17 +625,12 @@
                         <span class="tech-tag">Arduino IDE</span>
                         <span class="tech-tag">DHT.h</span>
                         <span class="tech-tag">heltec-unofficial.h</span>
-                        <span class="tech-tag">Lucidchart</span>
+                        <span class="tech-tag">Firebase</span>
                         <span class="tech-tag">OLED Display</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of LoRa-based Environmental Monitoring System" onclick="openModal()">
-                            <i class="fas fa-external-link-alt"></i>
-                            View Live
-                        </a>
-                        <a href="https://github.com/mabroukaymen1/loradht" class="project-link github" title="View Code" aria-label="View source code of LoRa-based Environmental Monitoring System">
-                            <i class="fab fa-github"></i>
-                            View Code
+                        <a href="https://github.com/mabroukaymen1/loradht" class="project-link github" title="View Code" aria-label="View source code">
+                            <i class="fab fa-github"></i> View Code
                         </a>
                     </div>
                 </div>
@@ -918,62 +641,47 @@
     <section id="methodology" class="project-details">
         <div class="container">
             <div class="section-header fade-in">
-                <h2 class="section-title">Methodology</h2>
-                <p class="section-subtitle">System architecture and implementation details</p>
+                <h2 class="section-title">System Workflow</h2>
+                <p class="section-subtitle">How the LoRa system collects and processes data</p>
             </div>
             <div class="project-content">
                 <div class="project-image slide-in-left">
-                    <!-- Replace image with SVG architecture diagram for clarity -->
-                    <svg width="100%" height="260" viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" style="background:#f9fafb;border-radius:16px;">
-                        <!-- Transmitter -->
-                        <rect x="40" y="60" width="180" height="140" rx="16" fill="#3B82F6" opacity="0.12"/>
-                        <rect x="60" y="80" width="140" height="100" rx="12" fill="#3B82F6" opacity="0.18"/>
-                        <text x="130" y="110" text-anchor="middle" font-size="18" fill="#3B82F6" font-weight="bold">Transmitter</text>
-                        <text x="130" y="135" text-anchor="middle" font-size="14" fill="#1F2937">Heltec LoRa32 V3</text>
-                        <text x="130" y="155" text-anchor="middle" font-size="13" fill="#1F2937">DHT11 Sensor</text>
-                        <text x="130" y="175" text-anchor="middle" font-size="13" fill="#1F2937">LoRa Send</text>
-                        <!-- Arrow -->
-                        <polygon points="220,130 320,130 320,120 350,140 320,160 320,150 220,150" fill="#10B981" opacity="0.7"/>
-                        <text x="285" y="125" font-size="13" fill="#10B981">LoRa Wireless</text>
-                        <!-- Receiver -->
-                        <rect x="370" y="60" width="180" height="140" rx="16" fill="#10B981" opacity="0.12"/>
-                        <rect x="390" y="80" width="140" height="100" rx="12" fill="#10B981" opacity="0.18"/>
-                        <text x="460" y="110" text-anchor="middle" font-size="18" fill="#10B981" font-weight="bold">Receiver</text>
-                        <text x="460" y="135" text-anchor="middle" font-size="14" fill="#1F2937">Heltec LoRa32 V3</text>
-                        <text x="460" y="155" text-anchor="middle" font-size="13" fill="#1F2937">OLED Display</text>
-                        <text x="460" y="175" text-anchor="middle" font-size="13" fill="#1F2937">Wi-Fi + Firebase</text>
-                        <!-- Arrow to Firebase -->
-                        <polygon points="570,130 650,130 650,120 680,140 650,160 650,150 570,150" fill="#F59E0B" opacity="0.7"/>
-                        <text x="610" y="125" font-size="13" fill="#F59E0B">Wi-Fi</text>
-                        <!-- Firebase Cloud -->
-                        <ellipse cx="690" cy="140" rx="30" ry="22" fill="#F59E0B" opacity="0.18"/>
-                        <text x="690" y="145" text-anchor="middle" font-size="15" fill="#F59E0B" font-weight="bold">Firebase</text>
+                    <svg width="100%" height="260" viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" style="background:#f9fafb;border-radius:12px;">
+                        <rect x="40" y="60" width="180" height="140" rx="12" fill="var(--primary)" opacity="0.1"/>
+                        <rect x="60" y="80" width="140" height="100" rx="8" fill="var(--primary)" opacity="0.2"/>
+                        <text x="130" y="110" text-anchor="middle" font-size="16" fill="var(--primary)" font-weight="bold">Transmitter</text>
+                        <text x="130" y="135" text-anchor="middle" font-size="12" fill="var(--text-primary)">Heltec LoRa32 V3</text>
+                        <text x="130" y="155" text-anchor="middle" font-size="12" fill="var(--text-primary)">DHT11 Sensor</text>
+                        <polygon points="220,130 320,130 320,120 350,140 320,160 320,150 220,150" fill="var(--secondary)" opacity="0.7"/>
+                        <text x="285" y="125" font-size="12" fill="var(--secondary)">LoRa</text>
+                        <rect x="370" y="60" width="180" height="140" rx="12" fill="var(--secondary)" opacity="0.1"/>
+                        <rect x="390" y="80" width="140" height="100" rx="8" fill="var(--secondary)" opacity="0.2"/>
+                        <text x="460" y="110" text-anchor="middle" font-size="16" fill="var(--secondary)" font-weight="bold">Receiver</text>
+                        <text x="460" y="135" text-anchor="middle" font-size="12" fill="var(--text-primary)">Heltec LoRa32 V3</text>
+                        <text x="460" y="155" text-anchor="middle" font-size="12" fill="var(--text-primary)">OLED Display</text>
+                        <polygon points="570,130 650,130 650,120 680,140 650,160 650,150 570,150" fill="var(--accent)" opacity="0.7"/>
+                        <text x="610" y="125" font-size="12" fill="var(--accent)">Wi-Fi</text>
+                        <ellipse cx="690" cy="140" rx="30" ry="22" fill="var(--accent)" opacity="0.2"/>
+                        <text x="690" y="145" text-anchor="middle" font-size="14" fill="var(--accent)" font-weight="bold">Firebase</text>
                     </svg>
                 </div>
                 <div class="project-info slide-in-right">
                     <h3 class="project-title">System Architecture</h3>
                     <p class="project-description">
-                        The system consists of two main nodes:
+                        The system comprises two nodes:
                         <ul style="margin-left:18px;">
-                            <li><b>Transmitter Node:</b> Reads temperature and humidity from a DHT11 sensor, then sends the data via LoRa.</li>
-                            <li><b>Receiver Node:</b> Receives LoRa messages, displays data on an OLED, and uploads it to Firebase via Wi-Fi.</li>
+                            <li><b>Transmitter:</b> Collects temperature and humidity data using a DHT11 sensor and sends it via LoRa.</li>
+                            <li><b>Receiver:</b> Receives LoRa data, displays it on an OLED, and uploads it to Firebase via Wi-Fi.</li>
                         </ul>
                     </p>
-                    <h3 class="project-title">System Workflow</h3>
+                    <h3 class="project-title">Workflow</h3>
                     <ol class="project-description" style="margin-left:18px;">
-                        <li><b>Sensor Reading:</b> The transmitter reads temperature and humidity from the DHT11 sensor.</li>
-                        <li><b>Data Transmission:</b> The transmitter formats and sends the data wirelessly using LoRa.</li>
-                        <li><b>Data Reception:</b> The receiver listens for LoRa messages and parses the received data.</li>
-                        <li><b>Display:</b> The receiver displays the latest readings and signal quality on its OLED screen.</li>
-                        <li><b>Cloud Upload:</b> The receiver connects to Wi-Fi and uploads the sensor data to Firebase Realtime Database for remote access.</li>
+                        <li><b>Sensor Reading:</b> DHT11 measures temperature and humidity.</li>
+                        <li><b>LoRa Transmission:</b> Data is sent wirelessly using LoRa protocol.</li>
+                        <li><b>Data Reception:</b> Receiver parses incoming LoRa messages.</li>
+                        <li><b>Display:</b> OLED shows real-time data and signal quality.</li>
+                        <li><b>Cloud Sync:</b> Data is uploaded to Firebase for remote monitoring.</li>
                     </ol>
-                    <h3 class="project-title">Implementation</h3>
-                    <p class="project-description">
-                        - <b>Programming:</b> Arduino IDE with <code>DHT.h</code> and <code>heltec-unofficial.h</code> libraries.<br>
-                        - <b>Data Format:</b> Simple string messages for easy parsing.<br>
-                        - <b>Cloud Integration:</b> Firebase ESP Client library for uploading data.<br>
-                        - <b>Design:</b> Lucidchart for UML and architecture diagrams.
-                    </p>
                 </div>
             </div>
         </div>
@@ -982,8 +690,8 @@
     <section id="results" class="project-details">
         <div class="container">
             <div class="section-header fade-in">
-                <h2 class="section-title">Results and Performance</h2>
-                <p class="section-subtitle">Key outcomes and performance metrics</p>
+                <h2 class="section-title">Performance Metrics</h2>
+                <p class="section-subtitle">Key outcomes of the system</p>
             </div>
             <div class="project-content">
                 <div class="project-image slide-in-left">
@@ -992,13 +700,13 @@
                 <div class="project-info slide-in-right">
                     <h3 class="project-title">Results</h3>
                     <p class="project-description">
-                        The system achieved successful bidirectional communication between two LoRa32 boards, with reliable transmission of temperature and humidity data. Real-time data visualization was accomplished on an OLED display, providing immediate feedback on environmental conditions.
+                        The system enables reliable long-range data transmission with real-time visualization on an OLED display and cloud storage via Firebase, ensuring robust environmental monitoring.
                     </p>
-                    <h3 class="project-title">Performance Metrics</h3>
+                    <h3 class="project-title">Metrics</h3>
                     <p class="project-description">
-                        - Packet Loss Rate: 2%<br>
-                        - Range: 300 meters in urban environments<br>
-                        - Power Consumption: 0.5 mA during transmission
+                        - Packet Loss: 2%<br>
+                        - Range: 300m (urban)<br>
+                        - Power Consumption: 0.5 mA (transmission)
                     </p>
                 </div>
             </div>
@@ -1009,7 +717,7 @@
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Applications of LoRa</h2>
-                <p class="section-subtitle">Real-world use cases for LoRa technology</p>
+                <p class="section-subtitle">Real-world use cases</p>
             </div>
             <div class="project-content">
                 <div class="project-image slide-in-left">
@@ -1018,39 +726,599 @@
                 <div class="project-info slide-in-right">
                     <h3 class="project-title">Why LoRa?</h3>
                     <p class="project-description">
-                        LoRa (Long Range) is a wireless communication technology designed for low-power, long-distance networks, making it ideal for IoT applications requiring extended range and minimal energy consumption.
+                        LoRa offers long-range, low-power communication, ideal for IoT applications requiring extended coverage and minimal energy use.
                     </p>
-                    <h3 class="project-title">Application Areas</h3>
+                    <h3 class="project-title">Applications</h3>
                     <p class="project-description">
-                        - <strong>Smart Agriculture</strong>: Monitoring soil moisture and weather conditions.<br>
-                        - <strong>Smart Cities</strong>: Managing public lighting and parking occupancy detection.<br>
-                        - <strong>Logistics and Transport</strong>: Asset tracking and fleet management.<br>
-                        - <strong>Environmental Monitoring</strong>: Air quality surveillance, water level monitoring, and forest fire detection.
+                        - <b>Smart Agriculture:</b> Soil moisture and weather monitoring.<br>
+                        - <b>Smart Cities:</b> Lighting and parking management.<br>
+                        - <b>Logistics:</b> Asset tracking and fleet management.<br>
+                        - <b>Environmental Monitoring:</b> Air quality, water levels, and fire detection.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modal for Video -->
-    <div class="modal" id="videoModal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <h3 class="modal-title">LoRa-based Environmental Monitoring System Demo</h3>
-            <video class="modal-video" controls>
-                <source src="https://placehold.co/video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </div>
-
     <footer>
         <div class="container">
-            <p>© 2025 Aymen Mabrouk, Ouday Nasser, Mariem Lejri, Anes Hamdi, Abdelhak Khalifa. All rights reserved. Built with modern web technologies.</p>
+            <p>© 2025 Aymen Mabrouk. All rights reserved. Built with modern web technologies.</p>
         </div>
     </footer>
 
     <script>
+ /**
+ * @class LoraMeteoDemo
+ * @description A professional, object-oriented simulation of the LoRaMétéo Smart Environmental Monitoring System.
+ * This demo showcases a full IoT data pipeline from sensor reading to cloud synchronization,
+ * rendered with smooth, time-based animations and a polished user interface.
+ * 
+ * Originally for: Institut Supérieur d'Informatique de Mahdia - Dr. Zouhour Radaoui
+ * Enhanced for Portfolio Demonstration.
+ */
+class LoraMeteoDemo {
+    // --- Core Properties ---
+    canvas = null;
+    ctx = null;
+    animationId = null;
+    lastTime = 0;
+
+    // --- System & Simulation State ---
+    isRunning = false;
+    data = {};
+    status = 'System Initializing...';
+    currentPhase = 'idle';
+    phaseTimer = 0;
+    signalParticles = [];
+
+    // --- Configuration ---
+    config = {
+        positions: {
+            transmitter: { x: 100, y: 190 },
+            receiver: { x: 400, y: 190 },
+            cloud: { x: 680, y: 180 },
+        },
+        phases: {
+            idle: { duration: 2000, next: 'reading', label: 'Idle - Awaiting Cycle', color: '#6b7280' },
+            reading: { duration: 1500, next: 'transmitting', label: 'Reading DHT11 Sensor Data...', color: '#3b82f6' },
+            transmitting: { duration: 2000, next: 'receiving', label: 'Transmitting via LoRa (868MHz)...', color: '#8b5cf6' },
+            receiving: { duration: 1000, next: 'displaying', label: 'Receiving LoRa Signal...', color: '#10b981' },
+            displaying: { duration: 1500, next: 'uploading', label: 'Updating OLED Display...', color: '#f59e0b' },
+            uploading: { duration: 2000, next: 'synced', label: 'Uploading to Firebase Cloud...', color: '#ef4444' },
+            synced: { duration: 1000, next: 'idle', label: 'Data Synchronized Successfully', color: '#059669' }
+        }
+    };
+
+    constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        this.ctx = this.canvas.getContext('2d');
+        
+        if (!this.canvas || !this.ctx) {
+            console.error('LoRaMétéo Demo: Canvas initialization failed.');
+            return;
+        }
+
+        this.canvas.width = 800;
+        this.canvas.height = 450; // Increased height for better layout
+
+        this.setupControls();
+        this.reset();
+        
+        // Start rendering immediately for a static initial view
+        this.draw(); 
+    }
+
+    // --- Main Control Flow ---
+
+    setupControls() {
+        document.querySelectorAll('.demo-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const action = e.currentTarget.dataset.action;
+                document.querySelectorAll('.demo-button').forEach(btn => btn.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+
+                switch (action) {
+                    case 'start': this.start(); break;
+                    case 'stop': this.stop(); break;
+                    case 'reset': this.reset(); break;
+                }
+            });
+        });
+    }
+
+    start() {
+        if (this.isRunning) return;
+        this.isRunning = true;
+        this.status = 'System Active - Monitoring Environment';
+        this.lastTime = performance.now();
+        this.animate(this.lastTime);
+        console.log('LoRaMétéo monitoring started');
+    }
+
+    stop() {
+        if (!this.isRunning) return;
+        this.isRunning = false;
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+        }
+        this.status = 'System Paused';
+        this.currentPhase = 'idle';
+        this.draw(); // Render one last time in the paused state
+        this.updateStats();
+        console.log('LoRaMétéo monitoring stopped');
+    }
+
+    reset() {
+        this.stop();
+        this.data = {
+            temperature: 25.0,
+            humidity: 60,
+            signalStrength: 90,
+            packetLoss: 2.0,
+            batteryLevel: 100,
+            powerConsumption: 0.1,
+            packetsTransmitted: 0,
+            packetsReceived: 0
+        };
+        this.status = 'System Reset - Ready to Start';
+        this.currentPhase = 'idle';
+        this.phaseTimer = 0;
+        this.signalParticles = [];
+        this.draw();
+        this.updateStats();
+        console.log('LoRaMétéo system reset');
+    }
+
+    // --- Animation & Update Loop ---
+
+    animate(currentTime) {
+        if (!this.isRunning) return;
+
+        const deltaTime = (currentTime - this.lastTime) / 1000; // Time in seconds
+        this.lastTime = currentTime;
+
+        this.update(deltaTime);
+        this.draw();
+        
+        this.animationId = requestAnimationFrame((ts) => this.animate(ts));
+    }
+
+    update(deltaTime) {
+        this.phaseTimer += deltaTime * 1000;
+        this.updatePhase();
+        this.updateData(deltaTime);
+        this.updateSignalParticles(deltaTime);
+        this.updateStats();
+    }
+    
+    updatePhase() {
+        const currentPhaseConfig = this.config.phases[this.currentPhase];
+        if (this.phaseTimer >= currentPhaseConfig.duration) {
+            this.currentPhase = currentPhaseConfig.next;
+            this.phaseTimer = 0;
+
+            // Trigger actions on phase change
+            switch(this.currentPhase) {
+                case 'reading':
+                    this.data.powerConsumption = 0.3;
+                    break;
+                case 'transmitting':
+                    this.data.powerConsumption = 0.5;
+                    this.data.packetsTransmitted++;
+                    this.createSignalWave();
+                    if (Math.random() * 100 > this.data.packetLoss) {
+                        // Decide if this packet will be successful upfront
+                        this.createSignalParticles(true);
+                    } else {
+                        this.createSignalParticles(false); // Simulate packet loss
+                    }
+                    break;
+                case 'receiving':
+                    this.data.powerConsumption = 0.4;
+                    // Count received packets only when particles arrive
+                    const successfulPacket = this.signalParticles.some(p => p.isSuccessful);
+                    if (successfulPacket) this.data.packetsReceived++;
+                    break;
+                case 'displaying':
+                    this.data.powerConsumption = 0.2;
+                    break;
+                case 'uploading':
+                    this.data.powerConsumption = 0.6;
+                    break;
+                case 'idle': case 'synced':
+                    this.data.powerConsumption = 0.1;
+                    break;
+            }
+        }
+        this.status = this.config.phases[this.currentPhase].label;
+    }
+    
+    updateData(deltaTime) {
+        const time = performance.now() / 1000;
+        this.data.temperature = 25 + Math.sin(time * 0.1) * 3 + (Math.random() - 0.5) * 0.2;
+        this.data.humidity = 60 + Math.cos(time * 0.08) * 8 + (Math.random() - 0.5);
+        this.data.signalStrength = 88 + Math.sin(time * 0.05) * 5 + (Math.random() - 0.5) * 3;
+        this.data.packetLoss = (100 - this.data.signalStrength) * 0.2;
+
+        this.data.temperature = Math.max(-40, Math.min(80, this.data.temperature));
+        this.data.humidity = Math.max(0, Math.min(100, this.data.humidity));
+        
+        this.data.batteryLevel = Math.max(0, this.data.batteryLevel - 0.005 * this.data.powerConsumption * deltaTime);
+    }
+    
+    createSignalWave() {
+        const txPos = this.config.positions.transmitter;
+        for (let i = 0; i < 5; i++) {
+            this.signalParticles.push({
+                type: 'wave',
+                x: txPos.x, y: txPos.y,
+                radius: 0, life: 1.0,
+                speed: 40 + i * 10,
+            });
+        }
+    }
+
+    createSignalParticles(isSuccessful) {
+        const txPos = this.config.positions.transmitter;
+        const rxPos = this.config.positions.receiver;
+        for (let i = 0; i < (isSuccessful ? 8 : 4); i++) {
+            this.signalParticles.push({
+                type: 'packet',
+                startX: txPos.x, startY: txPos.y,
+                endX: isSuccessful ? rxPos.x : txPos.x + (rxPos.x-txPos.x) * (0.4 + Math.random() * 0.2), // Fails mid-way
+                endY: isSuccessful ? rxPos.y : txPos.y + (Math.random() - 0.5) * 50,
+                progress: 0,
+                speed: 0.6 + Math.random() * 0.2,
+                size: isSuccessful ? 4 : 2,
+                opacity: isSuccessful ? 1.0 : 0.7,
+                life: 1.0,
+                isSuccessful
+            });
+        }
+    }
+    
+    updateSignalParticles(deltaTime) {
+        this.signalParticles = this.signalParticles.filter(p => p.life > 0);
+        this.signalParticles.forEach(p => {
+            p.life -= 0.6 * deltaTime;
+            if (p.type === 'wave') {
+                p.radius += p.speed * deltaTime;
+            } else if (p.type === 'packet') {
+                p.progress = Math.min(1.0, p.progress + p.speed * deltaTime);
+            }
+        });
+    }
+
+    // --- Drawing Methods ---
+
+    draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawBackground();
+        this.drawComponentConnections();
+        this.drawTransmitter();
+        this.drawReceiver();
+        this.drawFirebaseCloud();
+        this.drawSignalAnimations();
+        this.drawStatusPanel();
+        this.drawTechnicalInfo();
+    }
+    
+    drawBackground() {
+        const gradient = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height);
+        gradient.addColorStop(0, '#f8fafc'); // Slate 50
+        gradient.addColorStop(1, '#e2e8f0'); // Slate 200
+        this.ctx.fillStyle = gradient;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    
+    drawComponentConnections() {
+        const tx = this.config.positions.transmitter;
+        const rx = this.config.positions.receiver;
+        const cloud = this.config.positions.cloud;
+        
+        this.ctx.save();
+        this.ctx.strokeStyle = '#cbd5e1'; // Slate 300
+        this.ctx.lineWidth = 2;
+        this.ctx.setLineDash([2, 4]);
+
+        // LoRa Path
+        this.ctx.beginPath();
+        this.ctx.moveTo(tx.x, tx.y + 45);
+        this.ctx.lineTo(rx.x, rx.y + 45);
+        this.ctx.stroke();
+
+        // Cloud Path (Wi-Fi/Cellular)
+        this.ctx.beginPath();
+        this.ctx.moveTo(rx.x + 50, rx.y);
+        this.ctx.quadraticCurveTo(rx.x + 120, rx.y - 120, cloud.x, cloud.y - 40);
+        this.ctx.stroke();
+
+        this.ctx.restore();
+    }
+
+    drawTransmitter() {
+        const pos = this.config.positions.transmitter;
+        this.drawDevice(pos.x, pos.y, 'Transmitter', 'Heltec LoRa32 + DHT11', '#2563eb', this.currentPhase === 'reading');
+        
+        // Battery Indicator
+        this.ctx.save();
+        const batteryColor = this.data.batteryLevel > 20 ? '#10b981' : this.data.batteryLevel > 10 ? '#f59e0b' : '#ef4444';
+        this.ctx.fillStyle = '#e2e8f0';
+        this.ctx.fillRect(pos.x - 45, pos.y + 25, 40, 14);
+        this.ctx.fillStyle = batteryColor;
+        this.ctx.fillRect(pos.x - 44, pos.y + 26, 38 * (this.data.batteryLevel / 100), 12);
+        this.ctx.fillStyle = '#475569';
+        this.ctx.font = '9px "Inter", sans-serif';
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
+        this.ctx.fillText(`${this.data.batteryLevel.toFixed(0)}%`, pos.x - 25, pos.y + 32);
+        this.ctx.restore();
+    }
+
+    drawReceiver() {
+        const pos = this.config.positions.receiver;
+        this.drawDevice(pos.x, pos.y, 'Receiver', 'Heltec LoRa32 + OLED', '#10b981', false);
+        
+        // OLED Screen
+        const x = pos.x - 40, y = pos.y - 20, w = 80, h = 50;
+        this.ctx.fillStyle = '#1f2937';
+        this.ctx.beginPath();
+        this.ctx.roundRect(x, y, w, h, 5);
+        this.ctx.fill();
+        
+        // OLED Text with glow effect
+        if (this.currentPhase === 'displaying' || this.currentPhase === 'uploading' || this.currentPhase === 'synced' || this.currentPhase === 'idle' ) {
+            this.ctx.save();
+            this.ctx.font = 'bold 9px "Consolas", "Courier New", monospace';
+            this.ctx.fillStyle = '#60a5fa'; // Light blue text color
+            this.ctx.shadowColor = '#60a5fa';
+            this.ctx.shadowBlur = this.currentPhase === 'displaying' ? 8 : 4;
+            this.ctx.textAlign = 'left';
+            this.ctx.fillText('> LoRaMétéo', x + 5, y + 12);
+            this.ctx.shadowBlur = 0; // Turn off glow for other text
+            this.ctx.fillStyle = '#e2e8f0';
+            this.ctx.font = '9px "Consolas", "Courier New", monospace';
+            this.ctx.fillText(` T:${this.data.temperature.toFixed(1)}C H:${this.data.humidity.toFixed(0)}%`, x + 5, y + 26);
+            this.ctx.fillText(` SIG:${this.data.signalStrength.toFixed(0)}% PL:${this.data.packetLoss.toFixed(1)}%`, x+5, y + 38);
+            this.ctx.restore();
+        }
+    }
+
+    drawDevice(x, y, title, subtitle, color, isReading) {
+        this.ctx.save();
+        // Shadow
+        this.ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+        this.ctx.shadowBlur = 10;
+        this.ctx.shadowOffsetY = 4;
+        
+        // Body
+        const bodyGradient = this.ctx.createLinearGradient(x - 50, y - 40, x + 50, y + 40);
+        bodyGradient.addColorStop(0, color);
+        bodyGradient.addColorStop(1, this.shadeColor(color, -0.2)); // <-- fix: use -0.2 instead of -20
+        this.ctx.fillStyle = bodyGradient;
+        this.ctx.beginPath();
+        this.ctx.roundRect(x - 50, y - 40, 100, 80, 8);
+        this.ctx.fill();
+        this.ctx.shadowColor = 'transparent';
+
+        // Antenna
+        this.ctx.fillStyle = '#475569';
+        this.ctx.fillRect(x - 4, y - 60, 8, 20);
+        this.ctx.beginPath();
+        this.ctx.arc(x, y - 60, 2, 0, Math.PI * 2);
+        this.ctx.fill();
+
+        // Reading sensor indicator
+        if (isReading) {
+            const readingPulse = 0.5 + Math.sin(performance.now()/100) * 0.5;
+            this.ctx.fillStyle = '#34d399';
+            this.ctx.globalAlpha = readingPulse;
+            this.ctx.beginPath();
+            this.ctx.arc(x, y-25, 10, 0, Math.PI * 2);
+            this.ctx.fill();
+            this.ctx.globalAlpha = 1.0;
+        }
+
+        // Text
+        this.ctx.fillStyle = 'white';
+        this.ctx.textAlign = 'center';
+        this.ctx.font = 'bold 14px "Inter", sans-serif';
+        this.ctx.fillText(title, x, y + 10);
+        this.ctx.font = '10px "Inter", sans-serif';
+        this.ctx.globalAlpha = 0.8;
+        this.ctx.fillText(subtitle, x, y + 25);
+        
+        this.ctx.restore();
+    }
+    
+    drawFirebaseCloud() {
+        const { x, y } = this.config.positions.cloud;
+        const isUploading = this.currentPhase === 'uploading';
+        const pulse = isUploading ? 0.7 + Math.sin(performance.now() / 150) * 0.3 : 0;
+        
+        this.ctx.save();
+        this.ctx.shadowColor = 'rgba(245, 158, 11, 0.5)';
+        this.ctx.shadowBlur = isUploading ? 20 * pulse : 5;
+        
+        // Cloud shape
+        const gradient = this.ctx.createRadialGradient(x, y, 5, x, y, 45);
+        gradient.addColorStop(0, '#fcd34d');
+        gradient.addColorStop(1, '#f59e0b');
+        this.ctx.fillStyle = gradient;
+
+        this.ctx.beginPath();
+        this.ctx.arc(x, y, 35, Math.PI * 0.5, Math.PI * 1.5);
+        this.ctx.arc(x + 15, y - 15, 25, Math.PI * 1, Math.PI * 2);
+        this.ctx.arc(x + 35, y, 20, Math.PI * 1.5, Math.PI * 0.5);
+        this.ctx.closePath();
+        this.ctx.fill();
+
+        this.ctx.shadowColor = 'transparent';
+
+        // Upload Arrow Animation
+        if (isUploading) {
+            const arrowY = y + 10 - 20 * pulse;
+            this.ctx.fillStyle = 'white';
+            this.ctx.globalAlpha = pulse;
+            this.ctx.beginPath();
+            this.ctx.moveTo(x - 8, arrowY);
+            this.ctx.lineTo(x, arrowY - 8);
+            this.ctx.lineTo(x + 8, arrowY);
+            this.ctx.lineTo(x + 3, arrowY);
+            this.ctx.lineTo(x + 3, arrowY + 10);
+            this.ctx.lineTo(x - 3, arrowY + 10);
+            this.ctx.lineTo(x - 3, arrowY);
+            this.ctx.closePath();
+            this.ctx.fill();
+        }
+
+        this.ctx.restore();
+    }
+
+    drawSignalAnimations() {
+        this.ctx.save();
+        this.signalParticles.forEach(p => {
+            this.ctx.globalAlpha = Math.max(0, p.life);
+            if (p.type === 'wave') {
+                this.ctx.strokeStyle = '#3b82f6';
+                this.ctx.lineWidth = 2;
+                this.ctx.beginPath();
+                this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                this.ctx.stroke();
+            } else if (p.type === 'packet') {
+                const easedProgress = p.progress * (2 - p.progress); // Ease-out
+                const currentX = p.startX + (p.endX - p.startX) * easedProgress;
+                const currentY = p.startY + (p.endY - p.startY) * easedProgress + Math.sin(easedProgress * Math.PI) * -30;
+                
+                this.ctx.fillStyle = p.isSuccessful ? '#3b82f6' : '#ef4444';
+                this.ctx.beginPath();
+                this.ctx.arc(currentX, currentY, p.size, 0, Math.PI * 2);
+                this.ctx.fill();
+            }
+        });
+        this.ctx.restore();
+    }
+
+    drawStatusPanel() {
+        this.drawPanel(20, 20, 360, 60, ctx => {
+            const phaseConfig = this.config.phases[this.currentPhase];
+            
+            // Phase indicator light
+            ctx.fillStyle = phaseConfig.color;
+            ctx.beginPath();
+            ctx.arc(350, 48, 8, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Status text
+            ctx.fillStyle = '#1f2937';
+            ctx.font = 'bold 14px "Inter", sans-serif';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            ctx.fillText('System Status:', 30, 28);
+            ctx.font = '12px "Inter", sans-serif';
+            ctx.fillText(this.status, 30, 48);
+        });
+    }
+
+    drawTechnicalInfo() {
+        this.drawPanel(20, this.canvas.height - 80, this.canvas.width - 40, 60, ctx => {
+            ctx.fillStyle = '#475569';
+            ctx.font = '11px "Inter", sans-serif';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            
+            const y1 = this.canvas.height - 55;
+            const y2 = this.canvas.height - 38;
+
+            ctx.fillText(`LoRa Specs: 868 MHz | Range: 300m`, 40, y1);
+            ctx.fillText(`Power Consumption: ${this.data.powerConsumption.toFixed(1)}mA`, 280, y1);
+            ctx.fillText(`Packets T/R: ${this.data.packetsTransmitted}/${this.data.packetsReceived}`, 520, y1);
+
+            ctx.font = 'italic 10px "Inter", sans-serif';
+            ctx.textAlign = 'right';
+            ctx.fillText('LoRaMétéo Smart Environmental Monitoring Project', this.canvas.width - 40, y2);
+        });
+    }
+
+    drawPanel(x, y, w, h, contentRenderer) {
+        this.ctx.save();
+        this.ctx.shadowColor = 'rgba(0, 0, 0, 0.05)';
+        this.ctx.shadowBlur = 15;
+        this.ctx.shadowOffsetY = 5;
+
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        this.ctx.strokeStyle = '#e2e8f0';
+        this.ctx.lineWidth = 1;
+        this.ctx.beginPath();
+        this.ctx.roundRect(x, y, w, h, 10);
+        this.ctx.fill();
+        this.ctx.stroke();
+        
+        this.ctx.restore();
+
+        if (contentRenderer) {
+            contentRenderer(this.ctx);
+        }
+    }
+    
+    updateStats() {
+        const stats = {
+            'temperature': `${this.data.temperature.toFixed(1)}°C`,
+            'humidity': `${this.data.humidity.toFixed(0)}%`,
+            'signal': `${this.data.signalStrength.toFixed(0)}%`,
+            'packetLoss': `${this.data.packetLoss.toFixed(1)}%`,
+            'battery': `${this.data.batteryLevel.toFixed(1)}%`,
+            'power': `${this.data.powerConsumption.toFixed(1)}mA`,
+            'packets': `${this.data.packetsReceived}/${this.data.packetsTransmitted}`
+        };
+
+        for (const [id, value] of Object.entries(stats)) {
+            const el = document.getElementById(id);
+            if (el && el.textContent !== value) {
+                el.textContent = value;
+            }
+        }
+    }
+
+    // --- Helper Methods ---
+    shadeColor(color, percent) {
+        // Clamp percent to [-1, 1]
+        percent = Math.max(-1, Math.min(1, percent));
+        let f = parseInt(color.slice(1), 16), t = percent < 0 ? 0 : 255, p = percent < 0 ? percent * -1 : percent, R = f >> 16, G = (f >> 8) & 0x00FF, B = f & 0x0000FF;
+        // Ensure hex string is always 6 digits
+        let r = Math.round((t - R) * p) + R;
+        let g = Math.round((t - G) * p) + G;
+        let b = Math.round((t - B) * p) + B;
+        return (
+            "#" +
+            r.toString(16).padStart(2, "0") +
+            g.toString(16).padStart(2, "0") +
+            b.toString(16).padStart(2, "0")
+        );
+    }
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    // Adding roundRect to canvas context if not present
+    if (!CanvasRenderingContext2D.prototype.roundRect) {
+        CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+            if (w < 2 * r) r = w / 2;
+            if (h < 2 * r) r = h / 2;
+            this.beginPath();
+            this.moveTo(x + r, y);
+            this.arcTo(x + w, y, x + w, y + h, r);
+            this.arcTo(x + w, y + h, x, y + h, r);
+            this.arcTo(x, y + h, x, y, r);
+            this.arcTo(x, y, x + w, y, r);
+            this.closePath();
+            return this;
+        }
+    }
+    new LoraMeteoDemo('loraCanvas');
+});
+
         const animations = {
             init() {
                 gsap.registerPlugin(ScrollTrigger);
@@ -1064,76 +1332,68 @@
                     gsap.to('#loadingOverlay', {
                         opacity: 0,
                         duration: 0.5,
-                        onComplete: () => {
-                            document.getElementById('loadingOverlay').classList.add('hidden');
-                        }
+                        onComplete: () => document.getElementById('loadingOverlay').classList.add('hidden')
                     });
                 });
             },
             createParticles() {
                 const particlesContainer = document.getElementById('particles');
-                const particleCount = window.innerWidth < 768 ? 20 : 40;
+                const particleCount = window.innerWidth < 768 ? 15 : 30;
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
                     particle.style.left = Math.random() * 100 + '%';
                     particle.style.top = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 6 + 's';
-                    particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                    particle.style.animationDelay = Math.random() * 5 + 's';
                     particlesContainer.appendChild(particle);
                 }
             },
             setupScrollAnimations() {
-                gsap.utils.toArray('.fade-in').forEach((element, i) => {
+                gsap.utils.toArray('.fade-in').forEach(element => {
                     gsap.fromTo(element, 
-                        { opacity: 0, y: 30 },
+                        { opacity: 0, y: 20 },
                         {
                             opacity: 1,
                             y: 0,
-                            duration: 0.8,
+                            duration: 0.6,
                             scrollTrigger: {
                                 trigger: element,
-                                start: 'top 90%',
+                                start: 'top 85%',
                                 toggleActions: 'play none none none',
                                 once: true
-                            },
-                            delay: i * 0.1
+                            }
                         }
                     );
                 });
-
-                gsap.utils.toArray('.slide-in-left').forEach((element, i) => {
+                gsap.utils.toArray('.slide-in-left').forEach(element => {
                     gsap.fromTo(element, 
-                        { opacity: 0, x: -50 },
+                        { opacity: 0, x: -30 },
                         {
                             opacity: 1,
                             x: 0,
-                            duration: 0.8,
+                            duration: 0.6,
                             scrollTrigger: {
                                 trigger: element,
-                                start: 'top 90%',
+                                start: 'top 85%',
                                 toggleActions: 'play none none none',
                                 once: true
-                            },
-                            delay: i * 0.1
+                            }
                         }
                     );
                 });
-
-                gsap.utils.toArray('.slide-in-right').forEach((element, i) => {
+                gsap.utils.toArray('.slide-in-right').forEach(element => {
                     gsap.fromTo(element, 
-                        { opacity: 0, x: 50 },
+                        { opacity: 0, x: 30 },
                         {
                             opacity: 1,
                             x: 0,
-                            duration: 0.8,
+                            duration: 0.6,
                             scrollTrigger: {
                                 trigger: element,
-                                start: 'top 90%',
+                                start: 'top 85%',
                                 toggleActions: 'play none none none',
                                 once: true
-                            },
-                            delay: i * 0.1
+                            }
                         }
                     );
                 });
@@ -1142,24 +1402,22 @@
                 window.addEventListener('scroll', () => {
                     const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
                     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                    const scrolled = (winScroll / height) * 100;
-                    document.querySelector('.scroll-progress-bar').style.width = scrolled + '%';
+                    document.querySelector('.scroll-progress-bar').style.width = (winScroll / height) * 100 + '%';
                 });
             }
         };
 
         const navigation = {
             init() {
-                this.setupSmoothScroll();
-            },
-            setupSmoothScroll() {
                 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function(e) {
+                    anchor.addEventListener('click', e => {
                         e.preventDefault();
-                        const target = document.querySelector(this.getAttribute('href'));
+                        const target = document.querySelector(anchor.getAttribute('href'));
                         if (target) {
-                            const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
-                            window.scrollTo({ top: y, behavior: 'smooth' });
+                            window.scrollTo({
+                                top: target.getBoundingClientRect().top + window.pageYOffset - 80,
+                                behavior: 'smooth'
+                            });
                         }
                     });
                 });
@@ -1168,77 +1426,24 @@
 
         const theme = {
             init() {
-                const savedMode = localStorage.getItem('darkMode');
-                if (savedMode === 'true') {
+                if (localStorage.getItem('darkMode') === 'true') {
                     document.body.classList.add('dark');
                     document.getElementById('toggleSwitch').classList.add('light');
                 }
-            }
-        };
-
-        function toggleMode() {
-            const toggleSwitch = document.getElementById('toggleSwitch');
-            const body = document.body;
-            
-            toggleSwitch.classList.toggle('light');
-            body.classList.toggle('dark');
-            
-            const isDark = body.classList.contains('dark');
-            localStorage.setItem('darkMode', isDark);
-        }
-
-        function openModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-            const video = modal.querySelector('video');
-            video.pause();
-            video.currentTime = 0;
-        }
-
-        const accessibility = {
-            init() {
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Tab') {
-                        document.body.classList.add('keyboard-navigation');
-                    }
-                });
-
-                document.addEventListener('mousedown', () => {
-                    document.body.classList.remove('keyboard-navigation');
-                });
-
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        closeModal();
-                    }
-                });
-            }
-        };
-
-        const performance = {
-            init() {
-                if ('performance' in window) {
-                    window.addEventListener('load', () => {
-                        const perfData = performance.getEntriesByType('navigation')[0];
-                        console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-                    });
-                }
+            },
+            toggle() {
+                const toggleSwitch = document.getElementById('toggleSwitch');
+                document.body.classList.toggle('dark');
+                toggleSwitch.classList.toggle('light');
+                localStorage.setItem('darkMode', document.body.classList.contains('dark'));
             }
         };
 
         document.addEventListener('DOMContentLoaded', () => {
+            // loraMeteoDemo.init(); // <-- Remove or comment out this line, as no such variable exists
             animations.init();
             navigation.init();
             theme.init();
-            accessibility.init();
-            performance.init();
         });
     </script>
 </body>
