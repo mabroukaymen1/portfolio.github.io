@@ -8,763 +8,1086 @@
     <meta name="author" content="Aymen Mabrouk">
     <title>Aquatech - Smart Industrial Control System</title>
     <link rel="icon" type="image/png" href="image/logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
-        /* Root Variables */
-        :root {
-            --primary: #3B82F6;
-            --secondary: #10B981;
-            --accent: #F59E0B;
-            --neutral: #1F2937;
-            --neutral-light: #F3F4F6;
-            --white: #FFFFFF;
-            --text-primary: #111827;
-            --text-secondary: #6B7280;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --scroll-bar: var(--accent);
-            --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
-            --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
-            --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
-        }
-
-        .dark {
-            --text-primary: #E5E7EB;
-            --text-secondary: #9CA3AF;
-            --neutral-light: #1E293B;
-            --white: #0F172A;
-            --neutral: #111827;
-            --glass-bg: rgba(30, 41, 59, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --scroll-bar: #F59E0B;
-            --primary: #60A5FA;
-            --secondary: #34D399;
-            --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
-            --secondary-gradient: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);
-            --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
-        }
-
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            background: var(--neutral-light);
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        /* Animated Background */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            background-size: 300% 300%;
-            animation: gradientShift 15s ease infinite;
-            z-index: -1;
-            opacity: 0.6;
-            will-change: background-position;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--white);
-            border-radius: 50%;
-            will-change: transform, opacity;
-            animation: float 12s ease-in-out infinite, fade 6s ease-in-out infinite alternate;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-30px) scale(1.2); }
-        }
-
-        @keyframes fade {
-            0% { opacity: 0.4; }
-            100% { opacity: 0.1; }
-        }
-
-        /* Theme Toggle */
-        .toggle-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
-        }
-
-        .toggle-switch {
-            width: 80px;
-            height: 40px;
-            background: #1E293B;
-            border-radius: 20px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            border: 2px solid #334155;
-            overflow: hidden;
-        }
-
-        .toggle-switch.light {
-            background: #87CEEB;
-            border-color: #5DADE2;
-        }
-
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 1;
-            transition: opacity 0.4s ease;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #E5E7EB;
-            border-radius: 50%;
-        }
-
-        .star1 { top: 10px; left: 15px; }
-        .star2 { top: 15px; right: 15px; }
-        .star3 { top: 25px; left: 10px; }
-        .star4 { top: 30px; right: 20px; }
-        .star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
-        .star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
-
-        .clouds {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.4s ease 0.2s;
-        }
-
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-        }
-
-        .cloud1 {
-            width: 15px;
-            height: 6px;
-            top: 10px;
-            left: 15px;
-        }
-
-        .cloud1::before {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            top: -3px;
-            left: 2px;
-        }
-
-        .cloud2 {
-            width: 10px;
-            height: 4px;
-            top: 25px;
-            right: 15px;
-        }
-
-        .cloud2::before {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            top: -2px;
-            left: 1px;
-        }
-
-        .toggle-switch.light .stars { opacity: 0; }
-        .toggle-switch.light .clouds { opacity: 1; }
-
-        .toggle-circle {
-            width: 32px;
-            height: 32px;
-            background: #F59E0B;
-            border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .moon-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #E5E7EB;
-            border-radius: 50%;
-            transition: all 0.4s ease;
-        }
-
-        .moon-crater1, .moon-crater2, .moon-crater3 {
-            position: absolute;
-            background: #9CA3AF;
-            border-radius: 50%;
-        }
-
-        .moon-crater1 { width: 6px; height: 6px; top: 8px; left: 10px; }
-        .moon-crater2 { width: 4px; height: 4px; top: 18px; left: 18px; }
-        .moon-crater3 { width: 5px; height: 5px; top: 14px; left: 7px; }
-
-        .sun-rays {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: all 0.4s ease;
-        }
-
-        .sun-ray {
-            position: absolute;
-            width: 2px;
-            height: 6px;
-            background: #F59E0B;
-            border-radius: 1px;
-            left: 50%;
-            top: 50%;
-            transform-origin: 1px 15px;
-        }
-
-        .ray1 { transform: translate(-50%, -50%) rotate(0deg); }
-        .ray2 { transform: translate(-50%, -50%) rotate(45deg); }
-        .ray3 { transform: translate(-50%, -50%) rotate(90deg); }
-        .ray4 { transform: translate(-50%, -50%) rotate(135deg); }
-        .ray5 { transform: translate(-50%, -50%) rotate(180deg); }
-        .ray6 { transform: translate(-50%, -50%) rotate(225deg); }
-        .ray7 { transform: translate(-50%, -50%) rotate(270deg); }
-        .ray8 { transform: translate(-50%, -50%) rotate(315deg); }
-
-        .toggle-switch.light .toggle-circle { left: 44px; background: #F59E0B; }
-        .toggle-switch.light .moon-face { background: #F59E0B; }
-        .toggle-switch.light .moon-crater1, 
-        .toggle-switch.light .moon-crater2, 
-        .toggle-switch.light .moon-crater3 { background: #FCD34D; }
-        .toggle-switch.light .sun-rays { opacity: 1; animation: rotate 8s linear infinite; }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.8); }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            padding: 10px 30px;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1rem;
-            padding: 8px 15px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.05);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 40%;
-        }
-
-        /* Sections */
-        section {
-            padding: 100px 0;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 20px;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        /* Project Styles */
-        .project-details {
-            background: var(--white);
-            backdrop-filter: blur(15px);
-        }
-
-        .project-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        .project-image {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-image img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .project-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-info {
-            padding: 20px;
-        }
-
-        .project-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            line-height: 1.8;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .tech-tag {
-            background: var(--glass-bg);
-            color: var(--text-primary);
-            padding: 8px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            border: 1px solid var(--glass-border);
-            transition: transform 0.3s ease;
-        }
-
-        .tech-tag:hover {
-            transform: translateY(-2px);
-        }
-
-        .project-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .project-link {
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 40px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .project-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--accent-gradient);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-
-        .project-link:hover::before {
-            left: 0;
-        }
-
-        .project-link.live {
-            background: var(--primary);
-            color: var(--white);
-            border: 2px solid transparent;
-        }
-
-        .project-link.live:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-link.github {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--text-primary);
-        }
-
-        .project-link.github:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
-        }
-
-        /* Demo Animation */
-        .demo-container {
-            margin: 40px 0;
-            text-align: center;
-        }
-
-        .demo-canvas {
-            border: 2px solid var(--glass-border);
-            border-radius: 10px;
-            background: var(--glass-bg);
-            max-width: 100%;
-            height: 400px;
-        }
-
-        .demo-controls {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .demo-button {
-            padding: 10px 20px;
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .demo-button:hover {
-            background: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .demo-button.active {
-            background: var(--secondary);
-        }
-
-        /* Footer */
-            footer {
-            background: none;
-            color: var(--text-secondary);
-            text-align: center;
-            padding: 20px 0 10px 0;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-           }
-        /* Scroll Progress */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 1001;
-        }
-
-        .scroll-progress-bar {
-            width: 0;
-            height: 100%;
-            background: var(--scroll-bar);
-            transition: width 0.2s ease;
-        }
-
-        /* Loading Overlay */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            border-top: 3px solid var(--white);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            nav {
-                top: 10px;
-                left: 10px;
-                right: 10px;
-                transform: none;
-                padding: 10px 20px;
-            }
-
-            .toggle-container {
-                top: 10px;
-                right: 10px;
-            }
-
-            .toggle-switch {
-                width: 60px;
-                height: 30px;
-                border-radius: 15px;
-                border-width: 1px;
-            }
-
-            .toggle-circle {
-                width: 24px;
-                height: 24px;
-                top: 2px;
-                left: 2px;
-            }
-
-            .toggle-switch.light .toggle-circle {
-                left: 34px;
-            }
-
-            .star1 { top: 8px; left: 10px; }
-            .star2 { top: 12px; right: 10px; }
-            .star3 { top: 20px; left: 8px; }
-            .star4 { top: 22px; right: 12px; }
-            .star5 { top: 15px; left: 15px; }
-            .star6 { top: 25px; right: 20px; }
-
-            .cloud1 {
-                width: 10px;
-                height: 4px;
-                top: 8px;
-                left: 10px;
-            }
-
-            .cloud1::before {
-                width: 6px;
-                height: 6px;
-                top: -2px;
-                left: 1px;
-            }
-
-            .cloud2 {
-                width: 8px;
-                height: 3px;
-                top: 20px;
-                right: 10px;
-            }
-
-            .cloud2::before {
-                width: 4px;
-                height: 4px;
-                top: -1px;
-                left: 1px;
-            }
-
-            .moon-crater1 { width: 4px; height: 4px; top: 6px; left: 8px; }
-            .moon-crater2 { width: 3px; height: 3px; top: 14px; left: 14px; }
-            .moon-crater3 { width: 3px; height: 3px; top: 10px; left: 5px; }
-
-            .sun-ray {
-                height: 4px;
-                transform-origin: 1px 10px;
-            }
-
-            .nav-links a {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-
-            .project-content {
-                grid-template-columns: 1fr;
-            }
-
-            .demo-canvas {
-                height: 300px;
-            }
-        }
-
-        /* Accessibility */
-        .keyboard-navigation a:focus,
-        .keyboard-navigation button:focus {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
+:root {
+    --primary: #3B82F6;
+    --secondary: #10B981;
+    --accent: #F59E0B;
+    --neutral: #1F2937;
+    --neutral-light: #F3F4F6;
+    --white: #FFFFFF;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --scroll-bar: var(--accent);
+    --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
+    --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
+    --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
+    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --shadow-heavy: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.dark {
+    --text-primary: #E5E7EB;
+    --text-secondary: #9CA3AF;
+    --neutral-light: #1E293B;
+    --white: #0F172A;
+    --neutral: #111827;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --scroll-bar: #F59E0B;
+    --primary: #60A5FA;
+    --secondary: #34D399;
+    --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+    --secondary-gradient: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);
+    --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    background: var(--neutral-light);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--neutral-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loader {
+    text-align: center;
+}
+
+.robot-icon {
+    font-size: 4rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.loading-dots span {
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin: 0 5px;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* Background and Visual Effects */
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-gradient);
+    z-index: -2;
+    opacity: 0.05;
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+/* Navigation */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1001;
+}
+
+.scroll-progress-bar {
+    width: 0;
+    height: 100%;
+    background: var(--scroll-bar);
+    transition: width 0.2s ease;
+}
+
+/* === Theme Toggle === */
+.toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+
+.toggle-switch {
+    width: 80px;
+    height: 40px;
+    background: #1E293B;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid #334155;
+    overflow: hidden;
+}
+
+.toggle-switch.light {
+    background: #87CEEB;
+    border-color: #5DADE2;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #E5E7EB;
+    border-radius: 50%;
+}
+
+.star1 { top: 10px; left: 15px; }
+.star2 { top: 15px; right: 15px; }
+.star3 { top: 25px; left: 10px; }
+.star4 { top: 30px; right: 20px; }
+.star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
+.star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
+
+.toggle-switch.light .stars {
+    opacity: 0;
+}
+
+.clouds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.2s;
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+}
+
+.cloud1 {
+    width: 15px;
+    height: 6px;
+    top: 10px;
+    left: 15px;
+}
+
+.cloud1::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: -3px;
+    left: 2px;
+}
+
+.cloud2 {
+    width: 10px;
+    height: 4px;
+    top: 25px;
+    right: 15px;
+}
+
+.cloud2::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: -2px;
+    left: 1px;
+}
+
+.toggle-switch.light .clouds {
+    opacity: 1;
+}
+
+.toggle-circle {
+    width: 32px;
+    height: 32px;
+    background: #F59E0B;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.moon-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #E5E7EB;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.moon-crater1 {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 8px;
+    left: 10px;
+}
+
+.moon-crater2 {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 18px;
+    left: 18px;
+}
+
+.moon-crater3 {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 14px;
+    left: 7px;
+}
+
+.sun-rays {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.sun-ray {
+    position: absolute;
+    width: 2px;
+    height: 6px;
+    background: #F59E0B;
+    border-radius: 1px;
+    left: 50%;
+    top: 50%;
+    transform-origin: 1px 15px;
+}
+
+.ray1 { transform: translate(-50%, -50%) rotate(0deg); }
+.ray2 { transform: translate(-50%, -50%) rotate(45deg); }
+.ray3 { transform: translate(-50%, -50%) rotate(90deg); }
+.ray4 { transform: translate(-50%, -50%) rotate(135deg); }
+.ray5 { transform: translate(-50%, -50%) rotate(180deg); }
+.ray6 { transform: translate(-50%, -50%) rotate(225deg); }
+.ray7 { transform: translate(-50%, -50%) rotate(270deg); }
+.ray8 { transform: translate(-50%, -50%) rotate(315deg); }
+
+.toggle-switch.light .toggle-circle {
+    left: 44px;
+    background: #F59E0B;
+}
+
+.toggle-switch.light .moon-face {
+    background: #F59E0B;
+}
+
+.toggle-switch.light .moon-crater1,
+.toggle-switch.light .moon-crater2,
+.toggle-switch.light .moon-crater3 {
+    background: #FCD34D;
+}
+
+.toggle-switch.light .sun-rays {
+    opacity: 1;
+    animation: rotate 8s linear infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.navbar {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 12px 25px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-light);
+}
+
+.navbar:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-medium);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.logo i {
+    color: var(--primary);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Sections */
+.section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.bg-alt {
+    background: var(--white);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.section-tag {
+    display: inline-block;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Project Overview Section */
+.project-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.project-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-heavy);
+    transition: transform 0.3s ease;
+}
+
+.project-image:hover {
+    transform: translateY(-5px);
+}
+
+.project-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.project-image:hover img {
+    transform: scale(1.05);
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.project-description {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.tech-tag {
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.project-links {
+    display: flex;
+    gap: 15px;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-link.primary {
+    background: var(--primary-gradient);
+    color: var(--white);
+    box-shadow: var(--shadow-medium);
+}
+
+.project-link.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.project-link.secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--text-primary);
+}
+
+.project-link.secondary:hover {
+    background: var(--text-primary);
+    color: var(--white);
+    transform: translateY(-3px);
+}
+
+/* Demo Section */
+.demo-container {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: var(--shadow-light);
+    margin: 40px 0;
+}
+
+.demo-canvas {
+    width: 100%;
+    height: 400px;
+    background: var(--neutral-light);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: 1px solid var(--glass-border);
+}
+
+.demo-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.demo-button {
+    padding: 12px 24px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.demo-button.primary {
+    background: var(--primary-gradient);
+    color: var(--white);
+}
+
+.demo-button.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.demo-button.secondary {
+    background: var(--secondary-gradient);
+    color: var(--white);
+}
+
+.demo-button.secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.demo-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.demo-stat {
+    text-align: center;
+    background: var(--glass-bg);
+    padding: 15px 25px;
+    border-radius: 15px;
+    min-width: 150px;
+    border: 1px solid var(--glass-border);
+}
+
+.demo-stat h4 {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.demo-stat p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Workflow Section */
+.workflow-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.workflow-step {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+}
+
+.workflow-step:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-gradient);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.step-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.step-description {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Materials Section */
+.materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.material-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.material-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.material-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--white);
+    font-size: 1.8rem;
+}
+
+.material-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.material-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Future Section */
+.future-features {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-top: 40px;
+}
+
+.feature-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.feature-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--accent-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.feature-content h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.feature-content p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Footer */
+.footer {
+    background: var(--neutral);
+    color: var(--text-primary);
+    padding: 80px 0 0;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.footer-logo i {
+    color: var(--primary); /* Icon color for better visual hierarchy */
+}
+
+.footer-description {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border); /* Added border for better definition */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.footer-social a:hover {
+    background: var(--primary);
+    color: var(--white); /* Keep white on hover for contrast */
+    border-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+.footer-section h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li { 
+    margin-bottom: 12px; 
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block; /* For smooth padding transition */
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+    padding-left: 5px;
+}
+
+.project-details {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.project-details strong { 
+    color: var(--text-primary); 
+}
+
+.status-active { 
+    color: var(--secondary); 
+    font-weight: 600; 
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--glass-border);
+    padding: 30px 0;
+    text-align: center;
+}
+
+.footer-copyright {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.footer-credits {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* Additional responsive improvements */
+@media (max-width: 768px) {
+    .footer {
+        padding: 60px 0 0;
+    }
+    
+    .footer-content {
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .footer-section h4 {
+        font-size: 1.2rem;
+    }
+}
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .project-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .project-image {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 15px;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .project-links {
+        flex-direction: column;
+    }
+    
+    .demo-controls {
+        flex-direction: column;
+    }
+    
+    .demo-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .demo-stat {
+        width: 100%;
+    }
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: slideInLeft 1s ease forwards;
+}
+
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    animation: slideInRight 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Accessibility */
+.keyboard-navigation a:focus,
+.keyboard-navigation button:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loader"></div>
+        <div class="loader">
+            <div class="robot-icon">
+                <i class="fas fa-industry"></i>
+            </div>
+            <p>Loading Aquatech...</p>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </div>
 
+    <!-- Scroll Progress -->
     <div class="scroll-progress">
         <div class="scroll-progress-bar"></div>
     </div>
 
+    <!-- Animated Background -->
     <div class="animated-bg"></div>
     
+    <!-- Particles -->
     <div class="particles" id="particles"></div>
 
+    <!-- Theme Toggle -->
     <div class="toggle-container">
-        <div class="toggle-switch" id="toggleSwitch" onclick="theme.toggleMode()">
+        <div class="toggle-switch" id="toggleSwitch" tabindex="0" role="button" aria-label="Toggle dark mode">
             <div class="stars">
                 <div class="star star1"></div>
                 <div class="star star2"></div>
@@ -796,39 +1119,68 @@
             </div>
         </div>
     </div>
-
-    <nav id="navbar" role="navigation" aria-label="Main navigation">
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <div class="logo">Aymen Mabrouk</div>
+            <div class="logo">
+                <i class="fas fa-industry"></i>
+                <span>Aquatech</span>
+            </div>
             <ul class="nav-links">
-                <li><a href="index.html#home" aria-label="Home section">Home</a></li>
+                <li><a href="index.html" aria-label="Home section">Home</a></li>
                 <li><a href="index.html#about" aria-label="About section">About</a></li>
                 <li><a href="index.html#skills" aria-label="Skills section">Skills</a></li>
                 <li><a href="index.html#projects" aria-label="Projects section">Projects</a></li>
                 <li><a href="index.html#contact" aria-label="Contact section">Contact</a></li>
             </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
-    <section id="intro" class="project-details">
+    <!-- Introduction Section -->
+    <section id="intro" class="section">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Aquatech - Smart Industrial Control System</h2>
-                <p class="section-subtitle">A Flutter-based IoT solution for automated bottle filling and capping with real-time monitoring</p>
+            <div class="section-header">
+                <span class="section-tag">IoT Automation</span>
+                <h2 class="section-title">Aquatech Industrial Control System</h2>
+                <p class="section-description">
+                    A Flutter-based IoT solution for automated bottle filling and capping with real-time monitoring, 
+                    developed at Institut Supérieur d'Informatique de Mahdia.
+                </p>
             </div>
             <div class="project-content">
                 <div class="project-image slide-in-left">
                     <img src="image/farma.png" alt="Aquatech Smart Industrial Control System" loading="lazy">
                 </div>
                 <div class="project-info slide-in-right">
-                    <h3 class="project-title">Introduction</h3>
+                    <h3 class="project-title">Smart Bottle Filling & Capping</h3>
                     <p class="project-description">
-                        Aquatech is an innovative IoT-based industrial control system designed for automated bottle filling and capping, developed at the Institut Supérieur d'Informatique de Mahdia during the 2024-2025 academic year. As a key contributor to the project team, I developed the Flutter-based mobile and web app and integrated IoT functionalities to connect the app with hardware via Firebase and ESP32. Conceived by <b>Louay Mdimagh</b>, the project owner and originator, Aquatech enables remote monitoring, real-time analytics, and precise control of production parameters, enhancing efficiency in industrial automation.
+                        Aquatech is an innovative IoT-based industrial control system designed for automated bottle filling and capping. 
+                        As a key contributor to the project team, I developed the Flutter-based mobile and web app and integrated IoT 
+                        functionalities to connect the app with hardware via Firebase and ESP32. Conceived by <b>Louay Mdimagh</b>, the 
+                        project owner and originator, Aquatech enables remote monitoring, real-time analytics, and precise control 
+                        of production parameters, enhancing efficiency in industrial automation.
                     </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">ESP32</span>
+                        <span class="tech-tag">IoT</span>
+                        <span class="tech-tag">Automation</span>
+                    </div>
                     <div class="project-links">
-                        <a href="https://github.com/mabroukaymen1/AquaTechPro" class="project-link github" title="View Code" aria-label="View source code of Aquatech">
+                        <a href="https://github.com/mabroukaymen1/AquaTechPro" class="project-link primary" title="View Code" aria-label="View source code of Aquatech">
                             <i class="fab fa-github"></i>
                             View Code
+                        </a>
+                        <a href="#demo" class="project-link secondary" title="View Demo" aria-label="View interactive demo">
+                            <i class="fas fa-play"></i>
+                            View Demo
                         </a>
                     </div>
                 </div>
@@ -836,116 +1188,274 @@
         </div>
     </section>
 
-    <section id="demo" class="project-details">
+    <!-- Demo Section -->
+    <section id="demo" class="section bg-alt">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Interactive Demo</h2>
-                <p class="section-subtitle">Simulate the bottle filling and capping process with real-time monitoring</p>
+            <div class="section-header">
+                <span class="section-tag">Interactive Demo</span>
+                <h2 class="section-title">See Aquatech in Action</h2>
+                <p class="section-description">
+                    Experience the automated bottle filling and capping process with real-time monitoring and control.
+                </p>
             </div>
             <div class="demo-container">
-                <canvas id="aquatechCanvas" class="demo-canvas" width="600" height="400"></canvas>
+                <canvas id="aquatechCanvas" class="demo-canvas" width="800" height="400"></canvas>
                 <div class="demo-controls">
-                    <button class="demo-button active" onclick="demo.setMode('auto')">Auto Mode</button>
-                    <button class="demo-button" onclick="demo.setMode('manual')">Manual Mode</button>
-                    <button class="demo-button" onclick="demo.reset()">Reset</button>
+                    <button class="demo-button primary" onclick="demo.setMode('auto')">
+                        <i class="fas fa-robot"></i>
+                        Auto Mode
+                    </button>
+                    <button class="demo-button secondary" onclick="demo.setMode('manual')">
+                        <i class="fas fa-hand-paper"></i>
+                        Manual Mode
+                    </button>
+                    <button class="demo-button primary" onclick="demo.reset()">
+                        <i class="fas fa-redo"></i>
+                        Reset System
+                    </button>
                 </div>
-                <div id="demoData" class="project-description" style="margin-top: 20px; text-align: center; font-size: 1rem;">
-                    Bottles Processed: <span id="bottleCount">0</span> | Fill Level: <span id="fillLevel">0%</span> | Status: <span id="status">Idle</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="materials-workflow" class="project-details">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">System Architecture</h2>
-                <p class="section-subtitle">Hardware and software components and their interactions</p>
-            </div>
-            <div class="project-content" style="display: flex; flex-direction: column; gap: 40px;">
-                <div class="project-info fade-in" style="max-width: 700px; margin: 0 auto;">
-                    <h3 class="project-title">Materials Used</h3>
-                    <ul class="project-description" style="list-style: disc; margin-left: 1.5em;">
-                        <li><b>ESP32 Microcontroller:</b> Controls hardware and communicates with Firebase via Wi-Fi.</li>
-                        <li><b>Solenoid Valves:</b> Manages precise liquid flow for bottle filling.</li>
-                        <li><b>Stepper Motor & Driver:</b> Powers automated bottle capping.</li>
-                        <li><b>Limit Switches & Sensors:</b> Detects bottle position and process status.</li>
-                        <li><b>Relay Modules:</b> Safely switches high-power devices.</li>
-                        <li><b>Power Supply:</b> Ensures stable voltage for all components.</li>
-                        <li><b>Flutter App (Mobile/Web):</b> User interface for monitoring and control.</li>
-                        <li><b>Firebase:</b> Real-time database for data synchronization and commands.</li>
-                    </ul>
-                </div>
-                <div class="fade-in" style="margin: 0 auto; max-width: 900px;">
-                    <h3 class="project-title" style="text-align: center;">System Workflow</h3>
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 20px; font-size: 1.1rem;">
-                        <div style="display: flex; flex-direction: column; align-items: center;">
-                            <i class="fas fa-mobile-alt" style="font-size:2.2rem; color:var(--primary);"></i>
-                            <span>Flutter App</span>
-                        </div>
-                        <i class="fas fa-arrow-right" style="font-size:1.5rem; color:var(--accent);"></i>
-                        <div style="display: flex; flex-direction: column; align-items: center;">
-                            <i class="fas fa-cloud" style="font-size:2.2rem; color:var(--secondary);"></i>
-                            <span>Firebase</span>
-                        </div>
-                        <i class="fas fa-arrow-right" style="font-size:1.5rem; color:var(--accent);"></i>
-                        <div style="display: flex; flex-direction: column; align-items: center;">
-                            <i class="fas fa-microchip" style="font-size:2.2rem; color:var(--primary);"></i>
-                            <span>ESP32</span>
-                        </div>
-                        <i class="fas fa-arrow-right" style="font-size:1.5rem; color:var(--accent);"></i>
-                        <div style="display: flex; flex-direction: column; align-items: center;">
-                            <i class="fas fa-cogs" style="font-size:2.2rem; color:var(--secondary);"></i>
-                            <span>Hardware</span>
-                        </div>
-                        <i class="fas fa-arrow-right" style="font-size:1.5rem; color:var(--accent);"></i>
-                        <div style="display: flex; flex-direction: column; align-items: center;">
-                            <i class="fas fa-bottle-water" style="font-size:2.2rem; color:var(--primary);"></i>
-                            <span>Bottle Filling & Capping</span>
-                        </div>
+                <div class="demo-stats">
+                    <div class="demo-stat">
+                        <h4>Bottles Processed</h4>
+                        <p id="bottleCount">0</p>
                     </div>
-                    <ol class="project-description" style="margin-top: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
-                        <li>User configures parameters via the Flutter App.</li>
-                        <li>Commands are sent to Firebase in real-time.</li>
-                        <li>ESP32 retrieves commands from Firebase to control hardware.</li>
-                        <li>Sensors send feedback to ESP32, updating Firebase.</li>
-                        <li>The app displays real-time data, alerts, and enables remote control.</li>
-                    </ol>
+                    <div class="demo-stat">
+                        <h4>Current Fill Level</h4>
+                        <p id="fillLevel">0%</p>
+                    </div>
+                    <div class="demo-stat">
+                        <h4>Water Tank</h4>
+                        <p id="waterLevel">85%</p>
+                    </div>
+                    <div class="demo-stat">
+                        <h4>System Status</h4>
+                        <p id="status">Initializing</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="future" class="project-details">
+    <!-- Workflow Section -->
+    <section id="workflow" class="section">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Limitations & Future Improvements</h2>
-                <p class="section-subtitle">Challenges and opportunities for enhancement</p>
+            <div class="section-header">
+                <span class="section-tag">System Architecture</span>
+                <h2 class="section-title">How Aquatech Works</h2>
+                <p class="section-description">
+                    A sophisticated workflow combining mobile control, cloud processing, and hardware execution for seamless industrial automation.
+                </p>
             </div>
-            <div class="project-content" style="display: flex; justify-content: center;">
-                <div class="project-info slide-in-right" style="width:100%; max-width:700px; margin:auto;">
-                    <h3 class="project-title">Current Limitations</h3>
-                    <ul class="project-description" style="list-style: disc; margin-left: 1.5em;">
-                        <li><strong>Wi-Fi Dependency:</strong> Requires stable Wi-Fi for real-time control.</li>
-                        <li><strong>Scalability:</strong> Limited to small-scale production lines.</li>
-                        <li><strong>Power Consumption:</strong> High power usage for continuous operation.</li>
-                        <li><strong>Sensor Accuracy:</strong> Potential errors in low-quality sensors.</li>
-                    </ul>
-                    <h3 class="project-title">Future Enhancements</h3>
-                    <ul class="project-description" style="list-style: disc; margin-left: 1.5em;">
-                        <li><strong>Edge Computing:</strong> Implement local processing to reduce Wi-Fi dependency.</li>
-                        <li><strong>Scalable Design:</strong> Support larger production lines with modular hardware.</li>
-                        <li><strong>Energy Efficiency:</strong> Optimize power usage with low-power components.</li>
-                        <li><strong>Advanced Sensors:</strong> Integrate high-precision sensors for improved accuracy.</li>
-                    </ul>
+            <div class="workflow-steps">
+                <div class="workflow-step fade-in">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Mobile Control</h3>
+                    <p class="step-description">
+                        Users configure production parameters via the Flutter mobile app, which sends commands to Firebase in real-time.
+                    </p>
+                </div>
+                <div class="workflow-step fade-in">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Cloud Processing</h3>
+                    <p class="step-description">
+                        Firebase acts as the central hub, processing commands and storing production data for real-time analytics.
+                    </p>
+                </div>
+                <div class="workflow-step fade-in">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Hardware Execution</h3>
+                    <p class="step-description">
+                        ESP32 microcontroller retrieves commands from Firebase to control the filling and capping hardware.
+                    </p>
+                </div>
+                <div class="workflow-step fade-in">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Feedback Loop</h3>
+                    <p class="step-description">
+                        Sensors send real-time feedback to ESP32, updating Firebase which syncs with the mobile app for monitoring.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
+    <!-- Materials Section -->
+    <section id="materials" class="section bg-alt">
         <div class="container">
-            <p>© 2025 Aymen Mabrouk. All rights reserved. Built with modern web technologies.</p>
+            <div class="section-header">
+                <span class="section-tag">Technology Stack</span>
+                <h2 class="section-title">Components & Materials</h2>
+                <p class="section-description">
+                    Aquatech combines cutting-edge hardware and software for a complete industrial automation solution.
+                </p>
+            </div>
+            <div class="materials-grid">
+                <div class="material-card fade-in">
+                    <div class="material-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3 class="material-name">ESP32</h3>
+                    <p class="material-description">
+                        Microcontroller that controls hardware and communicates with Firebase via Wi-Fi.
+                    </p>
+                </div>
+                <div class="material-card fade-in">
+                    <div class="material-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <h3 class="material-name">Solenoid Valves</h3>
+                    <p class="material-description">
+                        Manages precise liquid flow for accurate bottle filling.
+                    </p>
+                </div>
+                <div class="material-card fade-in">
+                    <div class="material-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="material-name">Stepper Motor</h3>
+                    <p class="material-description">
+                        Powers the automated capping mechanism with precision.
+                    </p>
+                </div>
+                <div class="material-card fade-in">
+                    <div class="material-icon">
+                        <i class="fas fa-sensor"></i>
+                    </div>
+                    <h3 class="material-name">Limit Switches</h3>
+                    <p class="material-description">
+                        Detects bottle position and process status at each station.
+                    </p>
+                </div>
+                <div class="material-card fade-in">
+                    <div class="material-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="material-name">Flutter App</h3>
+                    <p class="material-description">
+                        Cross-platform interface for monitoring and control.
+                    </p>
+                </div>
+                <div class="material-card fade-in">
+                    <div class="material-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="material-name">Firebase</h3>
+                    <p class="material-description">
+                        Real-time database for data synchronization and commands.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Section -->
+    <section id="future" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Roadmap</span>
+                <h2 class="section-title">Future Enhancements</h2>
+                <p class="section-description">
+                    Planned improvements and features to expand Aquatech's capabilities.
+                </p>
+            </div>
+            <div class="future-features">
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Edge Computing</h4>
+                        <p>
+                            Implement local processing to reduce Wi-Fi dependency and improve response times for critical operations.
+                        </p>
+                    </div>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Scalable Design</h4>
+                        <p>
+                            Support larger production lines with modular hardware that can be easily expanded as needs grow.
+                        </p>
+                    </div>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Energy Efficiency</h4>
+                        <p>
+                            Optimize power usage with low-power components and smart sleep modes during idle periods.
+                        </p>
+                    </div>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Advanced Sensors</h4>
+                        <p>
+                            Integrate high-precision sensors for improved accuracy in fill levels and quality control.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-industry"></i>
+                        <span>Aquatech</span>
+                    </div>
+                    <p class="footer-description">
+                        An innovative IoT-based industrial control system designed for automated bottle filling and capping.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://github.com/mabroukaymen1" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/aymen-mabrouk-1a06061ab/" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#intro">Overview</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                        <li><a href="#workflow">Workflow</a></li>
+                        <li><a href="#materials">Materials</a></li>
+                        <li><a href="#future">Future</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Project Details</h4>
+                    <p class="project-details">
+                        <strong>Developed by:</strong> Aymen Mabrouk<br>
+                        <strong>Project Owner:</strong> Louay Mdimagh<br>
+                        <strong>Institution:</strong> Institut Supérieur d'Informatique de Mahdia<br>
+                        <strong>Status:</strong> <span class="status-active">Active Development</span>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2025 Aquatech. All rights reserved.
+                </p>
+                <p class="footer-credits">
+                    Designed & Developed by Aymen Mabrouk
+                </p>
+            </div>
         </div>
     </footer>
 
@@ -958,6 +1468,14 @@
                     document.body.classList.add('dark');
                     document.getElementById('toggleSwitch').classList.add('light');
                 }
+                
+                document.getElementById('toggleSwitch').addEventListener('click', () => this.toggleMode());
+                document.getElementById('toggleSwitch').addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.toggleMode();
+                    }
+                });
             },
             toggleMode() {
                 const toggleSwitch = document.getElementById('toggleSwitch');
@@ -983,77 +1501,53 @@
                         opacity: 0,
                         duration: 0.5,
                         onComplete: () => {
-                            document.getElementById('loadingOverlay').classList.add('hidden');
+                            document.getElementById('loadingOverlay').style.display = 'none';
                         }
                     });
                 });
             },
             createParticles() {
                 const particlesContainer = document.getElementById('particles');
-                const particleCount = window.innerWidth < 768 ? 20 : 30;
+                const particleCount = window.innerWidth < 768 ? 20 : 50;
+                
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
                     particle.style.left = Math.random() * 100 + '%';
                     particle.style.top = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 6 + 's';
-                    particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                    particle.style.width = (2 + Math.random() * 3) + 'px';
+                    particle.style.height = particle.style.width;
+                    particle.style.opacity = 0.1 + Math.random() * 0.3;
                     particlesContainer.appendChild(particle);
+
+                    gsap.to(particle, {
+                        x: Math.random() * 100 - 50,
+                        y: Math.random() * 100 - 50,
+                        opacity: 0.1 + Math.random() * 0.3,
+                        duration: 10 + Math.random() * 10,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: 'sine.inOut'
+                    });
                 }
             },
             setupScrollAnimations() {
-                gsap.utils.toArray('.fade-in').forEach((element, i) => {
-                    gsap.fromTo(element, 
-                        { opacity: 0, y: 30 },
-                        {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.8,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 90%',
-                                toggleActions: 'play none none none',
-                                once: true
-                            },
-                            delay: i * 0.1
-                        }
-                    );
-                });
-
-                gsap.utils.toArray('.slide-in-left').forEach((element, i) => {
-                    gsap.fromTo(element, 
-                        { opacity: 0, x: -50 },
-                        {
-                            opacity: 1,
-                            x: 0,
-                            duration: 0.8,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 90%',
-                                toggleActions: 'play none none none',
-                                once: true
-                            },
-                            delay: i * 0.1
-                        }
-                    );
-                });
-
-                gsap.utils.toArray('.slide-in-right').forEach((element, i) => {
-                    gsap.fromTo(element, 
-                        { opacity: 0, x: 50 },
-                        {
-                            opacity: 1,
-                            x: 0,
-                            duration: 0.8,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 90%',
-                                toggleActions: 'play none none none',
-                                once: true
-                            },
-                            delay: i * 0.1
-                        }
-                    );
+                // Animate elements when they come into view
+                gsap.utils.toArray('.fade-in, .slide-in-left, .slide-in-right').forEach(element => {
+                    gsap.from(element, {
+                        scrollTrigger: {
+                            trigger: element,
+                            start: 'top 80%',
+                            toggleActions: 'play none none none'
+                        },
+                        opacity: 0,
+                        y: element.classList.contains('slide-in-left') ? -50 : 
+                           element.classList.contains('slide-in-right') ? 50 : 30,
+                        x: element.classList.contains('slide-in-left') ? -50 : 
+                           element.classList.contains('slide-in-right') ? 50 : 0,
+                        duration: 0.8,
+                        ease: 'power3.out'
+                    });
                 });
             },
             setupScrollProgress() {
@@ -1069,15 +1563,40 @@
         // Navigation Module
         const navigation = {
             init() {
+                // Smooth scrolling for anchor links
                 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                     anchor.addEventListener('click', function(e) {
                         e.preventDefault();
-                        const target = document.querySelector(this.getAttribute('href'));
-                        if (target) {
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
                             window.scrollTo({
-                                top: target.getBoundingClientRect().top + window.pageYOffset - 80,
+                                top: targetElement.offsetTop - 80,
                                 behavior: 'smooth'
                             });
+                        }
+                    });
+                });
+                
+                // Update active nav link on scroll
+                const navLinks = document.querySelectorAll('.nav-links a');
+                const sections = document.querySelectorAll('section');
+                
+                window.addEventListener('scroll', () => {
+                    let current = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (window.scrollY >= sectionTop - 100) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+                    
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').includes(current)) {
+                            link.classList.add('active');
                         }
                     });
                 });
@@ -1098,697 +1617,354 @@
             }
         };
 
-// AquaTech IoT-Based Industrial Control System Demo
-// Innovative bottle filling and capping automation system
-// Developed at Institut Supérieur d'Informatique de Mahdia (2024-2025)
-// Project Owner: Louay Mdimagh
-// Features: Flutter mobile/web app, Firebase integration, ESP32 connectivity
+        // AquaTech Demo Module
+        const demo = {
+            canvas: null,
+            ctx: null,
+            isRunning: false,
+            time: 0,
+            mode: 'auto',
+            systemStatus: 'Initializing AquaTech IoT System...',
+            bottles: [],
+            stats: {
+                bottlesProduced: 0,
+                currentFillLevel: 0,
+                waterTankLevel: 85,
+                systemEfficiency: 98,
+                iotConnected: true,
+                esp32Status: 'Connected',
+                firebaseSync: 'Active'
+            },
+            conveyorSpeed: 1,
+            fillSpeed: 1.5,
+            waterFlow: 0,
+            currentExplanation: '',
+            explanationTimer: 0,
+            explanations: [
+                "AquaTech IoT system initializing...",
+                "ESP32 microcontroller establishing connection...",
+                "Firebase real-time database syncing...",
+                "Flutter mobile app ready for remote monitoring...",
+                "Automated bottle detection via IoT sensors...",
+                "Precision water filling with real-time control...",
+                "Smart capping mechanism activated...",
+                "Production data streaming to cloud dashboard...",
+                "Quality control sensors monitoring output...",
+                "System efficiency: 98% - Optimized by AI algorithms"
+            ],
+            hardware: {
+                waterPump: false,
+                fillValve: false,
+                capperArm: false,
+                conveyorMotor: true,
+                sensors: {
+                    bottleDetector: false,
+                    fillSensor: false,
+                    capSensor: false,
+                    waterLevel: 85
+                }
+            },
 
-const demo = {
-    // Core system components
-    canvas: null,
-    ctx: null,
-    isRunning: false,
-    time: 0,
-    
-    // System modes and states
-    mode: 'auto', // 'auto' or 'manual'
-    systemStatus: 'Initializing AquaTech IoT System...',
-    
-    // Production data
-    bottles: [],
-    stats: {
-        bottlesProduced: 0,
-        currentFillLevel: 0,
-        waterTankLevel: 85,
-        systemEfficiency: 98,
-        iotConnected: true,
-        esp32Status: 'Connected',
-        firebaseSync: 'Active'
-    },
-    
-    // Animation parameters
-    conveyorSpeed: 1,
-    fillSpeed: 1.5,
-    waterFlow: 0,
-    
-    // System explanations
-    currentExplanation: '',
-    explanationTimer: 0,
-    explanations: [
-        "AquaTech IoT system initializing...",
-        "ESP32 microcontroller establishing connection...",
-        "Firebase real-time database syncing...",
-        "Flutter mobile app ready for remote monitoring...",
-        "Automated bottle detection via IoT sensors...",
-        "Precision water filling with real-time control...",
-        "Smart capping mechanism activated...",
-        "Production data streaming to cloud dashboard...",
-        "Quality control sensors monitoring output...",
-        "System efficiency: 98% - Optimized by AI algorithms"
-    ],
-    
-    // Hardware simulation
-    hardware: {
-        waterPump: false,
-        fillValve: false,
-        capperArm: false,
-        conveyorMotor: true,
-        sensors: {
-            bottleDetector: false,
-            fillSensor: false,
-            capSensor: false,
-            waterLevel: 85
-        }
-    },
+            init() {
+                this.canvas = document.getElementById('aquatechCanvas');
+                if (!this.canvas) {
+                    console.error('Canvas not found!');
+                    return;
+                }
+                
+                this.ctx = this.canvas.getContext('2d');
+                this.canvas.width = 800;
+                this.canvas.height = 400;
+                
+                this.createInitialBottles();
+                this.startExplanationCycle();
+                this.startSystem();
+                
+                console.log('🚀 AquaTech IoT System Initialized');
+            },
 
-    /**
-     * Initialize the AquaTech demonstration system
-     */
-    init() {
-        this.canvas = document.getElementById('aquatechCanvas');
-        if (!this.canvas) {
-            console.error('Canvas not found! Make sure element with id "aquatechCanvas" exists.');
-            return;
-        }
-        
-        this.ctx = this.canvas.getContext('2d');
-        this.canvas.width = 800;
-        this.canvas.height = 500;
-        
-        this.setupSystem();
-        this.createInitialBottles();
-        this.startExplanationCycle();
-        this.startSystem();
-        
-        console.log('🚀 AquaTech IoT System Initialized Successfully');
-        console.log('📱 Project by Louay Mdimagh - Institut Supérieur d\'Informatique de Mahdia');
-    },
+            createInitialBottles() {
+                this.bottles = [];
+                for (let i = 0; i < 4; i++) {
+                    this.bottles.push({
+                        x: -50 - (i * 80),
+                        y: 250,
+                        width: 30,
+                        height: 40,
+                        fillLevel: 0,
+                        isFilling: false,
+                        isCapping: false,
+                        isComplete: false,
+                        detected: false,
+                        id: `bottle_${Date.now()}_${i}`
+                    });
+                }
+            },
 
-    /**
-     * Setup system controls and event listeners
-     */
-    setupSystem() {
-        // Auto-detect control buttons if they exist
-        const autoBtn = document.querySelector('[data-mode="auto"]');
-        const manualBtn = document.querySelector('[data-mode="manual"]');
-        const resetBtn = document.querySelector('[data-action="reset"]');
-        
-        if (autoBtn) {
-            autoBtn.addEventListener('click', () => this.setMode('auto'));
-        }
-        if (manualBtn) {
-            manualBtn.addEventListener('click', () => this.setMode('manual'));
-        }
-        if (resetBtn) {
-            resetBtn.addEventListener('click', () => this.resetSystem());
-        }
-    },
+            startExplanationCycle() {
+                this.explanationTimer = 0;
+                this.currentExplanation = this.explanations[0];
+            },
 
-    /**
-     * Create initial bottles for the production line
-     */
-    createInitialBottles() {
-        this.bottles = [];
-        for (let i = 0; i < 4; i++) {
-            this.bottles.push({
-                x: -50 - (i * 80),
-                y: 350,
-                width: 30,
-                height: 40,
-                fillLevel: 0,
-                isFilling: false,
-                isCapping: false,
-                isComplete: false,
-                detected: false,
-                id: `bottle_${Date.now()}_${i}`
-            });
-        }
-    },
+            setMode(newMode) {
+                this.mode = newMode;
+                this.systemStatus = newMode === 'auto' ? 
+                    'AquaTech Running in Automatic Mode' : 
+                    'Manual Control via Flutter App Active';
+                this.updateSystemDisplay();
+            },
 
-    /**
-     * Start the explanation cycle
-     */
-    startExplanationCycle() {
-        this.explanationTimer = 0;
-        this.currentExplanation = this.explanations[0];
-    },
-
-    /**
-     * Set system operation mode
-     */
-    setMode(newMode) {
-        this.mode = newMode;
-        this.systemStatus = newMode === 'auto' ? 
-            'AquaTech Running in Automatic Mode' : 
-            'Manual Control via Flutter App Active';
-        this.updateSystemDisplay();
-    },
-
-    /**
-     * Reset the entire system
-     */
-    resetSystem() {
-        this.stats.bottlesProduced = 0;
-        this.stats.currentFillLevel = 0;
-        this.stats.waterTankLevel = 85;
-        this.hardware.waterPump = false;
-        this.hardware.fillValve = false;
-        this.hardware.capperArm = false;
-        this.createInitialBottles();
-        this.startExplanationCycle();
-        this.systemStatus = 'AquaTech System Reset - Ready for Production';
-        this.updateSystemDisplay();
-    },
-
-    /**
-     * Start the main system loop
-     */
-    startSystem() {
-        this.isRunning = true;
-        this.animate();
-    },
-
-    /**
-     * Main animation and system loop
-     */
-    animate() {
-        if (!this.isRunning) return;
-        
-        this.time += 0.016; // 60 FPS
-        this.updateExplanations();
-        this.updateHardwareStates();
-        this.processBottles();
-        this.render();
-        this.updateSystemDisplay();
-        
-        requestAnimationFrame(() => this.animate());
-    },
-
-    /**
-     * Update system explanations
-     */
-    updateExplanations() {
-        this.explanationTimer += 0.016;
-        
-        if (this.explanationTimer >= 3) { // Change explanation every 3 seconds
-            const currentIndex = this.explanations.indexOf(this.currentExplanation);
-            const nextIndex = (currentIndex + 1) % this.explanations.length;
-            this.currentExplanation = this.explanations[nextIndex];
-            this.explanationTimer = 0;
-        }
-    },
-
-    /**
-     * Update hardware states based on system operation
-     */
-    updateHardwareStates() {
-        // Update IoT sensor states
-        this.hardware.sensors.bottleDetector = this.bottles.some(b => 
-            b.x >= 150 && b.x <= 200 && !b.isComplete
-        );
-        
-        this.hardware.sensors.fillSensor = this.bottles.some(b => 
-            b.x >= 240 && b.x <= 290 && b.isFilling
-        );
-        
-        this.hardware.sensors.capSensor = this.bottles.some(b => 
-            b.x >= 380 && b.x <= 430 && b.isCapping
-        );
-        
-        // Simulate water tank consumption
-        if (this.hardware.fillValve && this.stats.waterTankLevel > 0) {
-            this.stats.waterTankLevel -= 0.02;
-        }
-    },
-
-    /**
-     * Process bottles through the production line
-     */
-    processBottles() {
-        this.bottles.forEach((bottle, index) => {
-            if (this.mode === 'auto' || bottle.isComplete) {
-                bottle.x += this.conveyorSpeed;
-            }
-            
-            this.processBottleAtStation(bottle);
-            
-            // Remove bottles that have left the screen and add new ones
-            if (bottle.x > this.canvas.width + 50) {
-                this.bottles.splice(index, 1);
-                this.bottles.push({
-                    x: -50,
-                    y: 350,
-                    width: 30,
-                    height: 40,
-                    fillLevel: 0,
-                    isFilling: false,
-                    isCapping: false,
-                    isComplete: false,
-                    detected: false,
-                    id: `bottle_${Date.now()}_${Math.random()}`
-                });
-            }
-        });
-    },
-
-    /**
-     * Process individual bottle at different stations
-     */
-    processBottleAtStation(bottle) {
-        // Detection station
-        if (bottle.x >= 150 && bottle.x <= 200 && !bottle.detected) {
-            bottle.detected = true;
-            this.systemStatus = 'IoT Sensor: Bottle Detected - ESP32 Signal Sent';
-        }
-        
-        // Filling station
-        if (bottle.x >= 240 && bottle.x <= 290 && bottle.detected && bottle.fillLevel < 100) {
-            bottle.isFilling = true;
-            this.hardware.waterPump = true;
-            this.hardware.fillValve = true;
-            this.waterFlow = Math.sin(this.time * 10) * 0.5 + 0.5;
-            
-            bottle.fillLevel += this.fillSpeed;
-            this.stats.currentFillLevel = bottle.fillLevel;
-            
-            if (bottle.fillLevel >= 100) {
-                bottle.fillLevel = 100;
-                bottle.isFilling = false;
+            resetSystem() {
+                this.stats.bottlesProduced = 0;
+                this.stats.currentFillLevel = 0;
+                this.stats.waterTankLevel = 85;
                 this.hardware.waterPump = false;
                 this.hardware.fillValve = false;
-                this.systemStatus = 'Bottle Filled - Firebase Data Updated';
-            }
-        }
-        
-        // Capping station
-        if (bottle.x >= 380 && bottle.x <= 430 && bottle.fillLevel >= 100 && !bottle.isComplete) {
-            bottle.isCapping = true;
-            this.hardware.capperArm = true;
-            
-            // Simulate capping process
-            setTimeout(() => {
-                bottle.isComplete = true;
-                bottle.isCapping = false;
                 this.hardware.capperArm = false;
-                this.stats.bottlesProduced++;
-                this.systemStatus = 'Bottle Capped - Production Complete';
-            }, 500);
-        }
-    },
+                this.createInitialBottles();
+                this.startExplanationCycle();
+                this.systemStatus = 'AquaTech System Reset - Ready for Production';
+                this.updateSystemDisplay();
+            },
 
-    /**
-     * Main rendering function
-     */
-    render() {
-        // Clear canvas
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        this.drawBackground();
-        this.drawConveyorBelt();
-        this.drawStations();
-        this.drawBottles();
-        this.drawWaterSystem();
-        this.drawIoTVisualization();
-        this.drawSystemExplanation();
-    },
+            startSystem() {
+                this.isRunning = true;
+                this.animate();
+            },
 
-    /**
-     * Draw factory background
-     */
-    drawBackground() {
-        // Factory floor
-        this.ctx.fillStyle = '#F3F4F6';
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        // Title
-        this.ctx.fillStyle = '#1F2937';
-        this.ctx.font = 'bold 24px Arial';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText('AquaTech IoT Industrial Control System', this.canvas.width / 2, 30);
-        
-        this.ctx.font = '14px Arial';
-        this.ctx.fillText('by Louay Mdimagh - Institut Supérieur d\'Informatique de Mahdia', this.canvas.width / 2, 50);
-    },
+            animate() {
+                if (!this.isRunning) return;
+                
+                this.time += 0.016;
+                this.updateExplanations();
+                this.updateHardwareStates();
+                this.processBottles();
+                this.render();
+                this.updateSystemDisplay();
+                
+                requestAnimationFrame(() => this.animate());
+            },
 
-    /**
-     * Draw animated conveyor belt
-     */
-    drawConveyorBelt() {
-        const beltY = 350;
-        const beltHeight = 60;
-        
-        // Belt base
-        this.ctx.fillStyle = '#6B7280';
-        this.ctx.fillRect(0, beltY, this.canvas.width, beltHeight);
-        
-        // Animated belt pattern
-        const patternOffset = (this.time * this.conveyorSpeed * 30) % 30;
-        this.ctx.strokeStyle = '#9CA3AF';
-        this.ctx.lineWidth = 2;
-        
-        for (let i = -patternOffset; i < this.canvas.width + 30; i += 30) {
-            this.ctx.beginPath();
-            this.ctx.moveTo(i, beltY + 20);
-            this.ctx.lineTo(i + 15, beltY + 20);
-            this.ctx.stroke();
-        }
-        
-        // Belt edges
-        this.ctx.strokeStyle = '#374151';
-        this.ctx.lineWidth = 4;
-        this.ctx.beginPath();
-        this.ctx.moveTo(0, beltY);
-        this.ctx.lineTo(this.canvas.width, beltY);
-        this.ctx.moveTo(0, beltY + beltHeight);
-        this.ctx.lineTo(this.canvas.width, beltY + beltHeight);
-        this.ctx.stroke();
-    },
-
-    /**
-     * Draw processing stations
-     */
-    drawStations() {
-        // Detection station
-        this.ctx.fillStyle = '#EF4444';
-        this.ctx.fillRect(150, 280, 50, 70);
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.font = 'bold 12px Arial';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText('DETECT', 175, 320);
-        
-        // IoT sensor indicator
-        if (this.hardware.sensors.bottleDetector) {
-            this.ctx.fillStyle = '#10B981';
-            this.ctx.beginPath();
-            this.ctx.arc(175, 290, 5, 0, 2 * Math.PI);
-            this.ctx.fill();
-        }
-        
-        // Filling station
-        this.ctx.fillStyle = '#3B82F6';
-        this.ctx.fillRect(240, 280, 50, 70);
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.fillText('FILL', 265, 320);
-        
-        // Water nozzle
-        this.ctx.fillStyle = '#1E40AF';
-        this.ctx.fillRect(260, 350, 10, 20);
-        
-        // Animated water flow
-        if (this.hardware.fillValve) {
-            this.ctx.fillStyle = '#06B6D4';
-            const flowHeight = this.waterFlow * 15;
-            this.ctx.fillRect(262, 370, 6, flowHeight);
-        }
-        
-        // Capping station
-        this.ctx.fillStyle = '#10B981';
-        this.ctx.fillRect(380, 280, 50, 70);
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.fillText('CAP', 405, 320);
-        
-        // Robotic arm
-        const armY = this.hardware.capperArm ? 360 : 350;
-        this.ctx.fillStyle = '#047857';
-        this.ctx.fillRect(400, armY, 10, 20);
-    },
-
-    /**
-     * Draw bottles with realistic water animation
-     */
-    drawBottles() {
-        this.bottles.forEach(bottle => {
-            this.drawBottle(bottle);
-        });
-    },
-
-    /**
-     * Draw individual bottle
-     */
-    drawBottle(bottle) {
-        const x = bottle.x;
-        const y = bottle.y;
-        
-        // Bottle shadow
-        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-        this.ctx.fillRect(x + 2, y + 42, bottle.width, 6);
-        
-        // Bottle body
-        this.ctx.fillStyle = '#F3F4F6';
-        this.ctx.fillRect(x, y, bottle.width, bottle.height);
-        
-        // Bottle outline
-        this.ctx.strokeStyle = '#D1D5DB';
-        this.ctx.lineWidth = 2;
-        this.ctx.strokeRect(x, y, bottle.width, bottle.height);
-        
-        // Water with realistic animation
-        if (bottle.fillLevel > 0) {
-            const waterHeight = (bottle.fillLevel / 100) * (bottle.height - 4);
-            const waveOffset = Math.sin(this.time * 6 + bottle.x * 0.05) * 1.5;
-            
-            // Water body
-            this.ctx.fillStyle = '#06B6D4';
-            this.ctx.fillRect(x + 2, y + bottle.height - 2 - waterHeight, bottle.width - 4, waterHeight);
-            
-            // Water surface with wave effect
-            this.ctx.fillStyle = '#0891B2';
-            this.ctx.fillRect(x + 2, y + bottle.height - 2 - waterHeight + waveOffset, bottle.width - 4, 3);
-            
-            // Bubbles during filling
-            if (bottle.isFilling) {
-                for (let i = 0; i < 3; i++) {
-                    const bubbleX = x + 5 + Math.sin(this.time * 5 + i) * 8;
-                    const bubbleY = y + bottle.height - waterHeight + Math.sin(this.time * 3 + i) * 5;
-                    this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-                    this.ctx.beginPath();
-                    this.ctx.arc(bubbleX, bubbleY, 2, 0, 2 * Math.PI);
-                    this.ctx.fill();
+            updateExplanations() {
+                this.explanationTimer += 0.016;
+                
+                if (this.explanationTimer >= 3) {
+                    const currentIndex = this.explanations.indexOf(this.currentExplanation);
+                    const nextIndex = (currentIndex + 1) % this.explanations.length;
+                    this.currentExplanation = this.explanations[nextIndex];
+                    this.explanationTimer = 0;
                 }
-            }
-        }
-        
-        // Bottle neck
-        this.ctx.fillStyle = '#E5E7EB';
-        this.ctx.fillRect(x + 8, y - 10, bottle.width - 16, 10);
-        
-        // Cap (if completed)
-        if (bottle.isComplete) {
-            this.ctx.fillStyle = '#F59E0B';
-            this.ctx.fillRect(x + 6, y - 16, bottle.width - 12, 8);
-            
-            // Cap shine
-            this.ctx.fillStyle = '#FCD34D';
-            this.ctx.fillRect(x + 7, y - 15, bottle.width - 14, 2);
-        }
-        
-        // Processing indicators
-        if (bottle.isFilling) {
-            this.ctx.strokeStyle = '#3B82F6';
-            this.ctx.lineWidth = 3;
-            this.ctx.setLineDash([5, 5]);
-            this.ctx.strokeRect(x - 3, y - 3, bottle.width + 6, bottle.height + 6);
-            this.ctx.setLineDash([]);
-        } else if (bottle.isCapping) {
-            this.ctx.strokeStyle = '#10B981';
-            this.ctx.lineWidth = 3;
-            this.ctx.setLineDash([5, 5]);
-            this.ctx.strokeRect(x - 3, y - 3, bottle.width + 6, bottle.height + 6);
-            this.ctx.setLineDash([]);
-        }
-    },
+            },
 
-    /**
-     * Draw water supply system
-     */
-    drawWaterSystem() {
-        // Water tank
-        this.ctx.fillStyle = '#60A5FA';
-        this.ctx.fillRect(50, 150, 80, 100);
-        
-        // Water level in tank
-        const waterLevel = (this.stats.waterTankLevel / 100) * 95;
-        this.ctx.fillStyle = '#06B6D4';
-        this.ctx.fillRect(52, 150 + 100 - waterLevel, 76, waterLevel);
-        
-        // Water surface animation
-        const surfaceWave = Math.sin(this.time * 4) * 2;
-        this.ctx.fillStyle = '#0891B2';
-        this.ctx.fillRect(52, 150 + 100 - waterLevel + surfaceWave, 76, 3);
-        
-        // Tank label
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.font = 'bold 10px Arial';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText('WATER', 90, 205);
-        this.ctx.fillText('TANK', 90, 220);
-        
-        // Water level percentage
-        this.ctx.fillStyle = '#1F2937';
-        this.ctx.font = '12px Arial';
-        this.ctx.fillText(`${Math.round(this.stats.waterTankLevel)}%`, 90, 270);
-        
-        // Water pipes
-        this.ctx.strokeStyle = '#6B7280';
-        this.ctx.lineWidth = 6;
-        this.ctx.beginPath();
-        this.ctx.moveTo(130, 200);
-        this.ctx.lineTo(240, 200);
-        this.ctx.lineTo(240, 280);
-        this.ctx.stroke();
-        
-        // Pipe flow animation
-        if (this.hardware.waterPump) {
-            this.ctx.strokeStyle = '#06B6D4';
-            this.ctx.lineWidth = 3;
-            const flowOffset = (this.time * 50) % 20;
-            this.ctx.setLineDash([10, 10]);
-            this.ctx.lineDashOffset = flowOffset;
-            this.ctx.beginPath();
-            this.ctx.moveTo(130, 200);
-            this.ctx.lineTo(240, 200);
-            this.ctx.lineTo(240, 280);
-            this.ctx.stroke();
-            this.ctx.setLineDash([]);
-        }
-    },
+            updateHardwareStates() {
+                this.hardware.sensors.bottleDetector = this.bottles.some(b => 
+                    b.x >= 150 && b.x <= 200 && !b.isComplete
+                );
+                
+                this.hardware.sensors.fillSensor = this.bottles.some(b => 
+                    b.x >= 240 && b.x <= 290 && b.isFilling
+                );
+                
+                this.hardware.sensors.capSensor = this.bottles.some(b => 
+                    b.x >= 380 && b.x <= 430 && b.isCapping
+                );
+                
+                if (this.hardware.fillValve && this.stats.waterTankLevel > 0) {
+                    this.stats.waterTankLevel -= 0.02;
+                }
+            },
 
-    /**
-     * Draw IoT connectivity visualization
-     */
-    drawIoTVisualization() {
-        const iotX = 600;
-        const iotY = 100;
-        
-        // ESP32 Module
-        this.ctx.fillStyle = '#1F2937';
-        this.ctx.fillRect(iotX, iotY, 100, 60);
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.font = 'bold 12px Arial';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText('ESP32', iotX + 50, iotY + 20);
-        this.ctx.fillText('IoT Hub', iotX + 50, iotY + 35);
-        
-        // Connection status
-        const connectionColor = this.stats.iotConnected ? '#10B981' : '#EF4444';
-        this.ctx.fillStyle = connectionColor;
-        this.ctx.beginPath();
-        this.ctx.arc(iotX + 80, iotY + 10, 5, 0, 2 * Math.PI);
-        this.ctx.fill();
-        
-        // WiFi signals
-        if (this.stats.iotConnected) {
-            this.ctx.strokeStyle = '#10B981';
-            this.ctx.lineWidth = 2;
-            for (let i = 0; i < 3; i++) {
-                const opacity = Math.sin(this.time * 3 + i) * 0.3 + 0.7;
-                this.ctx.globalAlpha = opacity;
+            processBottles() {
+                this.bottles.forEach((bottle, index) => {
+                    if (this.mode === 'auto' || bottle.isComplete) {
+                        bottle.x += this.conveyorSpeed;
+                    }
+                    
+                    this.processBottleAtStation(bottle);
+                    
+                    if (bottle.x > this.canvas.width + 50) {
+                        this.bottles.splice(index, 1);
+                        this.bottles.push({
+                            x: -50,
+                            y: 250,
+                            width: 30,
+                            height: 40,
+                            fillLevel: 0,
+                            isFilling: false,
+                            isCapping: false,
+                            isComplete: false,
+                            detected: false,
+                            id: `bottle_${Date.now()}_${Math.random()}`
+                        });
+                    }
+                });
+            },
+
+            processBottleAtStation(bottle) {
+                if (bottle.x >= 150 && bottle.x <= 200 && !bottle.detected) {
+                    bottle.detected = true;
+                    this.systemStatus = 'IoT Sensor: Bottle Detected - ESP32 Signal Sent';
+                }
+                
+                if (bottle.x >= 240 && bottle.x <= 290 && bottle.detected && bottle.fillLevel < 100) {
+                    bottle.isFilling = true;
+                    this.hardware.waterPump = true;
+                    this.hardware.fillValve = true;
+                    this.waterFlow = Math.sin(this.time * 10) * 0.5 + 0.5;
+                    
+                    bottle.fillLevel += this.fillSpeed;
+                    this.stats.currentFillLevel = bottle.fillLevel;
+                    
+                    if (bottle.fillLevel >= 100) {
+                        bottle.fillLevel = 100;
+                        bottle.isFilling = false;
+                        this.hardware.waterPump = false;
+                        this.hardware.fillValve = false;
+                        this.systemStatus = 'Bottle Filled - Firebase Data Updated';
+                    }
+                }
+                
+                if (bottle.x >= 380 && bottle.x <= 430 && bottle.fillLevel >= 100 && !bottle.isComplete) {
+                    bottle.isCapping = true;
+                    this.hardware.capperArm = true;
+                    
+                    setTimeout(() => {
+                        bottle.isComplete = true;
+                        bottle.isCapping = false;
+                        this.hardware.capperArm = false;
+                        this.stats.bottlesProduced++;
+                        this.systemStatus = 'Bottle Capped - Production Complete';
+                    }, 500);
+                }
+            },
+
+            render() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw factory background
+                this.ctx.fillStyle = '#F3F4F6';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw conveyor belt
+                this.ctx.fillStyle = '#D1D5DB';
+                this.ctx.fillRect(0, 250, this.canvas.width, 60);
+                
+                // Draw stations
+                this.drawStation(150, 'DETECT', '#EF4444');
+                this.drawStation(240, 'FILL', '#3B82F6');
+                this.drawStation(380, 'CAP', '#10B981');
+                
+                // Draw water system
+                this.drawWaterTank();
+                
+                // Draw bottles
+                this.bottles.forEach(bottle => {
+                    this.drawBottle(bottle);
+                });
+                
+                // Draw IoT visualization
+                this.drawIoTVisualization();
+                
+                // Draw system status
+                this.drawSystemStatus();
+            },
+
+            drawStation(x, label, color) {
+                this.ctx.fillStyle = color;
+                this.ctx.fillRect(x, 180, 50, 70);
+                this.ctx.fillStyle = '#FFFFFF';
+                this.ctx.font = 'bold 12px Arial';
+                this.ctx.textAlign = 'center';
+                this.ctx.fillText(label, x + 25, 220);
+            },
+
+            drawWaterTank() {
+                this.ctx.fillStyle = '#60A5FA';
+                this.ctx.fillRect(50, 100, 80, 100);
+                
+                const waterLevel = (this.stats.waterTankLevel / 100) * 95;
+                this.ctx.fillStyle = '#06B6D4';
+                this.ctx.fillRect(52, 100 + 100 - waterLevel, 76, waterLevel);
+                
+                this.ctx.fillStyle = '#1F2937';
+                this.ctx.font = '12px Arial';
+                this.ctx.fillText(`${Math.round(this.stats.waterTankLevel)}%`, 90, 220);
+            },
+
+            drawBottle(bottle) {
+                // Bottle body
+                this.ctx.fillStyle = '#F3F4F6';
+                this.ctx.fillRect(bottle.x, bottle.y, bottle.width, bottle.height);
+                this.ctx.strokeStyle = '#D1D5DB';
+                this.ctx.lineWidth = 2;
+                this.ctx.strokeRect(bottle.x, bottle.y, bottle.width, bottle.height);
+                
+                // Water fill
+                if (bottle.fillLevel > 0) {
+                    const waterHeight = (bottle.fillLevel / 100) * (bottle.height - 4);
+                    this.ctx.fillStyle = '#06B6D4';
+                    this.ctx.fillRect(bottle.x + 2, bottle.y + bottle.height - 2 - waterHeight, bottle.width - 4, waterHeight);
+                }
+                
+                // Bottle neck
+                this.ctx.fillStyle = '#E5E7EB';
+                this.ctx.fillRect(bottle.x + 8, bottle.y - 10, bottle.width - 16, 10);
+                
+                // Cap if completed
+                if (bottle.isComplete) {
+                    this.ctx.fillStyle = '#F59E0B';
+                    this.ctx.fillRect(bottle.x + 6, bottle.y - 16, bottle.width - 12, 8);
+                }
+            },
+
+            drawIoTVisualization() {
+                // ESP32 module
+                this.ctx.fillStyle = '#1F2937';
+                this.ctx.fillRect(600, 50, 100, 60);
+                this.ctx.fillStyle = '#FFFFFF';
+                this.ctx.font = 'bold 12px Arial';
+                this.ctx.textAlign = 'center';
+                this.ctx.fillText('ESP32', 650, 80);
+                
+                // Firebase cloud
+                this.ctx.fillStyle = '#F59E0B';
                 this.ctx.beginPath();
-                this.ctx.arc(iotX + 50, iotY + 45, 10 + i * 8, 0, Math.PI, true);
-                this.ctx.stroke();
+                this.ctx.arc(650, 150, 25, 0, 2 * Math.PI);
+                this.ctx.fill();
+                this.ctx.fillStyle = '#FFFFFF';
+                this.ctx.font = 'bold 10px Arial';
+                this.ctx.fillText('Firebase', 650, 150);
+                
+                // Flutter app
+                this.ctx.fillStyle = '#8B5CF6';
+                this.ctx.fillRect(700, 130, 40, 60);
+                this.ctx.fillStyle = '#FFFFFF';
+                this.ctx.font = '8px Arial';
+                this.ctx.fillText('Flutter', 720, 160);
+            },
+
+            drawSystemStatus() {
+                this.ctx.fillStyle = 'rgba(31, 41, 55, 0.8)';
+                this.ctx.fillRect(20, 20, 400, 40);
+                this.ctx.fillStyle = '#FFFFFF';
+                this.ctx.font = '14px Arial';
+                this.ctx.textAlign = 'left';
+                this.ctx.fillText(this.currentExplanation, 30, 45);
+            },
+
+            updateSystemDisplay() {
+                document.getElementById('bottleCount').textContent = this.stats.bottlesProduced;
+                document.getElementById('fillLevel').textContent = `${Math.round(this.stats.currentFillLevel)}%`;
+                document.getElementById('waterLevel').textContent = `${Math.round(this.stats.waterTankLevel)}%`;
+                document.getElementById('status').textContent = this.systemStatus;
             }
-            this.ctx.globalAlpha = 1;
-        }
-        
-        // Firebase Cloud
-        this.ctx.fillStyle = '#F59E0B';
-        this.ctx.beginPath();
-        this.ctx.arc(iotX + 50, iotY + 100, 25, 0, 2 * Math.PI);
-        this.ctx.fill();
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.font = 'bold 10px Arial';
-        this.ctx.fillText('Firebase', iotX + 50, iotY + 100);
-        this.ctx.fillText('Cloud', iotX + 50, iotY + 112);
-        
-        // Data transmission lines
-        if (this.stats.firebaseSync === 'Active') {
-            this.ctx.strokeStyle = '#3B82F6';
-            this.ctx.lineWidth = 2;
-            const pulseOpacity = Math.sin(this.time * 5) * 0.3 + 0.7;
-            this.ctx.globalAlpha = pulseOpacity;
-            this.ctx.beginPath();
-            this.ctx.moveTo(iotX + 50, iotY + 60);
-            this.ctx.lineTo(iotX + 50, iotY + 75);
-            this.ctx.stroke();
-            this.ctx.globalAlpha = 1;
-        }
-        
-        // Mobile app representation
-        this.ctx.fillStyle = '#8B5CF6';
-        this.ctx.fillRect(iotX + 120, iotY + 80, 40, 60);
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.font = '8px Arial';
-        this.ctx.fillText('Flutter', iotX + 140, iotY + 105);
-        this.ctx.fillText('Mobile', iotX + 140, iotY + 115);
-        this.ctx.fillText('App', iotX + 140, iotY + 125);
-    },
-
-    /**
-     * Draw system explanation text
-     */
-    drawSystemExplanation() {
-        // Explanation box
-        this.ctx.fillStyle = 'rgba(31, 41, 55, 0.9)';
-        this.ctx.fillRect(20, 80, 400, 60);
-        
-        // Explanation text
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.font = '14px Arial';
-        this.ctx.textAlign = 'left';
-        this.ctx.fillText('System Status:', 30, 100);
-        this.ctx.font = '12px Arial';
-        this.ctx.fillText(this.currentExplanation, 30, 120);
-    },
-
-    /**
-     * Update system display elements
-     */
-    updateSystemDisplay() {
-        // Update HTML elements if they exist
-        const elements = {
-            bottleCount: document.getElementById('bottleCount'),
-            fillLevel: document.getElementById('fillLevel'),
-            status: document.getElementById('status'),
-            waterLevel: document.getElementById('waterLevel'),
-            iotStatus: document.getElementById('iotStatus'),
-            efficiency: document.getElementById('efficiency')
         };
-        
-        if (elements.bottleCount) {
-            elements.bottleCount.textContent = this.stats.bottlesProduced;
-        }
-        if (elements.fillLevel) {
-            elements.fillLevel.textContent = `${Math.round(this.stats.currentFillLevel)}%`;
-        }
-        if (elements.status) {
-            elements.status.textContent = this.systemStatus;
-        }
-        if (elements.waterLevel) {
-            elements.waterLevel.textContent = `${Math.round(this.stats.waterTankLevel)}%`;
-        }
-        if (elements.iotStatus) {
-            elements.iotStatus.textContent = this.stats.esp32Status;
-        }
-        if (elements.efficiency) {
-            elements.efficiency.textContent = `${this.stats.systemEfficiency}%`;
-        }
-    }
-};
 
-// Auto-initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('🌊 Initializing AquaTech IoT System...');
-    demo.init();
-});
-
-// Make demo globally accessible for manual control
-window.AquaTechDemo = demo;
-        // Initialize Modules
+        // Initialize all modules when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
+            theme.init();
             animations.init();
             navigation.init();
-            theme.init();
             accessibility.init();
             demo.init();
         });

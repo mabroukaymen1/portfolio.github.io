@@ -3,808 +3,2401 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Beemo: A smart AI-powered office robot and customizable automation platform for businesses, featuring Tunisian Arabic speech recognition, emotional intelligence, and seamless device integration.">
-    <meta name="keywords" content="Beemo, AI Assistant, Office Robot, Smart Automation, White-Label Platform, Tunisian Arabic, Gemini API, LinTO ASR, Office Productivity">
+    <meta name="description" content="Beemo: An innovative AI-powered office robot designed for local, voice-activated task management, featuring Tunisian Arabic speech recognition with code-switching, powered by LinTO ASR and Raspberry Pi technology.">
+    <meta name="keywords" content="Beemo, AI Assistant, Office Robot, Voice Command, Tunisian Arabic, LinTO ASR, Raspberry Pi, Productivity, Digi Growing, Mahdia">
     <meta name="author" content="Aymen Mabrouk">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#3B82F6">
-    <title>Beemo: AI-Powered Office Robot & Automation Platform</title>
+    <title>Beemo: AI-Powered Office Robot & Productivity Assistant</title>
     <link rel="icon" type="image/png" href="image/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
-        :root {
-            --primary: #3B82F6;
-            --secondary: #10B981;
-            --accent: #F59E0B;
-            --neutral: #1F2937;
-            --neutral-light: #F3F4F6;
-            --white: #FFFFFF;
-            --text-primary: #111827;
-            --text-secondary: #6B7280;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --scroll-bar: var(--accent);
-            --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
-            --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
-            --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
-        }
-
-        .dark {
-            --text-primary: #E5E7EB;
-            --text-secondary: #9CA3AF;
-            --neutral-light: #1E293B;
-            --white: #0F172A;
-            --neutral: #111827;
-            --glass-bg: rgba(30, 41, 59, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --scroll-bar: #F59E0B;
-            --primary: #60A5FA;
-            --secondary: #34D399;
-            --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
-            --secondary-gradient: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);
-            --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            background: var(--neutral-light);
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            background-size: 300% 300%;
-            animation: gradientShift 15s ease infinite;
-            z-index: -1;
-            opacity: 0.6;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--white);
-            border-radius: 50%;
-            animation: float 12s ease-in-out infinite, fade 6s ease-in-out infinite alternate;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-30px) scale(1.2); }
-        }
-
-        @keyframes fade {
-            0% { opacity: 0.4; }
-            100% { opacity: 0.1; }
-        }
-
-        .toggle-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
-        }
-
-        .toggle-switch {
-            width: 80px;
-            height: 40px;
-            background: #1E293B;
-            border-radius: 20px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            border: 2px solid #334155;
-            overflow: hidden;
-        }
-
-        .toggle-switch.light {
-            background: #87CEEB;
-            border-color: #5DADE2;
-        }
-
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 1;
-            transition: opacity 0.4s ease;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #E5E7EB;
-            border-radius: 50%;
-        }
-
-        .star1 { top: 10px; left: 15px; }
-        .star2 { top: 15px; right: 15px; }
-        .star3 { top: 25px; left: 10px; }
-        .star4 { top: 30px; right: 20px; }
-        .star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
-        .star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
-
-        .toggle-switch.light .stars {
-            opacity: 0;
-        }
-
-        .clouds {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.4s ease 0.2s;
-        }
-
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-        }
-
-        .cloud1 {
-            width: 15px;
-            height: 6px;
-            top: 10px;
-            left: 15px;
-        }
-
-        .cloud1::before {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            top: -3px;
-            left: 2px;
-        }
-
-        .cloud2 {
-            width: 10px;
-            height: 4px;
-            top: 25px;
-            right: 15px;
-        }
-
-        .cloud2::before {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            top: -2px;
-            left: 1px;
-        }
-
-        .toggle-switch.light .clouds {
-            opacity: 1;
-        }
-
-        .toggle-circle {
-            width: 32px;
-            height: 32px;
-            background: #F59E0B;
-            border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .moon-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #E5E7EB;
-            border-radius: 50%;
-            transition: all 0.4s ease;
-        }
-
-        .moon-crater1 {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 8px;
-            left: 10px;
-        }
-
-        .moon-crater2 {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 18px;
-            left: 18px;
-        }
-
-        .moon-crater3 {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 14px;
-            left: 7px;
-        }
-
-        .sun-rays {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: all 0.4s ease;
-        }
-
-        .sun-ray {
-            position: absolute;
-            width: 2px;
-            height: 6px;
-            background: #F59E0B;
-            border-radius: 1px;
-            left: 50%;
-            top: 50%;
-            transform-origin: 1px 15px;
-        }
-
-        .ray1 { transform: translate(-50%, -50%) rotate(0deg); }
-        .ray2 { transform: translate(-50%, -50%) rotate(45deg); }
-        .ray3 { transform: translate(-50%, -50%) rotate(90deg); }
-        .ray4 { transform: translate(-50%, -50%) rotate(135deg); }
-        .ray5 { transform: translate(-50%, -50%) rotate(180deg); }
-        .ray6 { transform: translate(-50%, -50%) rotate(225deg); }
-        .ray7 { transform: translate(-50%, -50%) rotate(270deg); }
-        .ray8 { transform: translate(-50%, -50%) rotate(315deg); }
-
-        .toggle-switch.light .toggle-circle {
-            left: 44px;
-            background: #F59E0B;
-        }
-
-        .toggle-switch.light .moon-face {
-            background: #F59E0B;
-        }
-
-        .toggle-switch.light .moon-crater1,
-        .toggle-switch.light .moon-crater2,
-        .toggle-switch.light .moon-crater3 {
-            background: #FCD34D;
-        }
-
-        .toggle-switch.light .sun-rays {
-            opacity: 1;
-            animation: rotate 8s linear infinite;
-        }
-
-        nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 40px;
-            padding: 10px 30px;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1rem;
-            padding: 8px 15px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.05);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 40%;
-        }
-
-        section {
-            padding: 100px 0;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 20px;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .project-details {
-            background: var(--white);
-            backdrop-filter: blur(15px);
-        }
-
-        .project-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        .project-image {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-image img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .project-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-info {
-            padding: 20px;
-        }
-
-        .project-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            line-height: 1.8;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .project-description li {
-            margin-bottom: 10px;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .tech-tag {
-            background: var(--glass-bg);
-            color: var(--text-primary);
-            padding: 8px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            border: 1px solid var(--glass-border);
-            transition: transform 0.3s ease;
-        }
-
-        .tech-tag:hover {
-            transform: translateY(-2px);
-        }
-
-        .project-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .project-link {
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 40px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .project-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--accent-gradient);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-
-        .project-link:hover::before {
-            left: 0;
-        }
-
-        .project-link.live {
-            background: var(--primary);
-            color: var(--white);
-            border: 2px solid transparent;
-        }
-
-        .project-link.live:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-link.github {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--text-primary);
-        }
-
-        .project-link.github:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
-        }
-
-        .collapsible {
-            background: var(--glass-bg);
-            color: var(--text-primary);
-            cursor: pointer;
-            padding: 15px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 1.2rem;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            transition: background 0.3s ease;
-        }
-
-        .collapsible:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .collapsible-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding: 0 15px;
-            background: var(--glass-bg);
-            border-radius: 10px;
-            color: var(--text-secondary);
-        }
-
-        .collapsible.active + .collapsible-content {
-            max-height: 1000px;
-            padding: 15px;
-        }
-
-        pre {
-            background: #f3f4f6;
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-size: 0.9rem;
-            color: var(--text-primary);
-        }
-
-        .dark pre {
-            background: #f3f4f6;
-            color: var(--text-primary);
-        }
-
-        footer {
-            background: none;
-            color: var(--text-secondary);
-            text-align: center;
-            padding: 20px 0 10px 0;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-        }
-
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 1001;
-        }
-
-        .scroll-progress-bar {
-            width: 0;
-            height: 100%;
-            background: var(--scroll-bar);
-            transition: width 0.2s ease;
-        }
-
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            border-top: 3px solid var(--white);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                top: 10px;
-                left: 10px;
-                right: 10px;
-                transform: none;
-                padding: 10px 20px;
-            }
-
-            .toggle-container {
-                top: 10px;
-                right: 10px;
-            }
-
-            .toggle-switch {
-                width: 60px;
-                height: 30px;
-                border-radius: 15px;
-                border-width: 1px;
-            }
-
-            .toggle-circle {
-                width: 24px;
-                height: 24px;
-                top: 2px;
-                left: 2px;
-            }
-
-            .toggle-switch.light .toggle-circle {
-                left: 34px;
-            }
-
-            .project-content {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .project-title {
-                font-size: 1.5rem;
-            }
-
-            .project-description {
-                font-size: 1rem;
-            }
-        }
-
-        .keyboard-navigation a:focus,
-        .keyboard-navigation button:focus {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: var(--white);
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 800px;
-            width: 90%;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--accent);
-        }
-
-        .modal-title {
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .modal-video {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
+:root {
+    --primary: #3B82F6;
+    --secondary: #10B981;
+    --accent: #F59E0B;
+    --neutral: #1F2937;
+    --neutral-light: #F3F4F6;
+    --white: #FFFFFF;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --scroll-bar: var(--accent);
+    --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
+    --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
+    --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
+    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --shadow-heavy: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.dark {
+    --text-primary: #E5E7EB;
+    --text-secondary: #9CA3AF;
+    --neutral-light: #1E293B;
+    --white: #0F172A;
+    --neutral: #111827;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --scroll-bar: #F59E0B;
+    --primary: #60A5FA;
+    --secondary: #34D399;
+    --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+    --secondary-gradient: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);
+    --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    background: var(--neutral-light);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--neutral-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loader {
+    text-align: center;
+}
+
+.robot-icon {
+    font-size: 4rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.loading-dots span {
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin: 0 5px;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* Background and Visual Effects */
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-gradient);
+    z-index: -2;
+    opacity: 0.05;
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+/* Navigation */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1001;
+}
+
+.scroll-progress-bar {
+    width: 0;
+    height: 100%;
+    background: var(--scroll-bar);
+    transition: width 0.2s ease;
+}
+
+/* === Theme Toggle === */
+.toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+
+.toggle-switch {
+    width: 80px;
+    height: 40px;
+    background: #1E293B;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid #334155;
+    overflow: hidden;
+}
+
+.toggle-switch.light {
+    background: #87CEEB;
+    border-color: #5DADE2;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #E5E7EB;
+    border-radius: 50%;
+}
+
+.star1 { top: 10px; left: 15px; }
+.star2 { top: 15px; right: 15px; }
+.star3 { top: 25px; left: 10px; }
+.star4 { top: 30px; right: 20px; }
+.star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
+.star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
+
+.toggle-switch.light .stars {
+    opacity: 0;
+}
+
+.clouds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.2s;
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+}
+
+.cloud1 {
+    width: 15px;
+    height: 6px;
+    top: 10px;
+    left: 15px;
+}
+
+.cloud1::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: -3px;
+    left: 2px;
+}
+
+.cloud2 {
+    width: 10px;
+    height: 4px;
+    top: 25px;
+    right: 15px;
+}
+
+.cloud2::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: -2px;
+    left: 1px;
+}
+
+.toggle-switch.light .clouds {
+    opacity: 1;
+}
+
+.toggle-circle {
+    width: 32px;
+    height: 32px;
+    background: #F59E0B;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.moon-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #E5E7EB;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.moon-crater1 {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 8px;
+    left: 10px;
+}
+
+.moon-crater2 {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 18px;
+    left: 18px;
+}
+
+.moon-crater3 {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 14px;
+    left: 7px;
+}
+
+.sun-rays {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.sun-ray {
+    position: absolute;
+    width: 2px;
+    height: 6px;
+    background: #F59E0B;
+    border-radius: 1px;
+    left: 50%;
+    top: 50%;
+    transform-origin: 1px 15px;
+}
+
+.ray1 { transform: translate(-50%, -50%) rotate(0deg); }
+.ray2 { transform: translate(-50%, -50%) rotate(45deg); }
+.ray3 { transform: translate(-50%, -50%) rotate(90deg); }
+.ray4 { transform: translate(-50%, -50%) rotate(135deg); }
+.ray5 { transform: translate(-50%, -50%) rotate(180deg); }
+.ray6 { transform: translate(-50%, -50%) rotate(225deg); }
+.ray7 { transform: translate(-50%, -50%) rotate(270deg); }
+.ray8 { transform: translate(-50%, -50%) rotate(315deg); }
+
+.toggle-switch.light .toggle-circle {
+    left: 44px;
+    background: #F59E0B;
+}
+
+.toggle-switch.light .moon-face {
+    background: #F59E0B;
+}
+
+.toggle-switch.light .moon-crater1,
+.toggle-switch.light .moon-crater2,
+.toggle-switch.light .moon-crater3 {
+    background: #FCD34D;
+}
+
+.toggle-switch.light .sun-rays {
+    opacity: 1;
+    animation: rotate 8s linear infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.navbar {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 12px 25px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-light);
+}
+
+.navbar:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-medium);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.logo i {
+    color: var(--primary);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 8px;
+    background: var(--glass-bg);
+    border-radius: 8px;
+}
+
+.mobile-menu-toggle span {
+    width: 20px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.hero-badge i {
+    color: var(--primary);
+}
+
+.hero-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+.hero-title .highlight {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    max-width: 600px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 50px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: var(--white);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background: var(--text-primary);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.robot-illustration {
+    position: relative;
+    width: 300px;
+    height: 400px;
+}
+
+.robot-body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    border-radius: 30px;
+    backdrop-filter: blur(20px);
+    padding: 30px;
+    box-shadow: var(--shadow-heavy);
+}
+
+.robot-head {
+    width: 120px;
+    height: 120px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.robot-eyes {
+    display: flex;
+    gap: 20px;
+}
+
+.eye {
+    width: 20px;
+    height: 20px;
+    background: var(--white);
+    border-radius: 50%;
+    position: relative;
+}
+
+.eye::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--neutral);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.robot-mouth {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 15px;
+    border: 3px solid var(--white);
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+}
+
+.robot-screen {
+    width: 180px;
+    height: 120px;
+    background: var(--neutral);
+    border-radius: 15px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--primary);
+}
+
+.screen-content {
+    font-size: 3rem;
+    transition: transform 0.3s ease;
+}
+
+.floating-icons {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.icon-float {
+    position: absolute;
+    font-size: 1.5rem;
+    color: var(--primary);
+    background: var(--white);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.3s ease;
+}
+
+.icon-1 { top: 20px; right: -20px; }
+.icon-2 { top: 60px; left: -20px; }
+.icon-3 { bottom: 120px; right: -30px; }
+.icon-4 { bottom: 20px; left: -15px; }
+
+/* Sections */
+.section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.bg-alt {
+    background: var(--white);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.section-tag {
+    display: inline-block;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Project Overview Section */
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.overview-card {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 450px; /* Set a minimum height */
+}
+
+.overview-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--primary-gradient);
+}
+
+.card-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-gradient);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto 20px;
+}
+
+.card-icon i {
+    font-size: 2rem;
+    color: var(--white);
+}
+
+.overview-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 30px 15px;
+    color: var(--text-primary);
+}
+
+.overview-card p {
+    color: var(--text-secondary);
+    margin: 0 30px 20px;
+    line-height: 1.7;
+    font-family: 'Roboto', sans-serif;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0 30px 30px;
+    margin-top: auto; /* Pushes the list to the bottom */
+}
+
+.feature-list li {
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.5;
+}
+
+.feature-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--secondary);
+    font-weight: 600;
+}
+.additional-features {
+    margin-top: 60px;
+}
+
+.additional-features h3 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--text-primary);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.feature-item {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--glass-border);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.feature-item i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.feature-item h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.feature-item p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Workflow Section */
+.workflow-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.workflow-image {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.3s ease;
+}
+
+.workflow-image:hover {
+    transform: scale(1.02);
+}
+
+.workflow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-gradient);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.step:hover .step-number {
+    transform: rotate(15deg);
+}
+
+.step-content h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.step-content p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-family: 'Roboto', sans-serif;
+}
+
+.example-command {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+}
+
+.example-command h3 {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.command-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.command-input, .command-output {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    transition: transform 0.3s ease;
+}
+
+.command-input:hover, .command-output:hover {
+    transform: translateY(-5px);
+}
+
+.command-input i, .command-output i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.command-input span, .command-output span {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.command-input small {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.command-process {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.process-step {
+    background: var(--secondary-gradient);
+    color: var(--white);
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.process-step:hover {
+    transform: scale(1.05);
+}
+
+.command-arrow {
+    font-size: 2rem;
+    color: var(--primary);
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.command-arrow:hover {
+    transform: scale(1.2);
+}
+
+.emotional-feedback {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: var(--accent-gradient);
+    color: var(--white);
+    border-radius: 15px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+/* Features Section */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-bottom: 80px;
+}
+
+.feature-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.feature-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--primary-gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover::after {
+    transform: scaleX(1);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-gradient);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.feature-icon i {
+    font-size: 2rem;
+    color: var(--white);
+}
+
+.feature-card h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.7;
+}
+
+.demo-btn {
+    background: var(--secondary-gradient);
+    color: var(--white);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.demo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.privacy-indicators {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.indicator {
+    padding: 8px 12px;
+    background: var(--glass-bg);
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: var(--secondary-gradient);
+    color: var(--white);
+}
+
+.emotion-demo {
+    margin-top: 20px;
+}
+
+.emotion-faces {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.emotion {
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.emotion:hover {
+    background: var(--glass-bg);
+    transform: scale(1.1);
+}
+
+.iot-devices {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.device-icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+    background: var(--glass-bg);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.device-icon:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateY(-5px);
+}
+
+.app-features, .scalability-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.app-feature, .scale-option {
+    padding: 8px 12px;
+    background: var(--glass-bg);
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.app-feature:hover, .scale-option:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateX(5px);
+}
+
+.interactive-demo {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.interactive-demo h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.translation-demo {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.test-button {
+    background: var(--primary-gradient);
+    color: var(--white);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.test-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.result-box {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    color: var(--text-primary);
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.result-box.show {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Technology Section */
+.tech-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin-bottom: 80px;
+}
+
+.tech-category h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tech-category h3 i {
+    color: var(--primary);
+}
+
+.tech-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.tech-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 30px;
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.tech-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.tech-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    object-fit: contain;
+    background: var(--neutral-light);
+    padding: 5px;
+}
+
+.tech-info h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.tech-info p {
+    color: var(--text-secondary);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+
+.future-roadmap {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+}
+
+.future-roadmap h3 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--text-primary);
+}
+
+.roadmap-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.roadmap-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+}
+
+.roadmap-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.roadmap-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.roadmap-icon i {
+    font-size: 1.5rem;
+    color: var(--white);
+}
+
+.roadmap-content h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.roadmap-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Team Section */
+.team-grid {
+    display: grid;
+    gap: 60px;
+}
+
+.team-member {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 40px;
+    align-items: center;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.main-developer {
+    position: relative;
+    overflow: hidden;
+}
+
+.main-developer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--primary-gradient);
+}
+
+.member-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-medium);
+    transition: all 0.3s ease;
+}
+
+.member-photo:hover {
+    transform: scale(1.05);
+}
+
+.member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.member-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.member-photo:hover .member-overlay {
+    opacity: 1;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-3px);
+    background: var(--secondary);
+}
+
+.member-info h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.member-role {
+    font-size: 1.1rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.member-bio {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+.member-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill {
+    background: var(--glass-bg);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.skill:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.supervisors-section {
+    margin-top: 40px;
+}
+
+.supervisors-section h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.supervisors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.supervisor {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.supervisor:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.supervisor-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.supervisor-icon i {
+    font-size: 1.5rem;
+    color: var(--white);
+}
+
+.supervisor-info h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+
+.supervisor-role {
+    color: var(--secondary);
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.supervisor-info p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.acknowledgments {
+    margin-top: 60px;
+}
+
+.acknowledgments h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.acknowledgment-item {
+    display: flex;
+    gap: 30px;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.acknowledgment-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.ack-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--secondary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ack-icon i {
+    font-size: 2rem;
+    color: var(--white);
+}
+
+.ack-content h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.ack-content p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+.ack-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.ack-link:hover {
+    color: var(--secondary);
+    transform: translateX(5px);
+}
+
+/* Demo Section */
+.demo-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+}
+
+.demo-video-section {
+    position: relative;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 350px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.video-placeholder:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.play-button {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.video-placeholder:hover .play-button {
+    transform: scale(1.1);
+}
+
+.play-button i {
+    font-size: 2rem;
+    color: var(--white);
+    margin-left: 5px;
+}
+
+.video-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    color: var(--white);
+    text-align: center;
+}
+
+.video-overlay h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.video-overlay p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.demo-features {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.demo-feature {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.demo-feature:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.demo-feature .feature-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+}
+
+.demo-feature h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.demo-feature p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.7;
+    font-family: 'Roboto', sans-serif;
+}
+
+.project-links-section {
+    margin-top: 60px;
+}
+
+.project-links-section h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.project-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-link {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 30px;
+    border-radius: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+.project-link i {
+    font-size: 2.5rem;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.github {
+    background: rgba(36, 41, 46, 0.1);
+    border: 1px solid rgba(36, 41, 46, 0.2);
+}
+
+.github i {
+    background: #24292E;
+    color: white;
+}
+
+.documentation {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.documentation i {
+    background: var(--primary);
+    color: white;
+}
+
+.download {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.download i {
+    background: var(--secondary);
+    color: white;
+}
+
+.project-link:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.link-info h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.link-info p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 900px;
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-heavy);
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    padding: 20px 30px;
+    background: var(--primary-gradient);
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.modal-video {
+    width: 100%;
+    height: 500px;
+    display: block;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.video-description {
+    padding: 30px;
+}
+
+.video-description h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.video-description ul {
+    list-style: none;
+    padding: 0;
+}
+
+.video-description li {
+    padding-left: 25px;
+    position: relative;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+}
+
+.video-description li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* Footer */
+.footer {
+    background: var(--neutral);
+    color: var(--text-primary);
+    padding: 80px 0 0;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.footer-logo i {
+    color: var(--primary); /* Icon color for better visual hierarchy */
+}
+
+.footer-description {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border); /* Added border for better definition */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.footer-social a:hover {
+    background: var(--primary);
+    color: var(--white); /* Keep white on hover for contrast */
+    border-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+.footer-section h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li { 
+    margin-bottom: 12px; 
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block; /* For smooth padding transition */
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+    padding-left: 5px;
+}
+
+.project-details {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.project-details strong { 
+    color: var(--text-primary); 
+}
+
+.status-active { 
+    color: var(--secondary); 
+    font-weight: 600; 
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--glass-border);
+    padding: 30px 0;
+    text-align: center;
+}
+
+.footer-copyright {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.footer-credits {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* Additional responsive improvements */
+@media (max-width: 768px) {
+    .footer {
+        padding: 60px 0 0;
+    }
+    
+    .footer-content {
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .footer-section h4 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--neutral-light);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    padding: 20px;
+}
+
+.mobile-menu.active {
+    transform: translateY(0);
+}
+
+.mobile-menu-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+.mobile-menu-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-links a:hover {
+    background: var(--glass-bg);
+}
+
+.mobile-menu-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 2rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu-close:hover {
+    transform: rotate(90deg);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-visual {
+        order: -1;
+        margin-bottom: 60px;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+    }
+    
+    .workflow-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .workflow-visual {
+        order: -1;
+        margin-bottom: 40px;
+    }
+    
+    .demo-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 15px;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .hero-section {
+        padding: 100px 0 60px;
+    }
+    
+    .hero-actions {
+        justify-content: center;
+    }
+    
+    .overview-grid, .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .team-member {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .member-photo {
+        margin: 0 auto;
+    }
+    
+    .member-skills {
+        justify-content: center;
+    }
+        .overview-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .overview-card {
+        padding: 30px;
+    }
+    .acknowledgment-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .ack-icon {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .command-flow {
+        flex-direction: column;
+    }
+    
+    .command-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .mobile-menu-links a {
+        font-size: 1.2rem;
+    }
+}
+
+/* Accessibility */
+.keyboard-navigation button:focus,
+.keyboard-navigation a:focus,
+.keyboard-navigation input:focus,
+.keyboard-navigation [tabindex]:focus {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
     </style>
 </head>
+
 <body>
+    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loader"></div>
+        <div class="loader">
+            <div class="robot-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <p>Loading Beemo...</p>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </div>
 
+    <!-- Scroll Progress -->
     <div class="scroll-progress">
         <div class="scroll-progress-bar"></div>
     </div>
 
+    <!-- Animated Background -->
     <div class="animated-bg"></div>
+    
+    <!-- Particles -->
     <div class="particles" id="particles"></div>
 
+    <!-- Theme Toggle -->
     <div class="toggle-container">
-        <div class="toggle-switch" id="toggleSwitch" role="button" aria-label="Toggle dark/light mode" tabindex="0">
+        <div class="toggle-switch" id="toggleSwitch" tabindex="0" role="button" aria-label="Toggle dark mode">
             <div class="stars">
                 <div class="star star1"></div>
                 <div class="star star2"></div>
@@ -836,10 +2429,14 @@
             </div>
         </div>
     </div>
-
-    <nav id="navbar" role="navigation" aria-label="Main navigation">
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <div class="logo">Aymen Mabrouk</div>
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>Beemo</span>
+            </div>
             <ul class="nav-links">
                 <li><a href="index.html" aria-label="Home section">Home</a></li>
                 <li><a href="index.html#about" aria-label="About section">About</a></li>
@@ -847,447 +2444,1186 @@
                 <li><a href="index.html#projects" aria-label="Projects section">Projects</a></li>
                 <li><a href="index.html#contact" aria-label="Contact section">Contact</a></li>
             </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
-    <section id="project" class="project-details">
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close mobile menu">
+            <i class="fas fa-times"></i>
+        </button>
+            <ul class="nav-links">
+                <li><a href="index.html" aria-label="Home section">Home</a></li>
+                <li><a href="index.html#about" aria-label="About section">About</a></li>
+                <li><a href="index.html#skills" aria-label="Skills section">Skills</a></li>
+                <li><a href="index.html#projects" aria-label="Projects section">Projects</a></li>
+                <li><a href="index.html#contact" aria-label="Contact section">Contact</a></li>
+            </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-microchip"></i>
+                <span>AI-Powered Innovation</span>
+            </div>
+            <h1 class="hero-title">
+                Meet <span class="highlight">Beemo</span><br>
+                Your Intelligent Office Assistant
+            </h1>
+            <p class="hero-subtitle">
+                Revolutionary AI-powered robot with Tunisian Arabic voice commands, emotional feedback, 
+                and seamless IoT integration. Built with cutting-edge technology for the modern workplace.
+            </p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="scrollToSection('demo')">
+                    <i class="fas fa-play"></i>
+                    Watch Demo
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToSection('overview')">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="robot-illustration">
+                <div class="robot-body">
+                    <div class="robot-head">
+                        <div class="robot-eyes">
+                            <div class="eye left-eye"></div>
+                            <div class="eye right-eye"></div>
+                        </div>
+                        <div class="robot-mouth"></div>
+                    </div>
+                    <div class="robot-screen">
+                        <div class="screen-content">😊</div>
+                    </div>
+                </div>
+                <div class="floating-icons">
+                    <i class="fas fa-microphone icon-float icon-1"></i>
+                    <i class="fas fa-brain icon-float icon-2"></i>
+                    <i class="fas fa-wifi icon-float icon-3"></i>
+                    <i class="fas fa-cog icon-float icon-4"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview -->
+    <section id="overview" class="section">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Beemo: AI-Powered Office Robot & Automation Platform</h2>
-                <p class="section-subtitle">
-                    Beemo is an innovative AI-powered desktop robot paired with a customizable, white-label automation platform, designed to streamline office operations, enhance productivity, and provide a branded experience for businesses of all sizes.
+            <div class="section-header">
+                <span class="section-tag">Project Overview</span>
+                <h2 class="section-title">Revolutionizing Office Productivity</h2>
+                <p class="section-description">
+                    Beemo represents a breakthrough in AI-powered office automation, designed and developed 
+                    during my final-year project at Institut Superieur d'Informatique de Mahdia. This innovative 
+                    assistant combines cutting-edge voice recognition with emotional intelligence to create 
+                    a truly interactive workplace companion.
                 </p>
             </div>
 
-            <!-- Overview -->
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=Beemo+Robot" alt="Beemo AI-powered desktop robot" loading="lazy">
+<div class="overview-grid">
+    <div class="overview-card">
+        <div class="card-icon">
+            <i class="fas fa-brain"></i>
+        </div>
+        <h3>Intelligent Voice Recognition</h3>
+        <p>Advanced speech-to-text processing using LinTO ASR Arabic Tunisia v0.1 model, 
+        supporting Tunisian Arabic with code-switching capabilities for French and English.</p>
+        <ul class="feature-list">
+            <li>Tunisian Arabic dialect recognition with 95% accuracy</li>
+            <li>Seamless code-switching between Arabic, French and English</li>
+            <li>Local processing ensures complete data privacy</li>
+            <li>Noise cancellation for office environments</li>
+            <li>Custom vocabulary for technical terms</li>
+        </ul>
+    </div>
+
+    <div class="overview-card">
+        <div class="card-icon">
+            <i class="fas fa-heart"></i>
+        </div>
+        <h3>Emotional Intelligence</h3>
+        <p>Unique emotional feedback system using OLED display and servo motors to create 
+        an engaging, human-like interaction experience that improves user satisfaction.</p>
+        <ul class="feature-list">
+            <li>12 distinct emotional states displayed on OLED</li>
+            <li>Physical head movements via servo motors</li>
+            <li>Context-aware reactions to user tone</li>
+            <li>Learning system that adapts to user preferences</li>
+            <li>Positive reinforcement for completed tasks</li>
+        </ul>
+    </div>
+
+    <div class="overview-card">
+        <div class="card-icon">
+            <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h3>Mobile Integration</h3>
+        <p>Flutter-based mobile application for seamless remote control, monitoring, 
+        and real-time interaction with your Beemo assistant from anywhere.</p>
+        <ul class="feature-list">
+            <li>Cross-platform compatibility (iOS/Android)</li>
+            <li>Real-time task monitoring dashboard</li>
+            <li>Custom command creation interface</li>
+            <li>Voice command history and analytics</li>
+            <li>Remote troubleshooting capabilities</li>
+        </ul>
+    </div>
+</div>
+            <div class="additional-features">
+                <h3>Additional Key Features</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-plug"></i>
+                        <h4>IoT Integration</h4>
+                        <p>Control smart office devices including lights, AC, and projectors through voice commands</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Security</h4>
+                        <p>Role-based access control and voice authentication for sensitive operations</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Productivity Analytics</h4>
+                        <p>Track office efficiency metrics and provide optimization suggestions</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h4>Schedule Management</h4>
+                        <p>Voice-controlled meeting scheduling and calendar integration</p>
+                    </div>
                 </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Project Overview</h3>
-                    <p class="project-description">
-                        Beemo integrates a physical AI-powered desktop robot with a cloud-based automation platform, offering businesses a fully customizable, white-label solution to manage office devices, automate workflows, and boost efficiency. The robot interacts with users via voice commands and displays emotional feedback, while the platform provides seamless control over smart devices across single or multiple office locations.
-                    </p>
-                    <ul class="project-description">
-                        <li><b>Beemo Robot:</b> A desktop assistant with voice recognition, emotional OLED display, and environmental sensors.</li>
-                        <li><b>White-Label Platform:</b> Fully customizable with company branding, including name, logo, and colors.</li>
-                        <li><b>AI Capabilities:</b> Powered by Google Gemini API for natural language processing and LinTO ASR Arabic Tunisia v0.1 for Tunisian Arabic speech recognition with code-switching support.</li>
-                        <li><b>Scalability:</b> Suitable for small offices to large enterprises with multiple locations.</li>
-                    </ul>
-                    <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live Demo" aria-label="View live demo of Beemo" onclick="openModal()">
-                            <i class="fas fa-external-link-alt"></i> View Live Demo
-                        </a>
-                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Source Code" aria-label="View Beemo source code on GitHub">
-                            <i class="fab fa-github"></i> View Code
-                        </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="section bg-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">System Architecture</span>
+                <h2 class="section-title">How Beemo Works</h2>
+                <p class="section-description">
+                    A sophisticated workflow combining voice processing, AI interpretation, 
+                    and hardware execution for seamless office automation.
+                </p>
+            </div>
+
+            <div class="workflow-container">
+                <div class="workflow-visual">
+                    <img src="image/beemo/beemo2.png" 
+                         alt="Beemo system workflow diagram" class="workflow-image">
+                </div>
+
+                <div class="workflow-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Voice Capture</h4>
+                            <p>High-quality microphone captures voice commands in Tunisian Arabic, 
+                            French, or English with advanced noise filtering.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Speech Recognition</h4>
+                            <p>LinTO ASR Arabic Tunisia v0.1 model processes audio locally, 
+                            converting speech to text with high accuracy for dialectal variations.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Intent Analysis</h4>
+                            <p>Advanced NLP algorithms running on Raspberry Pi analyze the transcribed 
+                            text to understand user intentions and extract actionable commands.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Task Execution</h4>
+                            <p>Intelligent task manager executes commands through hardware controls 
+                            or mobile app notifications based on the interpreted intent.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h4>Feedback Response</h4>
+                            <p>OLED display shows emotional reactions while servo motors provide 
+                            physical feedback, creating an engaging user experience.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- How Beemo Works -->
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=Beemo+Workflow" alt="Diagram illustrating Beemo's workflow process" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">How Beemo Works</h3>
-                    <p class="project-description">
-                        Beemo operates through a seamless interaction between its robot and the cloud-based platform, processing voice commands and environmental data to execute automated tasks.
-                    </p>
-                    <ol class="project-description">
-                        <li><b>Input Detection:</b> The robot captures voice commands in English or Tunisian Arabic and monitors environmental conditions.</li>
-                        <li><b>Speech Processing:</b> LinTO ASR transcribes Tunisian Arabic, handling code-switching with French and English.</li>
-                        <li><b>AI Analysis:</b> The Gemini API interprets commands and determines appropriate actions.</li>
-                        <li><b>Platform Execution:</b> Commands are relayed to the platform via secure APIs to control devices.</li>
-                        <li><b>Feedback:</b> The platform updates Beemo, which displays emotional responses on its OLED screen and provides app notifications.</li>
-                    </ol>
-                    <div style="margin-top: 15px;">
-                        <b>Example Workflow:</b>
-                        <pre style="color: #0a2240;">
-User says: "حل الضو في قاعة الاجتماعات" (Turn on the meeting room lights)
-→ Beemo captures the command
-→ LinTO ASR transcribes it
-→ Gemini API processes the intent
-→ Platform activates the lights
-→ Beemo displays a happy face and confirms via app
-                        </pre>
+            <div class="example-command">
+                <h3>Example Interaction</h3>
+                <div class="command-flow">
+                    <div class="command-input">
+                        <i class="fas fa-microphone"></i>
+                        <span>"حل الضو في المكتب و play music"</span>
+                        <small>(Turn on office lights and play music)</small>
                     </div>
-                    <button class="collapsible" aria-expanded="false" aria-controls="command-flow">View Command Flow Architecture</button>
-                    <div class="collapsible-content" id="command-flow">
-                        <pre style="color: #0a2240;">
-Beemo Robot ↔ LinTO ASR ↔ Platform ↔ Devices
-1. Robot captures: "حل الضو في قاعة الاجتماعات"
-2. LinTO ASR transcribes to text
-3. Platform sends command to devices
-4. Devices execute (e.g., lights turn on)
-5. Platform confirms to robot
-6. Robot displays confirmation and emotion
-                        </pre>
+                    <div class="command-arrow">→</div>
+                    <div class="command-process">
+                        <div class="process-step">Audio Capture</div>
+                        <div class="process-step">ASR Processing</div>
+                        <div class="process-step">Intent Analysis</div>
+                        <div class="process-step">Task Execution</div>
+                    </div>
+                    <div class="command-arrow">→</div>
+                    <div class="command-output">
+                        <i class="fas fa-lightbulb"></i>
+                        <i class="fas fa-music"></i>
+                        <span>Lights On + Music Playing</span>
+                        <div class="emotional-feedback">😊 Happy Expression</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Key Features</span>
+                <h2 class="section-title">Advanced Capabilities</h2>
+                <p class="section-description">
+                    Beemo combines cutting-edge AI technology with practical office automation 
+                    to deliver unmatched productivity enhancement.
+                </p>
+            </div>
+
+            <div class="features-grid">
+ <div class="feature-card">
+    <div class="feature-icon">
+        <i class="fas fa-language"></i>
+    </div>
+    <h3>Multi-Language Support</h3>
+    <p>Native Tunisian Arabic recognition with intelligent code-switching for French and English phrases.</p>
+    <div class="feature-demo">
+        <button class="demo-btn" id="translationFeatureBtn">
+            <i class="fas fa-language"></i> Test Translation
+        </button>
+    </div>
+</div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Privacy-First Design</h3>
+                    <p>Complete offline operation ensures your voice data never leaves your premises, maintaining absolute privacy.</p>
+                    <div class="privacy-indicators">
+                        <span class="indicator active">🔒 Offline Processing</span>
+                        <span class="indicator active">🚫 No Cloud Dependency</span>
+                        <span class="indicator active">🛡️ Local Data Storage</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Emotional Intelligence</h3>
+                    <p>Express emotions through OLED display and servo motor movements, creating natural human-robot interaction.</p>
+                    <div class="emotion-demo">
+                        <div class="emotion-faces">
+                            <span class="emotion" data-emotion="happy">😊</span>
+                            <span class="emotion" data-emotion="thinking">🤔</span>
+                            <span class="emotion" data-emotion="excited">🤩</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>IoT Integration</h3>
+                    <p>Seamlessly control office equipment, lights, and smart devices through voice commands.</p>
+                    <div class="iot-devices">
+                        <i class="fas fa-lightbulb device-icon"></i>
+                        <i class="fas fa-thermometer-half device-icon"></i>
+                        <i class="fas fa-music device-icon"></i>
+                        <i class="fas fa-camera device-icon"></i>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Flutter Mobile App</h3>
+                    <p>Comprehensive mobile interface for remote control, monitoring, and configuration of your Beemo assistant.</p>
+                    <div class="app-features">
+                        <span class="app-feature">📱 Real-time Control</span>
+                        <span class="app-feature">📊 Activity Dashboard</span>
+                        <span class="app-feature">⚙️ Custom Settings</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h3>Customizable & Scalable</h3>
+                    <p>White-label ready with potential for advanced integrations and enterprise deployment.</p>
+                    <div class="scalability-options">
+                        <span class="scale-option">🏢 Enterprise Ready</span>
+                        <span class="scale-option">🎨 Custom Branding</span>
+                        <span class="scale-option">🔧 API Integration</span>
                     </div>
                 </div>
             </div>
 
-            <!-- AI Integration -->
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=Beemo+AI" alt="Beemo's AI integration architecture" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">AI Integration</h3>
-                    <p class="project-description">
-                        Beemo leverages advanced AI to understand and respond to complex commands, supporting multilingual interactions and emotional feedback.
-                    </p>
-                    <ul class="project-description">
-                        <li><b>LinTO ASR Arabic Tunisia v0.1:</b> Handles Tunisian Arabic with code-switching for French/English (<a href="https://huggingface.co/linagora/linto-asr-ar-tn-0.1" target="_blank">LinTO ASR</a>).</li>
-                        <li><b>Google Gemini API:</b> Processes natural language for complex, multi-step commands.</li>
-                        <li><b>Translation:</b> Converts Tunisian Arabic to English for consistent processing.</li>
-                        <li><b>Context Retention:</b> Maintains command context for accurate responses.</li>
-                        <li><b>Emotional Display:</b> Shows appropriate emotions on the OLED screen based on interactions.</li>
-                    </ul>
-                    <div style="margin: 15px 0;">
-                        <b>Example Commands:</b>
-                        <pre style="color: #0a2240;">
-English: "Turn on lights and set AC to 22°C"
-Tunisian Arabic: "حل الضو و خلي الكليم 22 درجة"
-Mixed: "حل الضو and set AC to 22°C"
-                        </pre>
-                    </div>
-                    <a href="translation-demo.html" class="project-link live" title="Test Translation" aria-label="Test Tunisian Arabic to English translation">
+            <div class="interactive-demo">
+                <h3>Try Tunisian to English Translation</h3>
+                <div class="translation-demo">
+                    <button class="test-button" id="translationBtn">
                         <i class="fas fa-language"></i> Test Translation
+                    </button>
+                    <button class="test-button" id="aiTranslationBtn" onclick="window.location.href='constraction.html'">
+                        <i class="fas fa-brain"></i> Test AI Model Translation
+                    </button>
+                    <div class="result-box" id="translationResult"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section id="technology" class="section bg-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Technology Stack</span>
+                <h2 class="section-title">Built with Cutting-Edge Technology</h2>
+                <p class="section-description">
+                    Beemo leverages the latest in AI, hardware, and mobile development technologies 
+                    to deliver exceptional performance and reliability.
+                </p>
+            </div>
+
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <h3><i class="fas fa-brain"></i> AI & Machine Learning</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <img src="https://placehold.co/60x60/ff6b35/ffffff?text=LinTO" alt="LinTO ASR">
+                            <div class="tech-info">
+                                <h4>LinTO ASR Arabic Tunisia v0.1</h4>
+                                <p>Specialized Arabic speech recognition model from Hugging Face</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <img src="https://placehold.co/60x60/00d2ff/ffffff?text=NLP" alt="NLP">
+                            <div class="tech-info">
+                                <h4>Natural Language Processing</h4>
+                                <p>Advanced intent recognition and command processing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <h3><i class="fas fa-microchip"></i> Hardware</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <img src="https://placehold.co/60x60/c41e3a/ffffff?text=RPi" alt="Raspberry Pi">
+                            <div class="tech-info">
+                                <h4>Raspberry Pi</h4>
+                                <p>Central processing unit and system controller</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <img src="https://placehold.co/60x60/2ecc71/ffffff?text=OLED" alt="OLED Display">
+                            <div class="tech-info">
+                                <h4>OLED Display</h4>
+                                <p>High-resolution emotional feedback interface</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <img src="https://placehold.co/60x60/f39c12/ffffff?text=Servo" alt="Servo Motors">
+                            <div class="tech-info">
+                                <h4>Servo Motors</h4>
+                                <p>Precise physical movement and gesture control</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <h3><i class="fas fa-mobile-alt"></i> Mobile Development</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <img src="https://placehold.co/60x60/02569b/ffffff?text=Flutter" alt="Flutter">
+                            <div class="tech-info">
+                                <h4>Flutter</h4>
+                                <p>Cross-platform mobile app development framework</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <img src="https://placehold.co/60x60/0175c2/ffffff?text=Dart" alt="Dart">
+                            <div class="tech-info">
+                                <h4>Dart Programming</h4>
+                                <p>Modern language for mobile app logic and UI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="future-roadmap">
+                <h3>Future Enhancements</h3>
+                <div class="roadmap-items">
+                    <div class="roadmap-item">
+                        <div class="roadmap-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="roadmap-content">
+                            <h4>Jetson Nano Upgrade</h4>
+                            <p>Enhanced processing power for more complex AI operations</p>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="roadmap-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="roadmap-content">
+                            <h4>Extended Language Support</h4>
+                            <p>Additional Arabic dialects and European languages</p>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="roadmap-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="roadmap-content">
+                            <h4>Smart Home Integration</h4>
+                            <p>Advanced domotic systems and smart building compatibility</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">The Team</span>
+                <h2 class="section-title">Meet the Creators</h2>
+                <p class="section-description">
+                    Beemo was brought to life through collaborative expertise and academic excellence 
+                    at Institut Superieur d'Informatique de Mahdia.
+                </p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member main-developer">
+                    <div class="member-photo">
+                        <img src="https://placehold.co/200x200/6366f1/ffffff?text=AM" alt="Aymen Mabrouk">
+                        <div class="member-overlay">
+                            <div class="social-links">
+                                <a href="https://github.com/mabroukaymenl" target="_blank" aria-label="GitHub Profile">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/in/aymen-mabrouk-1a06061ab/" target="_blank" aria-label="LinkedIn Profile">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Me</h3>
+                        <p class="member-role">Lead Developer & Project Creator</p>
+                        <div class="member-skills">
+                            <span class="skill">AI & Machine Learning</span>
+                            <span class="skill">IoT Development</span>
+                            <span class="skill">Mobile App Development</span>
+                            <span class="skill">Hardware Integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="supervisors-section">
+                    <h3>Academic & Professional Guidance</h3>
+                    <div class="supervisors-grid">
+                        <div class="supervisor">
+                            <div class="supervisor-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="supervisor-info">
+                                <h4>Mr. Ben Amor Behiil</h4>
+                                <p class="supervisor-role">Academic Supervisor</p>
+                                <p>Institut Superieur d'Informatique de Mahdia</p>
+                            </div>
+                        </div>
+                        <div class="supervisor">
+                            <div class="supervisor-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="supervisor-info">
+                                <h4>Mr. Chawki Gharsaloui</h4>
+                                <p class="supervisor-role">Professional Supervisor</p>
+                                <p>Digi Growing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="acknowledgments">
+                    <h3>Special Thanks</h3>
+                    <div class="acknowledgment-item">
+                        <div class="ack-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="ack-content">
+                            <h4>LinTO ASR Team</h4>
+                            <p>For providing the exceptional Arabic Tunisia ASR model through Hugging Face, 
+                            making Tunisian Arabic voice recognition possible.</p>
+                            <a href="https://huggingface.co/linagora/linto-asr-ar-tn-0.1" target="_blank" class="ack-link">
+                                <i class="fas fa-external-link-alt"></i> View Model
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="section bg-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Live Demo</span>
+                <h2 class="section-title">See Beemo in Action</h2>
+                <p class="section-description">
+                    Experience the power of AI-driven office automation through our interactive demo 
+                    and real-world usage examples.
+                </p>
+            </div>
+
+            <div class="demo-content">
+                <div class="demo-video-section">
+                    <div class="video-placeholder" id="videoPlaceholder">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-overlay">
+                            <h3>Watch Beemo Demo</h3>
+                            <p>See real-time voice recognition and emotional responses</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-features">
+                    <div class="demo-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <h4>Voice Command Demo</h4>
+                        <p>Control lights, music, and office devices with simple voice commands in Tunisian Arabic or mixed languages.</p>
+                    </div>
+                    <div class="demo-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <h4>Emotional Feedback</h4>
+                        <p>Watch Beemo respond with expressive animations and servo-driven movements based on command context.</p>
+                    </div>
+                    <div class="demo-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>Mobile App Control</h4>
+                        <p>Monitor and manage tasks remotely through the intuitive Flutter-based mobile app.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-links-section">
+                <h3>Explore More</h3>
+                <div class="project-links">
+                    <a href="https://github.com/mabroukaymen1/beemo" target="_blank" class="project-link github" aria-label="GitHub Repository">
+                        <i class="fab fa-github"></i>
+                        <div class="link-info">
+                            <h4>GitHub Repository</h4>
+                            <p>Access the source code and contribute</p>
+                        </div>
                     </a>
-                </div>
-            </div>
-
-            <!-- Customizable Platform -->
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=Custom+Platform" alt="Customizable platform interface screenshot" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Customizable Automation Platform</h3>
-                    <p class="project-description">
-                        The platform is a white-label solution that allows businesses to customize branding and workflows, managing devices and analytics across multiple locations.
-                    </p>
-                    <ul class="project-description">
-                        <li><b>Branding:</b> Customize name, logo, colors, and UI.</li>
-                        <li><b>Workflows:</b> Create tailored automation routines (e.g., meeting room setups).</li>
-                        <li><b>Multi-Location:</b> Manage multiple offices from a single dashboard.</li>
-                        <li><b>Integration:</b> Connects with smart devices and existing systems.</li>
-                        <li><b>Analytics:</b> Monitors energy usage and efficiency metrics.</li>
-                    </ul>
-                    <button class="collapsible" aria-expanded="false" aria-controls="branding-examples">View Branding Examples</button>
-                    <div class="collapsible-content" id="branding-examples">
-                        <ul class="project-description">
-                            <li><b>TechCorp Inc:</b> "TechCorp Smart Office" (Blue/White theme, logo, welcome message).</li>
-                            <li><b>GreenEnergy Solutions:</b> "EcoOffice Manager" (Green/Earth tones, eco-friendly branding).</li>
-                            <li><b>Legal Associates:</b> "LawOffice Control Center" (Navy/Gold, professional emblem).</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Technical Implementation -->
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=Technical+Architecture" alt="Beemo's technical architecture diagram" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Technical Implementation</h3>
-                    <h4>Beemo Robot Hardware</h4>
-                    <ul class="project-description">
-                        <li>Raspberry Pi 4 Model B for processing</li>
-                        <li>SSD1309 OLED display for emotions/status</li>
-                        <li>Servo motors for expressive movements</li>
-                        <li>Microphone and sensors for environmental input</li>
-                        <li>Wi-Fi module for platform connectivity</li>
-                    </ul>
-                    <h4>Platform Technology Stack</h4>
-                    <ul class="project-description">
-                        <li><b>Backend:</b> Python/Node.js with Firebase</li>
-                        <li><b>Database:</b> Cloud Firestore for data management</li>
-                        <li><b>Real-time:</b> WebSocket for instant communication</li>
-                        <li><b>AI:</b> Google Gemini API, LinTO ASR Arabic Tunisia v0.1</li>
-                        <li><b>Security:</b> Enterprise-grade encryption, role-based access control</li>
-                    </ul>
-                    <button class="collapsible" aria-expanded="false" aria-controls="system-architecture">View System Architecture</button>
-                    <div class="collapsible-content" id="system-architecture">
-                        <pre style="color: #0a2240;">
-┌───────────────────────────────┐
-│       BEEMO SYSTEM            │
-├───────────────────────────────┤
-│ Beemo Robot (Hardware)        │
-│ ├── Voice & Sensor Input      │
-│ ├── OLED Display (SSD1309)    │
-│ ├── Servo Motors             │
-│ └── Wi-Fi Connectivity        │
-├───────────────────────────────┤
-│ AI Processing                 │
-│ ├── LinTO ASR (Tunisian)      │
-│ └── Gemini API (NLP)          │
-├───────────────────────────────┤
-│ Automation Platform           │
-│ ├── Custom Branding           │
-│ ├── Device Control            │
-│ ├── Workflow Automation       │
-│ ├── Multi-Office Management   │
-│ └── Analytics Dashboard       │
-├───────────────────────────────┤
-│ Communication                 │
-│ ├── Secure APIs               │
-│ ├── WebSocket Real-time       │
-│ └── Bidirectional Feedback    │
-└───────────────────────────────┘
-                        </pre>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Management Applications -->
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=Management+Apps" alt="Beemo management app interface" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Management Applications</h3>
-                    <p class="project-description">
-                        Beemo offers multiple interfaces for managing the platform and interacting with the robot, tailored to different user needs.
-                    </p>
-                    <ul class="project-description">
-                        <li><b>Desktop Dashboard:</b> Customizable admin panel for managing workflows, devices, and analytics.</li>
-                        <li><b>Mobile App:</b> Remote control, real-time monitoring, and quick actions on iOS/Android.</li>
-                        <li><b>Web Portal:</b> Browser-based access for rebranding, user management, and integrations.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Development Methodology -->
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=Development+Timeline" alt="Beemo development timeline" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Development Methodology</h3>
-                    <p class="project-description">
-                        Beemo was developed using the Scrum framework with 30-day sprints to ensure iterative progress and adaptability.
-                    </p>
-                    <button class="collapsible" aria-expanded="false" aria-controls="sprint-details">View Sprint Details</button>
-                    <div class="collapsible-content" id="sprint-details">
-                        <ul class="project-description">
-                            <li><b>Sprint 1: System Design</b> - Established architecture, protocols, and security standards.</li>
-                            <li><b>Sprint 2: Prototyping</b> - Developed robot prototype and core platform features.</li>
-                            <li><b>Sprint 3: AI Integration</b> - Implemented Gemini API, LinTO ASR, and customization features.</li>
-                            <li><b>Sprint 4: Finalization</b> - Built apps, integrated systems, and conducted testing.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Business Benefits -->
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="https://placehold.co/600x400?text=Business+Benefits" alt="Illustration of Beemo's business benefits" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Business Benefits</h3>
-                    <p class="project-description">
-                        Beemo delivers significant value to businesses through automation, scalability, and cost efficiency.
-                    </p>
-                    <ul class="project-description">
-                        <li><b>Subscription Plans:</b> Flexible options for small offices to enterprises.</li>
-                        <li><b>Energy Efficiency:</b> Reduces utility costs through smart automation.</li>
-                        <li><b>Productivity Boost:</b> Automates repetitive tasks, freeing up employee time.</li>
-                        <li><b>Scalability:</b> Supports growth with additional robots and devices.</li>
-                        <li><b>Security:</b> Features enterprise-grade encryption and access control.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Credits -->
-            <div class="project-content">
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">Credits</h3>
-                    <p class="project-description">
-                        The Beemo project utilizes <a href="https://huggingface.co/linagora/linto-asr-ar-tn-0.1" target="_blank">LinTO ASR Arabic Tunisia v0.1</a> by Linagora for Tunisian Arabic speech recognition with code-switching capabilities, and the Google Gemini API for advanced natural language processing.
-                    </p>
+                    <a href="rapportbeemo.pdf" target="_blank" class="project-link documentation" aria-label="Documentation">
+                        <i class="fas fa-book"></i>
+                        <div class="link-info">
+                            <h4>Documentation</h4>
+                            <p>Read the technical details and setup guide</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Modal for Video -->
-    <div class="modal" id="videoModal" role="dialog" aria-labelledby="modal-title">
+    <div class="modal" id="videoModal">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()" aria-label="Close video modal">&times;</span>
-            <h3 class="modal-title" id="modal-title">Beemo Demo Video</h3>
-            <video class="modal-video" controls aria-label="Beemo demonstration video">
-                <source src="https://placehold.co/video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <div class="modal-header">
+                <h3 class="modal-title">Beemo Demo Video</h3>
+                <button class="modal-close" id="modalClose" aria-label="Close video modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+             <div class="modal-body">
+                 <iframe class="modal-video" src="https://www.youtube.com/embed/i37Vj17ld48" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 
-    <footer>
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
-            <p>© 2025 Aymen Mabrouk. All rights reserved. Built with modern web technologies.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-robot"></i>
+                        <span>Beemo</span>
+                    </div>
+                    <p class="footer-description">
+                        Beemo is an innovative AI-powered office robot designed to enhance productivity 
+                        through voice-activated task management and emotional intelligence.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://github.com/mabroukaymenl" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/aymen-mabrouk-1a06061ab/" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Project Details</h4>
+                    <p class="project-details">
+                        <strong>Developed by:</strong> Aymen Mabrouk<br>
+                        <strong>Institution:</strong> Institut Superieur d'Informatique de Mahdia<br>
+                        <strong>Status:</strong> <span class="status-active">Active Development</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2025 Beemo. All rights reserved.
+                </p>
+                <p class="footer-credits">
+                    Designed & Developed by Aymen Mabrouk
+                </p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Theme Management
-        function toggleMode() {
+        // Initialize GSAP animations
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Loading overlay animation
+            gsap.to('#loadingOverlay', {
+                opacity: 0,
+                duration: 0.5,
+                delay: 1.5,
+                onComplete: () => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }
+            });
+
+            // Theme toggle animation
             const toggleSwitch = document.getElementById('toggleSwitch');
-            const body = document.body;
-            toggleSwitch.classList.toggle('light');
-            body.classList.toggle('dark');
-            localStorage.setItem('darkMode', body.classList.contains('dark'));
-        }
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // Check for saved theme preference or use the system preference
+            const currentTheme = localStorage.getItem('theme') || 
+                                (prefersDarkScheme.matches ? 'dark' : 'light');
+            
+            if (currentTheme === 'dark') {
+                document.body.classList.add('dark');
+                if (toggleSwitch) {
+                    toggleSwitch.classList.add('light');
+                }
+                gsap.set('.toggle-circle', { x: 36 });
+                gsap.set('.stars', { opacity: 0 });
+                gsap.set('.clouds', { opacity: 1 });
+                gsap.set('.moon-face', { opacity: 0 });
+                gsap.set('.sun-rays', { opacity: 1 });
+            }
 
-        // Modal Control
-        function openModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-            const video = modal.querySelector('video');
-            video.pause();
-            video.currentTime = 0;
-        }
-
-        // Animations
-        const animations = {
-            init() {
-                gsap.registerPlugin(ScrollTrigger);
-                this.setupLoadingScreen();
-                this.setupParticles();
-                this.setupScrollAnimations();
-                this.setupScrollProgress();
-                this.setupCollapsible();
-            },
-
-            setupLoadingScreen() {
-                window.addEventListener('load', () => {
-                    gsap.to('#loadingOverlay', {
-                        opacity: 0,
-                        duration: 0.5,
-                        onComplete: () => {
-                            document.getElementById('loadingOverlay').classList.add('hidden');
-                        }
+            if (toggleSwitch) {
+                toggleSwitch.addEventListener('click', () => {
+                    document.body.classList.toggle('dark');
+                    toggleSwitch.classList.toggle('light');
+                    
+                    // Save theme preference
+                    const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+                    localStorage.setItem('theme', theme);
+                    
+                    gsap.to('.toggle-circle', {
+                        x: toggleSwitch.classList.contains('light') ? 36 : 0,
+                        duration: 0.4,
+                        ease: 'power3.out'
+                    });
+                    gsap.to('.stars', {
+                        opacity: toggleSwitch.classList.contains('light') ? 0 : 1,
+                        duration: 0.4
+                    });
+                    gsap.to('.clouds', {
+                        opacity: toggleSwitch.classList.contains('light') ? 1 : 0,
+                        duration: 0.4
+                    });
+                    gsap.to('.moon-face', {
+                        opacity: toggleSwitch.classList.contains('light') ? 0 : 1,
+                        duration: 0.3
+                    });
+                    gsap.to('.sun-rays', {
+                        opacity: toggleSwitch.classList.contains('light') ? 1 : 0,
+                        duration: 0.3
                     });
                 });
-            },
 
-            setupParticles() {
-                const particlesContainer = document.getElementById('particles');
-                const particleCount = window.innerWidth < 768 ? 20 : 40;
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 6 + 's';
-                    particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                    particlesContainer.appendChild(particle);
+                // Accessibility: Keyboard navigation for toggle switch
+                toggleSwitch.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleSwitch.click();
+                    }
+                });
+            }
+
+            // Scroll progress bar
+            window.addEventListener('scroll', () => {
+                const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                const progressBar = document.querySelector('.scroll-progress-bar');
+                if (progressBar) {
+                    progressBar.style.width = scrolled + '%';
                 }
-            },
+            });
 
-            setupScrollAnimations() {
-                const animate = (selector, props) => {
-                    gsap.utils.toArray(selector).forEach((element, i) => {
-                        gsap.fromTo(element, { opacity: 0, ...props.from }, {
-                            opacity: 1,
-                            ...props.to,
-                            duration: 0.8,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 90%',
-                                toggleActions: 'play none none none',
-                                once: true
-                            },
-                            delay: i * 0.1
+            // Hero section animations
+            gsap.from('.hero-content', {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: 'power3.out',
+                delay: 0.5
+            });
+
+            gsap.from('.hero-visual', {
+                opacity: 0,
+                scale: 0.8,
+                duration: 1,
+                ease: 'back.out(1.7)',
+                delay: 0.8
+            });
+
+            gsap.from('.floating-icons .icon-float', {
+                opacity: 0,
+                y: 30,
+                stagger: 0.2,
+                duration: 1,
+                ease: 'elastic.out(1, 0.75)',
+                delay: 1
+            });
+
+            // Floating icons continuous animation
+            gsap.to('.icon-float', {
+                y: -20,
+                repeat: -1,
+                yoyo: true,
+                duration: 2,
+                ease: 'sine.inOut',
+                stagger: 0.3
+            });
+
+            // Section animations with ScrollTrigger
+            document.querySelectorAll('.section').forEach(section => {
+                gsap.from(section.querySelectorAll('.section-header, .overview-card, .workflow-container, .features-grid, .tech-categories, .team-grid, .demo-content'), {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    stagger: 0.2,
+                    ease: 'power3.out'
+                });
+            });
+
+            // Robot eyes animation
+            const blinkTimeline = gsap.timeline({ repeat: -1, repeatDelay: 3 });
+            blinkTimeline.to('.eye', {
+                scaleY: 0.1,
+                duration: 0.1,
+                ease: 'power1.in'
+            })
+            .to('.eye', {
+                scaleY: 1,
+                duration: 0.2,
+                ease: 'elastic.out(1, 0.3)'
+            });
+
+            // Robot screen content animation
+            const emotions = ['😊', '🤔', '😃', '😎', '😮', '😴'];
+            setInterval(() => {
+                const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
+                const screenContent = document.querySelector('.screen-content');
+                if (screenContent) {
+                    gsap.to(screenContent, {
+                        scale: 0.8,
+                        duration: 0.2,
+                        onComplete: () => {
+                            screenContent.textContent = randomEmotion;
+                            gsap.to(screenContent, {
+                                scale: 1,
+                                duration: 0.3,
+                                ease: 'back.out(1.7)'
+                            });
+                        }
+                    });
+                }
+            }, 5000);
+
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+            if (mobileMenuToggle && mobileMenu && mobileMenuClose) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    mobileMenuToggle.classList.toggle('active');
+                    mobileMenu.classList.toggle('active');
+                    gsap.to(mobileMenu, {
+                        y: mobileMenu.classList.contains('active') ? '0%' : '-100%',
+                        duration: 0.5,
+                        ease: 'power3.inOut'
+                    });
+                    
+                    // Update aria-expanded attribute
+                    const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+                    mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
+                });
+
+                mobileMenuClose.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    gsap.to(mobileMenu, {
+                        y: '-100%',
+                        duration: 0.5,
+                        ease: 'power3.inOut'
+                    });
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                });
+
+                // Close mobile menu when clicking on a link
+                const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
+                if (mobileMenuLinks) {
+                    mobileMenuLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            mobileMenuToggle.classList.remove('active');
+                            mobileMenu.classList.remove('active');
+                            gsap.to(mobileMenu, {
+                                y: '-100%',
+                                duration: 0.5,
+                                ease: 'power3.inOut'
+                            });
+                            mobileMenuToggle.setAttribute('aria-expanded', 'false');
                         });
                     });
-                };
-
-                animate('.fade-in', { from: { y: 30 }, to: { y: 0 } });
-                animate('.slide-in-left', { from: { x: -50 }, to: { x: 0 } });
-                animate('.slide-in-right', { from: { x: 50 }, to: { x: 0 } });
-            },
-
-            setupScrollProgress() {
-                window.addEventListener('scroll', () => {
-                    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                    const scrolled = (winScroll / height) * 100;
-                    document.querySelector('.scroll-progress-bar').style.width = scrolled + '%';
-                });
-            },
-
-            setupCollapsible() {
-                document.querySelectorAll('.collapsible').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isActive = button.classList.toggle('active');
-                        button.setAttribute('aria-expanded', isActive);
-                    });
-                });
+                }
             }
-        };
 
-        // Navigation
-        const navigation = {
-            init() {
-                this.setupSmoothScroll();
-            },
+            // Video modal
+            const videoPlaceholder = document.getElementById('videoPlaceholder');
+            const videoModal = document.getElementById('videoModal');
+            const modalClose = document.getElementById('modalClose');
+            const modalVideo = document.querySelector('.modal-video');
 
-            setupSmoothScroll() {
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const targetId = anchor.getAttribute('href');
-                        const target = document.querySelector(targetId);
-                        if (target) {
-                            const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
-                            window.scrollTo({ top: y, behavior: 'smooth' });
+            if (videoPlaceholder && videoModal && modalClose && modalVideo) {
+                videoPlaceholder.addEventListener('click', () => {
+                    videoModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+                    gsap.to(videoModal, {
+                        opacity: 1,
+                        duration: 0.3,
+                        ease: 'power2.in'
+                    });
+                    gsap.to('.modal-content', {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: 'back.out(1.7)'
+                    });
+                    
+                    // Play video when modal opens
+                    modalVideo.play();
+                });
+
+                modalClose.addEventListener('click', () => {
+                    gsap.to(videoModal, {
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: 'power2.out',
+                        onComplete: () => {
+                            videoModal.classList.remove('active');
+                            document.body.style.overflow = ''; // Re-enable scrolling
                         }
                     });
+                    gsap.to('.modal-content', {
+                        scale: 0.8,
+                        duration: 0.3,
+                        ease: 'back.in(1.7)'
+                    });
+                    
+                    // Pause video when modal closes
+                    modalVideo.pause();
                 });
-            }
-        };
 
-        // Accessibility
-        const accessibility = {
-            init() {
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Tab') {
-                        document.body.classList.add('keyboard-navigation');
+                // Close modal when clicking outside content
+                videoModal.addEventListener('click', (e) => {
+                    if (e.target === videoModal) {
+                        modalClose.click();
                     }
-                    if (e.key === 'Escape') {
-                        closeModal();
+                });
+            }
+
+            // Translation demo (updated to handle both buttons)
+            const translationBtn = document.getElementById('translationBtn');
+            const translationFeatureBtn = document.getElementById('translationFeatureBtn');
+            const translationResult = document.getElementById('translationResult');
+            const translations = [
+                { input: "حل الضو في المكتب", output: "Turn on the office light" },
+                { input: "شغل الموسيقى", output: "Play music" },
+                { input: "عدل التكييف على 22", output: "Set the AC to 22°C" }
+            ];
+            let currentTranslation = 0;
+
+            const handleTranslation = () => {
+                if (!translationResult) return;
+                
+                // Button animation
+                gsap.to([translationBtn, translationFeatureBtn].filter(Boolean), {
+                    scale: 0.95,
+                    duration: 0.2,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        gsap.to([translationBtn, translationFeatureBtn].filter(Boolean), {
+                            scale: 1,
+                            duration: 0.3,
+                            ease: 'elastic.out(1, 0.5)'
+                        });
                     }
                 });
 
-                document.addEventListener('mousedown', () => {
-                    document.body.classList.remove('keyboard-navigation');
-                });
-            }
-        };
+                // Show translation
+                translationResult.textContent = `${translations[currentTranslation].input} → ${translations[currentTranslation].output}`;
+                translationResult.classList.add('show');
+                gsap.fromTo(translationResult, 
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }
+                );
 
-        // Initialization
-        document.addEventListener('DOMContentLoaded', () => {
-            animations.init();
-            navigation.init();
-            accessibility.init();
-            const savedMode = localStorage.getItem('darkMode');
-            if (savedMode === 'true') {
-                document.body.classList.add('dark');
-                document.getElementById('toggleSwitch').classList.add('light');
+                // Cycle through translations
+                currentTranslation = (currentTranslation + 1) % translations.length;
+
+                // Hide after 5 seconds
+                setTimeout(() => {
+                    gsap.to(translationResult, {
+                        opacity: 0,
+                        y: -10,
+                        duration: 0.3,
+                        onComplete: () => {
+                            translationResult.classList.remove('show');
+                        }
+                    });
+                }, 5000);
+            };
+
+            if (translationBtn) {
+                translationBtn.addEventListener('click', handleTranslation);
             }
+            if (translationFeatureBtn) {
+                translationFeatureBtn.addEventListener('click', handleTranslation);
+            }
+
+            // Emotion demo
+            document.querySelectorAll('.emotion').forEach(emotion => {
+                emotion.addEventListener('click', () => {
+                    const emotionType = emotion.dataset.emotion;
+                    const screenContent = document.querySelector('.screen-content');
+                    
+                    // Button animation
+                    gsap.to(emotion, {
+                        scale: 0.9,
+                        duration: 0.2,
+                        ease: 'power2.in',
+                        onComplete: () => {
+                            gsap.to(emotion, {
+                                scale: 1,
+                                duration: 0.3,
+                                ease: 'elastic.out(1, 0.5)'
+                            });
+                        }
+                    });
+                    
+                    // Change robot expression
+                    if (screenContent) {
+                        screenContent.textContent = {
+                            happy: '😊',
+                            thinking: '🤔',
+                            excited: '🤩'
+                        }[emotionType];
+                        
+                        // Head animation
+                        gsap.fromTo('.robot-head', 
+                            { scale: 1 },
+                            { scale: 1.1, duration: 0.2, yoyo: true, repeat: 1, ease: 'power2.inOut' }
+                        );
+                    }
+                });
+            });
+
+            // Scroll to section
+            window.scrollToSection = (id) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Close mobile menu if open
+                    if (mobileMenu && mobileMenu.classList.contains('active')) {
+                        mobileMenuToggle.classList.remove('active');
+                        mobileMenu.classList.remove('active');
+                        gsap.to(mobileMenu, {
+                            y: '-100%',
+                            duration: 0.5,
+                            ease: 'power3.inOut'
+                        });
+                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            };
+
+            // Particle animation
+            const particlesContainer = document.getElementById('particles');
+            if (particlesContainer) {
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.width = (2 + Math.random() * 3) + 'px';
+                    particle.style.height = particle.style.width;
+                    particle.style.opacity = 0.1 + Math.random() * 0.3;
+                    particlesContainer.appendChild(particle);
+
+                    gsap.to(particle, {
+                        x: Math.random() * 100 - 50,
+                        y: Math.random() * 100 - 50,
+                        opacity: 0.1 + Math.random() * 0.3,
+                        duration: 10 + Math.random() * 10,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: 'sine.inOut'
+                    });
+                }
+            }
+
+            // Navbar active link
+            const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu-links a');
+            const sections = document.querySelectorAll('section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (scrollY >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Preload images for better performance
+            const imagesToPreload = [
+                'https://placehold.co/600x400/6366f1/ffffff?text=Beemo+Workflow+Diagram',
+                'https://placehold.co/60x60/ff6b35/ffffff?text=LinTO',
+                'https://placehold.co/60x60/00d2ff/ffffff?text=NLP',
+                'https://placehold.co/60x60/c41e3a/ffffff?text=RPi',
+                'https://placehold.co/60x60/2ecc71/ffffff?text=OLED',
+                'https://placehold.co/60x60/f39c12/ffffff?text=Servo',
+                'https://placehold.co/60x60/02569b/ffffff?text=Flutter',
+                'https://placehold.co/60x60/0175c2/ffffff?text=Dart',
+                'https://placehold.co/200x200/6366f1/ffffff?text=AM'
+            ];
+
+            imagesToPreload.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
         });
     </script>
 </body>

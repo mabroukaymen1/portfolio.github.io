@@ -9,651 +9,1210 @@
     <title>IoT Smart Home Automation System - Portfolio</title>
     <link rel="icon" type="image/png" href="image/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
-        :root {
-            --primary: #3B82F6;
-            --secondary: #10B981;
-            --accent: #F59E0B;
-            --neutral: #1F2937;
-            --neutral-light: #F3F4F6;
-            --white: #FFFFFF;
-            --text-primary: #111827;
-            --text-secondary: #6B7280;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --scroll-bar: var(--accent);
-            --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
-            --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
-            --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
-        }
-
-        .dark {
-            --text-primary: #E5E7EB;
-            --text-secondary: #9CA3AF;
-            --neutral-light: #1E293B;
-            --white: #0F172A;
-            --neutral: #111827;
-            --glass-bg: rgba(30, 41, 59, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --scroll-bar: #F59E0B;
-            --primary: #60A5FA;
-            --secondary: #34D399;
-            --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
-            --secondary-gradient: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);
-            --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            background: var(--neutral-light);
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            background-size: 300% 300%;
-            animation: gradientShift 15s ease infinite;
-            z-index: -1;
-            opacity: 0.6;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--white);
-            border-radius: 50%;
-            animation: float 12s ease-in-out infinite, fade 6s ease-in-out infinite alternate;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-30px) scale(1.2); }
-        }
-
-        @keyframes fade {
-            0% { opacity: 0.4; }
-            100% { opacity: 0.1; }
-        }
-
-        .toggle-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
-        }
-
-        .toggle-switch {
-            width: 80px;
-            height: 40px;
-            background: #1E293B;
-            border-radius: 20px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            border: 2px solid #334155;
-        }
-
-        .toggle-switch.light {
-            background: #87CEEB;
-            border-color: #5DADE2;
-        }
-
-        .stars, .clouds {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transition: opacity 0.4s ease;
-        }
-
-        .stars { opacity: 1; }
-        .toggle-switch.light .stars { opacity: 0; }
-        .clouds { opacity: 0; }
-        .toggle-switch.light .clouds { opacity: 1; }
-
-        .star, .cloud {
-            position: absolute;
-            background: #E5E7EB;
-            border-radius: 50%;
-        }
-
-        .cloud { background: rgba(255, 255, 255, 0.8); border-radius: 15px; }
-        .cloud::before {
-            content: '';
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-        }
-
-        .star1 { top: 10px; left: 15px; width: 2px; height: 2px; }
-        .star2 { top: 15px; right: 15px; width: 2px; height: 2px; }
-        .star3 { top: 25px; left: 10px; width: 2px; height: 2px; }
-        .star4 { top: 30px; right: 20px; width: 2px; height: 2px; }
-        .star5 { top: 20px; left: 25px; width: 2px; height: 2px; animation: twinkle 2s infinite; }
-        .star6 { top: 35px; right: 30px; width: 2px; height: 2px; animation: twinkle 3s infinite 0.5s; }
-
-        .cloud1 { width: 15px; height: 6px; top: 10px; left: 15px; }
-        .cloud1::before { width: 8px; height: 8px; top: -3px; left: 2px; }
-        .cloud2 { width: 10px; height: 4px; top: 25px; right: 15px; }
-        .cloud2::before { width: 6px; height: 6px; top: -2px; left: 1px; }
-
-        .toggle-circle {
-            width: 32px;
-            height: 32px;
-            background: #F59E0B;
-            border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .toggle-switch.light .toggle-circle { left: 44px; }
-
-        .moon-face, .sun-rays {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transition: all 0.4s ease;
-        }
-
-        .moon-face { background: #E5E7EB; border-radius: 50%; }
-        .toggle-switch.light .moon-face { background: #F59E0B; }
-
-        .moon-crater1 { width: 6px; height: 6px; top: 8px; left: 10px; }
-        .moon-crater2 { width: 4px; height: 4px; top: 18px; left: 18px; }
-        .moon-crater3 { width: 5px; height: 5px; top: 14px; left: 7px; }
-        .moon-crater1, .moon-crater2, .moon-crater3 {
-            position: absolute;
-            background: #9CA3AF;
-            border-radius: 50%;
-        }
-        .toggle-switch.light .moon-crater1,
-        .toggle-switch.light .moon-crater2,
-        .toggle-switch.light .moon-crater3 { background: #FCD34D; }
-
-        .sun-rays { opacity: 0; }
-        .toggle-switch.light .sun-rays { opacity: 1; animation: rotate 8s linear infinite; }
-
-        .sun-ray {
-            position: absolute;
-            width: 2px;
-            height: 6px;
-            background: #F59E0B;
-            border-radius: 1px;
-            left: 50%;
-            top: 50%;
-            transform-origin: 1px 15px;
-        }
-
-        .ray1 { transform: translate(-50%, -50%) rotate(0deg); }
-        .ray2 { transform: translate(-50%, -50%) rotate(45deg); }
-        .ray3 { transform: translate(-50%, -50%) rotate(90deg); }
-        .ray4 { transform: translate(-50%, -50%) rotate(135deg); }
-        .ray5 { transform: translate(-50%, -50%) rotate(180deg); }
-        .ray6 { transform: translate(-50%, -50%) rotate(225deg); }
-        .ray7 { transform: translate(-50%, -50%) rotate(270deg); }
-        .ray8 { transform: translate(-50%, -50%) rotate(315deg); }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.8); }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            padding: 10px 30px;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            padding: 8px 15px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.05);
-        }
-
-        section {
-            padding: 100px 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            margin-bottom: 15px;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .project-details {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-
-        .project-image {
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-image img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .project-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-info {
-            padding: 20px;
-        }
-
-        .project-title {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            line-height: 1.8;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .tech-tag {
-            background: var(--glass-bg);
-            color: var(--text-primary);
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            border: 1px solid var(--glass-border);
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-
-        .tech-tag:hover {
-            transform: translateY(-2px);
-            background: var(--accent-gradient);
-            color: var(--white);
-        }
-
-        .project-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .project-link {
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .project-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--accent-gradient);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-
-        .project-link:hover::before {
-            left: 0;
-        }
-
-        .project-link.live {
-            background: var(--primary);
-            color: var(--white);
-            border: 2px solid transparent;
-        }
-
-        .project-link.live:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
-        }
-
-        .project-link.github {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--text-primary);
-        }
-
-        .project-link.github:hover {
-            color: var(--white);
-        }
-
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 1001;
-        }
-
-        .scroll-progress-bar {
-            width: 0;
-            height: 100%;
-            background: var(--scroll-bar);
-            transition: width 0.2s ease;
-        }
-
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            border-top: 3px solid var(--white);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-30px);
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(30px);
-        }
-
-        .demo-container {
-            background: var(--glass-bg);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .demo-canvas {
-            border-radius: 10px;
-            background: #fff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            max-width: 100%;
-        }
-
-        .demo-controls {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .demo-button {
-            padding: 8px 16px;
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-
-        .demo-button:hover {
-            transform: translateY(-2px);
-            background: var(--accent-gradient);
-        }
-
-        footer {
-            background: none;
-            color: var(--text-secondary);
-            text-align: center;
-            padding: 20px 0 10px 0;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                top: 10px;
-                left: 10px;
-                right: 10px;
-                transform: none;
-                padding: 8px 15px;
-            }
-
-            .toggle-container {
-                top: 10px;
-                right: 10px;
-            }
-
-
-            .toggle-switch {
-                width: 60px;
-                height: 30px;
-                border-radius: 15px;
-                border-width: 1px;
-            }
-
-            .toggle-circle {
-                width: 24px;
-                height: 24px;
-                top: 2px;
-                left: 2px;
-            }
-
-            .toggle-switch.light .toggle-circle {
-                left: 34px;
-            }
-
-            .star1 { top: 8px; left: 10px; }
-            .star2 { top: 12px; right: 10px; }
-            .star3 { top: 20px; left: 8px; }
-            .star4 { top: 22px; right: 12px; }
-            .star5 { top: 15px; left: 15px; }
-            .star6 { top: 25px; right: 20px; }
-
-            .cloud1 { width: 10px; height: 4px; top: 8px; left: 10px; }
-            .cloud1::before { width: 6px; height: 6px; top: -2px; left: 1px; }
-            .cloud2 { width: 8px; height: 3px; top: 20px; right: 10px; }
-            .cloud2::before { width: 4px; height: 4px; top: -1px; left: 1px; }
-
-            .moon-crater1 { width: 4px; height: 4px; top: 6px; left: 8px; }
-            .moon-crater2 { width: 3px; height: 3px; top: 14px; left: 14px; }
-            .moon-crater3 { width: 3px; height: 3px; top: 10px; left: 5px; }
-
-            .sun-ray { height: 4px; transform-origin: 1px 10px; }
-
-            .nav-links a { font-size: 0.85rem; padding: 6px 10px; }
-
-            .project-content { grid-template-columns: 1fr; }
-
-            .project-details { padding: 20px; }
-
-            .section-title { font-size: clamp(2rem, 4vw, 2.5rem); }
-
-            .demo-canvas { width: 100%; height: 300px; }
-        }
-
-        .keyboard-navigation a:focus,
-        .keyboard-navigation button:focus {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
+:root {
+    --primary: #3B82F6;
+    --secondary: #10B981;
+    --accent: #F59E0B;
+    --neutral: #1F2937;
+    --neutral-light: #F3F4F6;
+    --white: #FFFFFF;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --scroll-bar: var(--accent);
+    --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
+    --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
+    --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
+    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --shadow-heavy: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.dark {
+    --text-primary: #E5E7EB;
+    --text-secondary: #9CA3AF;
+    --neutral-light: #1E293B;
+    --white: #0F172A;
+    --neutral: #111827;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --scroll-bar: #F59E0B;
+    --primary: #60A5FA;
+    --secondary: #34D399;
+    --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+    --secondary-gradient: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);
+    --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    background: var(--neutral-light);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--neutral-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loader {
+    text-align: center;
+}
+
+.robot-icon {
+    font-size: 4rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.loading-dots span {
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin: 0 5px;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* Background and Visual Effects */
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-gradient);
+    z-index: -2;
+    opacity: 0.05;
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+/* Navigation */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1001;
+}
+
+.scroll-progress-bar {
+    width: 0;
+    height: 100%;
+    background: var(--scroll-bar);
+    transition: width 0.2s ease;
+}
+
+/* === Theme Toggle === */
+.toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+
+.toggle-switch {
+    width: 80px;
+    height: 40px;
+    background: #1E293B;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid #334155;
+    overflow: hidden;
+}
+
+.toggle-switch.light {
+    background: #87CEEB;
+    border-color: #5DADE2;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #E5E7EB;
+    border-radius: 50%;
+}
+
+.star1 { top: 10px; left: 15px; }
+.star2 { top: 15px; right: 15px; }
+.star3 { top: 25px; left: 10px; }
+.star4 { top: 30px; right: 20px; }
+.star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
+.star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
+
+.toggle-switch.light .stars {
+    opacity: 0;
+}
+
+.clouds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.2s;
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+}
+
+.cloud1 {
+    width: 15px;
+    height: 6px;
+    top: 10px;
+    left: 15px;
+}
+
+.cloud1::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: -3px;
+    left: 2px;
+}
+
+.cloud2 {
+    width: 10px;
+    height: 4px;
+    top: 25px;
+    right: 15px;
+}
+
+.cloud2::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: -2px;
+    left: 1px;
+}
+
+.toggle-switch.light .clouds {
+    opacity: 1;
+}
+
+.toggle-circle {
+    width: 32px;
+    height: 32px;
+    background: #F59E0B;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.moon-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #E5E7EB;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.moon-crater1 {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 8px;
+    left: 10px;
+}
+
+.moon-crater2 {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 18px;
+    left: 18px;
+}
+
+.moon-crater3 {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 14px;
+    left: 7px;
+}
+
+.sun-rays {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.sun-ray {
+    position: absolute;
+    width: 2px;
+    height: 6px;
+    background: #F59E0B;
+    border-radius: 1px;
+    left: 50%;
+    top: 50%;
+    transform-origin: 1px 15px;
+}
+
+.ray1 { transform: translate(-50%, -50%) rotate(0deg); }
+.ray2 { transform: translate(-50%, -50%) rotate(45deg); }
+.ray3 { transform: translate(-50%, -50%) rotate(90deg); }
+.ray4 { transform: translate(-50%, -50%) rotate(135deg); }
+.ray5 { transform: translate(-50%, -50%) rotate(180deg); }
+.ray6 { transform: translate(-50%, -50%) rotate(225deg); }
+.ray7 { transform: translate(-50%, -50%) rotate(270deg); }
+.ray8 { transform: translate(-50%, -50%) rotate(315deg); }
+
+.toggle-switch.light .toggle-circle {
+    left: 44px;
+    background: #F59E0B;
+}
+
+.toggle-switch.light .moon-face {
+    background: #F59E0B;
+}
+
+.toggle-switch.light .moon-crater1,
+.toggle-switch.light .moon-crater2,
+.toggle-switch.light .moon-crater3 {
+    background: #FCD34D;
+}
+
+.toggle-switch.light .sun-rays {
+    opacity: 1;
+    animation: rotate 8s linear infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.navbar {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 12px 25px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-light);
+}
+
+.navbar:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-medium);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.logo i {
+    color: var(--primary);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 8px;
+    background: var(--glass-bg);
+    border-radius: 8px;
+}
+
+.mobile-menu-toggle span {
+    width: 20px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.hero-badge i {
+    color: var(--primary);
+}
+
+.hero-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+.hero-title .highlight {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    max-width: 600px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 50px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: var(--white);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background: var(--text-primary);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Sections */
+.section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.bg-alt {
+    background: var(--white);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.section-tag {
+    display: inline-block;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+.project-details {
+  background: var(--white, #ffffff);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow-heavy, 0 10px 30px rgba(0, 0, 0, 0.1));
+  border: 1px solid var(--glass-border, rgba(0, 0, 0, 0.1));
+}
+
+.project-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.project-image {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow-medium, 0 5px 15px rgba(0, 0, 0, 0.08));
+  transition: transform 0.3s ease;
+}
+
+.project-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.project-image:hover {
+  transform: scale(1.03);
+}
+
+.project-info {
+  padding: 1rem;
+}
+
+.project-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.9375rem;
+  color: var(--text-primary, #333333);
+  font-weight: 600;
+}
+
+.project-description {
+  color: var(--text-secondary, #666666);
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1rem;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tech-tag {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+  color: var(--text-primary, #333333);
+  padding: 0.375rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  border: 1px solid var(--glass-border, rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.tech-tag:hover {
+  transform: translateY(-2px);
+  background: var(--accent-gradient, linear-gradient(45deg, #00b4d8, #0077b6));
+  color: var(--white, #ffffff);
+}
+
+.project-links {
+  display: flex;
+  gap: 0.9375rem;
+}
+
+.project-link {
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.project-link.github {
+  background: var(--neutral, #2d2d2d);
+  color: var(--white, #ffffff);
+}
+
+.project-link.github:hover {
+  background: var(--primary, #0077b6);
+  transform: translateY(-2px);
+}
+
+.project-link.live {
+  background: var(--primary-gradient, linear-gradient(45deg, #0077b6, #00b4d8));
+  color: var(--white, #ffffff);
+}
+
+.project-link.live:hover {
+  background: var(--secondary-gradient, linear-gradient(45deg, #023e8a, #0096c7));
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .project-content {
+    grid-template-columns: 1fr;
+  }
+}
+/* Demo Section */
+.demo-container {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 40px 0;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.demo-canvas {
+    width: 100%;
+    height: 400px;
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 20px;
+}
+
+.demo-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.demo-button {
+    padding: 12px 24px;
+    background: var(--primary-gradient);
+    color: var(--white);
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.demo-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+/* Technical Overview */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.tech-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.tech-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tech-card h3 i {
+    color: var(--primary);
+}
+
+.tech-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.tech-card li {
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.tech-card li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* Footer */
+.footer {
+    background: var(--neutral);
+    color: var(--text-primary);
+    padding: 80px 0 0;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.footer-logo i {
+    color: var(--primary); /* Icon color for better visual hierarchy */
+}
+
+.footer-description {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border); /* Added border for better definition */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.footer-social a:hover {
+    background: var(--primary);
+    color: var(--white); /* Keep white on hover for contrast */
+    border-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+.footer-section h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li { 
+    margin-bottom: 12px; 
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block; /* For smooth padding transition */
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+    padding-left: 5px;
+}
+
+.project-details {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.project-details strong { 
+    color: var(--text-primary); 
+}
+
+.status-active { 
+    color: var(--secondary); 
+    font-weight: 600; 
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--glass-border);
+    padding: 30px 0;
+    text-align: center;
+}
+
+.footer-copyright {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.footer-credits {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* Additional responsive improvements */
+@media (max-width: 768px) {
+    .footer {
+        padding: 60px 0 0;
+    }
+    
+    .footer-content {
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .footer-section h4 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--neutral-light);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    padding: 20px;
+}
+
+.mobile-menu.active {
+    transform: translateY(0);
+}
+
+.mobile-menu-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+.mobile-menu-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-links a:hover {
+    background: var(--glass-bg);
+}
+
+.mobile-menu-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 2rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu-close:hover {
+    transform: rotate(90deg);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-visual {
+        order: -1;
+        margin-bottom: 60px;
+    }
+    
+    .project-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 15px;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .hero-section {
+        padding: 100px 0 60px;
+    }
+    
+    .hero-actions {
+        justify-content: center;
+    }
+    
+    .section-header {
+        margin-bottom: 40px;
+    }
+    
+    .demo-canvas {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .project-links {
+        flex-direction: column;
+    }
+    
+    .mobile-menu-links a {
+        font-size: 1.2rem;
+    }
+}
+
+/* Accessibility */
+.keyboard-navigation button:focus,
+.keyboard-navigation a:focus,
+.keyboard-navigation input:focus,
+.keyboard-navigation [tabindex]:focus {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
     </style>
 </head>
+
 <body>
+    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loader"></div>
+        <div class="loader">
+            <div class="robot-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <p>Loading Smart Home...</p>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </div>
 
+    <!-- Scroll Progress -->
     <div class="scroll-progress">
         <div class="scroll-progress-bar"></div>
     </div>
 
+    <!-- Animated Background -->
     <div class="animated-bg"></div>
+    
+    <!-- Particles -->
     <div class="particles" id="particles"></div>
 
+    <!-- Theme Toggle -->
     <div class="toggle-container">
-        <div class="toggle-switch" id="toggleSwitch" role="button" aria-label="Toggle light/dark mode">
+        <div class="toggle-switch" id="toggleSwitch" tabindex="0" role="button" aria-label="Toggle dark mode">
             <div class="stars">
                 <div class="star star1"></div>
                 <div class="star star2"></div>
@@ -685,754 +1244,928 @@
             </div>
         </div>
     </div>
-
-    <nav id="navbar" role="navigation" aria-label="Main navigation">
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <div class="logo">Aymen Mabrouk</div>
+            <div class="logo">
+                <i class="fas fa-home"></i>
+                <span>Smart Home</span>
+            </div>
             <ul class="nav-links">
-                <li><a href="index.html#home" aria-label="Home section">Home</a></li>
+                <li><a href="index.html" aria-label="Home section">Home</a></li>
                 <li><a href="index.html#about" aria-label="About section">About</a></li>
                 <li><a href="index.html#skills" aria-label="Skills section">Skills</a></li>
                 <li><a href="index.html#projects" aria-label="Projects section">Projects</a></li>
                 <li><a href="index.html#contact" aria-label="Contact section">Contact</a></li>
             </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
-    <section id="intro" class="project-details">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">IoT Smart Home Automation System</h2>
-                <p class="section-subtitle">A cutting-edge IoT solution integrating Flutter, ESP32, Firebase, and MQTT to deliver seamless home automation for enhanced safety, comfort, and efficiency.</p>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close mobile menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="nav-links">
+            <li><a href="index.html" aria-label="Home section">Home</a></li>
+            <li><a href="index.html#about" aria-label="About section">About</a></li>
+            <li><a href="index.html#skills" aria-label="Skills section">Skills</a></li>
+            <li><a href="index.html#projects" aria-label="Projects section">Projects</a></li>
+            <li><a href="index.html#contact" aria-label="Contact section">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-microchip"></i>
+                <span>IoT Innovation</span>
             </div>
-            <div class="project-content">
-                <div class="project-image slide-in-left">
-                    <img src="image/smartintro.png" alt="IoT Smart Home Automation System Interface" loading="lazy">
-                </div>
-                <div class="project-info slide-in-right">
-                    <h3 class="project-title">What is the IoT Smart Home System?</h3>
-                    <p class="project-description">
-                        This project is a comprehensive smart home automation system that allows users to monitor and control their home environment in real-time using a Flutter-based mobile app. Powered by ESP32 microcontrollers, it integrates sensors for temperature, humidity, fire detection, and energy monitoring. The system uses Firebase for cloud storage and MQTT for efficient communication, ensuring a responsive and secure user experience.
-                    </p>
-                    <h3 class="project-title">Key Features</h3>
-                    <ul class="project-description">
-                        <li>Real-time monitoring of temperature, humidity, and power consumption.</li>
-                        <li>Instant fire hazard detection with alerts.</li>
-                        <li>Remote control of devices like lights and alarms.</li>
-                        <li>User-friendly Flutter app with authentication and notifications.</li>
-                        <li>Local display of sensor data via LCD.</li>
-                    </ul>
-                    <div class="project-links">
-                        <a href="https://github.com/mabroukaymen1/smarthome/tree/main" class="project-link github" title="View Source Code" aria-label="View source code of IoT Smart Home Automation System">
-                            <i class="fab fa-github"></i>
-                            View Code
-                        </a>
-                    </div>
-                </div>
+            <h1 class="hero-title">
+                <span class="highlight">Smart Home</span><br>
+                Automation System
+            </h1>
+            <p class="hero-subtitle">
+                A cutting-edge IoT solution integrating Flutter, ESP32, Firebase, and MQTT to deliver seamless home automation 
+                for enhanced safety, comfort, and energy efficiency.
+            </p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="scrollToSection('demo')">
+                    <i class="fas fa-play"></i>
+                    View Demo
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToSection('overview')">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </button>
             </div>
+        </div>
+        <div class="hero-visual">
+            <img src="image/smartintro.png" alt="Smart Home Automation System" style="max-width: 100%; border-radius: 20px; box-shadow: var(--shadow-heavy);">
         </div>
     </section>
 
-    <section id="demo" class="project-details">
+ <!-- Project Overview -->
+<section id="overview" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Project Overview</span>
+      <h2 class="section-title">Revolutionizing Home Automation</h2>
+      <p class="section-description">
+        This IoT Smart Home Automation System represents a breakthrough in home automation technology, 
+        developed to showcase seamless integration between mobile apps and physical devices. 
+        The system provides real-time monitoring and control of your home environment.
+      </p>
+    </div>
+
+    <div class="project-details">
+      <div class="project-content">
+        <div class="project-image">
+          <img src="image/smartarchi.png" alt="IoT Smart Home System Architecture" loading="lazy">
+        </div>
+        <div class="project-info">
+          <h3 class="project-title">What is the IoT Smart Home System?</h3>
+          <p class="project-description">
+            This project is a comprehensive smart home automation system that allows users to monitor and control 
+            their home environment in real-time using a Flutter-based mobile app. Powered by ESP32 microcontrollers, 
+            it integrates sensors for temperature, humidity, fire detection, and energy monitoring.
+          </p>
+          <h3 class="project-title">Key Features</h3>
+          <ul class="project-description">
+            <li>Real-time monitoring of temperature, humidity, and power consumption</li>
+            <li>Instant fire hazard detection with alerts</li>
+            <li>Remote control of devices like lights and alarms</li>
+            <li>User-friendly Flutter app with authentication</li>
+            <li>Local display of sensor data via LCD</li>
+          </ul>
+          <div class="project-tech">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">ESP32</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">MQTT</span>
+            <span class="tech-tag">IoT</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/mabroukaymen1/smarthome/tree/main" class="project-link github" title="View Source Code" aria-label="View source code of IoT Smart Home Automation System">
+              <i class="fab fa-github"></i>
+              View Code
+            </a>
+            <a href="#" class="project-link live" title="View Live Demo" aria-label="View live demo of IoT Smart Home Automation System">
+              <i class="fas fa-external-link-alt"></i>
+              Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- Demo Section -->
+    <section id="demo" class="section bg-alt">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">How It Works - Interactive Demo</h2>
-                <p class="section-subtitle">Explore how the smart home system operates with this interactive animation showcasing real-time sensor monitoring and device control.</p>
+            <div class="section-header">
+                <span class="section-tag">Interactive Demo</span>
+                <h2 class="section-title">See It In Action</h2>
+                <p class="section-description">
+                    Experience how the smart home system operates with this interactive animation showcasing 
+                    real-time sensor monitoring and device control capabilities.
+                </p>
             </div>
+
             <div class="demo-container">
                 <canvas id="smartHomeCanvas" class="demo-canvas" width="600" height="400"></canvas>
                 <div class="demo-controls">
-                    <button class="demo-button" onclick="toggleLight()">Toggle Light</button>
-                    <button class="demo-button" onclick="triggerFire()">Simulate Fire</button>
-                    <button class="demo-button" onclick="resetDemo()">Reset</button>
+                    <button class="demo-button" onclick="toggleLight()">
+                        <i class="fas fa-lightbulb"></i> Toggle Light
+                    </button>
+                    <button class="demo-button" onclick="triggerFire()">
+                        <i class="fas fa-fire"></i> Simulate Fire
+                    </button>
+                    <button class="demo-button" onclick="resetDemo()">
+                        <i class="fas fa-sync-alt"></i> Reset
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="technical" class="project-details">
+    <!-- Technical Overview -->
+    <section id="technical" class="section">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Technical Overview</h2>
-                <p class="section-subtitle">A detailed look at the system's architecture and implementation, highlighting the integration of hardware and software components.</p>
+            <div class="section-header">
+                <span class="section-tag">Technical Details</span>
+                <h2 class="section-title">System Architecture</h2>
+                <p class="section-description">
+                    A detailed look at the system's architecture and implementation, highlighting the integration 
+                    of hardware and software components.
+                </p>
             </div>
-            <div class="project-content">
-                <div class="project-info">
-                    <h3 class="project-title">System Architecture</h3>
-                    <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
-                        <div class="project-image" style="flex: 1; min-width: 250px; max-width: 350px; margin: auto;">
-                            <img src="image/smartarchi.png" alt="Smart Home System Architecture Diagram" loading="lazy">
-                        </div>
-                        <div class="project-info" style="flex: 2; min-width: 250px;">
-                            <ul class="project-description">
-                                <li><strong>ESP32:</strong> Collects sensor data and controls devices over Wi-Fi.</li>
-                                <li><strong>Firebase:</strong> Stores and syncs data in real-time.</li>
-                                <li><strong>Flutter App:</strong> Provides a user-friendly interface for control and monitoring.</li>
-                                <li><strong>MQTT:</strong> Ensures low-latency communication between devices and app.</li>
-                            </ul>
-                        </div>
-                    </div>
+
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3><i class="fas fa-microchip"></i> Hardware Components</h3>
+                    <ul>
+                        <li><strong>ESP32:</strong> Core microcontroller with Wi-Fi</li>
+                        <li><strong>DHT11:</strong> Temperature and humidity sensor</li>
+                        <li><strong>Flame Sensor:</strong> Fire detection</li>
+                        <li><strong>ACS712:</strong> Current sensor for energy monitoring</li>
+                        <li><strong>LED:</strong> Simulates smart lighting</li>
+                        <li><strong>Buzzer:</strong> Audible alerts</li>
+                        <li><strong>16x2 I2C LCD:</strong> Local data display</li>
+                    </ul>
                 </div>
-                <div class="project-content" style="display: flex; flex-wrap: wrap; gap: 30px;">
-                    <div class="project-info" style="flex: 1; min-width: 250px;">
-                        <h3 class="project-title">Hardware Components</h3>
-                        <ul class="project-description">
-                            <li><strong>ESP32:</strong> Core microcontroller.</li>
-                            <li><strong>DHT11:</strong> Temperature and humidity sensor.</li>
-                            <li><strong>Flame Sensor:</strong> Fire detection.</li>
-                            <li><strong>ACS712:</strong> Current sensor for energy monitoring.</li>
-                            <li><strong>LED:</strong> Simulates smart lighting.</li>
-                            <li><strong>Buzzer:</strong> Audible alerts.</li>
-                            <li><strong>16x2 I2C LCD:</strong> Local data display.</li>
-                        </ul>
-                    </div>
-                    <div class="project-info" style="flex: 1; min-width: 250px;">
-                        <h3 class="project-title">Software Components</h3>
-                        <ul class="project-description">
-                            <li><strong>ESP32 Firmware:</strong> Manages hardware and Firebase integration.</li>
-                            <li><strong>Firebase:</strong> Real-time data storage.</li>
-                            <li><strong>Flutter App:</strong> Cross-platform user interface.</li>
-                            <li><strong>MQTT Client:</strong> Efficient device communication.</li>
-                        </ul>
-                    </div>
+
+                <div class="tech-card">
+                    <h3><i class="fas fa-code"></i> Software Components</h3>
+                    <ul>
+                        <li><strong>Flutter App:</strong> Cross-platform mobile interface</li>
+                        <li><strong>Firebase:</strong> Real-time database and authentication</li>
+                        <li><strong>MQTT:</strong> Lightweight messaging protocol</li>
+                        <li><strong>Arduino IDE:</strong> ESP32 firmware development</li>
+                        <li><strong>PlatformIO:</strong> Embedded development tools</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3><i class="fas fa-project-diagram"></i> System Features</h3>
+                    <ul>
+                        <li><strong>Real-time Monitoring:</strong> Live sensor data</li>
+                        <li><strong>Remote Control:</strong> Device management</li>
+                        <li><strong>Fire Detection:</strong> Instant alerts</li>
+                        <li><strong>Energy Monitoring:</strong> Power consumption</li>
+                        <li><strong>User Authentication:</strong> Secure access</li>
+                        <li><strong>Local Display:</strong> LCD status screen</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
-            <p>© 2025 Aymen Mabrouk. All rights reserved. Built with modern web technologies.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-home"></i>
+                        <span>Smart Home</span>
+                    </div>
+                    <p class="footer-description">
+                        An innovative IoT solution for modern home automation, providing safety, comfort and energy efficiency.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://github.com/mabroukaymen1" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/aymen-mabrouk-1a06061ab/" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://twitter.com/aymenmabrouk" target="_blank" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                        <li><a href="#technical">Technical</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Project Details</h4>
+                    <p class="project-details">
+                        <strong>Developed by:</strong> Aymen Mabrouk<br>
+                        <strong>Technology:</strong> Flutter, ESP32, Firebase<br>
+                        <strong>Status:</strong> <span class="status-active">Completed</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2025 IoT Smart Home Automation System. All rights reserved.
+                </p>
+                <p class="footer-credits">
+                    Designed & Developed by Aymen Mabrouk
+                </p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Theme Module
-        const theme = {
-            init() {
-                const savedMode = localStorage.getItem('darkMode');
-                if (savedMode === 'true') {
-                    document.body.classList.add('dark');
-                    document.getElementById('toggleSwitch').classList.add('light');
-                }
-                document.getElementById('toggleSwitch').addEventListener('click', () => {
-                    document.getElementById('toggleSwitch').classList.toggle('light');
-                    document.body.classList.toggle('dark');
-                    localStorage.setItem('darkMode', document.body.classList.contains('dark'));
-                });
-            }
-        };
-
-        // Animation Module
-        const animations = {
-            init() {
-                gsap.registerPlugin(ScrollTrigger);
-                this.setupLoadingScreen();
-                this.createParticles();
-                this.setupScrollAnimations();
-                this.setupScrollProgress();
-            },
-            setupLoadingScreen() {
-                window.addEventListener('load', () => {
-                    gsap.to('#loadingOverlay', {
-                        opacity: 0,
-                        duration: 0.5,
-                        onComplete: () => document.getElementById('loadingOverlay').classList.add('hidden')
-                    });
-                });
-            },
-            createParticles() {
-                const particlesContainer = document.getElementById('particles');
-                const particleCount = window.innerWidth < 768 ? 20 : 40;
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 6 + 's';
-                    particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                    particlesContainer.appendChild(particle);
-                }
-            },
-            setupScrollAnimations() {
-                gsap.utils.toArray('.fade-in').forEach((el, i) => {
-                    gsap.fromTo(el, { opacity: 0, y: 20 }, {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.8,
-                        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none', once: true },
-                        delay: i * 0.1
-                    });
-                });
-                gsap.utils.toArray('.slide-in-left').forEach((el, i) => {
-                    gsap.fromTo(el, { opacity: 0, x: -30 }, {
-                        opacity: 1,
-                        x: 0,
-                        duration: 0.8,
-                        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none', once: true },
-                        delay: i * 0.1
-                    });
-                });
-                gsap.utils.toArray('.slide-in-right').forEach((el, i) => {
-                    gsap.fromTo(el, { opacity: 0, x: 30 }, {
-                        opacity: 1,
-                        x: 0,
-                        duration: 0.8,
-                        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none', once: true },
-                        delay: i * 0.1
-                    });
-                });
-            },
-            setupScrollProgress() {
-                window.addEventListener('scroll', () => {
-                    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                    document.querySelector('.scroll-progress-bar').style.width = (winScroll / height) * 100 + '%';
-                });
-            }
-        };
-
-        // Navigation Module
-        const navigation = {
-            init() {
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const targetId = anchor.getAttribute('href');
-                        const target = document.querySelector(targetId);
-                        if (target) {
-                            window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
-                            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
-                            anchor.classList.add('active');
-                        }
-                    });
-                });
-
-                window.addEventListener('scroll', () => {
-                    const sections = document.querySelectorAll('section');
-                    const navLinks = document.querySelectorAll('.nav-links a');
-                    let current = '';
-                    sections.forEach(section => {
-                        if (window.pageYOffset >= section.offsetTop - 100) {
-                            current = section.getAttribute('id');
-                        }
-                    });
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${current}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                });
-            }
-        };
-
-/**
- * @class SmartHomeDemo
- * @description An enhanced, object-oriented module for a dynamic and interactive smart home simulation.
- * It features a day/night cycle, realistic sensor feedback, and smooth, time-based animations.
- *
- * Designed for a professional portfolio demonstration.
- */
-class SmartHomeDemo {
-    // --- Core Properties ---
-    canvas = null;
-    ctx = null;
-    animationFrameId = null;
-    lastTime = 0;
-    time = 0;
-
-    // --- State Properties ---
-    lightOn = false;
-    fireDetected = false;
-    temperature = 22.0;
-    humidity = 45.0;
-    powerConsumption = 0.5;
-
-    // --- Animation & Effects Properties ---
-    particles = [];
-    notifications = [];
-    historyLength = 100; // Increased for smoother graphs
-    temperatureHistory = [];
-    humidityHistory = [];
-
-    // --- Dynamic Values ---
-    lightIntensity = 0; // For smooth on/off transition
-    fireIntensity = 0;  // For smooth fire growth
-
-    constructor(canvasId) {
-        this.canvas = document.getElementById(canvasId);
-        if (!this.canvas) {
-            console.error('SmartHomeDemo Error: Canvas element not found.');
-            return;
-        }
-        this.ctx = this.canvas.getContext('2d');
-
-        // Initialize with default values
-        this.resetState(false); // Do a silent reset without notification
-        
-        this.setupEventListeners();
-        this.resizeCanvas();
-        this.start();
-    }
-
-    // --- Initialization and Control ---
-
-    setupEventListeners() {
-        window.addEventListener('resize', () => this.resizeCanvas());
-    }
-
-    resizeCanvas() {
-        const container = this.canvas.parentElement;
-        const size = Math.min(container.clientWidth, 800);
-        this.canvas.width = size;
-        this.canvas.height = size * 0.65; // A more modern, widescreen aspect ratio
-    }
-    
-    start() {
-        if (!this.animationFrameId) {
-            this.lastTime = performance.now();
-            this.animationFrameId = requestAnimationFrame((timestamp) => this.animate(timestamp));
-        }
-    }
-
-    stop() {
-        if (this.animationFrameId) {
-            cancelAnimationFrame(this.animationFrameId);
-            this.animationFrameId = null;
-        }
-    }
-
-    // --- Main Animation Loop ---
-
-    animate(currentTime) {
-        // Calculate time delta for smooth, frame-rate independent animations
-        const deltaTime = (currentTime - this.lastTime) / 1000; // time in seconds
-        this.lastTime = currentTime;
-        this.time += deltaTime;
-
-        this.update(deltaTime); // Update all logic
-        this.draw();             // Render everything
-
-        this.animationFrameId = requestAnimationFrame((timestamp) => this.animate(timestamp));
-    }
-
-    // --- Update Logic (The "Brain") ---
-
-    update(deltaTime) {
-        // --- Sensor Simulation ---
-        // Temperature: Rises with fire, otherwise fluctuates gently
-        if (this.fireDetected) {
-            this.temperature = Math.min(45, this.temperature + 5 * deltaTime);
-        } else {
-            this.temperature += (22 + Math.sin(this.time * 0.1) * 2 - this.temperature) * 0.1 * deltaTime;
-        }
-
-        // Humidity: Drops with fire (heat), otherwise fluctuates
-        if (this.fireDetected) {
-            this.humidity = Math.max(20, this.humidity - 8 * deltaTime);
-        } else {
-            this.humidity += (45 + Math.cos(this.time * 0.08) * 5 - this.humidity) * 0.1 * deltaTime;
-        }
-        
-        // Power Consumption: Base + light + alarm + fluctuation
-        let basePower = 0.5;
-        if (this.lightOn) basePower += 0.7;
-        if (this.fireDetected) basePower += 1.5; // Alarm system consumes more power
-        this.powerConsumption = basePower + Math.sin(this.time * 2) * 0.1;
-        
-        // --- Animation State Updates ---
-        const transitionSpeed = 4 * deltaTime;
-        this.lightIntensity = Math.max(0, Math.min(1, this.lightIntensity + (this.lightOn ? transitionSpeed : -transitionSpeed)));
-        this.fireIntensity = Math.max(0, Math.min(1, this.fireIntensity + (this.fireDetected ? transitionSpeed / 2 : -transitionSpeed)));
-
-        // Update fire particles if fire is active
-        if (this.fireDetected || this.particles.length > 0) {
-            this.updateFireParticles(deltaTime);
-        }
-
-        // --- History & Notification Updates ---
-        this.updateHistory();
-        this.updateNotifications(deltaTime);
-    }
-    
-    updateHistory() {
-        // Add new data points only at intervals to avoid flooding the array
-        if (Math.floor(this.time * 5) > Math.floor((this.time - 0.1) * 5)) {
-            this.temperatureHistory.push(this.temperature);
-            this.humidityHistory.push(this.humidity);
-
-            if (this.temperatureHistory.length > this.historyLength) {
-                this.temperatureHistory.shift();
-                this.humidityHistory.shift();
-            }
-        }
-    }
-
-    updateFireParticles(deltaTime) {
-        // Add new particles based on fire intensity
-        if (this.fireDetected && this.fireIntensity > 0.1 && Math.random() < this.fireIntensity) {
-             for (let i = 0; i < 2; i++) {
-                this.particles.push({
-                    x: this.canvas.width * 0.7 + (Math.random() - 0.5) * 15,
-                    y: this.canvas.height * 0.38,
-                    vx: (Math.random() - 0.5) * 20,
-                    vy: -Math.random() * 40 - 20,
-                    size: Math.random() * 4 + 2,
-                    life: 1,
-                    decay: Math.random() * 0.5 + 1.5,
-                    color: Math.random() > 0.3 ? 'rgba(255, 100, 0, 0.8)' : 'rgba(255, 165, 0, 0.8)'
-                });
-             }
-        }
-        
-        // Update and filter out dead particles
-        this.particles = this.particles.filter(p => p.life > 0);
-        this.particles.forEach(p => {
-            p.x += p.vx * deltaTime;
-            p.y += p.vy * deltaTime;
-            p.vy += 40 * deltaTime; // Gravity
-            p.life -= p.decay * deltaTime;
-            p.size *= (1 - 0.5 * deltaTime);
-        });
-    }
-
-    updateNotifications(deltaTime) {
-        this.notifications.forEach(n => n.life -= deltaTime);
-        this.notifications = this.notifications.filter(n => n.life > 0);
-    }
-
-    // --- Drawing Methods (The "Canvas") ---
-
-    draw() {
-        const { ctx, canvas } = this;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        this.drawBackground();
-        this.drawHouse();
-        this.drawLight();
-        this.drawFireSensorAndEffect();
-        this.drawDashboard();
-        this.drawNotifications();
-    }
-    
-    drawBackground() {
-        const { ctx, canvas } = this;
-        // Day/Night Cycle
-        const cycle = (Math.sin(this.time * 0.05) + 1) / 2; // 0 = night, 1 = day
-        const dayColor = { r: 135, g: 206, b: 235 }; // Sky Blue
-        const nightColor = { r: 10, g: 20, b: 40 }; // Dark Blue
-        
-        const r = dayColor.r * cycle + nightColor.r * (1 - cycle);
-        const g = dayColor.g * cycle + nightColor.g * (1 - cycle);
-        const b = dayColor.b * cycle + nightColor.b * (1 - cycle);
-
-        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, `rgb(${r},${g},${b})`);
-        gradient.addColorStop(1, `rgb(${r + 40},${g + 40},${b + 50})`);
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Sun/Moon
-        ctx.save();
-        ctx.translate(canvas.width / 2, canvas.height * 0.7);
-        ctx.rotate(-this.time * 0.05);
-        ctx.fillStyle = cycle > 0.2 ? 'rgba(255, 255, 0, 0.8)' : 'rgba(240, 240, 240, 0.9)'; // Sun or Moon
-        ctx.beginPath();
-        ctx.arc(0, -canvas.height * 0.5, canvas.width * 0.05, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-    }
-
-    drawHouse() {
-        const { ctx, canvas } = this;
-        const w = canvas.width;
-        const h = canvas.height;
-
-        // Base
-        ctx.fillStyle = '#E0E0E0';
-        ctx.fillRect(w * 0.15, h * 0.4, w * 0.7, h * 0.45);
-
-        // Roof
-        ctx.fillStyle = '#8B4513';
-        ctx.beginPath();
-        ctx.moveTo(w * 0.1, h * 0.4);
-        ctx.lineTo(w * 0.5, h * 0.15);
-        ctx.lineTo(w * 0.9, h * 0.4);
-        ctx.closePath();
-        ctx.fill();
-
-        // Chimney & smoke
-        ctx.fillStyle = '#A0522D';
-        ctx.fillRect(w * 0.65, h*0.22, w*0.06, h*0.1);
-        this.drawSmoke(w*0.68, h*0.22);
-        
-        // Door
-        ctx.fillStyle = '#654321';
-        ctx.fillRect(w * 0.45, h * 0.6, w * 0.1, h * 0.25);
-        ctx.fillStyle = '#FFD700';
-        ctx.beginPath();
-        ctx.arc(w * 0.53, h * 0.72, w * 0.007, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Windows
-        ctx.fillStyle = this.lightIntensity > 0 ? `rgba(255, 255, 224, ${0.5 + this.lightIntensity * 0.5})` : '#87CEEB';
-        ctx.fillRect(w * 0.2, h * 0.5, w * 0.18, h * 0.15);
-        ctx.fillRect(w * 0.62, h * 0.5, w * 0.18, h * 0.15);
-        
-        // Window frames
-        ctx.strokeStyle = '#654321';
-        ctx.lineWidth = Math.max(1, w * 0.005);
-        ctx.strokeRect(w * 0.2, h * 0.5, w * 0.18, h * 0.15);
-        ctx.strokeRect(w * 0.62, h * 0.5, w * 0.18, h * 0.15);
-    }
-    
-    drawSmoke(x, y) {
-        const { ctx } = this;
-        const smokeTime = this.time * 2;
-        ctx.fillStyle = 'rgba(200, 200, 200, 0.4)';
-        for (let i=0; i < 5; i++) {
-            const radius = Math.sin((smokeTime + i * 0.8) % Math.PI) * 10;
-            if (radius > 0) {
-                 ctx.beginPath();
-                 ctx.arc(x, y - (smokeTime + i*2) % 30, radius, 0, Math.PI*2);
-                 ctx.fill();
-            }
-        }
-    }
-    
-    drawLight() {
-        const { ctx, canvas } = this;
-        if (this.lightIntensity <= 0) return;
-
-        const flicker = 1 + Math.sin(this.time * 30) * 0.03;
-        const glowRadius = canvas.width * 0.2 * this.lightIntensity * flicker;
-        
-        const gradient = ctx.createRadialGradient(
-            canvas.width * 0.3, canvas.height * 0.58, 0,
-            canvas.width * 0.3, canvas.height * 0.58, glowRadius
-        );
-        gradient.addColorStop(0, `rgba(255, 255, 200, ${0.6 * this.lightIntensity})`);
-        gradient.addColorStop(0.5, `rgba(255, 255, 200, ${0.2 * this.lightIntensity})`);
-        gradient.addColorStop(1, 'rgba(255, 255, 200, 0)');
-        
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height); // Apply glow over the whole scene for effect
-    }
-
-    drawFireSensorAndEffect() {
-        const { ctx, canvas } = this;
-        const sensorX = canvas.width * 0.7;
-        const sensorY = canvas.height * 0.38;
-        const sensorRadius = canvas.width * 0.015;
-
-        // Sensor
-        ctx.fillStyle = this.fireDetected ? '#FF4500' : '#4682B4';
-        ctx.beginPath();
-        ctx.arc(sensorX, sensorY, sensorRadius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#2F4F4F';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-
-        // Fire particles
-        this.particles.forEach(p => {
-            ctx.fillStyle = p.color;
-            ctx.globalAlpha = Math.max(0, p.life);
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, Math.max(0, p.size), 0, Math.PI * 2);
-            ctx.fill();
-            ctx.globalAlpha = 1.0;
-        });
-
-        // Fire Glow
-        if (this.fireIntensity > 0) {
-            const glowRadius = canvas.width * 0.15 * this.fireIntensity;
-            const gradient = ctx.createRadialGradient(sensorX, sensorY, 0, sensorX, sensorY, glowRadius);
-            gradient.addColorStop(0, `rgba(255, 69, 0, ${0.6 * this.fireIntensity})`);
-            gradient.addColorStop(1, `rgba(255, 140, 0, 0)`);
-            ctx.fillStyle = gradient;
-            ctx.beginPath();
-            ctx.arc(sensorX, sensorY, glowRadius, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-    
-    drawDashboard() {
-        // Draw panels for each data point
-        this.drawDataPanel(0.05, `Temperature: ${this.temperature.toFixed(1)}°C`, this.temperature > 35 ? '#FF4500' : '#4682B4', this.temperatureHistory, 15, 50);
-        this.drawDataPanel(0.365, `Humidity: ${this.humidity.toFixed(1)}%`, '#4682B4', this.humidityHistory, 20, 80);
-        this.drawDataPanel(0.68, `Power: ${this.powerConsumption.toFixed(2)} kW`, this.powerConsumption > 2 ? '#FF4500' : '#32CD32');
-    }
-
-    drawDataPanel(xPos, text, color, historyData, minY = 0, maxY = 1) {
-        const { ctx, canvas } = this;
-        const w = canvas.width;
-        const h = canvas.height;
-        const panelWidth = w * 0.27;
-        const panelHeight = h * 0.12;
-        const panelX = w * xPos;
-        const panelY = h * 0.02;
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-        ctx.strokeStyle = '#999';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.roundRect(panelX, panelY, panelWidth, panelHeight, 10);
-        ctx.fill();
-        ctx.stroke();
-        
-        ctx.fillStyle = color;
-        ctx.font = `bold ${w * 0.02}px Arial`;
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(text, panelX + w * 0.015, panelY + panelHeight * 0.3);
-
-        if (historyData) {
-            this.drawGraph(historyData, panelX + w*0.015, panelY + panelHeight * 0.55, panelWidth - w*0.03, panelHeight * 0.4, color, minY, maxY);
-        }
-    }
-    
-    drawGraph(data, x, y, width, height, color, minY, maxY) {
-        if(data.length < 2) return;
-        
-        const { ctx } = this;
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 2;
-        ctx.lineJoin = 'round';
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-
-        const getPoint = (i) => {
-            const val = Math.max(minY, Math.min(maxY, data[i]));
-            return {
-                x: x + (i / (this.historyLength - 1)) * width,
-                y: y + height - ((val - minY) / (maxY - minY)) * height,
-            };
-        };
-
-        let p1 = getPoint(0);
-        ctx.moveTo(p1.x, p1.y);
-
-        for (let i = 1; i < data.length; i++) {
-            const p2 = getPoint(i);
-            const midPoint = {
-                x: (p1.x + p2.x) / 2,
-                y: (p1.y + p2.y) / 2
-            };
-            // Use quadratic curve for a smoother line
-            ctx.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
-            p1 = p2;
-        }
-        ctx.lineTo(p1.x, p1.y);
-        ctx.stroke();
-    }
-    
-    drawNotifications() {
-        const { ctx, canvas } = this;
-        ctx.textAlign = 'center';
-        ctx.font = `bold ${canvas.width * 0.02}px Arial`;
-        
-        this.notifications.forEach((n, i) => {
-            const y = canvas.height - 30 - i * 40;
-            const alpha = n.life < 0.5 ? n.life * 2 : 1; // Fade out
-            ctx.fillStyle = `rgba(0, 0, 0, ${0.7 * alpha})`;
-            ctx.fillText(n.message, canvas.width / 2, y);
-        });
-    }
-
-    // --- Public Control Methods ---
-    
-    toggleLight() {
-        this.lightOn = !this.lightOn;
-        this.addNotification(`Light turned ${this.lightOn ? 'ON' : 'OFF'}`);
-    }
-
-    toggleFire() {
-        this.fireDetected = !this.fireDetected;
-        this.addNotification(`ALERT: Fire ${this.fireDetected ? 'Detected' : 'Cleared'}`);
-        if (!this.fireDetected) {
-            // Let the fire and smoke fade out naturally instead of clearing instantly
-        }
-    }
-
-    reset() {
-        this.resetState(true);
-    }
-
-    // --- Internal Helpers ---
-
-    resetState(notify = true) {
-        this.lightOn = false;
-        this.fireDetected = false;
-        this.temperature = 22.0;
-        this.humidity = 45.0;
-        this.particles = [];
-        this.temperatureHistory = Array(this.historyLength).fill(22.0);
-        this.humidityHistory = Array(this.historyLength).fill(45.0);
-
-        if(notify) this.addNotification('System Reset');
-    }
-
-    addNotification(message) {
-        console.log(`[Smart Home] ${message}`);
-        this.notifications.unshift({ message, life: 4.0 }); // Add to front, 4s lifespan
-        if (this.notifications.length > 3) this.notifications.pop(); // Max 3 notifications
-    }
-}
-
-// --- Accessibility and Global Controls ---
-class Accessibility {
-    constructor(demoInstance) {
-        this.demo = demoInstance;
-        this.init();
-    }
-
-    init() {
-        document.addEventListener('keydown', (e) => {
-            // Add focus outline for keyboard navigation
-            if (e.key === 'Tab') {
-                document.body.classList.add('keyboard-navigation');
-            }
-            // Add keyboard shortcuts for core functions
-            if (document.activeElement.tagName.toLowerCase() !== 'button') {
-                if (e.key === 'l' || e.key === 'L') { this.demo.toggleLight(); }
-                if (e.key === 'f' || e.key === 'F') { this.demo.toggleFire(); }
-                if (e.key === 'r' || e.key === 'R') { this.demo.reset(); }
-            }
-        });
-        
-        // Remove focus outline when using a mouse
-        document.addEventListener('mousedown', () => {
-            document.body.classList.remove('keyboard-navigation');
-        });
-        
-        const canvas = document.getElementById('smartHomeCanvas');
-        if (canvas) {
-            canvas.setAttribute('aria-label', 'Interactive smart home animation showing a house with status indicators for temperature, humidity, power, light status, and fire alerts.');
-            canvas.setAttribute('role', 'img');
-        }
-    }
-}
-
-// --- DOM Initialization ---
-document.addEventListener('DOMContentLoaded', () => {
-    // Instantiate the demo and accessibility modules
-    const smartHomeDemo = new SmartHomeDemo('smartHomeCanvas');
-    new Accessibility(smartHomeDemo);
-
-    // Make control functions globally available to link with HTML buttons
-    window.toggleLight = () => smartHomeDemo.toggleLight();
-    window.triggerFire = () => smartHomeDemo.toggleFire();
-    window.resetDemo = () => smartHomeDemo.reset();
-});
-        // Initialize Modules
+        // Initialize GSAP animations
         document.addEventListener('DOMContentLoaded', () => {
-            theme.init();
-            animations.init();
-            navigation.init();
-            accessibility.init();
-            smartHomeDemo.init();
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Loading overlay animation
+            gsap.to('#loadingOverlay', {
+                opacity: 0,
+                duration: 0.5,
+                delay: 1.5,
+                onComplete: () => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }
+            });
+
+            // Theme toggle animation
+            const toggleSwitch = document.getElementById('toggleSwitch');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // Check for saved theme preference or use the system preference
+            const currentTheme = localStorage.getItem('theme') || 
+                                (prefersDarkScheme.matches ? 'dark' : 'light');
+            
+            if (currentTheme === 'dark') {
+                document.body.classList.add('dark');
+                toggleSwitch.classList.add('light');
+                gsap.set('.toggle-circle', { x: 36 });
+                gsap.set('.stars', { opacity: 0 });
+                gsap.set('.clouds', { opacity: 1 });
+                gsap.set('.moon-face', { opacity: 0 });
+                gsap.set('.sun-rays', { opacity: 1 });
+            }
+
+            toggleSwitch.addEventListener('click', () => {
+                document.body.classList.toggle('dark');
+                toggleSwitch.classList.toggle('light');
+                
+                // Save theme preference
+                const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+                localStorage.setItem('theme', theme);
+                
+                gsap.to('.toggle-circle', {
+                    x: toggleSwitch.classList.contains('light') ? 36 : 0,
+                    duration: 0.4,
+                    ease: 'power3.out'
+                });
+                gsap.to('.stars', {
+                    opacity: toggleSwitch.classList.contains('light') ? 0 : 1,
+                    duration: 0.4
+                });
+                gsap.to('.clouds', {
+                    opacity: toggleSwitch.classList.contains('light') ? 1 : 0,
+                    duration: 0.4
+                });
+                gsap.to('.moon-face', {
+                    opacity: toggleSwitch.classList.contains('light') ? 0 : 1,
+                    duration: 0.3
+                });
+                gsap.to('.sun-rays', {
+                    opacity: toggleSwitch.classList.contains('light') ? 1 : 0,
+                    duration: 0.3
+                });
+            });
+
+            // Scroll progress bar
+            window.addEventListener('scroll', () => {
+                const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.querySelector('.scroll-progress-bar').style.width = scrolled + '%';
+            });
+
+            // Hero section animations
+            gsap.from('.hero-content', {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: 'power3.out',
+                delay: 0.5
+            });
+
+            gsap.from('.hero-visual', {
+                opacity: 0,
+                scale: 0.8,
+                duration: 1,
+                ease: 'back.out(1.7)',
+                delay: 0.8
+            });
+
+            // Section animations with ScrollTrigger
+            document.querySelectorAll('.section').forEach(section => {
+                gsap.from(section.querySelectorAll('.section-header, .project-content, .tech-grid, .demo-container'), {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    stagger: 0.2,
+                    ease: 'power3.out'
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                gsap.to(mobileMenu, {
+                    y: mobileMenu.classList.contains('active') ? '0%' : '-100%',
+                    duration: 0.5,
+                    ease: 'power3.inOut'
+                });
+                
+                // Update aria-expanded attribute
+                const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+                mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
+            });
+
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                gsap.to(mobileMenu, {
+                    y: '-100%',
+                    duration: 0.5,
+                    ease: 'power3.inOut'
+                });
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            });
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    gsap.to(mobileMenu, {
+                        y: '-100%',
+                        duration: 0.5,
+                        ease: 'power3.inOut'
+                    });
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // Navbar active link
+            const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu-links a');
+            const sections = document.querySelectorAll('section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (scrollY >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Accessibility: Keyboard navigation for toggle switch
+            toggleSwitch.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleSwitch.click();
+                }
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Particle animation
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = (2 + Math.random() * 3) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.opacity = 0.1 + Math.random() * 0.3;
+                particlesContainer.appendChild(particle);
+
+                gsap.to(particle, {
+                    x: Math.random() * 100 - 50,
+                    y: Math.random() * 100 - 50,
+                    opacity: 0.1 + Math.random() * 0.3,
+                    duration: 10 + Math.random() * 10,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'sine.inOut'
+                });
+            }
+
+            // Scroll to section function
+            window.scrollToSection = (id) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Close mobile menu if open
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenuToggle.classList.remove('active');
+                        mobileMenu.classList.remove('active');
+                        gsap.to(mobileMenu, {
+                            y: '-100%',
+                            duration: 0.5,
+                            ease: 'power3.inOut'
+                        });
+                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            };
+        });
+
+        /**
+         * SmartHomeDemo Class - Interactive Canvas Animation
+         * Provides a visual demonstration of the smart home system
+         */
+        class SmartHomeDemo {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                if (!this.canvas) {
+                    console.error('SmartHomeDemo Error: Canvas element not found.');
+                    return;
+                }
+                this.ctx = this.canvas.getContext('2d');
+                this.animationFrameId = null;
+                this.lastTime = 0;
+                this.time = 0;
+
+                // State properties
+                this.lightOn = false;
+                this.fireDetected = false;
+                this.temperature = 22.0;
+                this.humidity = 45.0;
+                this.powerConsumption = 0.5;
+                
+                // Animation properties
+                this.lightIntensity = 0;
+                this.fireIntensity = 0;
+                this.particles = [];
+                this.notifications = [];
+                this.historyLength = 100;
+                this.temperatureHistory = Array(this.historyLength).fill(22.0);
+                this.humidityHistory = Array(this.historyLength).fill(45.0);
+
+                this.resizeCanvas();
+                this.start();
+                window.addEventListener('resize', () => this.resizeCanvas());
+            }
+
+            resizeCanvas() {
+                const container = this.canvas.parentElement;
+                this.canvas.width = container.clientWidth;
+                this.canvas.height = container.clientWidth * 0.66; // 3:2 aspect ratio
+            }
+
+            start() {
+                if (!this.animationFrameId) {
+                    this.lastTime = performance.now();
+                    this.animationFrameId = requestAnimationFrame((timestamp) => this.animate(timestamp));
+                }
+            }
+
+            stop() {
+                if (this.animationFrameId) {
+                    cancelAnimationFrame(this.animationFrameId);
+                    this.animationFrameId = null;
+                }
+            }
+
+            animate(currentTime) {
+                const deltaTime = (currentTime - this.lastTime) / 1000;
+                this.lastTime = currentTime;
+                this.time += deltaTime;
+
+                this.update(deltaTime);
+                this.draw();
+
+                this.animationFrameId = requestAnimationFrame((timestamp) => this.animate(timestamp));
+            }
+
+            update(deltaTime) {
+                // Temperature simulation
+                if (this.fireDetected) {
+                    this.temperature = Math.min(45, this.temperature + 5 * deltaTime);
+                } else {
+                    this.temperature += (22 + Math.sin(this.time * 0.1) * 2 - this.temperature) * 0.1 * deltaTime;
+                }
+
+                // Humidity simulation
+                if (this.fireDetected) {
+                    this.humidity = Math.max(20, this.humidity - 8 * deltaTime);
+                } else {
+                    this.humidity += (45 + Math.cos(this.time * 0.08) * 5 - this.humidity) * 0.1 * deltaTime;
+                }
+                
+                // Power consumption simulation
+                let basePower = 0.5;
+                if (this.lightOn) basePower += 0.7;
+                if (this.fireDetected) basePower += 1.5;
+                this.powerConsumption = basePower + Math.sin(this.time * 2) * 0.1;
+                
+                // Animation states
+                const transitionSpeed = 4 * deltaTime;
+                this.lightIntensity = Math.max(0, Math.min(1, this.lightIntensity + (this.lightOn ? transitionSpeed : -transitionSpeed)));
+                this.fireIntensity = Math.max(0, Math.min(1, this.fireIntensity + (this.fireDetected ? transitionSpeed / 2 : -transitionSpeed)));
+
+                // Update fire particles if fire is active
+                if (this.fireDetected || this.particles.length > 0) {
+                    this.updateFireParticles(deltaTime);
+                }
+
+                // Update history data
+                this.updateHistory();
+                this.updateNotifications(deltaTime);
+            }
+            
+            updateHistory() {
+                if (Math.floor(this.time * 5) > Math.floor((this.time - 0.1) * 5)) {
+                    this.temperatureHistory.push(this.temperature);
+                    this.humidityHistory.push(this.humidity);
+
+                    if (this.temperatureHistory.length > this.historyLength) {
+                        this.temperatureHistory.shift();
+                        this.humidityHistory.shift();
+                    }
+                }
+            }
+
+            updateFireParticles(deltaTime) {
+                // Add new particles based on fire intensity
+                if (this.fireDetected && this.fireIntensity > 0.1 && Math.random() < this.fireIntensity) {
+                     for (let i = 0; i < 2; i++) {
+                        this.particles.push({
+                            x: this.canvas.width * 0.7 + (Math.random() - 0.5) * 15,
+                            y: this.canvas.height * 0.38,
+                            vx: (Math.random() - 0.5) * 20,
+                            vy: -Math.random() * 40 - 20,
+                            size: Math.random() * 4 + 2,
+                            life: 1,
+                            decay: Math.random() * 0.5 + 1.5,
+                            color: Math.random() > 0.3 ? 'rgba(255, 100, 0, 0.8)' : 'rgba(255, 165, 0, 0.8)'
+                        });
+                     }
+                }
+                
+                // Update and filter out dead particles
+                this.particles = this.particles.filter(p => p.life > 0);
+                this.particles.forEach(p => {
+                    p.x += p.vx * deltaTime;
+                    p.y += p.vy * deltaTime;
+                    p.vy += 40 * deltaTime; // Gravity
+                    p.life -= p.decay * deltaTime;
+                    p.size *= (1 - 0.5 * deltaTime);
+                });
+            }
+
+            updateNotifications(deltaTime) {
+                this.notifications.forEach(n => n.life -= deltaTime);
+                this.notifications = this.notifications.filter(n => n.life > 0);
+            }
+
+            draw() {
+                const { ctx, canvas } = this;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                this.drawBackground();
+                this.drawHouse();
+                this.drawLight();
+                this.drawFireSensorAndEffect();
+                this.drawDashboard();
+                this.drawNotifications();
+            }
+            
+            drawBackground() {
+                const { ctx, canvas } = this;
+                // Day/Night Cycle
+                const cycle = (Math.sin(this.time * 0.05) + 1) / 2; // 0 = night, 1 = day
+                const dayColor = { r: 135, g: 206, b: 235 }; // Sky Blue
+                const nightColor = { r: 10, g: 20, b: 40 }; // Dark Blue
+                
+                const r = dayColor.r * cycle + nightColor.r * (1 - cycle);
+                const g = dayColor.g * cycle + nightColor.g * (1 - cycle);
+                const b = dayColor.b * cycle + nightColor.b * (1 - cycle);
+
+                const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, `rgb(${r},${g},${b})`);
+                gradient.addColorStop(1, `rgb(${r + 40},${g + 40},${b + 50})`);
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Sun/Moon
+                ctx.save();
+                ctx.translate(canvas.width / 2, canvas.height * 0.7);
+                ctx.rotate(-this.time * 0.05);
+                ctx.fillStyle = cycle > 0.2 ? 'rgba(255, 255, 0, 0.8)' : 'rgba(240, 240, 240, 0.9)';
+                ctx.beginPath();
+                ctx.arc(0, -canvas.height * 0.5, canvas.width * 0.05, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            drawHouse() {
+                const { ctx, canvas } = this;
+                const w = canvas.width;
+                const h = canvas.height;
+
+                // Base
+                ctx.fillStyle = '#E0E0E0';
+                ctx.fillRect(w * 0.15, h * 0.4, w * 0.7, h * 0.45);
+
+                // Roof
+                ctx.fillStyle = '#8B4513';
+                ctx.beginPath();
+                ctx.moveTo(w * 0.1, h * 0.4);
+                ctx.lineTo(w * 0.5, h * 0.15);
+                ctx.lineTo(w * 0.9, h * 0.4);
+                ctx.closePath();
+                ctx.fill();
+
+                // Chimney & smoke
+                ctx.fillStyle = '#A0522D';
+                ctx.fillRect(w * 0.65, h*0.22, w*0.06, h*0.1);
+                this.drawSmoke(w*0.68, h*0.22);
+                
+                // Door
+                ctx.fillStyle = '#654321';
+                ctx.fillRect(w * 0.45, h * 0.6, w * 0.1, h * 0.25);
+                ctx.fillStyle = '#FFD700';
+                ctx.beginPath();
+                ctx.arc(w * 0.53, h * 0.72, w * 0.007, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Windows
+                ctx.fillStyle = this.lightIntensity > 0 ? `rgba(255, 255, 224, ${0.5 + this.lightIntensity * 0.5})` : '#87CEEB';
+                ctx.fillRect(w * 0.2, h * 0.5, w * 0.18, h * 0.15);
+                ctx.fillRect(w * 0.62, h * 0.5, w * 0.18, h * 0.15);
+                
+                // Window frames
+                ctx.strokeStyle = '#654321';
+                ctx.lineWidth = Math.max(1, w * 0.005);
+                ctx.strokeRect(w * 0.2, h * 0.5, w * 0.18, h * 0.15);
+                ctx.strokeRect(w * 0.62, h * 0.5, w * 0.18, h * 0.15);
+            }
+            
+            drawSmoke(x, y) {
+                const { ctx } = this;
+                const smokeTime = this.time * 2;
+                ctx.fillStyle = 'rgba(200, 200, 200, 0.4)';
+                for (let i=0; i < 5; i++) {
+                    const radius = Math.sin((smokeTime + i * 0.8) % Math.PI) * 10;
+                    if (radius > 0) {
+                         ctx.beginPath();
+                         ctx.arc(x, y - (smokeTime + i*2) % 30, radius, 0, Math.PI*2);
+                         ctx.fill();
+                    }
+                }
+            }
+            
+            drawLight() {
+                const { ctx, canvas } = this;
+                if (this.lightIntensity <= 0) return;
+
+                const flicker = 1 + Math.sin(this.time * 30) * 0.03;
+                const glowRadius = canvas.width * 0.2 * this.lightIntensity * flicker;
+                
+                const gradient = ctx.createRadialGradient(
+                    canvas.width * 0.3, canvas.height * 0.58, 0,
+                    canvas.width * 0.3, canvas.height * 0.58, glowRadius
+                );
+                gradient.addColorStop(0, `rgba(255, 255, 200, ${0.6 * this.lightIntensity})`);
+                gradient.addColorStop(0.5, `rgba(255, 255, 200, ${0.2 * this.lightIntensity})`);
+                gradient.addColorStop(1, 'rgba(255, 255, 200, 0)');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            drawFireSensorAndEffect() {
+                const { ctx, canvas } = this;
+                const sensorX = canvas.width * 0.7;
+                const sensorY = canvas.height * 0.38;
+                const sensorRadius = canvas.width * 0.015;
+
+                // Sensor
+                ctx.fillStyle = this.fireDetected ? '#FF4500' : '#4682B4';
+                ctx.beginPath();
+                ctx.arc(sensorX, sensorY, sensorRadius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#2F4F4F';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Fire particles
+                this.particles.forEach(p => {
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = Math.max(0, p.life);
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, Math.max(0, p.size), 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.globalAlpha = 1.0;
+                });
+
+                // Fire Glow
+                if (this.fireIntensity > 0) {
+                    const glowRadius = canvas.width * 0.15 * this.fireIntensity;
+                    const gradient = ctx.createRadialGradient(sensorX, sensorY, 0, sensorX, sensorY, glowRadius);
+                    gradient.addColorStop(0, `rgba(255, 69, 0, ${0.6 * this.fireIntensity})`);
+                    gradient.addColorStop(1, `rgba(255, 140, 0, 0)`);
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(sensorX, sensorY, glowRadius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            drawDashboard() {
+                // Draw panels for each data point
+                this.drawDataPanel(0.05, `Temperature: ${this.temperature.toFixed(1)}°C`, this.temperature > 35 ? '#FF4500' : '#4682B4', this.temperatureHistory, 15, 50);
+                this.drawDataPanel(0.365, `Humidity: ${this.humidity.toFixed(1)}%`, '#4682B4', this.humidityHistory, 20, 80);
+                this.drawDataPanel(0.68, `Power: ${this.powerConsumption.toFixed(2)} kW`, this.powerConsumption > 2 ? '#FF4500' : '#32CD32');
+            }
+
+            drawDataPanel(xPos, text, color, historyData, minY = 0, maxY = 1) {
+                const { ctx, canvas } = this;
+                const w = canvas.width;
+                const h = canvas.height;
+                const panelWidth = w * 0.27;
+                const panelHeight = h * 0.12;
+                const panelX = w * xPos;
+                const panelY = h * 0.02;
+
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.strokeStyle = '#999';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.roundRect(panelX, panelY, panelWidth, panelHeight, 10);
+                ctx.fill();
+                ctx.stroke();
+                
+                ctx.fillStyle = color;
+                ctx.font = `bold ${w * 0.02}px Arial`;
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(text, panelX + w * 0.015, panelY + panelHeight * 0.3);
+
+                if (historyData) {
+                    this.drawGraph(historyData, panelX + w*0.015, panelY + panelHeight * 0.55, panelWidth - w*0.03, panelHeight * 0.4, color, minY, maxY);
+                }
+            }
+            
+            drawGraph(data, x, y, width, height, color, minY, maxY) {
+                if(data.length < 2) return;
+                
+                const { ctx } = this;
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+
+                const getPoint = (i) => {
+                    const val = Math.max(minY, Math.min(maxY, data[i]));
+                    return {
+                        x: x + (i / (this.historyLength - 1)) * width,
+                        y: y + height - ((val - minY) / (maxY - minY)) * height,
+                    };
+                };
+
+                let p1 = getPoint(0);
+                ctx.moveTo(p1.x, p1.y);
+
+                for (let i = 1; i < data.length; i++) {
+                    const p2 = getPoint(i);
+                    const midPoint = {
+                        x: (p1.x + p2.x) / 2,
+                        y: (p1.y + p2.y) / 2
+                    };
+                    // Use quadratic curve for a smoother line
+                    ctx.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
+                    p1 = p2;
+                }
+                ctx.lineTo(p1.x, p1.y);
+                ctx.stroke();
+            }
+            
+            drawNotifications() {
+                const { ctx, canvas } = this;
+                ctx.textAlign = 'center';
+                ctx.font = `bold ${canvas.width * 0.02}px Arial`;
+                
+                this.notifications.forEach((n, i) => {
+                    const y = canvas.height - 30 - i * 40;
+                    const alpha = n.life < 0.5 ? n.life * 2 : 1; // Fade out
+                    ctx.fillStyle = `rgba(0, 0, 0, ${0.7 * alpha})`;
+                    ctx.fillText(n.message, canvas.width / 2, y);
+                });
+            }
+
+            // Public control methods
+            toggleLight() {
+                this.lightOn = !this.lightOn;
+                this.addNotification(`Light turned ${this.lightOn ? 'ON' : 'OFF'}`);
+            }
+
+            toggleFire() {
+                this.fireDetected = !this.fireDetected;
+                this.addNotification(`ALERT: Fire ${this.fireDetected ? 'Detected' : 'Cleared'}`);
+            }
+
+            reset() {
+                this.lightOn = false;
+                this.fireDetected = false;
+                this.temperature = 22.0;
+                this.humidity = 45.0;
+                this.particles = [];
+                this.temperatureHistory = Array(this.historyLength).fill(22.0);
+                this.humidityHistory = Array(this.historyLength).fill(45.0);
+                this.addNotification('System Reset');
+            }
+
+            addNotification(message) {
+                console.log(`[Smart Home] ${message}`);
+                this.notifications.unshift({ message, life: 4.0 });
+                if (this.notifications.length > 3) this.notifications.pop();
+            }
+        }
+
+        // Initialize the demo when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const smartHomeDemo = new SmartHomeDemo('smartHomeCanvas');
+            
+            // Make control functions globally available
+            window.toggleLight = () => smartHomeDemo.toggleLight();
+            window.triggerFire = () => smartHomeDemo.toggleFire();
+            window.resetDemo = () => smartHomeDemo.reset();
         });
     </script>
 </body>

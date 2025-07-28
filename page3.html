@@ -6,6 +6,8 @@
     <meta name="description" content="Port Service Management System - A Flutter-based mobile app by Aymen Mabrouk for managing port operations, equipment maintenance, and employee workflows.">
     <meta name="keywords" content="Port Service, Flutter, Firebase, port operations, equipment management, employee management, Aymen Mabrouk">
     <meta name="author" content="Aymen Mabrouk">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#3B82F6">
     <title>Port Service Management System - Aymen Mabrouk</title>
     <link rel="icon" type="image/png" href="image/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,977 +15,1064 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
-        :root {
-            --primary: #3B82F6;
-            --secondary: #10B981;
-            --accent: #F59E0B;
-            --neutral: #1F2937;
-            --neutral-light: #F3F4F6;
-            --white: #FFFFFF;
-            --text-primary: #111827;
-            --text-secondary: #6B7280;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --scroll-bar: var(--accent);
-            --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
-            --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
-            --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
-        }
-
-        .dark {
-            --text-primary: #E5E7EB;
-            --text-secondary: #9CA3AF;
-            --neutral-light: #1E293B;
-            --white: #0F172A;
-            --neutral: #111827;
-            --glass-bg: rgba(30, 41, 59, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --scroll-bar: #F59E0B;
-            --primary: #60A5FA;
-            --secondary: #34D399;
-            --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
-            --secondary-gradient: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);
-            --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            background: var(--neutral-light);
-            transition: background 0.3s ease, color 0.3s ease;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            background-size: 300% 300%;
-            animation: gradientShift 15s ease infinite;
-            z-index: -1;
-            opacity: 0.6;
-            will-change: background-position;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            will-change: transform, opacity;
-            animation: float 8s ease-in-out infinite, fade 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(-20px, -40px) scale(1.5); }
-            50% { transform: translate(20px, -60px) scale(1.2); }
-            75% { transform: translate(10px, -20px) scale(1.3); }
-        }
-
-        @keyframes fade {
-            0% { opacity: 0.3; }
-            50% { opacity: 0.7; }
-            100% { opacity: 0.1; }
-        }
-
-        .toggle-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
-        }
-
-        .toggle-switch {
-            width: 80px;
-            height: 40px;
-            background: #1E293B;
-            border-radius: 20px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            border: 2px solid #334155;
-            overflow: hidden;
-        }
-
-        .toggle-switch.light {
-            background: #87CEEB;
-            border-color: #5DADE2;
-        }
-
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 1;
-            transition: opacity 0.4s ease;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #E5E7EB;
-            border-radius: 50%;
-        }
-
-        .star1 { top: 10px; left: 15px; }
-        .star2 { top: 15px; right: 15px; }
-        .star3 { top: 25px; left: 10px; }
-        .star4 { top: 30px; right: 20px; }
-        .star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
-        .star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
-
-        .toggle-switch.light .stars {
-            opacity: 0;
-        }
-
-        .clouds {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.4s ease 0.2s;
-        }
-
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-        }
-
-        .cloud1 {
-            width: 15px;
-            height: 6px;
-            top: 10px;
-            left: 15px;
-        }
-
-        .cloud1::before {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            top: -3px;
-            left: 2px;
-        }
-
-        .cloud2 {
-            width: 10px;
-            height: 4px;
-            top: 25px;
-            right: 15px;
-        }
-
-        .cloud2::before {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            top: -2px;
-            left: 1px;
-        }
-
-        .toggle-switch.light .clouds {
-            opacity: 1;
-        }
-
-        .toggle-circle {
-            width: 32px;
-            height: 32px;
-            background: #F59E0B;
-            border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .moon-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #E5E7EB;
-            border-radius: 50%;
-            transition: all 0.4s ease;
-        }
-
-        .moon-crater1 {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 8px;
-            left: 10px;
-        }
-
-        .moon-crater2 {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 18px;
-            left: 18px;
-        }
-
-        .moon-crater3 {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: #9CA3AF;
-            border-radius: 50%;
-            top: 14px;
-            left: 7px;
-        }
-
-        .sun-rays {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: all 0.4s ease;
-        }
-
-        .sun-ray {
-            position: absolute;
-            width: 2px;
-            height: 6px;
-            background: #F59E0B;
-            border-radius: 1px;
-            left: 50%;
-            top: 50%;
-            transform-origin: 1px 15px;
-        }
-
-        .ray1 { transform: translate(-50%, -50%) rotate(0deg); }
-        .ray2 { transform: translate(-50%, -50%) rotate(45deg); }
-        .ray3 { transform: translate(-50%, -50%) rotate(90deg); }
-        .ray4 { transform: translate(-50%, -50%) rotate(135deg); }
-        .ray5 { transform: translate(-50%, -50%) rotate(180deg); }
-        .ray6 { transform: translate(-50%, -50%) rotate(225deg); }
-        .ray7 { transform: translate(-50%, -50%) rotate(270deg); }
-        .ray8 { transform: translate(-50%, -50%) rotate(315deg); }
-
-        .toggle-switch.light .toggle-circle {
-            left: 44px;
-            background: #F59E0B;
-        }
-
-        .toggle-switch.light .moon-face {
-            background: #F59E0B;
-        }
-
-        .toggle-switch.light .moon-crater1,
-        .toggle-switch.light .moon-crater2,
-        .toggle-switch.light .moon-crater3 {
-            background: #FCD34D;
-        }
-
-        .toggle-switch.light .sun-rays {
-            opacity: 1;
-            animation: rotate 8s linear infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.8); }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            padding: 10px 30px;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            text-shadow: 0 1px 0px rgba(0, 0,0.2);
-        }
-
-        .nav-links {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: bold;
-            list-style: none;
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1rem;
-            padding: 8px 15px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.05);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 40%;
-        }
-
-        .nav-hidden {
-            transform: translateX(-50%) translateY(-100%) !important;
-        }
-
-        section {
-            padding: 100px 0;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 20px;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .project-details {
-            background: var(--white);
-            backdrop-filter: blur(15px);
-        }
-
-        .project-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        .project-image {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-image img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .project-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-info {
-            padding: 20px;
-        }
-
-        .project-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            line-height: 1.8;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .tech-tag {
-            background: var(--glass-bg);
-            color: var(--text-primary);
-            padding: 8px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            border: 1px solid var(--glass-border);
-            transition: transform 0.3s ease;
-        }
-
-        .tech-tag:hover {
-            transform: translateY(-2px);
-        }
-
-        .project-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .project-link {
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 40px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .project-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--accent-gradient);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-
-        .project-link:hover::before {
-            left: 0;
-        }
-
-        .project-link.live {
-            background: var(--primary);
-            color: var(--white);
-            border: 2px solid transparent;
-        }
-
-        .project-link.live:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-link.github {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--text-primary);
-        }
-
-        .project-link.github:hover {
-            color: var(--text-primary);
-            transform: translateY(-3px);
-        }
-
-        /* Feature Carousel */
-        .feature-carousel {
-            position: relative;
-            overflow: hidden;
-            margin: 40px 0;
-            border-radius: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            padding: 20px;
-        }
-
-        .carousel-container {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .carousel-item {
-            min-width: 100%;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            opacity: 0.5;
-            transition: opacity 0.5s ease;
-        }
-
-        .carousel-item.active {
-            opacity: 1;
-        }
-
-        .carousel-item img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .carousel-content h3 {
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .carousel-content p {
-            color: var(--text-secondary);
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
-        }
-
-        .carousel-button {
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .carousel-button:hover {
-            background: var(--accent);
-            transform: scale(1.1);
-        }
-
-        .carousel-button.prev {
-            margin-left: 10px;
-        }
-
-        .carousel-button.next {
-            margin-right: 10px;
-        }
-
-        /* Impact Section */
-        .impact-section {
-            margin-top: 60px;
-            padding: 40px;
-            background: var(--glass-bg);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-        }
-
-        .impact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .impact-item {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .impact-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .impact-item i {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-
-        .impact-item h3 {
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .impact-item p {
-            color: var(--text-secondary);
-            font-family: 'Roboto', sans-serif;
-        }
-
-            footer {
-            background: none;
-            color: var(--text-secondary);
-            text-align: center;
-            padding: 20px 0 10px 0;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-           }
-
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 1001;
-        }
-
-        .scroll-progress-bar {
-            width: 0;
-            height: 100%;
-            background: var(--scroll-bar);
-            transition: width 0.2s ease;
-        }
-
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            border-top: 3px solid var(--white);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 10px;
-            position: relative;
-            max-width: 800px;
-            width: 90%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--primary);
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .modal-video {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            max-width: 100%;
-            max-height: 60vh;
-            display: block;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                top: 10px;
-                left: 10px;
-                right: 10px;
-                transform: none;
-                padding: 10px 20px;
-            }
-
-            .toggle-container {
-                top: 10px;
-                right: 10px;
-            }
-
-            .toggle-switch {
-                width: 60px;
-                height: 30px;
-                border-radius: 15px;
-                border-width: 1px;
-            }
-
-            .toggle-circle {
-                width: 24px;
-                height: 24px;
-                top: 2px;
-                left: 2px;
-            }
-
-            .toggle-switch.light .toggle-circle {
-                left: 34px;
-            }
-
-            .star1 { top: 8px; left: 10px; }
-            .star2 { top: 12px; right: 10px; }
-            .star3 { top: 20px; left: 8px; }
-            .star4 { top: 22px; right: 12px; }
-            .star5 { top: 15px; left: 15px; }
-            .star6 { top: 25px; right: 20px; }
-
-            .cloud1 {
-                width: 10px;
-                height: 4px;
-                top: 8px;
-                left: 10px;
-            }
-
-            .cloud1::before {
-                width: 6px;
-                height: 6px;
-                top: -2px;
-                left: 1px;
-            }
-
-            .cloud2 {
-                width: 8px;
-                height: 3px;
-                top: 20px;
-                right: 10px;
-            }
-
-            .cloud2::before {
-                width: 4px;
-                height: 4px;
-                top: -1px;
-                left: 1px;
-            }
-
-            .moon-crater1 {
-                width: 4px;
-                height: 4px;
-                top: 6px;
-                left: 8px;
-            }
-
-            .moon-crater2 {
-                width: 3px;
-                height: 3px;
-                top: 14px;
-                left: 14px;
-            }
-
-            .moon-crater3 {
-                width: 3px;
-                height: 3px;
-                top: 10px;
-                left: 5px;
-            }
-
-            .sun-ray {
-                height: 4px;
-                transform-origin: 1px 10px;
-            }
-
-            .nav-container {
-                gap: 20px;
-            }
-
-            .nav-links {
-                gap: 15px;
-            }
-
-            .nav-links a {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-
-            .project-content {
-                grid-template-columns: 1fr;
-            }
-
-            .carousel-item {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .carousel-item img {
-                width: 80px;
-                height: 80px;
-            }
-
-            .modal-video {
-                max-height: 35vh;
-            }
-
-            .impact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .keyboard-navigation a:focus,
-        .keyboard-navigation button:focus {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
+:root {
+    --primary: #3B82F6;
+    --secondary: #10B981;
+    --accent: #F59E0B;
+    --neutral: #1F2937;
+    --neutral-light: #F3F4F6;
+    --white: #FFFFFF;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --scroll-bar: var(--accent);
+    --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
+    --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
+    --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
+    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --shadow-heavy: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.dark {
+    --text-primary: #E5E7EB;
+    --text-secondary: #9CA3AF;
+    --neutral-light: #1E293B;
+    --white: #0F172A;
+    --neutral: #111827;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --scroll-bar: #F59E0B;
+    --primary: #60A5FA;
+    --secondary: #34D399;
+    --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+    --secondary-gradient: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);
+    --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    background: var(--neutral-light);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--neutral-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loader {
+    text-align: center;
+}
+
+.robot-icon {
+    font-size: 4rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.loading-dots span {
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin: 0 5px;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* Background and Visual Effects */
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-gradient);
+    z-index: -2;
+    opacity: 0.05;
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+/* Navigation */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1001;
+}
+
+.scroll-progress-bar {
+    width: 0;
+    height: 100%;
+    background: var(--scroll-bar);
+    transition: width 0.2s ease;
+}
+
+/* === Theme Toggle === */
+.toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+
+.toggle-switch {
+    width: 80px;
+    height: 40px;
+    background: #1E293B;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid #334155;
+    overflow: hidden;
+}
+
+.toggle-switch.light {
+    background: #87CEEB;
+    border-color: #5DADE2;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #E5E7EB;
+    border-radius: 50%;
+}
+
+.star1 { top: 10px; left: 15px; }
+.star2 { top: 15px; right: 15px; }
+.star3 { top: 25px; left: 10px; }
+.star4 { top: 30px; right: 20px; }
+.star5 { top: 20px; left: 25px; animation: twinkle 2s infinite; }
+.star6 { top: 35px; right: 30px; animation: twinkle 3s infinite 0.5s; }
+
+.toggle-switch.light .stars {
+    opacity: 0;
+}
+
+.clouds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.2s;
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+}
+
+.cloud1 {
+    width: 15px;
+    height: 6px;
+    top: 10px;
+    left: 15px;
+}
+
+.cloud1::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: -3px;
+    left: 2px;
+}
+
+.cloud2 {
+    width: 10px;
+    height: 4px;
+    top: 25px;
+    right: 15px;
+}
+
+.cloud2::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: -2px;
+    left: 1px;
+}
+
+.toggle-switch.light .clouds {
+    opacity: 1;
+}
+
+.toggle-circle {
+    width: 32px;
+    height: 32px;
+    background: #F59E0B;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.moon-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #E5E7EB;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.moon-crater1 {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 8px;
+    left: 10px;
+}
+
+.moon-crater2 {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 18px;
+    left: 18px;
+}
+
+.moon-crater3 {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    top: 14px;
+    left: 7px;
+}
+
+.sun-rays {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.sun-ray {
+    position: absolute;
+    width: 2px;
+    height: 6px;
+    background: #F59E0B;
+    border-radius: 1px;
+    left: 50%;
+    top: 50%;
+    transform-origin: 1px 15px;
+}
+
+.ray1 { transform: translate(-50%, -50%) rotate(0deg); }
+.ray2 { transform: translate(-50%, -50%) rotate(45deg); }
+.ray3 { transform: translate(-50%, -50%) rotate(90deg); }
+.ray4 { transform: translate(-50%, -50%) rotate(135deg); }
+.ray5 { transform: translate(-50%, -50%) rotate(180deg); }
+.ray6 { transform: translate(-50%, -50%) rotate(225deg); }
+.ray7 { transform: translate(-50%, -50%) rotate(270deg); }
+.ray8 { transform: translate(-50%, -50%) rotate(315deg); }
+
+.toggle-switch.light .toggle-circle {
+    left: 44px;
+    background: #F59E0B;
+}
+
+.toggle-switch.light .moon-face {
+    background: #F59E0B;
+}
+
+.toggle-switch.light .moon-crater1,
+.toggle-switch.light .moon-crater2,
+.toggle-switch.light .moon-crater3 {
+    background: #FCD34D;
+}
+
+.toggle-switch.light .sun-rays {
+    opacity: 1;
+    animation: rotate 8s linear infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.navbar {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 12px 25px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-light);
+}
+
+.navbar:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-medium);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.logo i {
+    color: var(--primary);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Sections */
+.section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.bg-alt {
+    background: var(--white);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.section-tag {
+    display: inline-block;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Project Content */
+.project-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.project-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-heavy);
+    transition: transform 0.3s ease;
+}
+
+.project-image:hover {
+    transform: translateY(-5px);
+}
+
+.project-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.project-description {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.tech-tag {
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.project-links {
+    display: flex;
+    gap: 15px;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-link.live {
+    background: var(--primary-gradient);
+    color: var(--white);
+    box-shadow: var(--shadow-medium);
+}
+
+.project-link.live:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.project-link.github {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--text-primary);
+}
+
+.project-link.github:hover {
+    background: var(--text-primary);
+    color: var(--white);
+    transform: translateY(-3px);
+}
+
+/* Feature Carousel */
+.feature-carousel {
+    position: relative;
+    margin: 60px 0;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 30px;
+}
+
+.carousel-container {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-item {
+    min-width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.carousel-item.active {
+    opacity: 1;
+}
+
+.carousel-item img {
+    width: 300px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: var(--shadow-medium);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.carousel-item img:hover {
+    transform: scale(1.02);
+}
+
+.carousel-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+.carousel-content p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.carousel-button {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-gradient);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-medium);
+}
+
+.carousel-button:hover {
+    background: var(--accent-gradient);
+    transform: scale(1.1);
+}
+
+/* Impact Section */
+.impact-section {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 50px;
+    margin-top: 60px;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.impact-item {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+}
+
+.impact-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.impact-item i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.impact-item h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+.impact-item p {
+    color: var(--text-secondary);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.7;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 900px;
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-heavy);
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    padding: 20px 30px;
+    background: var(--primary-gradient);
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.modal-video {
+    width: 100%;
+    height: 500px;
+    display: block;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.modal-image {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+/* Footer */
+.footer {
+    background: var(--neutral);
+    color: var(--text-primary);
+    padding: 80px 0 0;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.footer-logo i {
+    color: var(--primary); /* Icon color for better visual hierarchy */
+}
+
+.footer-description {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.8;
+    font-family: 'Roboto', sans-serif;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border); /* Added border for better definition */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.footer-social a:hover {
+    background: var(--primary);
+    color: var(--white); /* Keep white on hover for contrast */
+    border-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+.footer-section h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li { 
+    margin-bottom: 12px; 
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block; /* For smooth padding transition */
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+    padding-left: 5px;
+}
+
+.project-details {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.project-details strong { 
+    color: var(--text-primary); 
+}
+
+.status-active { 
+    color: var(--secondary); 
+    font-weight: 600; 
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--glass-border);
+    padding: 30px 0;
+    text-align: center;
+}
+
+.footer-copyright {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.footer-credits {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* Additional responsive improvements */
+@media (max-width: 768px) {
+    .footer {
+        padding: 60px 0 0;
+    }
+    
+    .footer-content {
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .footer-section h4 {
+        font-size: 1.2rem;
+    }
+}
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .project-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .project-image {
+        order: -1;
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar, .feature-carousel, .impact-section {
+        display: block !important;
+    }
+    
+    .carousel-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .carousel-item img {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .impact-section {
+        padding: 30px;
+    }
+    
+    .impact-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-video {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-links {
+        flex-direction: column;
+    }
+    
+    .carousel-button {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Accessibility */
+.keyboard-navigation button:focus,
+.keyboard-navigation a:focus,
+.keyboard-navigation input:focus,
+.keyboard-navigation [tabindex]:focus {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
     </style>
 </head>
 <body>
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loader"></div>
+        <div class="loader">
+            <div class="robot-icon">
+                <i class="fas fa-ship"></i>
+            </div>
+            <p>Loading Port Service...</p>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </div>
 
     <!-- Scroll Progress -->
@@ -999,7 +1088,7 @@
 
     <!-- Theme Toggle -->
     <div class="toggle-container">
-        <div class="toggle-switch" id="toggleSwitch" onclick="toggleMode()">
+        <div class="toggle-switch" id="toggleSwitch" tabindex="0" role="button" aria-label="Toggle dark mode">
             <div class="stars">
                 <div class="star star1"></div>
                 <div class="star star2"></div>
@@ -1033,9 +1122,12 @@
     </div>
     
     <!-- Navigation -->
-    <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <div class="logo">Aymen Mabrouk</div>
+            <div class="logo">
+                <i class="fas fa-ship"></i>
+                <span>Port Service</span>
+            </div>
             <ul class="nav-links">
                 <li><a href="index.html" aria-label="Home section">Home</a></li>
                 <li><a href="index.html#about" aria-label="About section">About</a></li>
@@ -1047,11 +1139,14 @@
     </nav>
 
     <!-- Project Section -->
-    <section id="project" class="project-details">
+    <section id="project" class="section">
         <div class="container">
-            <div class="section-header fade-in">
+            <div class="section-header">
+                <span class="section-tag">Mobile Application</span>
                 <h2 class="section-title">Port Service Management System</h2>
-                <p class="section-subtitle">A comprehensive Flutter app for streamlining port operations, equipment maintenance, and employee management</p>
+                <p class="section-description">
+                    A comprehensive Flutter app for streamlining port operations, equipment maintenance, and employee management
+                </p>
             </div>
             <div class="project-content">
                 <div class="project-image slide-in-left">
@@ -1072,11 +1167,11 @@
                         <span class="tech-tag">Cloud Messaging</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link live" title="View Live" aria-label="View live demo of Port Service Management System" onclick="openModal()">
-                            <i class="fas fa-external-link-alt"></i>
-                            View Live
-                        </a>
-                        <a href="https://github.com/mabroukaymenl" class="project-link github" title="View Code" aria-label="View source code of Port Service Management System">
+                        <button class="project-link live" onclick="openVideoModal()" aria-label="View live demo of Port Service Management System">
+                            <i class="fas fa-play"></i>
+                            View Demo
+                        </button>
+                        <a href="https://github.com/mabroukaymen1/smartshift" class="project-link github" target="_blank" aria-label="View source code of Port Service Management System">
                             <i class="fab fa-github"></i>
                             View Code
                         </a>
@@ -1087,35 +1182,35 @@
             <div class="feature-carousel fade-in">
                 <div class="carousel-container" id="carouselContainer">
                     <div class="carousel-item active">
-                        <img src="https://placehold.co/100x100?text=Port+Operations" alt="Port Operations Management">
+                        <img src="image/port/port2.png" alt="Port Operations Management" onclick="openImageModal('image/port/port2.png', 'Port Operations Management')">
                         <div class="carousel-content">
                             <h3>Port Operations Management</h3>
                             <p>Track and manage port operations in real-time, including ship and container management, operation assignments, and status updates.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://placehold.co/100x100?text=Equipment" alt="Equipment Management">
+                        <img src="image/port/port4.png" alt="Equipment Management" onclick="openImageModal('image/port/port4.png', 'Equipment Management')">
                         <div class="carousel-content">
                             <h3>Equipment Management</h3>
                             <p>Monitor equipment status, schedule maintenance, report failures, and track repairs with a comprehensive inventory system.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://placehold.co/100x100?text=Employee" alt="Employee Management">
+                        <img src="image/port/port5.png" alt="Employee Management" onclick="openImageModal('image/port/port5.png', 'Employee Management')">
                         <div class="carousel-content">
                             <h3>Employee Management</h3>
                             <p>Manage employee profiles, assign tasks, track attendance, and handle leave requests with role-based access control.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://placehold.co/100x100?text=Notifications" alt="Notification System">
+                        <img src="image/port/port3.png" alt="Notification System" onclick="openImageModal('image/port/port3.png', 'Notification System')">
                         <div class="carousel-content">
                             <h3>Notification System</h3>
                             <p>Receive real-time push notifications for equipment breakdowns, maintenance alerts, and operation assignments.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://placehold.co/100x100?text=Analytics" alt="Reporting and Analytics">
+                        <img src="image/port/port1.png" alt="Reporting and Analytics" onclick="openImageModal('image/port/port1.png', 'Reporting and Analytics')">
                         <div class="carousel-content">
                             <h3>Reporting and Analytics</h3>
                             <p>Generate detailed reports on equipment utilization, maintenance statistics, and operation performance for data-driven decisions.</p>
@@ -1129,7 +1224,7 @@
             </div>
             <!-- Impact Section -->
             <div class="impact-section fade-in">
-                <h3 class="project-title">Impact & Benefits</h3>
+                <h3 class="section-title">Impact & Benefits</h3>
                 <div class="impact-grid">
                     <div class="impact-item">
                         <i class="fas fa-ship"></i>
@@ -1159,302 +1254,309 @@
     <!-- Modal for Video -->
     <div class="modal" id="videoModal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()" aria-label="Close modal">×</button>
-            <h3 class="modal-title">Port Service Management System Demo</h3>
-            <video class="modal-video" controls>
-                <source src="videos/portservice-demo.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <div class="modal-header">
+                <h3 class="modal-title">Port Service Management System Demo</h3>
+                <button class="modal-close" onclick="closeVideoModal()" aria-label="Close video modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                 <iframe class="modal-video" src="https://www.youtube.com/embed/i37Vj17ld48" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>  
         </div>
     </div>
 
-    <footer>
+    <!-- Modal for Image -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="imageModalTitle"></h3>
+                <button class="modal-close" onclick="closeImageModal()" aria-label="Close image modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img class="modal-image" id="imageModalImg" alt="Carousel Image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
-            <p>© 2025 Aymen Mabrouk. All rights reserved. Built with modern web technologies.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-ship"></i>
+                        <span>Port Service</span>
+                    </div>
+                    <p class="footer-description">
+                        A Flutter-based mobile application designed to optimize port operations, equipment maintenance, and employee workflows.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://github.com/mabroukaymen1" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/aymen-mabrouk-1a06061ab/" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#project">Project</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Project Details</h4>
+                    <p class="project-details">
+                        <strong>Developed by:</strong> Aymen Mabrouk<br>
+                        <strong>Status:</strong> <span class="status-active">Active Development</span>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Aymen Mabrouk. All rights reserved.
+                </p>
+                <p class="footer-credits">
+                    Designed & Developed with ❤️
+                </p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Utility Functions
-        const utils = {
-            checkNetwork() {
-                return navigator.onLine;
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+                console.error('GSAP or ScrollTrigger not loaded');
+                return;
             }
-        };
+            gsap.registerPlugin(ScrollTrigger);
 
-        // Animations
-        const animations = {
-            init() {
-                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-                    console.error('GSAP or ScrollTrigger failed to load. Animations disabled.');
-                    return;
-                }
-                gsap.registerPlugin(ScrollTrigger);
-                this.setupLoadingScreen();
-                this.createParticles();
-                this.setupScrollAnimations();
-                this.setupScrollProgress();
-            },
-            setupLoadingScreen() {
-                window.addEventListener('load', () => {
-                    if (typeof gsap !== 'undefined') {
-                        gsap.to('#loadingOverlay', {
-                            opacity: 0,
-                            duration: 0.5,
-                            onComplete: () => {
-                                document.getElementById('loadingOverlay').classList.add('hidden');
-                            }
-                        });
-                    } else {
-                        const overlay = document.getElementById('loadingOverlay');
-                        overlay.style.opacity = 0;
-                        setTimeout(() => overlay.classList.add('hidden'), 500);
+            // Loading overlay animation
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                gsap.to(loadingOverlay, {
+                    opacity: 0,
+                    duration: 0.5,
+                    delay: 1.5,
+                    onComplete: () => {
+                        loadingOverlay.style.display = 'none';
                     }
                 });
-            },
-            createParticles() {
-                const particlesContainer = document.getElementById('particles');
-                const particleCount = window.innerWidth < 768 ? 20 : 50;
+            }
+
+            // Theme toggle animation
+            const toggleSwitch = document.getElementById('toggleSwitch');
+            if (toggleSwitch) {
+                const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+                const currentTheme = localStorage.getItem('theme') || 
+                                   (prefersDarkScheme.matches ? 'dark' : 'light');
+                
+                if (currentTheme === 'dark') {
+                    document.body.classList.add('dark');
+                    toggleSwitch.classList.add('light');
+                    gsap.set('.toggle-circle', { x: 36 });
+                    gsap.set('.stars', { opacity: 0 });
+                    gsap.set('.clouds', { opacity: 1 });
+                    gsap.set('.moon-face', { opacity: 0 });
+                    gsap.set('.sun-rays', { opacity: 1 });
+                }
+
+                toggleSwitch.addEventListener('click', () => {
+                    document.body.classList.toggle('dark');
+                    toggleSwitch.classList.toggle('light');
+                    
+                    const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+                    localStorage.setItem('theme', theme);
+                    
+                    gsap.to('.toggle-circle', {
+                        x: toggleSwitch.classList.contains('light') ? 36 : 0,
+                        duration: 0.4,
+                        ease: 'power3.out'
+                    });
+                    gsap.to('.stars', {
+                        opacity: toggleSwitch.classList.contains('light') ? 0 : 1,
+                        duration: 0.4
+                    });
+                    gsap.to('.clouds', {
+                        opacity: toggleSwitch.classList.contains('light') ? 1 : 0,
+                        duration: 0.4
+                    });
+                    gsap.to('.moon-face', {
+                        opacity: toggleSwitch.classList.contains('light') ? 0 : 1,
+                        duration: 0.3
+                    });
+                    gsap.to('.sun-rays', {
+                        opacity: toggleSwitch.classList.contains('light') ? 1 : 0,
+                        duration: 0.3
+                    });
+                });
+
+                toggleSwitch.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleSwitch.click();
+                    }
+                });
+            }
+
+            // Scroll progress bar
+            window.addEventListener('scroll', () => {
+                const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                const progressBar = document.querySelector('.scroll-progress-bar');
+                if (progressBar) {
+                    progressBar.style.width = scrolled + '%';
+                }
+            });
+
+            // Section animations with ScrollTrigger
+            document.querySelectorAll('.section').forEach(section => {
+                gsap.from(section.querySelectorAll('.section-header, .project-content, .feature-carousel, .impact-section'), {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    stagger: 0.2,
+                    ease: 'power3.out'
+                });
+            });
+
+            // Carousel functionality
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.carousel-item');
+            const totalSlides = slides.length;
+
+            function moveCarousel(direction) {
+                currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+                updateCarousel();
+            }
+
+            function updateCarousel() {
+                const carousel = document.getElementById('carouselContainer');
+                if (carousel) {
+                    carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    slides.forEach((slide, index) => {
+                        slide.classList.toggle('active', index === currentSlide);
+                    });
+                }
+            }
+
+            // Keyboard support for carousel
+            document.querySelectorAll('.carousel-button').forEach(button => {
+                button.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        button.click();
+                    }
+                });
+            });
+
+function openVideoModal() {
+    const modal = document.getElementById('videoModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        const video = modal.querySelector('video');
+        if (video) {
+            video.focus();
+            video.play();
+        }
+    }
+}
+
+function closeVideoModal() {
+    const modal = document.getElementById('videoModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        const video = modal.querySelector('video');
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+        }
+    }
+}
+            function openImageModal(src, title) {
+                const modal = document.getElementById('imageModal');
+                const img = document.getElementById('imageModalImg');
+                const imgTitle = document.getElementById('imageModalTitle');
+                
+                if (modal && img && imgTitle) {
+                    img.src = src;
+                    imgTitle.textContent = title;
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    const closeButton = modal.querySelector('.modal-close');
+                    if (closeButton) {
+                        closeButton.focus();
+                    }
+                }
+            }
+
+            function closeImageModal() {
+                const modal = document.getElementById('imageModal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            // Close modals when clicking outside content
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    closeVideoModal();
+                    closeImageModal();
+                }
+            });
+
+            // Close modals with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeVideoModal();
+                    closeImageModal();
+                }
+            });
+
+            // Make functions available globally
+            window.moveCarousel = moveCarousel;
+            window.openVideoModal = openVideoModal;
+            window.closeVideoModal = closeVideoModal;
+            window.openImageModal = openImageModal;
+            window.closeImageModal = closeImageModal;
+
+            // Optimize particle animations
+            const particlesContainer = document.getElementById('particles');
+            if (particlesContainer) {
+                const particleCount = window.innerWidth > 768 ? 50 : 20;
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    const size = Math.random() * 5 + 2;
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
-                    particle.style.background = `hsl(${Math.random() * 360}, 70%, 80%)`;
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = Math.random() * 100 + '%';
-                    particle.style.animationDelay = `${Math.random() * 5}s`;
-                    particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                    particle.classList.add('particle');
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
                     particlesContainer.appendChild(particle);
-                }
-            },
-            setupScrollAnimations() {
-                gsap.utils.toArray('.fade-in').forEach((element, i) => {
-                    gsap.fromTo(
-                        element,
-                        { opacity: 0, y: 30 },
-                        {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.8,
-                            delay: i * 0.2,
-                            ease: 'power2.out',
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 80%',
-                                toggleActions: 'play none none none',
-                            },
-                        }
-                    );
-                });
-                gsap.utils.toArray('.slide-in-left').forEach((element, i) => {
-                    gsap.fromTo(
-                        element,
-                        { opacity: 0, x: -50 },
-                        {
-                            opacity: 1,
-                            x: 0,
-                            duration: 0.8,
-                            delay: i * 0.2,
-                            ease: 'power2.out',
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 80%',
-                                toggleActions: 'play none none none',
-                            },
-                        }
-                    );
-                });
-                gsap.utils.toArray('.slide-in-right').forEach((element, i) => {
-                    gsap.fromTo(
-                        element,
-                        { opacity: 0, x: 50 },
-                        {
-                            opacity: 1,
-                            x: 0,
-                            duration: 0.8,
-                            delay: i * 0.2,
-                            ease: 'power2.out',
-                            scrollTrigger: {
-                                trigger: element,
-                                start: 'top 80%',
-                                toggleActions: 'play none none none',
-                            },
-                        }
-                    );
-                });
-            },
-            setupScrollProgress() {
-                const progressBar = document.querySelector('.scroll-progress-bar');
-                window.addEventListener('scroll', () => {
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                    const scrollPercent = (scrollTop / scrollHeight) * 100;
-                    progressBar.style.width = `${scrollPercent}%`;
-                });
-            },
-        };
 
-        // Theme Management
-        const theme = {
-            init() {
-                const savedTheme = localStorage.getItem('theme') || 'dark';
-                document.body.classList.toggle('dark', savedTheme === 'dark');
-                const toggleSwitch = document.getElementById('toggleSwitch');
-                toggleSwitch.classList.toggle('light', savedTheme === 'light');
-            },
-            toggleMode() {
-                const isDark = document.body.classList.toggle('dark');
-                const toggleSwitch = document.getElementById('toggleSwitch');
-                toggleSwitch.classList.toggle('light', !isDark);
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                if (typeof gsap !== 'undefined') {
-                    gsap.to('.toggle-circle', {
-                        rotation: isDark ? 0 : 360,
-                        duration: 0.4,
-                        ease: 'power2.out',
+                    gsap.to(particle, {
+                        x: Math.random() * 100 - 50,
+                        y: Math.random() * 100 - 50,
+                        opacity: 0.1 + Math.random() * 0.3,
+                        duration: 10 + Math.random() * 10,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: 'sine.inOut'
                     });
-                }
-            },
-        };
-
-        // Navigation
-        const navigation = {
-            init() {
-                this.setupSmoothScroll();
-                this.setupNavScroll();
-            },
-            setupSmoothScroll() {
-                document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-                    anchor.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const targetId = anchor.getAttribute('href').substring(1);
-                        const targetElement = document.getElementById(targetId);
-                        if (targetElement) {
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 80,
-                                behavior: 'smooth',
-                            });
-                        }
-                    });
-                });
-            },
-            setupNavScroll() {
-                const navbar = document.getElementById('navbar');
-                let lastScrollTop = 0;
-                window.addEventListener('scroll', () => {
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        navbar.classList.add('nav-hidden');
-                    } else {
-                        navbar.classList.remove('nav-hidden');
-                    }
-                    lastScrollTop = scrollTop;
-                });
-            },
-        };
-
-        // Carousel
-        const carousel = {
-            currentIndex: 0,
-            items: [],
-            init() {
-                this.items = document.querySelectorAll('.carousel-item');
-                this.updateCarousel();
-            },
-            move(direction) {
-                if (!this.items || this.items.length === 0) return;
-                this.currentIndex = (this.currentIndex + direction + this.items.length) % this.items.length;
-                this.updateCarousel();
-            },
-            updateCarousel() {
-                const container = document.getElementById('carouselContainer');
-                container.style.transform = `translateX(-${this.currentIndex * 100}%)`;
-                this.items.forEach((item, index) => {
-                    item.classList.toggle('active', index === this.currentIndex);
-                });
-            },
-        };
-
-        // Modal
-        function openModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-            const video = modal.querySelector('video');
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
-                if (utils.checkNetwork()) {
-                    // Play and catch AbortError if any
-                    video.play().catch(() => {});
                 }
             }
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('videoModal');
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-            const video = modal.querySelector('video');
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
-            }
-        }
-
-        // Accessibility
-        const accessibility = {
-            init() {
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Tab') {
-                        document.body.classList.add('keyboard-navigation');
-                    }
-                    if (e.key === 'Escape') {
-                        closeModal();
-                    }
-                });
-                document.addEventListener('mousedown', () => {
-                    document.body.classList.remove('keyboard-navigation');
-                });
-            },
-        };
-
-        // Performance
-        const performance = {
-            init() {
-                if ('performance' in window) {
-                    window.addEventListener('load', () => {
-                        let loadTime = null;
-                        if (typeof performance.getEntriesByType === 'function') {
-                            const navEntries = performance.getEntriesByType('navigation');
-                            if (navEntries && navEntries.length > 0) {
-                                loadTime = navEntries[0].loadEventEnd - navEntries[0].loadEventStart;
-                            }
-                        }
-                        if (loadTime === null && performance.timing) {
-                            loadTime = performance.timing.loadEventEnd - performance.timing.loadEventStart;
-                        }
-                        if (loadTime !== null && !isNaN(loadTime)) {
-                            console.log('Page load time:', loadTime, 'ms');
-                        }
-                    });
-                }
-            },
-        };
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            theme.init();
-            navigation.init();
-            animations.init();
-            carousel.init();
-            accessibility.init();
-            performance.init();
-            window.toggleMode = theme.toggleMode;
-            // Bind carousel.move to carousel context
-            window.moveCarousel = carousel.move.bind(carousel);
         });
     </script>
 </body>
