@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Beemo: An innovative AI-powered office robot designed for local, voice-activated task management, featuring Tunisian Arabic speech recognition with code-switching, powered by LinTO ASR and Raspberry Pi technology.">
-    <meta name="keywords" content="Beemo, AI Assistant, Office Robot, Voice Command, Tunisian Arabic, LinTO ASR, Raspberry Pi, Productivity, Digi Growing, Mahdia">
+    <meta name="description" content="Beemo: An innovative AI-powered office robot with voice control and smart automation capabilities">
+    <meta name="keywords" content="Beemo, AI Assistant, Office Robot, Voice Command, Smart Automation, Flutter, Firebase, VOSK, Gemini AI">
     <meta name="author" content="Aymen Mabrouk">
-    <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#3B82F6">
-    <title>Beemo: AI-Powered Office Robot & Productivity Assistant</title>
+    <title>Beemo: Smart Office Automation Assistant</title>
     <link rel="icon" type="image/png" href="image/logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -26,7 +24,6 @@
     --text-secondary: #6B7280;
     --glass-bg: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.2);
-    --scroll-bar: var(--accent);
     --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
     --secondary-gradient: linear-gradient(135deg, var(--secondary) 0%, #34D399 100%);
     --accent-gradient: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
@@ -43,7 +40,6 @@
     --neutral: #111827;
     --glass-bg: rgba(30, 41, 59, 0.7);
     --glass-border: rgba(255, 255, 255, 0.05);
-    --scroll-bar: #F59E0B;
     --primary: #60A5FA;
     --secondary: #34D399;
     --primary-gradient: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
@@ -127,38 +123,7 @@ body {
     40% { transform: scale(1); }
 }
 
-/* Background and Visual Effects */
-.animated-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--primary-gradient);
-    z-index: -2;
-    opacity: 0.05;
-}
-
-.particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.particle {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: var(--primary);
-    border-radius: 50%;
-    opacity: 0.3;
-}
-
-/* Navigation */
+/* Scroll Progress */
 .scroll-progress {
     position: fixed;
     top: 0;
@@ -172,7 +137,7 @@ body {
 .scroll-progress-bar {
     width: 0;
     height: 100%;
-    background: var(--scroll-bar);
+    background: var(--accent);
     transition: width 0.2s ease;
 }
 
@@ -394,6 +359,8 @@ body {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+
+/* Navigation */
 .navbar {
     position: fixed;
     top: 25px;
@@ -407,11 +374,6 @@ body {
     z-index: 1000;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-light);
-}
-
-.navbar:hover {
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: var(--shadow-medium);
 }
 
 .nav-container {
@@ -447,7 +409,6 @@ body {
     padding: 8px 16px;
     border-radius: 25px;
     transition: all 0.3s ease;
-    position: relative;
 }
 
 .nav-links a:hover,
@@ -773,7 +734,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    min-height: 450px; /* Set a minimum height */
+    min-height: 450px;
 }
 
 .overview-card::after {
@@ -819,7 +780,7 @@ body {
 .feature-list {
     list-style: none;
     padding: 0 30px 30px;
-    margin-top: auto; /* Pushes the list to the bottom */
+    margin-top: auto;
 }
 
 .feature-list li {
@@ -836,56 +797,6 @@ body {
     left: 0;
     color: var(--secondary);
     font-weight: 600;
-}
-.additional-features {
-    margin-top: 60px;
-}
-
-.additional-features h3 {
-    font-size: 1.8rem;
-    text-align: center;
-    margin-bottom: 40px;
-    color: var(--text-primary);
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.feature-item {
-    background: var(--white);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: var(--shadow-light);
-    border: 1px solid var(--glass-border);
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.feature-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-}
-
-.feature-item i {
-    font-size: 2rem;
-    color: var(--primary);
-    margin-bottom: 20px;
-}
-
-.feature-item h4 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: var(--text-primary);
-}
-
-.feature-item p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.6;
 }
 
 /* Workflow Section */
@@ -1041,16 +952,6 @@ body {
     transform: scale(1.2);
 }
 
-.emotional-feedback {
-    margin-top: 10px;
-    padding: 8px 12px;
-    background: var(--accent-gradient);
-    color: var(--white);
-    border-radius: 15px;
-    font-size: 0.9rem;
-    display: inline-block;
-}
-
 /* Features Section */
 .features-grid {
     display: grid;
@@ -1162,29 +1063,6 @@ body {
     color: var(--white);
 }
 
-.emotion-demo {
-    margin-top: 20px;
-}
-
-.emotion-faces {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.emotion {
-    font-size: 2rem;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-}
-
-.emotion:hover {
-    background: var(--glass-bg);
-    transform: scale(1.1);
-}
-
 .iot-devices {
     display: flex;
     justify-content: center;
@@ -1209,88 +1087,6 @@ body {
     background: var(--primary);
     color: var(--white);
     transform: translateY(-5px);
-}
-
-.app-features, .scalability-options {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 20px;
-}
-
-.app-feature, .scale-option {
-    padding: 8px 12px;
-    background: var(--glass-bg);
-    border-radius: 15px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.app-feature:hover, .scale-option:hover {
-    background: var(--primary);
-    color: var(--white);
-    transform: translateX(5px);
-}
-
-.interactive-demo {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    padding: 40px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-}
-
-.interactive-demo h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: var(--text-primary);
-}
-
-.translation-demo {
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.test-button {
-    background: var(--primary-gradient);
-    color: var(--white);
-    border: none;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.test-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
-}
-
-.result-box {
-    margin-top: 20px;
-    padding: 20px;
-    background: var(--white);
-    border-radius: 15px;
-    box-shadow: var(--shadow-light);
-    color: var(--text-primary);
-    display: none;
-    transition: all 0.3s ease;
-}
-
-.result-box.show {
-    display: block;
-    animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Technology Section */
@@ -1359,355 +1155,6 @@ body {
     color: var(--text-secondary);
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-}
-
-.future-roadmap {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    padding: 40px;
-    backdrop-filter: blur(10px);
-}
-
-.future-roadmap h3 {
-    font-size: 1.8rem;
-    text-align: center;
-    margin-bottom: 40px;
-    color: var(--text-primary);
-}
-
-.roadmap-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.roadmap-item {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    padding: 20px;
-    background: var(--white);
-    border-radius: 15px;
-    box-shadow: var(--shadow-light);
-    transition: all 0.3s ease;
-}
-
-.roadmap-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-}
-
-.roadmap-icon {
-    width: 50px;
-    height: 50px;
-    background: var(--primary-gradient);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.roadmap-icon i {
-    font-size: 1.5rem;
-    color: var(--white);
-}
-
-.roadmap-content h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--text-primary);
-}
-
-.roadmap-content p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-/* Team Section */
-.team-grid {
-    display: grid;
-    gap: 60px;
-}
-
-.team-member {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 40px;
-    align-items: center;
-    background: var(--white);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: var(--shadow-light);
-    border: 1px solid var(--glass-border);
-    transition: all 0.3s ease;
-}
-
-.team-member:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-}
-
-.main-developer {
-    position: relative;
-    overflow: hidden;
-}
-
-.main-developer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 5px;
-    height: 100%;
-    background: var(--primary-gradient);
-}
-
-.member-photo {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    box-shadow: var(--shadow-medium);
-    transition: all 0.3s ease;
-}
-
-.member-photo:hover {
-    transform: scale(1.05);
-}
-
-.member-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.member-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.member-photo:hover .member-overlay {
-    opacity: 1;
-}
-
-.social-links {
-    display: flex;
-    gap: 15px;
-}
-
-.social-links a {
-    width: 40px;
-    height: 40px;
-    background: var(--primary);
-    color: var(--white);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.social-links a:hover {
-    transform: translateY(-3px);
-    background: var(--secondary);
-}
-
-.member-info h3 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--text-primary);
-}
-
-.member-role {
-    font-size: 1.1rem;
-    color: var(--primary);
-    font-weight: 600;
-    margin-bottom: 16px;
-}
-
-.member-bio {
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-    line-height: 1.8;
-    font-family: 'Roboto', sans-serif;
-}
-
-.member-skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.skill {
-    background: var(--glass-bg);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.skill:hover {
-    background: var(--primary);
-    color: var(--white);
-    transform: translateY(-2px);
-}
-
-.supervisors-section {
-    margin-top: 40px;
-}
-
-.supervisors-section h3 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.supervisors-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.supervisor {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    background: var(--white);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: var(--shadow-light);
-    border: 1px solid var(--glass-border);
-    transition: all 0.3s ease;
-}
-
-.supervisor:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-}
-
-.supervisor-icon {
-    width: 60px;
-    height: 60px;
-    background: var(--primary-gradient);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.supervisor-icon i {
-    font-size: 1.5rem;
-    color: var(--white);
-}
-
-.supervisor-info h4 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: var(--text-primary);
-}
-
-.supervisor-role {
-    color: var(--secondary);
-    font-weight: 500;
-    margin-bottom: 5px;
-}
-
-.supervisor-info p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.acknowledgments {
-    margin-top: 60px;
-}
-
-.acknowledgments h3 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.acknowledgment-item {
-    display: flex;
-    gap: 30px;
-    background: var(--white);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: var(--shadow-light);
-    border: 1px solid var(--glass-border);
-    transition: all 0.3s ease;
-}
-
-.acknowledgment-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-}
-
-.ack-icon {
-    width: 80px;
-    height: 80px;
-    background: var(--secondary-gradient);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.ack-icon i {
-    font-size: 2rem;
-    color: var(--white);
-}
-
-.ack-content h4 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: var(--text-primary);
-}
-
-.ack-content p {
-    color: var(--text-secondary);
-    margin-bottom: 20px;
-    line-height: 1.8;
-    font-family: 'Roboto', sans-serif;
-}
-
-.ack-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--primary);
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.ack-link:hover {
-    color: var(--secondary);
-    transform: translateX(5px);
 }
 
 /* Demo Section */
@@ -1826,92 +1273,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.project-links-section {
-    margin-top: 60px;
-}
-
-.project-links-section h3 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.project-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.project-link {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    padding: 30px;
-    border-radius: 15px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    color: var(--text-primary);
-}
-
-.project-link i {
-    font-size: 2.5rem;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.github {
-    background: rgba(36, 41, 46, 0.1);
-    border: 1px solid rgba(36, 41, 46, 0.2);
-}
-
-.github i {
-    background: #24292E;
-    color: white;
-}
-
-.documentation {
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-}
-
-.documentation i {
-    background: var(--primary);
-    color: white;
-}
-
-.download {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.download i {
-    background: var(--secondary);
-    color: white;
-}
-
-.project-link:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-}
-
-.link-info h4 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.link-info p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
 /* Modal */
 .modal {
     position: fixed;
@@ -1987,39 +1348,7 @@ body {
     border-bottom: 1px solid var(--glass-border);
 }
 
-.video-description {
-    padding: 30px;
-}
-
-.video-description h4 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: var(--text-primary);
-}
-
-.video-description ul {
-    list-style: none;
-    padding: 0;
-}
-
-.video-description li {
-    padding-left: 25px;
-    position: relative;
-    margin-bottom: 10px;
-    color: var(--text-secondary);
-}
-
-.video-description li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: var(--primary);
-    font-size: 1.5rem;
-    line-height: 1;
-}
-
-/* Footer */
+/* === Footer === */
 .footer {
     background: var(--neutral);
     color: var(--text-primary);
@@ -2044,7 +1373,7 @@ body {
 }
 
 .footer-logo i {
-    color: var(--primary); /* Icon color for better visual hierarchy */
+    color: var(--primary);
 }
 
 .footer-description {
@@ -2063,7 +1392,7 @@ body {
     width: 40px;
     height: 40px;
     background: var(--glass-bg);
-    border: 1px solid var(--glass-border); /* Added border for better definition */
+    border: 1px solid var(--glass-border);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2074,7 +1403,7 @@ body {
 
 .footer-social a:hover {
     background: var(--primary);
-    color: var(--white); /* Keep white on hover for contrast */
+    color: var(--white);
     border-color: var(--primary);
     transform: translateY(-3px);
 }
@@ -2091,15 +1420,15 @@ body {
     padding: 0;
 }
 
-.footer-links li { 
-    margin-bottom: 12px; 
+.footer-links li {
+    margin-bottom: 12px;
 }
 
 .footer-links a {
     color: var(--text-secondary);
     text-decoration: none;
     transition: var(--transition);
-    display: inline-block; /* For smooth padding transition */
+    display: inline-block;
 }
 
 .footer-links a:hover {
@@ -2113,13 +1442,13 @@ body {
     line-height: 1.8;
 }
 
-.project-details strong { 
-    color: var(--text-primary); 
+.project-details strong {
+    color: var(--text-primary);
 }
 
-.status-active { 
-    color: var(--secondary); 
-    font-weight: 600; 
+.status-active {
+    color: var(--secondary);
+    font-weight: 600;
 }
 
 .footer-bottom {
@@ -2138,83 +1467,6 @@ body {
     color: var(--text-secondary);
     font-size: 0.85rem;
 }
-
-/* Additional responsive improvements */
-@media (max-width: 768px) {
-    .footer {
-        padding: 60px 0 0;
-    }
-    
-    .footer-content {
-        gap: 30px;
-        margin-bottom: 40px;
-    }
-    
-    .footer-section h4 {
-        font-size: 1.2rem;
-    }
-}
-
-/* Mobile Menu */
-.mobile-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--neutral-light);
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
-    padding: 20px;
-}
-
-.mobile-menu.active {
-    transform: translateY(0);
-}
-
-.mobile-menu-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
-}
-
-.mobile-menu-links a {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: 500;
-    padding: 10px 20px;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-}
-
-.mobile-menu-links a:hover {
-    background: var(--glass-bg);
-}
-
-.mobile-menu-close {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    font-size: 2rem;
-    color: var(--text-primary);
-    cursor: pointer;
-    background: none;
-    border: none;
-    transition: transform 0.3s ease;
-}
-
-.mobile-menu-close:hover {
-    transform: rotate(90deg);
-}
-
 /* Responsive Design */
 @media (max-width: 1200px) {
     .hero-content {
@@ -2227,17 +1479,8 @@ body {
         margin-bottom: 60px;
     }
     
-    .hero-stats {
-        justify-content: center;
-    }
-    
     .workflow-container {
         grid-template-columns: 1fr;
-    }
-    
-    .workflow-visual {
-        order: -1;
-        margin-bottom: 40px;
     }
     
     .demo-content {
@@ -2269,34 +1512,6 @@ body {
     .overview-grid, .features-grid {
         grid-template-columns: 1fr;
     }
-    
-    .team-member {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .member-photo {
-        margin: 0 auto;
-    }
-    
-    .member-skills {
-        justify-content: center;
-    }
-        .overview-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .overview-card {
-        padding: 30px;
-    }
-    .acknowledgment-item {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .ack-icon {
-        margin: 0 auto;
-    }
 }
 
 @media (max-width: 480px) {
@@ -2309,11 +1524,6 @@ body {
         gap: 12px;
     }
     
-    .hero-stats {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
     .command-flow {
         flex-direction: column;
     }
@@ -2321,19 +1531,6 @@ body {
     .command-arrow {
         transform: rotate(90deg);
     }
-    
-    .mobile-menu-links a {
-        font-size: 1.2rem;
-    }
-}
-
-/* Accessibility */
-.keyboard-navigation button:focus,
-.keyboard-navigation a:focus,
-.keyboard-navigation input:focus,
-.keyboard-navigation [tabindex]:focus {
-    outline: 3px solid var(--accent);
-    outline-offset: 3px;
 }
 
 /* Container */
@@ -2341,29 +1538,6 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-}
-
-/* Utility Classes */
-.hidden {
-    display: none !important;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.mt-20 {
-    margin-top: 20px;
-}
-
-.mb-20 {
-    margin-bottom: 20px;
-}
-
-.flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
     </style>
 </head>
@@ -2389,15 +1563,9 @@ body {
         <div class="scroll-progress-bar"></div>
     </div>
 
-    <!-- Animated Background -->
-    <div class="animated-bg"></div>
-    
-    <!-- Particles -->
-    <div class="particles" id="particles"></div>
-
     <!-- Theme Toggle -->
     <div class="toggle-container">
-        <div class="toggle-switch" id="toggleSwitch" tabindex="0" role="button" aria-label="Toggle dark mode">
+        <div class="toggle-switch" id="toggleSwitch" tabindex="0" role="button" aria-label="Toggle between dark and light mode" aria-pressed="false">
             <div class="stars">
                 <div class="star star1"></div>
                 <div class="star star2"></div>
@@ -2429,6 +1597,7 @@ body {
             </div>
         </div>
     </div>
+
     
     <!-- Navigation -->
     <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
@@ -2438,11 +1607,11 @@ body {
                 <span>Beemo</span>
             </div>
             <ul class="nav-links">
-                <li><a href="index.html" aria-label="Home section">Home</a></li>
-                <li><a href="index.html#about" aria-label="About section">About</a></li>
-                <li><a href="index.html#skills" aria-label="Skills section">Skills</a></li>
-                <li><a href="index.html#projects" aria-label="Projects section">Projects</a></li>
-                <li><a href="index.html#contact" aria-label="Contact section">Contact</a></li>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#overview">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#demo">Demo</a></li>
             </ul>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu" aria-expanded="false">
                 <span></span>
@@ -2451,20 +1620,6 @@ body {
             </button>
         </div>
     </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close mobile menu">
-            <i class="fas fa-times"></i>
-        </button>
-            <ul class="nav-links">
-                <li><a href="index.html" aria-label="Home section">Home</a></li>
-                <li><a href="index.html#about" aria-label="About section">About</a></li>
-                <li><a href="index.html#skills" aria-label="Skills section">Skills</a></li>
-                <li><a href="index.html#projects" aria-label="Projects section">Projects</a></li>
-                <li><a href="index.html#contact" aria-label="Contact section">Contact</a></li>
-            </ul>
-    </div>
 
     <!-- Hero Section -->
     <section id="hero" class="hero-section">
@@ -2475,11 +1630,12 @@ body {
             </div>
             <h1 class="hero-title">
                 Meet <span class="highlight">Beemo</span><br>
-                Your Intelligent Office Assistant
+                Your Smart Office Assistant
             </h1>
             <p class="hero-subtitle">
-                Revolutionary AI-powered robot with Tunisian Arabic voice commands, emotional feedback, 
-                and seamless IoT integration. Built with cutting-edge technology for the modern workplace.
+                A revolutionary AI-powered office automation system with voice control, 
+                smart device integration, and real-time responsiveness. Control your office 
+                environment with simple voice commands in English.
             </p>
             <div class="hero-actions">
                 <button class="btn btn-primary" onclick="scrollToSection('demo')">
@@ -2521,87 +1677,53 @@ body {
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Project Overview</span>
-                <h2 class="section-title">Revolutionizing Office Productivity</h2>
+                <h2 class="section-title">Smart Office Automation</h2>
                 <p class="section-description">
-                    Beemo represents a breakthrough in AI-powered office automation, designed and developed 
-                    during my final-year project at Institut Superieur d'Informatique de Mahdia. This innovative 
-                    assistant combines cutting-edge voice recognition with emotional intelligence to create 
-                    a truly interactive workplace companion.
+                    Beemo represents a breakthrough in AI-powered office automation, combining 
+                    voice recognition with smart device control for a seamless workplace experience.
                 </p>
             </div>
 
-<div class="overview-grid">
-    <div class="overview-card">
-        <div class="card-icon">
-            <i class="fas fa-brain"></i>
-        </div>
-        <h3>Intelligent Voice Recognition</h3>
-        <p>Advanced speech-to-text processing using LinTO ASR Arabic Tunisia v0.1 model, 
-        supporting Tunisian Arabic with code-switching capabilities for French and English.</p>
-        <ul class="feature-list">
-            <li>Tunisian Arabic dialect recognition with 95% accuracy</li>
-            <li>Seamless code-switching between Arabic, French and English</li>
-            <li>Local processing ensures complete data privacy</li>
-            <li>Noise cancellation for office environments</li>
-            <li>Custom vocabulary for technical terms</li>
-        </ul>
-    </div>
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="card-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Voice Command Processing</h3>
+                    <p>Advanced speech-to-text processing using VOSK English ASR model with high accuracy voice recognition.</p>
+                    <ul class="feature-list">
+                        <li>English voice recognition with 95% accuracy</li>
+                        <li>Real-time command processing</li>
+                        <li>Noise cancellation for office environments</li>
+                        <li>Custom vocabulary for technical terms</li>
+                    </ul>
+                </div>
 
-    <div class="overview-card">
-        <div class="card-icon">
-            <i class="fas fa-heart"></i>
-        </div>
-        <h3>Emotional Intelligence</h3>
-        <p>Unique emotional feedback system using OLED display and servo motors to create 
-        an engaging, human-like interaction experience that improves user satisfaction.</p>
-        <ul class="feature-list">
-            <li>12 distinct emotional states displayed on OLED</li>
-            <li>Physical head movements via servo motors</li>
-            <li>Context-aware reactions to user tone</li>
-            <li>Learning system that adapts to user preferences</li>
-            <li>Positive reinforcement for completed tasks</li>
-        </ul>
-    </div>
+                <div class="overview-card">
+                    <div class="card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Command Analysis</h3>
+                    <p>Gemini AI for natural language understanding and intent analysis for precise command execution.</p>
+                    <ul class="feature-list">
+                        <li>Context-aware command interpretation</li>
+                        <li>Multi-step task execution</li>
+                        <li>Learning system that adapts to user preferences</li>
+                    </ul>
+                </div>
 
-    <div class="overview-card">
-        <div class="card-icon">
-            <i class="fas fa-mobile-alt"></i>
-        </div>
-        <h3>Mobile Integration</h3>
-        <p>Flutter-based mobile application for seamless remote control, monitoring, 
-        and real-time interaction with your Beemo assistant from anywhere.</p>
-        <ul class="feature-list">
-            <li>Cross-platform compatibility (iOS/Android)</li>
-            <li>Real-time task monitoring dashboard</li>
-            <li>Custom command creation interface</li>
-            <li>Voice command history and analytics</li>
-            <li>Remote troubleshooting capabilities</li>
-        </ul>
-    </div>
-</div>
-            <div class="additional-features">
-                <h3>Additional Key Features</h3>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <i class="fas fa-plug"></i>
-                        <h4>IoT Integration</h4>
-                        <p>Control smart office devices including lights, AC, and projectors through voice commands</p>
+                <div class="overview-card">
+                    <div class="card-icon">
+                        <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <div class="feature-item">
-                        <i class="fas fa-shield-alt"></i>
-                        <h4>Security</h4>
-                        <p>Role-based access control and voice authentication for sensitive operations</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-chart-line"></i>
-                        <h4>Productivity Analytics</h4>
-                        <p>Track office efficiency metrics and provide optimization suggestions</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <h4>Schedule Management</h4>
-                        <p>Voice-controlled meeting scheduling and calendar integration</p>
-                    </div>
+                    <h3>Mobile Integration</h3>
+                    <p>Flutter-based mobile application for seamless remote control and monitoring.</p>
+                    <ul class="feature-list">
+                        <li>Cross-platform compatibility (iOS/Android)</li>
+                        <li>Real-time task monitoring dashboard</li>
+                        <li>Custom command creation interface</li>
+                        <li>Secure QR code pairing</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -2615,7 +1737,7 @@ body {
                 <h2 class="section-title">How Beemo Works</h2>
                 <p class="section-description">
                     A sophisticated workflow combining voice processing, AI interpretation, 
-                    and hardware execution for seamless office automation.
+                    and smart device execution for seamless office automation.
                 </p>
             </div>
 
@@ -2630,8 +1752,7 @@ body {
                         <div class="step-number">1</div>
                         <div class="step-content">
                             <h4>Voice Capture</h4>
-                            <p>High-quality microphone captures voice commands in Tunisian Arabic, 
-                            French, or English with advanced noise filtering.</p>
+                            <p>High-quality microphone captures voice commands in English with advanced noise filtering.</p>
                         </div>
                     </div>
 
@@ -2639,8 +1760,7 @@ body {
                         <div class="step-number">2</div>
                         <div class="step-content">
                             <h4>Speech Recognition</h4>
-                            <p>LinTO ASR Arabic Tunisia v0.1 model processes audio locally, 
-                            converting speech to text with high accuracy for dialectal variations.</p>
+                            <p>VOSK ASR processes audio, converting speech to text with high accuracy.</p>
                         </div>
                     </div>
 
@@ -2648,8 +1768,7 @@ body {
                         <div class="step-number">3</div>
                         <div class="step-content">
                             <h4>Intent Analysis</h4>
-                            <p>Advanced NLP algorithms running on Raspberry Pi analyze the transcribed 
-                            text to understand user intentions and extract actionable commands.</p>
+                            <p>Gemini AI analyzes the transcribed text to understand user intentions.</p>
                         </div>
                     </div>
 
@@ -2657,8 +1776,7 @@ body {
                         <div class="step-number">4</div>
                         <div class="step-content">
                             <h4>Task Execution</h4>
-                            <p>Intelligent task manager executes commands through hardware controls 
-                            or mobile app notifications based on the interpreted intent.</p>
+                            <p>Commands are executed through TCP/IP or REST API to control devices.</p>
                         </div>
                     </div>
 
@@ -2666,8 +1784,7 @@ body {
                         <div class="step-number">5</div>
                         <div class="step-content">
                             <h4>Feedback Response</h4>
-                            <p>OLED display shows emotional reactions while servo motors provide 
-                            physical feedback, creating an engaging user experience.</p>
+                            <p>Real-time feedback provided through mobile app and robot expressions.</p>
                         </div>
                     </div>
                 </div>
@@ -2678,14 +1795,13 @@ body {
                 <div class="command-flow">
                     <div class="command-input">
                         <i class="fas fa-microphone"></i>
-                        <span>"حل الضو في المكتب و play music"</span>
-                        <small>(Turn on office lights and play music)</small>
+                        <span>"Turn on the office lights and play music"</span>
+                        <small>Voice command input</small>
                     </div>
                     <div class="command-arrow">→</div>
                     <div class="command-process">
-                        <div class="process-step">Audio Capture</div>
-                        <div class="process-step">ASR Processing</div>
-                        <div class="process-step">Intent Analysis</div>
+                        <div class="process-step">VOSK ASR Processing</div>
+                        <div class="process-step">Gemini AI Analysis</div>
                         <div class="process-step">Task Execution</div>
                     </div>
                     <div class="command-arrow">→</div>
@@ -2693,131 +1809,20 @@ body {
                         <i class="fas fa-lightbulb"></i>
                         <i class="fas fa-music"></i>
                         <span>Lights On + Music Playing</span>
-                        <div class="emotional-feedback">😊 Happy Expression</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-<!-- Features Section -->
-    <section id="features" class="section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Key Features</span>
-                <h2 class="section-title">Advanced Capabilities</h2>
-                <p class="section-description">
-                    Beemo combines cutting-edge AI technology with practical office automation 
-                    to deliver unmatched productivity enhancement.
-                </p>
-            </div>
-
-            <div class="features-grid">
- <div class="feature-card">
-    <div class="feature-icon">
-        <i class="fas fa-language"></i>
-    </div>
-    <h3>Multi-Language Support</h3>
-    <p>Native Tunisian Arabic recognition with intelligent code-switching for French and English phrases.</p>
-    <div class="feature-demo">
-        <button class="demo-btn" id="translationFeatureBtn">
-            <i class="fas fa-language"></i> Test Translation
-        </button>
-    </div>
-</div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Privacy-First Design</h3>
-                    <p>Complete offline operation ensures your voice data never leaves your premises, maintaining absolute privacy.</p>
-                    <div class="privacy-indicators">
-                        <span class="indicator active">🔒 Offline Processing</span>
-                        <span class="indicator active">🚫 No Cloud Dependency</span>
-                        <span class="indicator active">🛡️ Local Data Storage</span>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Emotional Intelligence</h3>
-                    <p>Express emotions through OLED display and servo motor movements, creating natural human-robot interaction.</p>
-                    <div class="emotion-demo">
-                        <div class="emotion-faces">
-                            <span class="emotion" data-emotion="happy">😊</span>
-                            <span class="emotion" data-emotion="thinking">🤔</span>
-                            <span class="emotion" data-emotion="excited">🤩</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>IoT Integration</h3>
-                    <p>Seamlessly control office equipment, lights, and smart devices through voice commands.</p>
-                    <div class="iot-devices">
-                        <i class="fas fa-lightbulb device-icon"></i>
-                        <i class="fas fa-thermometer-half device-icon"></i>
-                        <i class="fas fa-music device-icon"></i>
-                        <i class="fas fa-camera device-icon"></i>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Flutter Mobile App</h3>
-                    <p>Comprehensive mobile interface for remote control, monitoring, and configuration of your Beemo assistant.</p>
-                    <div class="app-features">
-                        <span class="app-feature">📱 Real-time Control</span>
-                        <span class="app-feature">📊 Activity Dashboard</span>
-                        <span class="app-feature">⚙️ Custom Settings</span>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </div>
-                    <h3>Customizable & Scalable</h3>
-                    <p>White-label ready with potential for advanced integrations and enterprise deployment.</p>
-                    <div class="scalability-options">
-                        <span class="scale-option">🏢 Enterprise Ready</span>
-                        <span class="scale-option">🎨 Custom Branding</span>
-                        <span class="scale-option">🔧 API Integration</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="interactive-demo">
-                <h3>Try Tunisian to English Translation</h3>
-                <div class="translation-demo">
-                    <button class="test-button" id="translationBtn">
-                        <i class="fas fa-language"></i> Test Translation
-                    </button>
-                    <button class="test-button" id="aiTranslationBtn" onclick="window.location.href='constraction.html'">
-                        <i class="fas fa-brain"></i> Test AI Model Translation
-                    </button>
-                    <div class="result-box" id="translationResult"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technology Stack -->
-    <section id="technology" class="section bg-alt">
+    <!-- Technology Section -->
+    <section id="technology" class="section">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Technology Stack</span>
                 <h2 class="section-title">Built with Cutting-Edge Technology</h2>
                 <p class="section-description">
-                    Beemo leverages the latest in AI, hardware, and mobile development technologies 
+                    Beemo leverages the latest in AI, mobile development, and IoT technologies 
                     to deliver exceptional performance and reliability.
                 </p>
             </div>
@@ -2827,44 +1832,17 @@ body {
                     <h3><i class="fas fa-brain"></i> AI & Machine Learning</h3>
                     <div class="tech-items">
                         <div class="tech-item">
-                            <img src="https://placehold.co/60x60/ff6b35/ffffff?text=LinTO" alt="LinTO ASR">
+                            <img src="https://placehold.co/60x60/ff6b35/ffffff?text=VOSK" alt="VOSK ASR">
                             <div class="tech-info">
-                                <h4>LinTO ASR Arabic Tunisia v0.1</h4>
-                                <p>Specialized Arabic speech recognition model from Hugging Face</p>
+                                <h4>VOSK ASR</h4>
+                                <p>Open source speech recognition toolkit for English voice commands</p>
                             </div>
                         </div>
                         <div class="tech-item">
-                            <img src="https://placehold.co/60x60/00d2ff/ffffff?text=NLP" alt="NLP">
+                            <img src="https://placehold.co/60x60/00d2ff/ffffff?text=Gemini" alt="Gemini AI">
                             <div class="tech-info">
-                                <h4>Natural Language Processing</h4>
-                                <p>Advanced intent recognition and command processing</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tech-category">
-                    <h3><i class="fas fa-microchip"></i> Hardware</h3>
-                    <div class="tech-items">
-                        <div class="tech-item">
-                            <img src="https://placehold.co/60x60/c41e3a/ffffff?text=RPi" alt="Raspberry Pi">
-                            <div class="tech-info">
-                                <h4>Raspberry Pi</h4>
-                                <p>Central processing unit and system controller</p>
-                            </div>
-                        </div>
-                        <div class="tech-item">
-                            <img src="https://placehold.co/60x60/2ecc71/ffffff?text=OLED" alt="OLED Display">
-                            <div class="tech-info">
-                                <h4>OLED Display</h4>
-                                <p>High-resolution emotional feedback interface</p>
-                            </div>
-                        </div>
-                        <div class="tech-item">
-                            <img src="https://placehold.co/60x60/f39c12/ffffff?text=Servo" alt="Servo Motors">
-                            <div class="tech-info">
-                                <h4>Servo Motors</h4>
-                                <p>Precise physical movement and gesture control</p>
+                                <h4>Gemini AI</h4>
+                                <p>Advanced natural language understanding for command analysis</p>
                             </div>
                         </div>
                     </div>
@@ -2881,129 +1859,38 @@ body {
                             </div>
                         </div>
                         <div class="tech-item">
-                            <img src="https://placehold.co/60x60/0175c2/ffffff?text=Dart" alt="Dart">
+                            <img src="https://placehold.co/60x60/0175c2/ffffff?text=Firebase" alt="Firebase">
                             <div class="tech-info">
-                                <h4>Dart Programming</h4>
-                                <p>Modern language for mobile app logic and UI</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="future-roadmap">
-                <h3>Future Enhancements</h3>
-                <div class="roadmap-items">
-                    <div class="roadmap-item">
-                        <div class="roadmap-icon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <div class="roadmap-content">
-                            <h4>Jetson Nano Upgrade</h4>
-                            <p>Enhanced processing power for more complex AI operations</p>
-                        </div>
-                    </div>
-                    <div class="roadmap-item">
-                        <div class="roadmap-icon">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <div class="roadmap-content">
-                            <h4>Extended Language Support</h4>
-                            <p>Additional Arabic dialects and European languages</p>
-                        </div>
-                    </div>
-                    <div class="roadmap-item">
-                        <div class="roadmap-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <div class="roadmap-content">
-                            <h4>Smart Home Integration</h4>
-                            <p>Advanced domotic systems and smart building compatibility</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section id="team" class="section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">The Team</span>
-                <h2 class="section-title">Meet the Creators</h2>
-                <p class="section-description">
-                    Beemo was brought to life through collaborative expertise and academic excellence 
-                    at Institut Superieur d'Informatique de Mahdia.
-                </p>
-            </div>
-
-            <div class="team-grid">
-                <div class="team-member main-developer">
-                    <div class="member-photo">
-                        <img src="https://placehold.co/200x200/6366f1/ffffff?text=AM" alt="Aymen Mabrouk">
-                        <div class="member-overlay">
-                            <div class="social-links">
-                                <a href="https://github.com/mabroukaymenl" target="_blank" aria-label="GitHub Profile">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="https://www.linkedin.com/in/aymen-mabrouk-1a06061ab/" target="_blank" aria-label="LinkedIn Profile">
-                                    <i class="fab fa-linkedin"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h3>Me</h3>
-                        <p class="member-role">Lead Developer & Project Creator</p>
-                        <div class="member-skills">
-                            <span class="skill">AI & Machine Learning</span>
-                            <span class="skill">IoT Development</span>
-                            <span class="skill">Mobile App Development</span>
-                            <span class="skill">Hardware Integration</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="supervisors-section">
-                    <h3>Academic & Professional Guidance</h3>
-                    <div class="supervisors-grid">
-                        <div class="supervisor">
-                            <div class="supervisor-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="supervisor-info">
-                                <h4>Mr. Ben Amor Behiil</h4>
-                                <p class="supervisor-role">Academic Supervisor</p>
-                                <p>Institut Superieur d'Informatique de Mahdia</p>
-                            </div>
-                        </div>
-                        <div class="supervisor">
-                            <div class="supervisor-icon">
-                                <i class="fas fa-briefcase"></i>
-                            </div>
-                            <div class="supervisor-info">
-                                <h4>Mr. Chawki Gharsaloui</h4>
-                                <p class="supervisor-role">Professional Supervisor</p>
-                                <p>Digi Growing</p>
+                                <h4>Firebase</h4>
+                                <p>Backend services including Firestore, Realtime DB, and Auth</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="acknowledgments">
-                    <h3>Special Thanks</h3>
-                    <div class="acknowledgment-item">
-                        <div class="ack-icon">
-                            <i class="fas fa-heart"></i>
+                <div class="tech-category">
+                    <h3><i class="fas fa-plug"></i> Communication</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <img src="https://placehold.co/60x60/c41e3a/ffffff?text=TCP" alt="TCP/IP">
+                            <div class="tech-info">
+                                <h4>TCP/IP</h4>
+                                <p>Direct communication with Beemo robot for real-time control</p>
+                            </div>
                         </div>
-                        <div class="ack-content">
-                            <h4>LinTO ASR Team</h4>
-                            <p>For providing the exceptional Arabic Tunisia ASR model through Hugging Face, 
-                            making Tunisian Arabic voice recognition possible.</p>
-                            <a href="https://huggingface.co/linagora/linto-asr-ar-tn-0.1" target="_blank" class="ack-link">
-                                <i class="fas fa-external-link-alt"></i> View Model
-                            </a>
+                        <div class="tech-item">
+                            <img src="https://placehold.co/60x60/2ecc71/ffffff?text=REST" alt="REST API">
+                            <div class="tech-info">
+                                <h4>REST API</h4>
+                                <p>Web services for device integration and control</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <img src="https://placehold.co/60x60/f39c12/ffffff?text=WS" alt="WebSockets">
+                            <div class="tech-info">
+                                <h4>WebSockets</h4>
+                                <p>Real-time bidirectional communication</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3018,8 +1905,7 @@ body {
                 <span class="section-tag">Live Demo</span>
                 <h2 class="section-title">See Beemo in Action</h2>
                 <p class="section-description">
-                    Experience the power of AI-driven office automation through our interactive demo 
-                    and real-world usage examples.
+                    Experience the power of AI-driven office automation through our interactive demo.
                 </p>
             </div>
 
@@ -3031,7 +1917,7 @@ body {
                         </div>
                         <div class="video-overlay">
                             <h3>Watch Beemo Demo</h3>
-                            <p>See real-time voice recognition and emotional responses</p>
+                            <p>See real-time voice recognition and device control</p>
                         </div>
                     </div>
                 </div>
@@ -3042,14 +1928,7 @@ body {
                             <i class="fas fa-microphone"></i>
                         </div>
                         <h4>Voice Command Demo</h4>
-                        <p>Control lights, music, and office devices with simple voice commands in Tunisian Arabic or mixed languages.</p>
-                    </div>
-                    <div class="demo-feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-smile"></i>
-                        </div>
-                        <h4>Emotional Feedback</h4>
-                        <p>Watch Beemo respond with expressive animations and servo-driven movements based on command context.</p>
+                        <p>Control lights, music, and office devices with simple voice commands in English.</p>
                     </div>
                     <div class="demo-feature">
                         <div class="feature-icon">
@@ -3058,26 +1937,13 @@ body {
                         <h4>Mobile App Control</h4>
                         <p>Monitor and manage tasks remotely through the intuitive Flutter-based mobile app.</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="project-links-section">
-                <h3>Explore More</h3>
-                <div class="project-links">
-                    <a href="https://github.com/mabroukaymen1/beemo" target="_blank" class="project-link github" aria-label="GitHub Repository">
-                        <i class="fab fa-github"></i>
-                        <div class="link-info">
-                            <h4>GitHub Repository</h4>
-                            <p>Access the source code and contribute</p>
+                    <div class="demo-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-qrcode"></i>
                         </div>
-                    </a>
-                    <a href="rapportbeemo.pdf" target="_blank" class="project-link documentation" aria-label="Documentation">
-                        <i class="fas fa-book"></i>
-                        <div class="link-info">
-                            <h4>Documentation</h4>
-                            <p>Read the technical details and setup guide</p>
-                        </div>
-                    </a>
+                        <h4>Secure Pairing</h4>
+                        <p>QR code authentication for secure device and robot connections.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3092,8 +1958,8 @@ body {
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-             <div class="modal-body">
-                 <iframe class="modal-video" src="https://www.youtube.com/embed/i37Vj17ld48" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="modal-body">
+                <iframe class="modal-video" src="https://www.youtube.com/embed/nUblfhb3bI4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -3108,11 +1974,11 @@ body {
                         <span>Beemo</span>
                     </div>
                     <p class="footer-description">
-                        Beemo is an innovative AI-powered office robot designed to enhance productivity 
-                        through voice-activated task management and emotional intelligence.
+                        Beemo is an innovative AI-powered office automation system designed to enhance productivity 
+                        through voice-activated task management and smart device control.
                     </p>
                     <div class="footer-social">
-                        <a href="https://github.com/mabroukaymenl" target="_blank" aria-label="GitHub">
+                        <a href="https://github.com/mabroukaymen1" target="_blank" aria-label="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
                         <a href="https://www.linkedin.com/in/aymen-mabrouk-1a06061ab/" target="_blank" aria-label="LinkedIn">
@@ -3125,18 +1991,17 @@ body {
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="#hero">Home</a></li>
-                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#overview">Features</a></li>
                         <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#features">Features</a></li>
+                        <li><a href="#technology">Technology</a></li>
                         <li><a href="#demo">Demo</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-section">
+       <div class="footer-section">
                     <h4>Project Details</h4>
                     <p class="project-details">
                         <strong>Developed by:</strong> Aymen Mabrouk<br>
-                        <strong>Institution:</strong> Institut Superieur d'Informatique de Mahdia<br>
                         <strong>Status:</strong> <span class="status-active">Active Development</span>
                     </p>
                 </div>
@@ -3168,76 +2033,39 @@ body {
                 }
             });
 
-            // Theme toggle animation
+            // Theme toggle
             const toggleSwitch = document.getElementById('toggleSwitch');
             const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
             
-            // Check for saved theme preference or use the system preference
             const currentTheme = localStorage.getItem('theme') || 
                                 (prefersDarkScheme.matches ? 'dark' : 'light');
             
             if (currentTheme === 'dark') {
                 document.body.classList.add('dark');
-                if (toggleSwitch) {
-                    toggleSwitch.classList.add('light');
-                }
+                toggleSwitch.classList.add('light');
                 gsap.set('.toggle-circle', { x: 36 });
-                gsap.set('.stars', { opacity: 0 });
-                gsap.set('.clouds', { opacity: 1 });
-                gsap.set('.moon-face', { opacity: 0 });
-                gsap.set('.sun-rays', { opacity: 1 });
             }
 
-            if (toggleSwitch) {
-                toggleSwitch.addEventListener('click', () => {
-                    document.body.classList.toggle('dark');
-                    toggleSwitch.classList.toggle('light');
-                    
-                    // Save theme preference
-                    const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
-                    localStorage.setItem('theme', theme);
-                    
-                    gsap.to('.toggle-circle', {
-                        x: toggleSwitch.classList.contains('light') ? 36 : 0,
-                        duration: 0.4,
-                        ease: 'power3.out'
-                    });
-                    gsap.to('.stars', {
-                        opacity: toggleSwitch.classList.contains('light') ? 0 : 1,
-                        duration: 0.4
-                    });
-                    gsap.to('.clouds', {
-                        opacity: toggleSwitch.classList.contains('light') ? 1 : 0,
-                        duration: 0.4
-                    });
-                    gsap.to('.moon-face', {
-                        opacity: toggleSwitch.classList.contains('light') ? 0 : 1,
-                        duration: 0.3
-                    });
-                    gsap.to('.sun-rays', {
-                        opacity: toggleSwitch.classList.contains('light') ? 1 : 0,
-                        duration: 0.3
-                    });
+            toggleSwitch.addEventListener('click', () => {
+                document.body.classList.toggle('dark');
+                toggleSwitch.classList.toggle('light');
+                
+                const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+                localStorage.setItem('theme', theme);
+                
+                gsap.to('.toggle-circle', {
+                    x: toggleSwitch.classList.contains('light') ? 36 : 0,
+                    duration: 0.4,
+                    ease: 'power3.out'
                 });
-
-                // Accessibility: Keyboard navigation for toggle switch
-                toggleSwitch.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        toggleSwitch.click();
-                    }
-                });
-            }
+            });
 
             // Scroll progress bar
             window.addEventListener('scroll', () => {
                 const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                 const scrolled = (winScroll / height) * 100;
-                const progressBar = document.querySelector('.scroll-progress-bar');
-                if (progressBar) {
-                    progressBar.style.width = scrolled + '%';
-                }
+                document.querySelector('.scroll-progress-bar').style.width = scrolled + '%';
             });
 
             // Hero section animations
@@ -3255,41 +2083,6 @@ body {
                 duration: 1,
                 ease: 'back.out(1.7)',
                 delay: 0.8
-            });
-
-            gsap.from('.floating-icons .icon-float', {
-                opacity: 0,
-                y: 30,
-                stagger: 0.2,
-                duration: 1,
-                ease: 'elastic.out(1, 0.75)',
-                delay: 1
-            });
-
-            // Floating icons continuous animation
-            gsap.to('.icon-float', {
-                y: -20,
-                repeat: -1,
-                yoyo: true,
-                duration: 2,
-                ease: 'sine.inOut',
-                stagger: 0.3
-            });
-
-            // Section animations with ScrollTrigger
-            document.querySelectorAll('.section').forEach(section => {
-                gsap.from(section.querySelectorAll('.section-header, .overview-card, .workflow-container, .features-grid, .tech-categories, .team-grid, .demo-content'), {
-                    scrollTrigger: {
-                        trigger: section,
-                        start: 'top 80%',
-                        toggleActions: 'play none none reverse'
-                    },
-                    opacity: 0,
-                    y: 50,
-                    duration: 1,
-                    stagger: 0.2,
-                    ease: 'power3.out'
-                });
             });
 
             // Robot eyes animation
@@ -3310,218 +2103,62 @@ body {
             setInterval(() => {
                 const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
                 const screenContent = document.querySelector('.screen-content');
-                if (screenContent) {
-                    gsap.to(screenContent, {
-                        scale: 0.8,
-                        duration: 0.2,
-                        onComplete: () => {
-                            screenContent.textContent = randomEmotion;
-                            gsap.to(screenContent, {
-                                scale: 1,
-                                duration: 0.3,
-                                ease: 'back.out(1.7)'
-                            });
-                        }
-                    });
-                }
-            }, 5000);
-
-            // Mobile menu toggle
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const mobileMenuClose = document.getElementById('mobileMenuClose');
-
-            if (mobileMenuToggle && mobileMenu && mobileMenuClose) {
-                mobileMenuToggle.addEventListener('click', () => {
-                    mobileMenuToggle.classList.toggle('active');
-                    mobileMenu.classList.toggle('active');
-                    gsap.to(mobileMenu, {
-                        y: mobileMenu.classList.contains('active') ? '0%' : '-100%',
-                        duration: 0.5,
-                        ease: 'power3.inOut'
-                    });
-                    
-                    // Update aria-expanded attribute
-                    const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-                    mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
-                });
-
-                mobileMenuClose.addEventListener('click', () => {
-                    mobileMenuToggle.classList.remove('active');
-                    mobileMenu.classList.remove('active');
-                    gsap.to(mobileMenu, {
-                        y: '-100%',
-                        duration: 0.5,
-                        ease: 'power3.inOut'
-                    });
-                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                });
-
-                // Close mobile menu when clicking on a link
-                const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
-                if (mobileMenuLinks) {
-                    mobileMenuLinks.forEach(link => {
-                        link.addEventListener('click', () => {
-                            mobileMenuToggle.classList.remove('active');
-                            mobileMenu.classList.remove('active');
-                            gsap.to(mobileMenu, {
-                                y: '-100%',
-                                duration: 0.5,
-                                ease: 'power3.inOut'
-                            });
-                            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                gsap.to(screenContent, {
+                    scale: 0.8,
+                    duration: 0.2,
+                    onComplete: () => {
+                        screenContent.textContent = randomEmotion;
+                        gsap.to(screenContent, {
+                            scale: 1,
+                            duration: 0.3,
+                            ease: 'back.out(1.7)'
                         });
-                    });
-                }
-            }
+                    }
+                });
+            }, 5000);
 
             // Video modal
             const videoPlaceholder = document.getElementById('videoPlaceholder');
             const videoModal = document.getElementById('videoModal');
             const modalClose = document.getElementById('modalClose');
-            const modalVideo = document.querySelector('.modal-video');
 
-            if (videoPlaceholder && videoModal && modalClose && modalVideo) {
-                videoPlaceholder.addEventListener('click', () => {
-                    videoModal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
-                    gsap.to(videoModal, {
-                        opacity: 1,
-                        duration: 0.3,
-                        ease: 'power2.in'
-                    });
-                    gsap.to('.modal-content', {
-                        scale: 1,
-                        duration: 0.3,
-                        ease: 'back.out(1.7)'
-                    });
-                    
-                    // Play video when modal opens
-                    modalVideo.play();
+            videoPlaceholder.addEventListener('click', () => {
+                videoModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                gsap.to(videoModal, {
+                    opacity: 1,
+                    duration: 0.3,
+                    ease: 'power2.in'
                 });
-
-                modalClose.addEventListener('click', () => {
-                    gsap.to(videoModal, {
-                        opacity: 0,
-                        duration: 0.3,
-                        ease: 'power2.out',
-                        onComplete: () => {
-                            videoModal.classList.remove('active');
-                            document.body.style.overflow = ''; // Re-enable scrolling
-                        }
-                    });
-                    gsap.to('.modal-content', {
-                        scale: 0.8,
-                        duration: 0.3,
-                        ease: 'back.in(1.7)'
-                    });
-                    
-                    // Pause video when modal closes
-                    modalVideo.pause();
+                gsap.to('.modal-content', {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'back.out(1.7)'
                 });
+            });
 
-                // Close modal when clicking outside content
-                videoModal.addEventListener('click', (e) => {
-                    if (e.target === videoModal) {
-                        modalClose.click();
-                    }
-                });
-            }
-
-            // Translation demo (updated to handle both buttons)
-            const translationBtn = document.getElementById('translationBtn');
-            const translationFeatureBtn = document.getElementById('translationFeatureBtn');
-            const translationResult = document.getElementById('translationResult');
-            const translations = [
-                { input: "حل الضو في المكتب", output: "Turn on the office light" },
-                { input: "شغل الموسيقى", output: "Play music" },
-                { input: "عدل التكييف على 22", output: "Set the AC to 22°C" }
-            ];
-            let currentTranslation = 0;
-
-            const handleTranslation = () => {
-                if (!translationResult) return;
-                
-                // Button animation
-                gsap.to([translationBtn, translationFeatureBtn].filter(Boolean), {
-                    scale: 0.95,
-                    duration: 0.2,
-                    ease: 'power2.in',
+            modalClose.addEventListener('click', () => {
+                gsap.to(videoModal, {
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: 'power2.out',
                     onComplete: () => {
-                        gsap.to([translationBtn, translationFeatureBtn].filter(Boolean), {
-                            scale: 1,
-                            duration: 0.3,
-                            ease: 'elastic.out(1, 0.5)'
-                        });
+                        videoModal.classList.remove('active');
+                        document.body.style.overflow = '';
                     }
                 });
-
-                // Show translation
-                translationResult.textContent = `${translations[currentTranslation].input} → ${translations[currentTranslation].output}`;
-                translationResult.classList.add('show');
-                gsap.fromTo(translationResult, 
-                    { opacity: 0, y: 20 },
-                    { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }
-                );
-
-                // Cycle through translations
-                currentTranslation = (currentTranslation + 1) % translations.length;
-
-                // Hide after 5 seconds
-                setTimeout(() => {
-                    gsap.to(translationResult, {
-                        opacity: 0,
-                        y: -10,
-                        duration: 0.3,
-                        onComplete: () => {
-                            translationResult.classList.remove('show');
-                        }
-                    });
-                }, 5000);
-            };
-
-            if (translationBtn) {
-                translationBtn.addEventListener('click', handleTranslation);
-            }
-            if (translationFeatureBtn) {
-                translationFeatureBtn.addEventListener('click', handleTranslation);
-            }
-
-            // Emotion demo
-            document.querySelectorAll('.emotion').forEach(emotion => {
-                emotion.addEventListener('click', () => {
-                    const emotionType = emotion.dataset.emotion;
-                    const screenContent = document.querySelector('.screen-content');
-                    
-                    // Button animation
-                    gsap.to(emotion, {
-                        scale: 0.9,
-                        duration: 0.2,
-                        ease: 'power2.in',
-                        onComplete: () => {
-                            gsap.to(emotion, {
-                                scale: 1,
-                                duration: 0.3,
-                                ease: 'elastic.out(1, 0.5)'
-                            });
-                        }
-                    });
-                    
-                    // Change robot expression
-                    if (screenContent) {
-                        screenContent.textContent = {
-                            happy: '😊',
-                            thinking: '🤔',
-                            excited: '🤩'
-                        }[emotionType];
-                        
-                        // Head animation
-                        gsap.fromTo('.robot-head', 
-                            { scale: 1 },
-                            { scale: 1.1, duration: 0.2, yoyo: true, repeat: 1, ease: 'power2.inOut' }
-                        );
-                    }
+                gsap.to('.modal-content', {
+                    scale: 0.8,
+                    duration: 0.3,
+                    ease: 'back.in(1.7)'
                 });
+            });
+
+            // Close modal when clicking outside content
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    modalClose.click();
+                }
             });
 
             // Scroll to section
@@ -3529,100 +2166,23 @@ body {
                 const element = document.getElementById(id);
                 if (element) {
                     element.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Close mobile menu if open
-                    if (mobileMenu && mobileMenu.classList.contains('active')) {
-                        mobileMenuToggle.classList.remove('active');
-                        mobileMenu.classList.remove('active');
-                        gsap.to(mobileMenu, {
-                            y: '-100%',
-                            duration: 0.5,
-                            ease: 'power3.inOut'
-                        });
-                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                    }
                 }
             };
 
-            // Particle animation
-            const particlesContainer = document.getElementById('particles');
-            if (particlesContainer) {
-                for (let i = 0; i < 50; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('particle');
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = Math.random() * 100 + '%';
-                    particle.style.width = (2 + Math.random() * 3) + 'px';
-                    particle.style.height = particle.style.width;
-                    particle.style.opacity = 0.1 + Math.random() * 0.3;
-                    particlesContainer.appendChild(particle);
-
-                    gsap.to(particle, {
-                        x: Math.random() * 100 - 50,
-                        y: Math.random() * 100 - 50,
-                        opacity: 0.1 + Math.random() * 0.3,
-                        duration: 10 + Math.random() * 10,
-                        repeat: -1,
-                        yoyo: true,
-                        ease: 'sine.inOut'
-                    });
-                }
-            }
-
-            // Navbar active link
-            const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu-links a');
-            const sections = document.querySelectorAll('section');
-
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (scrollY >= sectionTop - 60) {
-                        current = section.getAttribute('id');
-                    }
+            // Section animations with ScrollTrigger
+            document.querySelectorAll('.section').forEach(section => {
+                gsap.from(section.querySelectorAll('.section-header, .overview-card, .workflow-container, .features-grid, .tech-categories, .demo-content'), {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    stagger: 0.2,
+                    ease: 'power3.out'
                 });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').includes(current)) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-
-            // Smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Preload images for better performance
-            const imagesToPreload = [
-                'https://placehold.co/600x400/6366f1/ffffff?text=Beemo+Workflow+Diagram',
-                'https://placehold.co/60x60/ff6b35/ffffff?text=LinTO',
-                'https://placehold.co/60x60/00d2ff/ffffff?text=NLP',
-                'https://placehold.co/60x60/c41e3a/ffffff?text=RPi',
-                'https://placehold.co/60x60/2ecc71/ffffff?text=OLED',
-                'https://placehold.co/60x60/f39c12/ffffff?text=Servo',
-                'https://placehold.co/60x60/02569b/ffffff?text=Flutter',
-                'https://placehold.co/60x60/0175c2/ffffff?text=Dart',
-                'https://placehold.co/200x200/6366f1/ffffff?text=AM'
-            ];
-
-            imagesToPreload.forEach(src => {
-                const img = new Image();
-                img.src = src;
             });
         });
     </script>

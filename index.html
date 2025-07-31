@@ -1366,7 +1366,34 @@ body {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
 }
+/* Add to your existing feedback CSS */
+.feedback-social-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
 
+.social-link {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.social-link:hover {
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.feedback-form .social-links-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.feedback-form .social-links-group .feedback-form-group {
+    margin-bottom: 0;
+}
 .feedback-header {
     display: flex;
     align-items: center;
@@ -1485,7 +1512,12 @@ body {
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
-
+.feedback-email {
+    font-size: 0.8em;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    word-break: break-all;
+}
 .feedback-submit-btn {
     background: var(--primary-gradient);
     color: var(--white);
@@ -2931,7 +2963,7 @@ body {
                     <div class="project-header">
                         <h3 class="project-title">Beemo Smart AI Agent Robot</h3>
                         <div class="project-status">
-                            <span class="status-badge in-progress">In Progress</span>
+                            <span class="status-badge completed">Completed</span>
                         </div>
                     </div>
                     <p class="project-description">An intelligent automation system integrated with the Beemo robot, featuring advanced AI capabilities for smart home automation, remote control, and autonomous task execution.</p>
@@ -3096,7 +3128,7 @@ body {
                     <div class="project-header">
                         <h3 class="project-title">AquaTech: Smart Bottle Filling System</h3>
                         <div class="project-status">
-                            <span class="status-badge featured">Featured</span>
+                            <span class="status-badge completed">Completed</span>
                         </div>
                     </div>
                     <p class="project-description">A comprehensive smart industrial control system for automated bottle filling and capping operations, featuring real-time monitoring, quality control, and remote management capabilities through an integrated Flutter application.</p>
@@ -3142,46 +3174,68 @@ body {
                     <div class="no-feedback">Loading feedback... Please wait.</div>
                 </div>
 
-                <div class="feedback-form">
-                    <h4>Share Your Feedback</h4>
-                    <p>Your opinion helps me improve my work. Please share your experience.</p>
-                    
-                    <div id="feedbackMessage" class="feedback-message"></div>
-                    
-                    <form id="feedbackForm">
-                        <div class="feedback-form-group">
-                            <label for="feedbackName">Your Name</label>
-                            <input type="text" id="feedbackName" placeholder="John Doe" required>
-                        </div>
-                        
-                        <div class="feedback-form-group">
-                            <label for="feedbackEmail">Email (optional)</label>
-                            <input type="email" id="feedbackEmail" placeholder="your@email.com">
-                        </div>
-                        
-                        <div class="feedback-form-group">
-                            <label>Your Rating</label>
-                            <div class="rating-stars">
-                                <i class="fas fa-star rating-star" data-rating="1"></i>
-                                <i class="fas fa-star rating-star" data-rating="2"></i>
-                                <i class="fas fa-star rating-star" data-rating="3"></i>
-                                <i class="fas fa-star rating-star" data-rating="4"></i>
-                                <i class="fas fa-star rating-star" data-rating="5"></i>
-                            </div>
-                            <input type="hidden" id="feedbackRating" value="0" required>
-                        </div>
-                        
-                        <div class="feedback-form-group">
-                            <label for="feedbackMessageText">Your Feedback</label>
-                            <textarea id="feedbackMessageText" placeholder="Share your thoughts about my work..." required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="feedback-submit-btn">
-                            <i class="fas fa-paper-plane"></i>
-                            Submit Feedback
-                        </button>
-                    </form>
-                </div>
+ <div class="feedback-form">
+    <h4>Share Your Feedback</h4>
+    <p>Your opinion helps me improve my work. Please share your experience.</p>
+    
+    <div id="feedbackMessage" class="feedback-message"></div>
+    
+    <form id="feedbackForm">
+        <div class="feedback-form-group">
+            <label for="feedbackName">Your Name</label>
+            <input type="text" id="feedbackName" placeholder="John Doe" required>
+        </div>
+        
+        <div class="feedback-form-group">
+            <label for="feedbackEmail">Email (optional)</label>
+            <input type="email" id="feedbackEmail" placeholder="your@email.com">
+        </div>
+        
+        <div class="feedback-form-group">
+            <label>Your Rating</label>
+            <div class="rating-stars">
+                <i class="fas fa-star rating-star" data-rating="1"></i>
+                <i class="fas fa-star rating-star" data-rating="2"></i>
+                <i class="fas fa-star rating-star" data-rating="3"></i>
+                <i class="fas fa-star rating-star" data-rating="4"></i>
+                <i class="fas fa-star rating-star" data-rating="5"></i>
+            </div>
+            <input type="hidden" id="feedbackRating" value="0" required>
+        </div>
+        
+        <div class="feedback-form-group">
+            <label for="feedbackMessageText">Your Feedback</label>
+            <textarea id="feedbackMessageText" placeholder="Share your thoughts about my work..." required></textarea>
+        </div>
+        
+        <div class="social-links-group">
+            <div class="feedback-form-group">
+                <label for="feedbackLinkedIn">LinkedIn (optional)</label>
+                <input type="url" id="feedbackLinkedIn" placeholder="https://linkedin.com/in/yourprofile">
+            </div>
+            
+            <div class="feedback-form-group">
+                <label for="feedbackTwitter">Twitter (optional)</label>
+                <input type="url" id="feedbackTwitter" placeholder="https://twitter.com/yourhandle">
+            </div>
+            
+            <div class="feedback-form-group">
+                <label for="feedbackGitHub">GitHub (optional)</label>
+                <input type="url" id="feedbackGitHub" placeholder="https://github.com/yourusername">
+            </div>
+            
+            <div class="feedback-form-group">
+                <label for="feedbackWebsite">Website (optional)</label>
+                <input type="url" id="feedbackWebsite" placeholder="https://yourwebsite.com">
+            </div>
+        </div>
+        
+        <button type="submit" class="feedback-submit-btn">
+            <i class="fas fa-paper-plane"></i>
+            Submit Feedback
+        </button>
+    </form>
+</div>
             </div>
         </div>
     </section>
@@ -4476,6 +4530,15 @@ class FeedbackManager {
         this.loadFeedback();
     }
 
+    generateStarRating(rating) {
+        const numericRating = typeof rating === 'number' ? rating : parseInt(rating, 10) || 0;
+        let stars = '';
+        for (let i = 1; i <= 5; i++) {
+            stars += `<i class="fas fa-star ${i <= numericRating ? 'active' : ''}"></i>`;
+        }
+        return stars;
+    }
+
     showNoConnectionMessage() {
         const grid = document.getElementById('feedbackGrid');
         if (grid) {
@@ -4525,24 +4588,10 @@ class FeedbackManager {
 
     async loadFeedback() {
         try {
-            let querySnapshot;
-            
-            try {
-                querySnapshot = await this.db.collection('feedback')
-                    .where('approved', '==', true)
-                    .orderBy('timestamp', 'desc')
-                    .limit(10)
-                    .get();
-            } catch (indexError) {
-                console.warn('Complex query failed, trying simple query:', indexError);
-                
-                querySnapshot = await this.db.collection('feedback')
-                    .where('approved', '==', true)
-                    .limit(10)
-                    .get();
-                
-                this.showIndexMessage();
-            }
+            const querySnapshot = await this.db.collection('feedback')
+                .where('approved', '==', true)
+                .limit(10)
+                .get();
             
             if (querySnapshot.empty) {
                 this.grid.innerHTML = `
@@ -4555,12 +4604,12 @@ class FeedbackManager {
 
             this.grid.innerHTML = '';
             
-            let feedbackData = [];
+            const feedbackData = [];
             querySnapshot.forEach(doc => {
-                const data = doc.data();
-                feedbackData.push(data);
+                feedbackData.push(doc.data());
             });
             
+            // Client-side sorting if timestamp exists
             feedbackData.sort((a, b) => {
                 if (!a.timestamp || !b.timestamp) return 0;
                 return b.timestamp.toDate() - a.timestamp.toDate();
@@ -4580,38 +4629,28 @@ class FeedbackManager {
         }
     }
 
-    showIndexMessage() {
-        const indexMessage = document.createElement('div');
-        indexMessage.className = 'index-message';
-        indexMessage.style.cssText = `
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            color: #856404;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            font-size: 14px;
-        `;
-        indexMessage.innerHTML = `
-            <i class="fas fa-info-circle"></i> 
-            Feedback is loading with basic sorting. Database index is being optimized for better performance.
-        `;
-        
-        this.grid.insertBefore(indexMessage, this.grid.firstChild);
-        
-        setTimeout(() => {
-            if (indexMessage.parentNode) {
-                indexMessage.parentNode.removeChild(indexMessage);
-            }
-        }, 5000);
-    }
-
     addFeedbackToGrid(data) {
         const feedbackCard = document.createElement('div');
         feedbackCard.className = 'feedback-card';
         
         const date = data.timestamp ? this.utils.formatDate(data.timestamp.toDate()) : 'Recently';
+        const showEmail = data.email && data.email !== 'anonymous' && this.utils.validateEmail(data.email);
         
+        // Generate social links if they exist
+        let socialLinks = '';
+        if (data.socialLinks) {
+            socialLinks = Object.entries(data.socialLinks)
+                .filter(([_, url]) => url && url.trim() !== '')
+                .map(([platform, url]) => {
+                    const iconClass = this.getSocialIconClass(platform);
+                    if (!iconClass) return '';
+                    return `<a href="${this.ensureHttps(url)}" target="_blank" rel="noopener noreferrer" class="social-link" title="${platform}">
+                        <i class="${iconClass}"></i>
+                    </a>`;
+                })
+                .join('');
+        }
+
         feedbackCard.innerHTML = `
             <div class="feedback-header">
                 <div class="feedback-avatar">
@@ -4619,7 +4658,9 @@ class FeedbackManager {
                 </div>
                 <div class="feedback-author">
                     <h4>${this.utils.sanitizeInput(data.name)}</h4>
+                    ${showEmail ? `<div class="feedback-email">${this.utils.sanitizeInput(data.email)}</div>` : ''}
                     <div class="feedback-date">${date}</div>
+                    ${socialLinks ? `<div class="feedback-social-links">${socialLinks}</div>` : ''}
                 </div>
             </div>
             <div class="feedback-rating">
@@ -4633,12 +4674,40 @@ class FeedbackManager {
         this.grid.appendChild(feedbackCard);
     }
 
-    generateStarRating(rating) {
-        let stars = '';
-        for (let i = 1; i <= 5; i++) {
-            stars += `<i class="fas fa-star ${i <= rating ? 'active' : ''}"></i>`;
+    getSocialIconClass(platform) {
+        const platformIcons = {
+            'linkedin': 'fab fa-linkedin-in',
+            'twitter': 'fab fa-twitter',
+            'github': 'fab fa-github',
+            'facebook': 'fab fa-facebook-f',
+            'instagram': 'fab fa-instagram',
+            'website': 'fas fa-globe',
+            'portfolio': 'fas fa-briefcase',
+            'dribbble': 'fab fa-dribbble',
+            'behance': 'fab fa-behance',
+            'youtube': 'fab fa-youtube',
+            'medium': 'fab fa-medium-m',
+            'reddit': 'fab fa-reddit-alien'
+        };
+        return platformIcons[platform.toLowerCase()] || null;
+    }
+
+    ensureHttps(url) {
+        if (!url) return '';
+        if (!url.match(/^https?:\/\//i)) {
+            return `https://${url}`;
         }
-        return stars;
+        return url;
+    }
+
+    validateUrl(url) {
+        if (!url) return true;
+        try {
+            new URL(this.ensureHttps(url));
+            return true;
+        } catch {
+            return false;
+        }
     }
 
     async handleSubmit(e) {
@@ -4657,6 +4726,31 @@ class FeedbackManager {
         const email = this.utils.sanitizeInput(document.getElementById('feedbackEmail').value);
         const rating = parseInt(document.getElementById('feedbackRating').value);
         const message = this.utils.sanitizeInput(document.getElementById('feedbackMessageText').value);
+        
+        // Get social links
+        const socialLinks = {
+            linkedin: this.utils.sanitizeInput(document.getElementById('feedbackLinkedIn')?.value || ''),
+            twitter: this.utils.sanitizeInput(document.getElementById('feedbackTwitter')?.value || ''),
+            github: this.utils.sanitizeInput(document.getElementById('feedbackGitHub')?.value || ''),
+            website: this.utils.sanitizeInput(document.getElementById('feedbackWebsite')?.value || ''),
+        };
+
+        // Validate URLs
+        const urlErrors = [];
+        Object.entries(socialLinks).forEach(([platform, url]) => {
+            if (url && !this.validateUrl(url)) {
+                urlErrors.push(`Please enter a valid ${platform} URL`);
+            }
+        });
+
+        if (urlErrors.length > 0) {
+            this.utils.showMessage(
+                document.getElementById('feedbackMessage'),
+                urlErrors.join(', '),
+                'error'
+            );
+            return;
+        }
 
         if (!this.validateForm(name, rating, message)) {
             return;
@@ -4669,11 +4763,17 @@ class FeedbackManager {
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
+            // Filter out empty social links
+            const filteredSocialLinks = Object.fromEntries(
+                Object.entries(socialLinks).filter(([_, url]) => url.trim() !== '')
+            );
+
             await this.db.collection('feedback').add({
                 name,
                 email: email || 'anonymous',
                 rating,
                 message,
+                socialLinks: filteredSocialLinks,
                 approved: false,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 ip: await this.getClientIP()
@@ -4727,12 +4827,16 @@ class FeedbackManager {
             errors.push('Name is required');
         }
 
-        if (rating < 1 || rating > 5) {
-            errors.push('Please select a rating');
+        if (isNaN(rating) || rating < 1 || rating > 5) {
+            errors.push('Please select a valid rating (1-5 stars)');
         }
 
         if (!this.utils.validateRequired(message)) {
             errors.push('Feedback message is required');
+        }
+
+        if (message.length < 10) {
+            errors.push('Message must be at least 10 characters long');
         }
 
         if (errors.length > 0) {
@@ -4757,7 +4861,6 @@ class FeedbackManager {
         }
     }
 }
-
 class FAQManager {
     constructor() {
         this.faqItems = [];
@@ -4876,12 +4979,6 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
         window.portfolioApp = new PortfolioApp();
         
-        // Performance monitoring only in production
-        if (window.location.hostname !== 'localhost') {
-            window.performanceMonitor = new PerformanceMonitor();
-            window.performanceMonitor.init();
-        }
-
         // Add critical styles if needed
         const styles = document.createElement('style');
         styles.textContent = `
