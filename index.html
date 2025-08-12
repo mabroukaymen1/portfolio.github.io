@@ -3599,12 +3599,15 @@ class PortfolioApp {
                     progress: 1.5,
                     message: 0.3
                 }
-            }
+            },
+            adminEmail: "aymenmabrouk803@gmail.com",
+            websiteName: "Your Portfolio"
         };
 
         this.db = null;
         this.initialized = false;
         this.modules = new Map();
+        this.visitorCount = 0;
         
         this.init();
     }
@@ -3616,9 +3619,80 @@ class PortfolioApp {
             this.setupEventListeners();
             this.initialized = true;
             console.log('Portfolio app initialized successfully');
+            
+            // Track the visitor
+            await this.trackVisitor();
         } catch (error) {
             console.error('Failed to initialize portfolio app:', error);
             this.handleInitializationError(error);
+        }
+    }
+
+    async trackVisitor() {
+        if (!this.db) return;
+
+        try {
+            // Get visitor IP
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipResponse.json();
+            const ip = ipData.ip || 'unknown';
+
+            // Get visitor location
+            let location = 'Unknown';
+            try {
+                const locationResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+                const locationData = await locationResponse.json();
+                location = `${locationData.city || ''} ${locationData.region || ''} ${locationData.country_name || ''}`.trim();
+            } catch (e) {
+                console.log('Could not get location:', e);
+            }
+
+            // Get current visitor count
+            const countDoc = await this.db.collection('visitorStats').doc('totalVisits').get();
+            this.visitorCount = countDoc.exists ? countDoc.data().count : 0;
+            
+            // Increment visitor count
+            this.visitorCount++;
+            await this.db.collection('visitorStats').doc('totalVisits').set({
+                count: this.visitorCount,
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            // Record this visit
+            await this.db.collection('visits').add({
+                ip,
+                location,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                userAgent: navigator.userAgent,
+                referrer: document.referrer || 'direct'
+            });
+
+            // Send email notification
+            await this.sendVisitorNotification(ip, location);
+
+        } catch (error) {
+            console.error('Error tracking visitor:', error);
+        }
+    }
+
+    async sendVisitorNotification(ip, location) {
+        try {
+            await emailjs.send('service_s3acqz5', 'template_4tkd0ew', {
+                to_email: this.config.adminEmail,
+                subject: `New Visitor on ${this.config.websiteName}`,
+                message: `
+                    <p>You have a new visitor on your portfolio website!</p>
+                    <p><strong>Visitor Count:</strong> ${this.visitorCount}</p>
+                    <p><strong>IP Address:</strong> ${ip}</p>
+                    <p><strong>Location:</strong> ${location}</p>
+                    <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+                    <p><strong>Device:</strong> ${navigator.userAgent}</p>
+                `,
+                from_name: this.config.websiteName
+            });
+            console.log('Visitor notification email sent');
+        } catch (error) {
+            console.error('Failed to send visitor notification:', error);
         }
     }
 
