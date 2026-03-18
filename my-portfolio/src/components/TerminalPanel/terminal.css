@@ -1,0 +1,119 @@
+.terminal-container {
+  background-color: var(--terminal-bg);
+  color: var(--terminal-text);
+  font-family: 'ibm plex mono', 'share tech mono', monospace;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.terminal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.06), 
+    rgba(0, 255, 0, 0.02), 
+    rgba(0, 0, 255, 0.06)
+  );
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.scanline {
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    0deg, 
+    rgba(0,0,0,0) 0%, 
+    rgba(0, 255, 0, 0.04) 50%, 
+    rgba(0,0,0,0) 100%
+  );
+  opacity: 0.1;
+  position: absolute;
+  bottom: 100%;
+  animation: scanline 10s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes scanline {
+  0% { bottom: 100%; }
+  100% { bottom: -100px; }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.2em;
+  background-color: var(--terminal-text);
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+
+
+/* Custom Scrollbar for Terminal Mode */
+.terminal-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.terminal-container::-webkit-scrollbar-track {
+  background: rgba(0, 255, 0, 0.02);
+}
+
+.terminal-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.1);
+  border-radius: 2px;
+}
+
+.terminal-container:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.2);
+}
+
+/* Glow effect for text */
+.terminal-text-glow {
+  text-shadow: 0 0 8px rgba(124, 252, 124, 0.3);
+}
+
+.command-text {
+  text-shadow: 0 0 10px rgba(96, 165, 250, 0.4);
+}
+
+.terminal-btn {
+  @apply px-4 py-2 border border-green-500/30 text-green-500 text-[10px] font-bold uppercase tracking-widest transition-all rounded hover:bg-green-500/10 hover:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500/50;
+  text-shadow: 0 0 5px rgba(34, 197, 94, 0.4);
+}
+
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* For browsers that don't support @apply nicely in this context */
+@supports not (selector(:has(*))) {
+  .terminal-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #22c55e;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+    border-radius: 0.25rem;
+  }
+}

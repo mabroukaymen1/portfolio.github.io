@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Terminal Theme */
+  --terminal-bg: #04130A;
+  --terminal-text: #7CFC7C;
+
+  /* Arcade Theme */
+  --arcade-bg: #F6ECD7;
+  --accent-gold: #E6B94F;
+  --accent-purple: #9573C8;
+  
+  /* Common */
+  --muted: #6B7280;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--terminal-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 5px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--terminal-text);
+  border: 2px solid var(--terminal-bg);
+}
