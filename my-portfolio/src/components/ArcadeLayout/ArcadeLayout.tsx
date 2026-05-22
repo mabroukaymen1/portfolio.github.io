@@ -199,7 +199,7 @@ const ArcadeLayout: React.FC = () => {
                 {[
                   { name: 'Arabic', level: 'Native', percent: '100%' },
                   { name: 'French', level: 'Intermediate', percent: '70%' },
-                  { name: 'English', level: 'B1 - Intermediate', percent: '65%' },
+                  { name: 'English', level: 'B2 - IELTS Band 6', percent: '75%' },
                   { name: 'German', level: 'Beginner', percent: '25%' },
                 ].map(lang => (
                   <div key={lang.name} className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-800 shadow-sm">

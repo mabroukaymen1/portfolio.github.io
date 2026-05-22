@@ -92,7 +92,7 @@ const TerminalPanel: React.FC = () => {
       lines: [
         '[LANG] Arabic: Native (100%)',
         '[LANG] French: Intermediate (70%)',
-        '[LANG] English: B1 - Intermediate (65%)',
+        '[LANG] English: B2 - IELTS Band 6 (75%)',
         '[LANG] German: Beginner (25%)',
       ]
     },
