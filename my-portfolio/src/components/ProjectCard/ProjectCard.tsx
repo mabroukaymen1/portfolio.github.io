@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import type { Project } from '../../data/projects';
@@ -38,7 +39,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       {/* Hero Image (or Placeholder) */}
       <div className={clsx("h-40 w-full bg-gray-200 relative overflow-hidden", { "grayscale": mode === 'terminal' })}>
          {project.hero ? (
-           <img src={project.hero} alt={project.title} className="w-full h-full object-cover" loading="lazy" />
+           <img src={getAssetUrl(project.hero)} alt={project.title} className="w-full h-full object-cover" loading="lazy" />
          ) : (
            <div className="w-full h-full flex items-center justify-center text-4xl select-none opacity-20 font-bold">
              {project.title.charAt(0)}

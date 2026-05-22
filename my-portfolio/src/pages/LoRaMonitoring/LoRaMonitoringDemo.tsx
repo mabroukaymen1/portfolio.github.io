@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion } from 'framer-motion';
 import { getFadeInUp, containerStagger } from '../../design/motion';
 import { useViewMode } from '../../context/viewModeHooks';
@@ -65,7 +66,7 @@ const LoRaMonitoringDemo: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">System Diagram</span>
           </div>
           <img 
-            src="image/loraa.png" 
+            src={getAssetUrl('image/loraa.png')} 
             alt="LoRa System Diagram" 
             className="w-full max-w-2xl mx-auto rounded-lg opacity-90 hover:opacity-100 transition-opacity"
             loading="lazy"

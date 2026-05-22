@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion } from 'framer-motion';
 import { getFadeInUp, containerStagger } from '../../design/motion';
 import { useViewMode } from '../../context/viewModeHooks';
@@ -56,10 +57,10 @@ const PortManagementDemo: React.FC = () => {
         >
           <div className="rounded-3xl overflow-hidden border-8 border-slate-900 dark:border-slate-800 shadow-2xl aspect-[9/16] bg-black relative group">
             <video 
-              src="videos/port.mp4" 
+              src={getAssetUrl('videos/port.mp4')} 
               className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
               controls
-              poster="image/portintro.png"
+              poster={getAssetUrl('image/portintro.png')}
             />
             <div className="absolute inset-0 pointer-events-none border border-white/10 rounded-[1.4rem]"></div>
           </div>

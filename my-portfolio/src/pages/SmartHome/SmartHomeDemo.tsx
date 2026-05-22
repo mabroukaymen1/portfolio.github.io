@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion } from 'framer-motion';
 import { getFadeInUp } from '../../design/motion';
 import { useViewMode } from '../../context/viewModeHooks';
@@ -37,7 +38,7 @@ const SmartHomeDemo: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-orange-500">System Architecture</span>
           </div>
           <img 
-            src="image/smartarchi.png" 
+            src={getAssetUrl('image/smartarchi.png')} 
             alt="Smart Home System Architecture" 
             className="w-full max-w-3xl mx-auto rounded-lg opacity-90 hover:opacity-100 transition-opacity"
             loading="lazy"
@@ -56,7 +57,7 @@ const SmartHomeDemo: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-orange-500">Mobile App Interface</span>
           </div>
           <img 
-            src="image/smartintro.png" 
+            src={getAssetUrl('image/smartintro.png')} 
             alt="Smart Home Mobile App" 
             className="w-full max-w-md mx-auto rounded-xl shadow-xl"
             loading="lazy"

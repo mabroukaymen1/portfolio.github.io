@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion } from 'framer-motion';
 import { getFadeInUp } from '../../design/motion';
 import { useViewMode } from '../../context/viewModeHooks';
@@ -43,7 +44,7 @@ const LineFollowerDemo: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-violet-500">Hardware Assembly</span>
           </div>
           <img 
-            src="image/robot.png" 
+            src={getAssetUrl('image/robot.png')} 
             alt="Line Follower Robot" 
             className="w-full max-w-lg mx-auto rounded-xl shadow-xl"
             loading="lazy"

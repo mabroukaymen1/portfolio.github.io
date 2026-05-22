@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion } from 'framer-motion';
 import { getFadeInUp, containerStagger } from '../../design/motion';
 import { useViewMode } from '../../context/viewModeHooks';
@@ -40,10 +41,10 @@ const BabyTrackerDemo: React.FC = () => {
         >
           <div className="rounded-3xl overflow-hidden border-8 border-slate-900 dark:border-slate-800 shadow-2xl aspect-[9/16] bg-black relative group">
             <video 
-              src="videos/softshot.mp4" 
+              src={getAssetUrl('videos/softshot.mp4')} 
               className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
               controls
-              poster="image/softintro.png"
+              poster={getAssetUrl('image/softintro.png')}
             />
             <div className="absolute inset-0 pointer-events-none border border-white/10 rounded-[1.4rem]"></div>
           </div>
@@ -65,7 +66,7 @@ const BabyTrackerDemo: React.FC = () => {
               className="rounded-xl overflow-hidden border-2 border-slate-100 dark:border-slate-800 hover:border-blue-500 transition-colors cursor-zoom-in group"
             >
               <img 
-                src={shot.src} 
+                src={getAssetUrl(shot.src)} 
                 alt={shot.alt} 
                 className="w-full h-auto group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"

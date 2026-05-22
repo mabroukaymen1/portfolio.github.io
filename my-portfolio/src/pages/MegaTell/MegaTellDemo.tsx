@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion } from 'framer-motion';
 import { getFadeInUp } from '../../design/motion';
 import { useViewMode } from '../../context/viewModeHooks';
@@ -30,9 +31,9 @@ const MegaTellDemo: React.FC = () => {
             <video 
               controls 
               className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-              poster="image/megaintroduce.png"
+              poster={getAssetUrl('image/megaintroduce.png')}
             >
-              <source src="videos/mega.mp4" type="video/mp4" />
+              <source src={getAssetUrl('videos/mega.mp4')} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <div className="absolute inset-0 pointer-events-none border border-white/10 rounded-[1.4rem]"></div>
@@ -53,7 +54,7 @@ const MegaTellDemo: React.FC = () => {
               className="group relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 shadow-sm"
             >
               <img 
-                src={img.src} 
+                src={getAssetUrl(img.src)} 
                 alt={img.alt} 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                 loading="lazy"

@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion } from 'framer-motion';
 import { getFadeInUp, containerStagger } from '../../design/motion';
 import { useViewMode } from '../../context/viewModeHooks';
@@ -66,7 +67,7 @@ const AquaTechDemo: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-cyan-500">Control Interface</span>
           </div>
           <img 
-            src="image/farma.png" 
+            src={getAssetUrl('image/farma.png')} 
             alt="AquaTech Control System" 
             className="w-full max-w-lg mx-auto rounded-xl shadow-xl"
             loading="lazy"

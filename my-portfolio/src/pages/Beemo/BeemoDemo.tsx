@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion } from 'framer-motion';
 import { getFadeInUp, containerStagger } from '../../design/motion';
 import { useViewMode } from '../../context/viewModeHooks';
@@ -70,7 +71,7 @@ const BeemoDemo: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-purple-500">System Workflow</span>
           </div>
           <img 
-            src="image/beemo/beemo2.png" 
+            src={getAssetUrl('image/beemo/beemo2.png')} 
             alt="Beemo System Workflow" 
             className="w-full max-w-2xl mx-auto rounded-xl shadow-xl hover:scale-[1.02] transition-transform duration-500"
             loading="lazy"

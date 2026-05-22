@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { projects } from '../../data/projects';
 import ProjectCard from '../ProjectCard/ProjectCard';
@@ -108,14 +109,14 @@ const ArcadeLayout: React.FC = () => {
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
                 <a 
-                  href="enresume.pdf" 
+                  href={getAssetUrl('enresume.pdf')} 
                   download="Aymen_Mabrouk_Resume_EN.pdf"
                   className="px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-lg hover:scale-105 transition-transform flex items-center gap-2"
                 >
                   <i className="fas fa-file-pdf" /> EN RESUME
                 </a>
                 <a 
-                  href="frresumeaymen01.pdf" 
+                  href={getAssetUrl('frresumeaymen01.pdf')} 
                   download="Aymen_Mabrouk_Resume_FR.pdf"
                   className="px-6 py-3 border-2 border-gray-900 dark:border-white text-gray-900 dark:text-white font-bold rounded-lg hover:scale-105 transition-transform flex items-center gap-2"
                 >
@@ -144,7 +145,7 @@ const ArcadeLayout: React.FC = () => {
              <div className="relative group">
                 <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl opacity-20 group-hover:opacity-30 transition-opacity blur-xl"></div>
                 <img 
-                  src="image/profile.png" 
+                  src={getAssetUrl('image/profile.png')} 
                   alt="Aymen Mabrouk" 
                   className="relative rounded-2xl shadow-2xl w-full max-w-md mx-auto transform group-hover:-rotate-1 transition-transform"
                 />

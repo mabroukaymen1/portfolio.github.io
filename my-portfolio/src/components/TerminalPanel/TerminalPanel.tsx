@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { getAssetUrl } from '../../utils/assets';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTypingEffect } from '../../hooks/useTypingEffect';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
@@ -214,11 +215,11 @@ const TerminalPanel: React.FC = () => {
                 <span className="font-bold uppercase tracking-widest text-xs">ls available_actions/</span>
               </div>
               <div className="flex flex-wrap gap-4 pl-4">
-                <a href="enresume.pdf" download className="terminal-btn flex items-center gap-2 group">
+                <a href={getAssetUrl('enresume.pdf')} download className="terminal-btn flex items-center gap-2 group">
                    <i className="fas fa-file-pdf group-hover:scale-110 transition-transform" />
                    <span>DOWNLOAD_CV_EN</span>
                 </a>
-                <a href="frresumeaymen01.pdf" download className="terminal-btn flex items-center gap-2 group border-purple-500/40 text-purple-400 hover:bg-purple-500/10">
+                <a href={getAssetUrl('frresumeaymen01.pdf')} download className="terminal-btn flex items-center gap-2 group border-purple-500/40 text-purple-400 hover:bg-purple-500/10">
                    <i className="fas fa-file-pdf group-hover:scale-110 transition-transform" />
                    <span>DOWNLOAD_CV_FR</span>
                 </a>
